@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using F1WM.Model;
 using F1WM.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,9 +11,9 @@ namespace F1WM.Controllers
 		private INewsRepository repository;
 
 		[HttpGet]
-		public IEnumerable<string> Get()
+		public IEnumerable<News> Get([FromQuery(Name = "firstId")] int? firstId, [FromQuery(Name = "count")] int? count = Constants.NewsCount)
 		{
-			return this.repository.GetNews();
+			return this.repository.GetNews(firstId, count);
 		}
 
 		public NewsController(INewsRepository repository)
