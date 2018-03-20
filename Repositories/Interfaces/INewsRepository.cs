@@ -5,6 +5,7 @@ namespace F1WM.Repositories
 {
 	public interface INewsRepository
 	{
-		IEnumerable<News> GetNews(int? firstId = null, int? count = Constants.NewsCount);
+		IEnumerable<NewsSummary> GetLatestNews(int? firstId = null, int? count = Constants.NewsCount);
+		NewsDetails GetNewsDetails(int id);
 	}
 }

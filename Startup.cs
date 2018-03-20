@@ -60,6 +60,7 @@ namespace F1WM
 		{
 			services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
 			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(Constants.ConnectionStringKey)));
+			services.AddSingleton<SqlStringBuilder>();
 			services.AddTransient<INewsRepository, NewsRepository>();
 		}
 	}

@@ -11,9 +11,15 @@ namespace F1WM.Controllers
 		private INewsRepository repository;
 
 		[HttpGet]
-		public IEnumerable<News> Get([FromQuery(Name = "firstId")] int? firstId, [FromQuery(Name = "count")] int? count = Constants.NewsCount)
+		public IEnumerable<NewsSummary> Get([FromQuery(Name = "firstId")] int? firstId, [FromQuery(Name = "count")] int? count = Constants.NewsCount)
 		{
-			return this.repository.GetNews(firstId, count);
+			return this.repository.GetLatestNews(firstId, count);
+		}
+
+		[HttpGet("{id}")]
+		public NewsDetails Get(int id)
+		{
+			return null;
 		}
 
 		public NewsController(INewsRepository repository)
