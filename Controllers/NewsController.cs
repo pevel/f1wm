@@ -19,7 +19,7 @@ namespace F1WM.Controllers
 		[HttpGet("{id}")]
 		public NewsDetails Get(int id)
 		{
-			return null;
+			return this.repository.GetNewsDetails(id);
 		}
 
 		public NewsController(INewsRepository repository)
