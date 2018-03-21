@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MySqlConnector.Logging;
+using Narochno.BBCode;
 
 namespace F1WM
 {
@@ -59,8 +60,10 @@ namespace F1WM
 		private void ConfigureDependencyInjection(IServiceCollection services)
 		{
 			services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
-			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(Constants.ConnectionStringKey)));
 			services.AddSingleton<SqlStringBuilder>();
+			services.AddSingleton<BBCodeParser>();
+
+			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(Constants.ConnectionStringKey)));
 			services.AddTransient<INewsRepository, NewsRepository>();
 		}
 	}
