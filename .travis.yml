@@ -4,3 +4,4 @@ dotnet: 2.1.4
 script:
  - dotnet restore
  - dotnet build
+ - dotnet test F1WM.Tests --verbosity detailed
