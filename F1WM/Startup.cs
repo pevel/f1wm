@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.Repositories;
+using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -17,6 +18,8 @@ namespace F1WM
 {
 	public class Startup
 	{
+		private const string connectionStringKey = "DefaultConnectionString";
+
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
@@ -37,7 +40,8 @@ namespace F1WM
 				.AddJsonFormatters();
 
 			services.AddLogging();
-			ConfigureDependencyInjection(services);
+			ConfigureRepositories(services);
+			ConfigureLogicServices(services);
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -57,14 +61,18 @@ namespace F1WM
 			MySqlConnectorLogManager.Provider = new MicrosoftExtensionsLoggingLoggerProvider(loggerFactory);
 		}
 
-		private void ConfigureDependencyInjection(IServiceCollection services)
+		private void ConfigureRepositories(IServiceCollection services)
 		{
 			services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
 			services.AddSingleton<SqlStringBuilder>();
-			services.AddSingleton<BBCodeParser>();
-
-			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(Constants.ConnectionStringKey)));
+			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(connectionStringKey)));
 			services.AddTransient<INewsRepository, NewsRepository>();
+		}
+
+		private void ConfigureLogicServices(IServiceCollection services)
+		{
+			services.AddSingleton<IBBCodeParser, BBCodeParser>();
+			services.AddTransient<INewsService, NewsService>();
 		}
 	}
 }

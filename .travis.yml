@@ -3,5 +3,5 @@ mono: none
 dotnet: 2.1.4
 script:
  - dotnet restore
- - dotnet build
- - dotnet test F1WM.Tests --verbosity detailed
+ - dotnet build F1WM
+ - dotnet test F1WM.UnitTests --verbosity detailed

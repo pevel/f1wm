@@ -5,8 +5,6 @@ namespace F1WM.Tests.Controllers
 {
 	public class NewsControllersTests
 	{
-		private NewsController controller;
-
 		[Fact]
 		public void ShouldReturnLast20NewsByDefault()
 		{
