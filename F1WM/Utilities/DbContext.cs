@@ -3,9 +3,9 @@ using MySql.Data.MySqlClient;
 
 namespace F1WM.Utilities
 {
-	public class DbContext : IDisposable
+	public class DbContext : IDbContext, IDisposable
 	{
-		public readonly MySqlConnection Connection;
+		public MySqlConnection Connection { get; }
 
 		public DbContext(string connectionString)
 		{

@@ -12,7 +12,7 @@ namespace F1WM.Controllers
 		private INewsService service;
 
 		[HttpGet]
-		public IEnumerable<NewsSummary> Get(
+		public IEnumerable<NewsSummary> GetMany(
 			[FromQuery(Name = "firstId")] int? firstId,
 			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
@@ -20,7 +20,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public NewsDetails Get(int id)
+		public NewsDetails GetSingle(int id)
 		{
 			return this.service.GetNewsDetails(id);
 		}

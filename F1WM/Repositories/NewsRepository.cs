@@ -7,7 +7,7 @@ namespace F1WM.Repositories
 {
 	public class NewsRepository : INewsRepository
 	{
-		private DbContext db;
+		private IDbContext db;
 		private SqlStringBuilder sqlStringBuilder;
 
 		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null)
@@ -45,7 +45,7 @@ namespace F1WM.Repositories
 				new { id = id });
 		}
 
-		public NewsRepository(DbContext db, SqlStringBuilder sqlStringBuilder)
+		public NewsRepository(IDbContext db, SqlStringBuilder sqlStringBuilder)
 		{
 			this.db = db;
 			this.sqlStringBuilder = sqlStringBuilder;

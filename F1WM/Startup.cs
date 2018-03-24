@@ -48,7 +48,6 @@ namespace F1WM
 		public void Configure(
 			IApplicationBuilder app,
 			IHostingEnvironment env,
-			ILoggerFactory loggerFactory,
 			IConfigurationBuilder configurationBuilder)
 		{
 			if (env.IsDevelopment())
@@ -58,14 +57,13 @@ namespace F1WM
 			}
 
 			app.UseMvc();
-			MySqlConnectorLogManager.Provider = new MicrosoftExtensionsLoggingLoggerProvider(loggerFactory);
 		}
 
 		private void ConfigureRepositories(IServiceCollection services)
 		{
 			services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
 			services.AddSingleton<SqlStringBuilder>();
-			services.AddTransient<DbContext>(provider => new DbContext(Configuration.GetConnectionString(connectionStringKey)));
+			services.AddTransient<IDbContext, DbContext>(BuildDbContext);
 			services.AddTransient<INewsRepository, NewsRepository>();
 		}
 
@@ -73,6 +71,11 @@ namespace F1WM
 		{
 			services.AddSingleton<IBBCodeParser, BBCodeParser>();
 			services.AddTransient<INewsService, NewsService>();
+		}
+
+		private DbContext BuildDbContext(IServiceProvider serviceProvider)
+		{
+			return new DbContext(Configuration.GetConnectionString(connectionStringKey));
 		}
 	}
 }
