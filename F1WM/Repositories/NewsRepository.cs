@@ -2,17 +2,15 @@ using System.Collections.Generic;
 using Dapper;
 using F1WM.Model;
 using F1WM.Utilities;
-using Narochno.BBCode;
 
 namespace F1WM.Repositories
 {
 	public class NewsRepository : INewsRepository
 	{
-		private DbContext db;
+		private IDbContext db;
 		private SqlStringBuilder sqlStringBuilder;
-		private BBCodeParser bBCodeParser;
 
-		public IEnumerable<NewsSummary> GetLatestNews(int? firstId = null, int? count = Constants.NewsCount)
+		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null)
 		{
 			if (firstId != null)
 			{
@@ -40,22 +38,17 @@ namespace F1WM.Repositories
 
 		public NewsDetails GetNewsDetails(int id)
 		{
-			var news = this.db.Connection.QuerySingle<NewsDetails>(
+			return this.db.Connection.QuerySingle<NewsDetails>(
 				$@"SELECT {this.sqlStringBuilder.GetNewsDetailsFields()}
 				FROM f1_news
 				WHERE news_id = @id",
 				new { id = id });
-
-			news.Text = this.bBCodeParser.ToHtml(news.Text);
-
-			return news;
 		}
 
-		public NewsRepository(DbContext db, SqlStringBuilder sqlStringBuilder, BBCodeParser bbCodeParser)
+		public NewsRepository(IDbContext db, SqlStringBuilder sqlStringBuilder)
 		{
 			this.db = db;
 			this.sqlStringBuilder = sqlStringBuilder;
-			this.bBCodeParser = bbCodeParser;
 		}
 	}
 }
