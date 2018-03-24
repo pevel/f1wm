@@ -75,7 +75,12 @@ namespace F1WM
 
 		private DbContext BuildDbContext(IServiceProvider serviceProvider)
 		{
-			return new DbContext(Configuration.GetConnectionString(connectionStringKey));
+			var connectionString = Configuration.GetConnectionString(connectionStringKey);
+			if (String.IsNullOrEmpty(connectionString))
+			{
+				throw new SystemException("Database connection string is missing in configuration.");
+			}
+			return new DbContext(connectionString);
 		}
 	}
 }
