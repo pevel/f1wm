@@ -14,7 +14,7 @@ namespace F1WM.Utilities
 					var imageSource = firstLine.Split(',')[2];
 					imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
 					var imageInformation = $"<img src=\"{imageSource}\">";
-					text.Replace(firstLine, imageInformation);
+					text = text.Replace(firstLine, imageInformation);
 				}
 				return text;
 			}
