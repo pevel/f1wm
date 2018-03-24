@@ -15,7 +15,8 @@ namespace F1WM.Repositories
 			if (firstId != null)
 			{
 				return this.db.Connection.Query<NewsSummary>(
-					$@"SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n2")}
+					$@"{this.sqlStringBuilder.GetEncodingSet()} 
+					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n2")}
 					FROM f1_news n1
 					JOIN f1_news n2
 					ON n1.news_id = @firstId
@@ -27,7 +28,8 @@ namespace F1WM.Repositories
 			else
 			{
 				return this.db.Connection.Query<NewsSummary>(
-					$@"SELECT {this.sqlStringBuilder.GetNewsSummaryFields()}
+					$@"{this.sqlStringBuilder.GetEncodingSet()}
+					SELECT {this.sqlStringBuilder.GetNewsSummaryFields()}
 					FROM f1_news
 					WHERE news_hidden = 0
 					ORDER BY news_date DESC
@@ -39,7 +41,8 @@ namespace F1WM.Repositories
 		public NewsDetails GetNewsDetails(int id)
 		{
 			var news = this.db.Connection.QuerySingle<NewsDetails>(
-				$@"SELECT {this.sqlStringBuilder.GetNewsDetailsFields()}
+				$@"{this.sqlStringBuilder.GetEncodingSet()} 
+				SELECT {this.sqlStringBuilder.GetNewsDetailsFields()}
 				FROM f1_news
 				WHERE news_id = @id",
 				new { id = id });

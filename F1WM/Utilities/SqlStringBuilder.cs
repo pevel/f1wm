@@ -4,6 +4,11 @@ namespace F1WM.Utilities
 {
 	public class SqlStringBuilder
 	{
+		public string GetEncodingSet()
+		{
+			return "SET NAMES utf8mb4; ";
+		}
+
 		public string GetNewsSummaryFields(string tablePrefix = null)
 		{
 			tablePrefix = string.IsNullOrEmpty(tablePrefix) ? "" : tablePrefix + ".";
