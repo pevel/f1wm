@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using F1WM.Model;
 using F1WM.Repositories;
+using F1WM.Utilities;
 using Narochno.BBCode;
 
 namespace F1WM.Services
@@ -18,7 +19,7 @@ namespace F1WM.Services
 		public NewsDetails GetNewsDetails(int id)
 		{
 			var news = this.repository.GetNewsDetails(id);
-			news.Text = this.bBCodeParser.ToHtml(news.Text);
+			news.Text = this.bBCodeParser.ToHtml(news.Text).ParseImageInformation();
 			return news;
 		}
 
