@@ -38,11 +38,26 @@ namespace F1WM.Repositories
 
 		public NewsDetails GetNewsDetails(int id)
 		{
-			return this.db.Connection.QuerySingle<NewsDetails>(
+			var news = this.db.Connection.QuerySingle<NewsDetails>(
 				$@"SELECT {this.sqlStringBuilder.GetNewsDetailsFields()}
 				FROM f1_news
 				WHERE news_id = @id",
 				new { id = id });
+			news.PreviousNewsId = this.db.Connection.QuerySingleOrDefault<int?>(
+				@"SELECT news_id
+				FROM f1_news
+				WHERE news_date < @date AND news_hidden = 0
+				ORDER BY news_date DESC
+				LIMIT 0,1",
+				new { date = news.Date });
+			news.NextNewsId = this.db.Connection.QuerySingleOrDefault<int?>(
+				@"SELECT news_id
+				FROM f1_news
+				WHERE news_date > @date AND news_hidden = 0
+				ORDER BY news_date ASC
+				LIMIT 0,1",
+				new { date = news.Date });
+			return news;
 		}
 
 		public NewsRepository(IDbContext db, SqlStringBuilder sqlStringBuilder)

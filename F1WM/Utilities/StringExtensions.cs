@@ -6,18 +6,21 @@ namespace F1WM.Utilities
 	{
 		public static string ParseImageInformation(this string text)
 		{
-			using (var reader = new StringReader(text))
+			if (!string.IsNullOrEmpty(text))
 			{
-				if (reader.Peek() == '@')
+				using (var reader = new StringReader(text))
 				{
-					var firstLine = reader.ReadLine();
-					var imageSource = firstLine.Split(',')[2];
-					imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
-					var imageInformation = $"<img src=\"{imageSource}\">";
-					text = text.Replace(firstLine, imageInformation);
+					if (reader.Peek() == '@')
+					{
+						var firstLine = reader.ReadLine();
+						var imageSource = firstLine.Split(',')[2];
+						imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
+						var imageInformation = $"<img src=\"{imageSource}\">";
+						text = text.Replace(firstLine, imageInformation);
+					}
 				}
-				return text;
 			}
+			return text;
 		}
 	}
 }
