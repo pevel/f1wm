@@ -1,5 +1,8 @@
+using System.Collections.Generic;
 using F1WM.Controllers;
+using F1WM.Model;
 using F1WM.Services;
+using Microsoft.Extensions.Caching.Memory;
 using Moq;
 using Xunit;
 
@@ -9,11 +12,15 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private NewsController controller;
 		private Mock<INewsService> serviceMock;
+		private Mock<ICachingService> cacheMock;
 
 		public NewsControllerTests()
 		{
 			serviceMock = new Mock<INewsService>();
-			controller = new NewsController(serviceMock.Object);
+			cacheMock = new Mock<ICachingService>();
+			cacheMock.Setup(c => c.Get<IEnumerable<NewsSummary>>(It.IsAny<string>())).Returns(() => null);
+			cacheMock.Setup(c => c.Get<NewsDetails>(It.IsAny<string>())).Returns(() => null);
+			controller = new NewsController(serviceMock.Object, cacheMock.Object);
 		}
 
 		[Fact]

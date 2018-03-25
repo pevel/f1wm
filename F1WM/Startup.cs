@@ -39,7 +39,10 @@ namespace F1WM
 				.AddCors()
 				.AddJsonFormatters();
 
-			services.AddLogging();
+			services
+				.AddLogging()
+				.AddMemoryCache();
+
 			ConfigureRepositories(services);
 			ConfigureLogicServices(services);
 		}
@@ -71,6 +74,7 @@ namespace F1WM
 		{
 			services.AddSingleton<IBBCodeParser, BBCodeParser>();
 			services.AddTransient<INewsService, NewsService>();
+			services.AddSingleton<ICachingService, CachingService>();
 		}
 
 		private DbContext BuildDbContext(IServiceProvider serviceProvider)
