@@ -7,10 +7,10 @@ RUN dotnet restore
 
 # copy everything else and build
 COPY ./F1WM/. ./
-RUN dotnet publish -c Release -o out
+RUN dotnet publish -c Release -o bin
 
 # build runtime image
 FROM microsoft/aspnetcore:2.0
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build-env /app/bin .
 ENTRYPOINT ["dotnet", "F1WM.dll"]
