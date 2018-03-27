@@ -19,6 +19,7 @@ namespace F1WM
 	public class Startup
 	{
 		private const string connectionStringKey = "DefaultConnectionString";
+		private const string corsPolicy = "DefaultPolicy";
 
 		public Startup(IConfiguration configuration)
 		{
@@ -36,7 +37,14 @@ namespace F1WM
 				.AddAuthorization()
 				.AddDataAnnotations()
 				.AddFormatterMappings()
-				.AddCors()
+				.AddCors(o => o.AddPolicy(corsPolicy, builder =>
+				{
+					builder
+						.AllowAnyOrigin()
+						.AllowAnyMethod()
+						.AllowAnyHeader()
+						.AllowCredentials();
+				}))
 				.AddJsonFormatters();
 
 			services
@@ -59,6 +67,7 @@ namespace F1WM
 				configurationBuilder.AddUserSecrets<Startup>();
 			}
 
+			app.UseCors(corsPolicy);
 			app.UseMvc();
 		}
 
