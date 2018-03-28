@@ -10,8 +10,8 @@ env:
   - secure: KaO80Sr+9Yo79AUu4fia+1yo94WEv0ZRBRMTbewTIQ6xNSX6oT6+cxgao/GjZVryJupObabFcjF8Kd1AYYZzXpSAtNmGg71UeFOsT9B10TgQyPDRujmYf4mYJ9ENY2plh9yd/3pXy+2lrD74DeMY2m/2hFOzdQK8QVGlnxOVLxKyRIhgg0ix9sjBbKhGAox/Zb08Sko9Avcxrb1MG0BeQWI+LW9Eoqh3J2KlTJMywQ7er9f5xSGYSCF5ahBkxTot2RTubNyxVyv1PxAnDn8FBPYCKGwbMSne/AApb7syMVqMhQW4pMHLtMrSuhtkj+4ouPvFHDBa08D1TJnkmOmd9YSvGFnt8xdzaYViWqShHIr6qc/yy/KQutL3oyhZdOT3Xdsswa9RnBsoOzjbGyccBYWuqjvIaGPRGq71W2WrNLR2pqoKNeCfU5nddwFT4kfC0hSlu+bM/Adpu+QNC9y4HdmRKqw3jrjF8xDKEbQBYH6ad7on+bWaPsQgZ2Bca9ARvYa7cvpA0qtU4imfMVbXg55IE+FKOZ18ulps1VvBwoyXQCjgb7mmapjW9o9KYoWPhAbxOCGRbvBHtpQ3wPt6HR9UP9WaKz/BKqLtZ6x540AVOgkME6h31aDkoyHauwP9I1nlYtfa4j83owwmFXplAp54HNI/cK0CMA9lM1PnWMA=
 services:
 - docker
-install:
-- echo $PublicKey >> $HOME/.ssh/known_hosts
+addons:
+  ssh_known_hosts: $DeployServer
 script:
 - docker build -t f1wm:latest . --build-arg connectionString='$ConnectionString'
 - docker save f1wm:latest | bzip2 | ssh $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
