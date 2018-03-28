@@ -8,7 +8,7 @@ RUN dotnet restore
 
 # copy everything else, populate appsettings and build
 COPY ./F1WM/. ./
-RUN sed -i -e "s/<connectionString>/$connectionString/g" appsettings.json
+RUN ./scripts/add_connection_string.sh "$connectionString"
 RUN dotnet publish -c Release -o bin
 
 # build runtime image
