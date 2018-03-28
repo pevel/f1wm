@@ -4,12 +4,13 @@ mono: none
 dotnet: 2.1.4
 env:
   global:
-  - secure: LFEP17MtfUel3gbHU3YqkuFcQDc3XB8sasHlHr1cctCXHPcS5cs44F1XOCVM2eoDsjH7LYxqq5j0s/KdKlM42IJRRr2Yb8LyAMrfV9xwYSUkseVNtpKp36TDpjUl0ZQMcxIC+OZ5YAJIRK9GInOhkXVKaLAjpaPza6AwZ4Rfw++nIgR9lpo7ZqSP+3H4E1vZsgzlm0HuKi5UD6qB1zPcFXX94TL2F5ywdOld5aK3K14+Qkd+cmrtH3KEus4/9TqsD/jdc+f9ov8AL8LVzfKllvrwDcB7FnESReYOdzL/pAAlWIuObP2E26YmW0TTRGQatMUc1Vi9k3we/K3tsDIEMUkBOTm7hgdmVYomsZtdYqp//VLQMfhbt39XreIUBAd8zqQpXb4Zua+fzqRcxki6ftr0EUKzNdwC/dlbwTOGvGFhCLYtUTveCxT8ezBg5s3/okmzR16bftuzim2K7cybwdfSOTFGYaAf/M70cNiIuWfvTyx1aoHROGtCMIWIfi0Fb6MWeKiH64nEXIRHmTd4Wa5fsIf0xWrBqZ0j0So850y/vZSTaMZvtA+o31vYoPcWQvmk/PsCNTA0x5sF4/fcD1ThixjqA8OjzXE8dS1yLExYkjhRl40JhoPL0mPK5wvXi8W8fdj2Y9fWcsfMHxs5290GQf/fuzpc/e6ejsKq3vo=
-  - secure: cMd64CFSj3I+sFi6pg6NFg61QGijZi9xXEmrR4I5W3x+nw5w55lt3EOF6lMKF4TiWUiUWEp2czMHV+yVFhhK0x3mYv2tdALEKaK0jLy/D8oUVJNfb6iPuLKMuz8FNloMDAA+K4sXnUz6H/WL7mgsTj/YpcXH41CAfblfc58wombr9kxE46Np/L1ulnzXfzjcJ6f4ink9ainMkzVzABph/jhFKNvPnVIZ4FtYDMT3jh6c3ZPxdV6EQ7RPS4lotlvBeTuCnQm7IJNnUiDejuqctsfOKVy6jjeJPNd9+a/4XeNX8K+XbRmZL0gpAnsqITkBE+8BLA2TiSEqHYQT5UNUZ1zRYPFbngrDA++3Q40Q7bHfpnogsthpCPxCc7feIdD5BI1N5VUeDAyZTP2DQ6fwUXEthtXinjQ/V9NTf5fURR50NMxhPk0dpDT5ZNwZs7LrRnYzoMsgGu75JAzB45KX/UUb+qCTwfJO76QMhozXQP/izqcg0ZI+qqAqWhFLZqfb5OkrTBbDdHIkMo9/a4BU43DeJCdxvECnweJerhBbygdZ9/OFPpbp/hJfQ7Qo3epG/v2gihxqoGUbnjyiFQAxZ4bYWmYq0kZj5C3XBkpN6NAk+jzoSxpSSpEiGqGH/yY02zl1xfIRuTBJzFZNHjnSY75f4Wlcx8gcUqMztleLXrQ=
+    secure: sIT7J7/429Ucgo1UOYi3tGNdzZe7A6z8ANsHXCQw/Z5cSkqY91zMDKxi2cMLGvhq/+E/SJ+wanmSnzjAkvLsitjhyMwD9lFEGv7gv/81pVQOf/okGK7lJYmTSbEDMuoazpT95PYV3tMVrQAKKfsZdEsq3TIyUMidgshc2d8aME9IosS9pPu4qqUxgV/9UDpLn8B4eVD1AJXrEeOtTKZAW7Ip7zex1HdiAogn4fotZYXce+K4a3QIdUBvMPJcIfQgLwJ2MTUxcup4YCJ3z8vPxzfnreWPwx09E4PHZDeDEEYIWaM57VAw3Lnn08EAHkVcplyGU8KOnfpeg0O2NXvuBFKyFQ9Z88CflyBtGFW7VpGwiDGuknIRKFindPdMUAZQDkIIii0MuGjKgMebcEwReB6ec1Sxhp9jiWAQgT7EYu47ohGvbv8q4/B+R6kPiBQhrIOiC05GOj5cpA2nZfiwudQfKW7ny/lN4KlB+ZXousW0+jwpPcdAHguK/+xA3DJzSy2JntuQSy1MLiLwzRyqaGdAJPFeIEJBAc9OUdgwDvpeF9EnBgoL6Z+mTL2VsE4miuAgkI/Vs6XpsH7cA1paeaMdBbsHQyzrEx3zDlVAXgwwFTgaz2RmLCZyXdeGe10aeX7KrtbDMMKB84Nw1g9yRUdhRv/gOZzY+F/OPVxZplo=
 services:
 - docker
 install:
 - echo $PublicKey >> $HOME/.ssh/known_hosts
 script:
 - docker build -t f1wm:latest . --build-arg connectionString='$ConnectionString'
-- docker save f1wm:latest | bzip2 | ssh $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
+- docker save f1wm:latest | bzip2 | ssh $DeployUser@$DeployServer 'bunzip2 | docker
+  load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker
+  run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
