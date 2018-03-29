@@ -18,7 +18,7 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
-- sshpass -p $Phrase ssh-add /tmp/deploy_rsa
+- sshpass -p $Phrase -P passphrase ssh-add /tmp/deploy_rsa
 script:
 - docker build -t f1wm:latest . --build-arg connectionString='$ConnectionString'
 - docker save f1wm:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
