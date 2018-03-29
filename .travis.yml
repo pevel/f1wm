@@ -18,4 +18,4 @@ before_install:
 - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
 script:
 - docker build -t f1wm:latest . --build-arg connectionString='$ConnectionString'
-- docker save f1wm:latest | bzip2 | pv | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
+- docker save f1wm:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
