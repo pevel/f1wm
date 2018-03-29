@@ -2,6 +2,10 @@ sudo: required
 language: csharp
 mono: none
 dotnet: 2.1.4
+addons:
+  apt:
+    packages:
+    - sshpass
 env:
   global:
   - secure: sIT7J7/429Ucgo1UOYi3tGNdzZe7A6z8ANsHXCQw/Z5cSkqY91zMDKxi2cMLGvhq/+E/SJ+wanmSnzjAkvLsitjhyMwD9lFEGv7gv/81pVQOf/okGK7lJYmTSbEDMuoazpT95PYV3tMVrQAKKfsZdEsq3TIyUMidgshc2d8aME9IosS9pPu4qqUxgV/9UDpLn8B4eVD1AJXrEeOtTKZAW7Ip7zex1HdiAogn4fotZYXce+K4a3QIdUBvMPJcIfQgLwJ2MTUxcup4YCJ3z8vPxzfnreWPwx09E4PHZDeDEEYIWaM57VAw3Lnn08EAHkVcplyGU8KOnfpeg0O2NXvuBFKyFQ9Z88CflyBtGFW7VpGwiDGuknIRKFindPdMUAZQDkIIii0MuGjKgMebcEwReB6ec1Sxhp9jiWAQgT7EYu47ohGvbv8q4/B+R6kPiBQhrIOiC05GOj5cpA2nZfiwudQfKW7ny/lN4KlB+ZXousW0+jwpPcdAHguK/+xA3DJzSy2JntuQSy1MLiLwzRyqaGdAJPFeIEJBAc9OUdgwDvpeF9EnBgoL6Z+mTL2VsE4miuAgkI/Vs6XpsH7cA1paeaMdBbsHQyzrEx3zDlVAXgwwFTgaz2RmLCZyXdeGe10aeX7KrtbDMMKB84Nw1g9yRUdhRv/gOZzY+F/OPVxZplo=
@@ -11,8 +15,7 @@ env:
 services:
 - docker
 before_install:
-- openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv
-  -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+- openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
 - eval "$(ssh-agent -s)"
 - chmod 600 /tmp/deploy_rsa
 - sshpass -p $Phrase ssh-add /tmp/deploy_rsa
