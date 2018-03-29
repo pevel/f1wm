@@ -15,3 +15,6 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
+
+# Project specific
+F1WM/version.json

@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+    <Folder Remove="scripts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +17,14 @@
     <PackageReference Include="MySqlConnector" Version="0.36.1" />
     <PackageReference Include="MySqlConnector.Logging.Microsoft.Extensions.Logging" Version="0.36.1" />
     <PackageReference Include="Narochno.BBCode" Version="1.0.0" />
+  </ItemGroup>
+
+  <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
+    <Exec Command="scripts/add_build_number.sh" />
+  </Target>
+
+  <ItemGroup>
+    <EmbeddedResource Include="version.json" />
   </ItemGroup>
 
   <ItemGroup>
