@@ -4,6 +4,7 @@ using F1WM.Model;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 
 namespace F1WM.Controllers
 {
@@ -15,49 +16,68 @@ namespace F1WM.Controllers
 
 		private INewsService service;
 		private ICachingService cache;
+		private ILoggingService logger;
 
 		[HttpGet]
 		public IEnumerable<NewsSummary> GetMany(
 			[FromQuery(Name = "firstId")] int? firstId,
 			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
-			var cacheKey = GetNewsSummaryCacheKey(firstId, count);
-			var cacheEntry = cache.Get<IEnumerable<NewsSummary>>(cacheKey);
-			if (cacheEntry != null)
+			try
 			{
-				return cacheEntry;
+				var cacheKey = GetNewsSummaryCacheKey(firstId, count);
+				var cacheEntry = cache.Get<IEnumerable<NewsSummary>>(cacheKey);
+				if (cacheEntry != null)
+				{
+					return cacheEntry;
+				}
+				else
+				{
+					var news = service.GetLatestNews(count, firstId);
+					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
+					cache.Set(cacheKey, news, options);
+					return news;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				var news = service.GetLatestNews(count, firstId);
-				var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-				cache.Set(cacheKey, news, options);
-				return news;
+				logger.LogError(ex);
+				throw ex;
 			}
 		}
 
 		[HttpGet("{id}")]
 		public NewsDetails GetSingle(int id)
 		{
-			var cacheKey = GetNewsDetailsCacheKey(id);
-			var cacheEntry = cache.Get<NewsDetails>(cacheKey);
-			if (cacheEntry != null)
+			try
 			{
-				return cacheEntry;
+				var cacheKey = GetNewsDetailsCacheKey(id);
+				var cacheEntry = cache.Get<NewsDetails>(cacheKey);
+				if (cacheEntry != null)
+				{
+					return cacheEntry;
+				}
+				else
+				{
+					var news = service.GetNewsDetails(id);
+					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
+					cache.Set(cacheKey, news, options);
+					return news;
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				var news = service.GetNewsDetails(id);
-				var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-				cache.Set(cacheKey, news, options);
-				return news;
+				logger.LogError(ex);
+				throw ex;
 			}
+
 		}
 
-		public NewsController(INewsService service, ICachingService cache)
+		public NewsController(INewsService service, ICachingService cache, ILoggingService logger)
 		{
 			this.service = service;
 			this.cache = cache;
+			this.logger = logger;
 		}
 
 		private string GetNewsSummaryCacheKey(int? firstId, int count)

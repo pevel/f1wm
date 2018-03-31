@@ -84,6 +84,7 @@ namespace F1WM
 			services.AddSingleton<IBBCodeParser, BBCodeParser>();
 			services.AddTransient<INewsService, NewsService>();
 			services.AddTransient<IHealthCheckService, HealthCheckService>();
+			services.AddTransient<ILoggingService, LoggingService>();
 			services.AddSingleton<ICachingService, CachingService>();
 		}
 
