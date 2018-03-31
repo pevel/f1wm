@@ -7,13 +7,13 @@ using Xunit;
 
 namespace F1WM.UnitTests.Services
 {
-	public class NewsServicesTests
+	public class NewsServiceTests
 	{
 		private NewsService service;
 		private Mock<INewsRepository> repositoryMock;
 		private Mock<IBBCodeParser> parserMock;
 
-		public NewsServicesTests()
+		public NewsServiceTests()
 		{
 			repositoryMock = new Mock<INewsRepository>();
 			parserMock = new Mock<IBBCodeParser>();
