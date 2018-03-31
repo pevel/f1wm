@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.Repositories;
@@ -20,10 +21,12 @@ namespace F1WM
 	{
 		private const string connectionStringKey = "DefaultConnectionString";
 		private const string corsPolicy = "DefaultPolicy";
+		private LoggingService logger;
 
 		public Startup(IConfiguration configuration)
 		{
 			Configuration = configuration;
+			logger = new LoggingService(configuration);
 		}
 
 		public IConfiguration Configuration { get; }
@@ -31,28 +34,36 @@ namespace F1WM
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services
-				.AddMvcCore()
-				.AddApiExplorer()
-				.AddAuthorization()
-				.AddDataAnnotations()
-				.AddFormatterMappings()
-				.AddCors(o => o.AddPolicy(corsPolicy, builder =>
-				{
-					builder
-						.AllowAnyOrigin()
-						.AllowAnyMethod()
-						.AllowAnyHeader()
-						.AllowCredentials();
-				}))
-				.AddJsonFormatters();
+			try
+			{
+				services
+					.AddMvcCore()
+					.AddApiExplorer()
+					.AddAuthorization()
+					.AddDataAnnotations()
+					.AddFormatterMappings()
+					.AddCors(o => o.AddPolicy(corsPolicy, builder =>
+					{
+						builder
+							.AllowAnyOrigin()
+							.AllowAnyMethod()
+							.AllowAnyHeader()
+							.AllowCredentials();
+					}))
+					.AddJsonFormatters();
 
-			services
-				.AddLogging()
-				.AddMemoryCache();
+				services
+					.AddLogging()
+					.AddMemoryCache();
 
-			ConfigureRepositories(services);
-			ConfigureLogicServices(services);
+				ConfigureRepositories(services);
+				ConfigureLogicServices(services);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -61,14 +72,22 @@ namespace F1WM
 			IHostingEnvironment env,
 			IConfigurationBuilder configurationBuilder)
 		{
-			if (env.IsDevelopment())
+			try
 			{
-				app.UseDeveloperExceptionPage();
-				configurationBuilder.AddUserSecrets<Startup>();
-			}
+				if (env.IsDevelopment())
+				{
+					app.UseDeveloperExceptionPage();
+					configurationBuilder.AddUserSecrets<Startup>();
+				}
 
-			app.UseCors(corsPolicy);
-			app.UseMvc();
+				app.UseCors(corsPolicy);
+				app.UseMvc();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
 		}
 
 		private void ConfigureRepositories(IServiceCollection services)
@@ -83,6 +102,8 @@ namespace F1WM
 		{
 			services.AddSingleton<IBBCodeParser, BBCodeParser>();
 			services.AddTransient<INewsService, NewsService>();
+			services.AddTransient<IHealthCheckService, HealthCheckService>();
+			services.AddTransient<ILoggingService, LoggingService>(provider => this.logger);
 			services.AddSingleton<ICachingService, CachingService>();
 		}
 

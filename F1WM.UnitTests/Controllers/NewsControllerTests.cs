@@ -3,6 +3,7 @@ using F1WM.Controllers;
 using F1WM.Model;
 using F1WM.Services;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Xunit;
 
@@ -13,14 +14,16 @@ namespace F1WM.UnitTests.Controllers
 		private NewsController controller;
 		private Mock<INewsService> serviceMock;
 		private Mock<ICachingService> cacheMock;
+		private Mock<ILoggingService> loggerMock;
 
 		public NewsControllerTests()
 		{
 			serviceMock = new Mock<INewsService>();
 			cacheMock = new Mock<ICachingService>();
+			loggerMock = new Mock<ILoggingService>();
 			cacheMock.Setup(c => c.Get<IEnumerable<NewsSummary>>(It.IsAny<string>())).Returns(() => null);
 			cacheMock.Setup(c => c.Get<NewsDetails>(It.IsAny<string>())).Returns(() => null);
-			controller = new NewsController(serviceMock.Object, cacheMock.Object);
+			controller = new NewsController(serviceMock.Object, cacheMock.Object, loggerMock.Object);
 		}
 
 		[Fact]
