@@ -1,9 +1,9 @@
-using MySql.Data.MySqlClient;
+using System.Data;
 
 namespace F1WM.Utilities
 {
 	public interface IDbContext
 	{
-		MySqlConnection Connection { get; }
+		IDbConnection Connection { get; }
 	}
 }
