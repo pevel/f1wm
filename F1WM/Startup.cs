@@ -78,6 +78,7 @@ namespace F1WM
 
 				app.UseCors(corsPolicy);
 				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings => {
+					settings.GeneratorSettings.Title = "F1WM web API";
 					settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
 				});
 				app.UseMvc();
