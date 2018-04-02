@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Reflection;
 using F1WM.Repositories;
 using F1WM.Services;
 using F1WM.Utilities;
@@ -10,14 +7,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using MySqlConnector.Logging;
 using Narochno.BBCode;
+using NJsonSchema;
+using NSwag.AspNetCore;
 
 namespace F1WM
 {
-	public class Startup
+    public class Startup
 	{
 		private const string connectionStringKey = "DefaultConnectionString";
 		private const string corsPolicy = "DefaultPolicy";
@@ -81,6 +77,9 @@ namespace F1WM
 				}
 
 				app.UseCors(corsPolicy);
+				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings => {
+					settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+				});
 				app.UseMvc();
 			}
 			catch (Exception ex)
