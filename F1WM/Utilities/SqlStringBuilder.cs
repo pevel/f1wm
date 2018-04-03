@@ -11,7 +11,7 @@ namespace F1WM.Utilities
 
 		public string GetNewsSummaryFields(string tablePrefix = null)
 		{
-			tablePrefix = string.IsNullOrEmpty(tablePrefix) ? "" : tablePrefix + ".";
+			tablePrefix = PrepareTablePrefix(tablePrefix);
 			return $@"{GetNewsBaseFields(tablePrefix)},
 				{tablePrefix}comm_count as {nameof(NewsSummary.CommentCount)},
 				{tablePrefix}news_highlight as {nameof(NewsSummary.IsHighlighted)},
@@ -20,11 +20,22 @@ namespace F1WM.Utilities
 
 		public string GetNewsDetailsFields(string tablePrefix = null)
 		{
-			tablePrefix = string.IsNullOrEmpty(tablePrefix) ? "" : tablePrefix + ".";
+			tablePrefix = PrepareTablePrefix(tablePrefix);
 			return $@"{GetNewsBaseFields(tablePrefix)},
 				{tablePrefix}poster_name as {nameof(NewsDetails.PosterName)},
 				{tablePrefix}news_views as {nameof(NewsDetails.Views)},
 				{tablePrefix}news_text as {nameof(NewsDetails.Text)}";
+		}
+
+		public string GetCommentFields(string tablePrefix = null)
+		{
+			tablePrefix = PrepareTablePrefix(tablePrefix);
+			return $@"{tablePrefix}comm_id as {nameof(Comment.Id)},
+				{tablePrefix}news_id as {nameof(Comment.NewsId)},
+				{tablePrefix}poster_id as {nameof(Comment.PosterId)},
+				{tablePrefix}poster_name as {nameof(Comment.PosterName)},
+				FROM_UNIXTIME({tablePrefix}comm_time) as {nameof(Comment.Date)},
+				{tablePrefix}comm_status as {nameof(Comment.Status)}";
 		}
 
 		private string GetNewsBaseFields(string tablePrefix = null)
@@ -35,6 +46,11 @@ namespace F1WM.Utilities
 				{tablePrefix}news_redirect as {nameof(NewsBase.Redirect)},
 				{tablePrefix}news_title as {nameof(NewsBase.Title)},
 				{tablePrefix}news_subtitle as {nameof(NewsBase.Subtitle)}";
+		}
+
+		private string PrepareTablePrefix(string prefix)
+		{
+			return string.IsNullOrEmpty(prefix) ? "" : prefix + ".";
 		}
 	}
 }

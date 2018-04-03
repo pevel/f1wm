@@ -13,7 +13,7 @@ using NSwag.AspNetCore;
 
 namespace F1WM
 {
-    public class Startup
+	public class Startup
 	{
 		private const string connectionStringKey = "DefaultConnectionString";
 		private const string corsPolicy = "DefaultPolicy";
@@ -77,7 +77,8 @@ namespace F1WM
 				}
 
 				app.UseCors(corsPolicy);
-				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings => {
+				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
+				{
 					settings.GeneratorSettings.Title = "F1WM web API";
 					settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
 				});
@@ -96,6 +97,7 @@ namespace F1WM
 			services.AddSingleton<SqlStringBuilder>();
 			services.AddTransient<IDbContext, DbContext>(BuildDbContext);
 			services.AddTransient<INewsRepository, NewsRepository>();
+			services.AddTransient<ICommentsRepository, CommentsRepository>();
 		}
 
 		private void ConfigureLogicServices(IServiceCollection services)
@@ -103,6 +105,7 @@ namespace F1WM
 			services.AddSingleton<IBBCodeParser, BBCodeParser>();
 			services.AddTransient<INewsService, NewsService>();
 			services.AddTransient<IHealthCheckService, HealthCheckService>();
+			services.AddTransient<ICommentsService, CommentsService>();
 			services.AddTransient<ILoggingService, LoggingService>(provider => this.logger);
 			services.AddSingleton<ICachingService, CachingService>();
 		}

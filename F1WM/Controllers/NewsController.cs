@@ -20,7 +20,7 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		public IEnumerable<NewsSummary> GetMany(
-			[FromQuery(Name = "firstId")] int? firstId,
+			[FromQuery(Name = "firstId")] int? firstId = null,
 			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
 			try

@@ -5,7 +5,7 @@ namespace F1WM.Services
 {
 	public interface INewsService
 	{
-		IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null);
+		IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId);
 		NewsDetails GetNewsDetails(int id);
 	}
 }
