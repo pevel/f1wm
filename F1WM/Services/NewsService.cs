@@ -11,7 +11,7 @@ namespace F1WM.Services
 		private INewsRepository repository;
 		private IBBCodeParser bBCodeParser;
 
-		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null)
+		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId)
 		{
 			return this.repository.GetLatestNews(count, firstId);
 		}
