@@ -41,7 +41,7 @@ namespace F1WM.UnitTests.Controllers
 
 			controller.GetMany(firstId);
 
-			serviceMock.Verify(s => s.GetLatestNews(20, 42), Times.Once);
+			serviceMock.Verify(s => s.GetLatestNews(20, firstId), Times.Once);
 		}
 
 		[Fact]
