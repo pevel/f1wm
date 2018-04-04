@@ -3,11 +3,11 @@ WORKDIR /app
 ARG connectionString
 
 # copy csproj and restore as distinct layers
-COPY ./F1WM/F1WM.csproj ./
+COPY ./F1WM.csproj ./
 RUN dotnet restore
 
 # copy everything else, populate appsettings and build
-COPY ./F1WM/. ./
+COPY . ./
 RUN ./scripts/add_connection_string.sh "$connectionString"
 RUN dotnet publish -c Release -o bin
 
