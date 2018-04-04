@@ -5,6 +5,7 @@ using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Narochno.BBCode;
@@ -75,6 +76,11 @@ namespace F1WM
 					app.UseDeveloperExceptionPage();
 					configurationBuilder.AddUserSecrets<Startup>();
 				}
+
+				app.UseForwardedHeaders(new ForwardedHeadersOptions
+				{
+					ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+				});
 
 				app.UseCors(corsPolicy);
 				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
