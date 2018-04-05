@@ -23,4 +23,4 @@ before_install:
 script:
 - dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
 - docker build -t f1wm:latest F1WM --file F1WM/Dockerfile --build-arg connectionString="$ConnectionString"
-- docker save f1wm:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:80 f1wm:latest'
+- docker save f1wm:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load && docker stop f1wm_webapi || true && docker rm f1wm_webapi || true && docker run --restart=always --name f1wm_webapi -d -p 80:5000 f1wm:latest'
