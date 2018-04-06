@@ -28,4 +28,4 @@ script:
 - scp -o "StrictHostKeyChecking no" docker.env docker-compose.yml $DeployUser@$DeployServer:~/build/f1wm/
 - docker save f1wm:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
 - docker save proxy:latest | bzip2 | ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
-- ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/f1wm/docker-compose.yml up'
+- ssh -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/f1wm/docker-compose.yml up -d'
