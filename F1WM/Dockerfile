@@ -6,9 +6,8 @@ ARG connectionString
 COPY ./F1WM.csproj ./
 RUN dotnet restore
 
-# copy everything else, populate appsettings and build
+# copy everything else and build
 COPY . ./
-RUN ./scripts/add_connection_string.sh "$connectionString"
 RUN dotnet publish -c Release -o bin
 
 # build runtime image
