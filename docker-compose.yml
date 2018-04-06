@@ -1,0 +1,15 @@
+version: "3"
+
+services:
+  app:
+    image: f1wm:latest
+    expose:
+      - "5000"
+    env_file: docker.env
+
+  proxy:
+    image: proxy:latest
+    ports:
+      - "80:80"
+    links:
+      - app

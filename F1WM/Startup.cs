@@ -4,12 +4,15 @@ using F1WM.Repositories;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Narochno.BBCode;
 using NJsonSchema;
 using NSwag.AspNetCore;
+using NSwag.SwaggerGeneration.WebApi;
 
 namespace F1WM
 {
@@ -38,14 +41,7 @@ namespace F1WM
 					.AddAuthorization()
 					.AddDataAnnotations()
 					.AddFormatterMappings()
-					.AddCors(o => o.AddPolicy(corsPolicy, builder =>
-					{
-						builder
-							.AllowAnyOrigin()
-							.AllowAnyMethod()
-							.AllowAnyHeader()
-							.AllowCredentials();
-					}))
+					.AddCors(o => o.AddPolicy(corsPolicy, GetCorsPolicyBuilder()))
 					.AddJsonFormatters();
 
 				services
@@ -64,25 +60,24 @@ namespace F1WM
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(
-			IApplicationBuilder app,
-			IHostingEnvironment env,
+			IApplicationBuilder application,
+			IHostingEnvironment environment,
 			IConfigurationBuilder configurationBuilder)
 		{
 			try
 			{
-				if (env.IsDevelopment())
+				if (environment.IsDevelopment())
 				{
-					app.UseDeveloperExceptionPage();
+					application.UseDeveloperExceptionPage();
 					configurationBuilder.AddUserSecrets<Startup>();
 				}
+				configurationBuilder.AddEnvironmentVariables();
 
-				app.UseCors(corsPolicy);
-				app.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, settings =>
-				{
-					settings.GeneratorSettings.Title = "F1WM web API";
-					settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
-				});
-				app.UseMvc();
+				application
+					.UseForwardedHeaders(GetForwardedHeadersOptions())
+					.UseCors(corsPolicy)
+					.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, GetSwaggerUiSettings())
+					.UseMvc();
 			}
 			catch (Exception ex)
 			{
@@ -118,6 +113,35 @@ namespace F1WM
 				throw new SystemException("Database connection string is missing in configuration.");
 			}
 			return new DbContext(connectionString);
+		}
+
+		private Action<CorsPolicyBuilder> GetCorsPolicyBuilder()
+		{
+			return builder =>
+			{
+				builder
+					.AllowAnyOrigin()
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.AllowCredentials();
+			};
+		}
+
+		private ForwardedHeadersOptions GetForwardedHeadersOptions()
+		{
+			return new ForwardedHeadersOptions
+			{
+				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+			};
+		}
+
+		private Action<SwaggerUiSettings<WebApiToSwaggerGeneratorSettings>> GetSwaggerUiSettings()
+		{
+			return settings =>
+			{
+				settings.GeneratorSettings.Title = "F1WM web API";
+				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+			};
 		}
 	}
 }
