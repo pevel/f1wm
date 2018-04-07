@@ -1,6 +1,5 @@
 FROM microsoft/aspnetcore-build:2.0 AS build-env
 WORKDIR /app
-ARG connectionString
 
 # copy csproj and restore as distinct layers
 COPY ./F1WM.csproj ./
