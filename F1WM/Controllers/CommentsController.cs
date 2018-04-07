@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class CommentsController : Controller
+	public class CommentsController : ControllerBase
 	{
 		private ICommentsService service;
 		private ILoggingService logger;

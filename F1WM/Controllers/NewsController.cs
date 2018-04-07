@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class NewsController : Controller
+	public class NewsController : ControllerBase
 	{
 		private const int defaultLatestNewsCount = 20;
 		private readonly TimeSpan cacheExpiration = TimeSpan.FromHours(1);
