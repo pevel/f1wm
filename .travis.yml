@@ -27,7 +27,7 @@ script:
 - dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
 - docker build -t f1wm:latest F1WM --file F1WM/Dockerfile
 - docker build -t proxy:latest F1WM.Proxy --file F1WM.Proxy/Dockerfile
-- scp -p $DeployServerPort -o "StrictHostKeyChecking no" docker.env docker-compose.yml $DeployUser@$DeployServer:~/build/f1wm/
+- scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker.env docker-compose.yml $DeployUser@$DeployServer:~/build/f1wm/
 - docker save f1wm:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
 - docker save proxy:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
 - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/f1wm/docker-compose.yml up -d --no-build'
