@@ -19,7 +19,10 @@ namespace F1WM.Services
 		public NewsDetails GetNewsDetails(int id)
 		{
 			var news = this.repository.GetNewsDetails(id);
-			news.Text = this.bBCodeParser.ToHtml(news.Text).ParseImageInformation();
+			if (news != null)
+			{
+				news.Text = this.bBCodeParser.ToHtml(news.Text).ParseImageInformation();
+			}
 			return news;
 		}
 

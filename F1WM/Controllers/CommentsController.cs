@@ -27,11 +27,21 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public Comment GetSingle(int id)
+		public IActionResult GetSingle(int id)
 		{
 			try
 			{
-				return service.GetComment(id);
+				var comment = service.GetComment(id);
+				IActionResult result;
+				if (comment != null)
+				{
+					result = Ok(service.GetComment(id));
+				}
+				else
+				{
+					result = NotFound();
+				}
+				return result;
 			}
 			catch (Exception ex)
 			{

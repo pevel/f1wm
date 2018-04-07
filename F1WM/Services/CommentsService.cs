@@ -14,7 +14,10 @@ namespace F1WM.Services
 		public Comment GetComment(int id)
 		{
 			var comment = repository.GetComment(id);
-			comment.Text = bBCodeParser.ToHtml(comment.Text);
+			if (comment != null)
+			{
+				comment.Text = bBCodeParser.ToHtml(comment.Text);
+			}
 			return comment;
 		}
 

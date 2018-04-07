@@ -47,7 +47,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public NewsDetails GetSingle(int id)
+		public IActionResult GetSingle(int id)
 		{
 			try
 			{
@@ -55,14 +55,23 @@ namespace F1WM.Controllers
 				var cacheEntry = cache.Get<NewsDetails>(cacheKey);
 				if (cacheEntry != null)
 				{
-					return cacheEntry;
+					return Ok(cacheEntry);
 				}
 				else
 				{
 					var news = service.GetNewsDetails(id);
-					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-					cache.Set(cacheKey, news, options);
-					return news;
+					IActionResult result;
+					if (news != null)
+					{
+						var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
+						cache.Set(cacheKey, news, options);
+						result = Ok(news);
+					}
+					else
+					{
+						result = NotFound();
+					}
+					return result;
 				}
 			}
 			catch (Exception ex)

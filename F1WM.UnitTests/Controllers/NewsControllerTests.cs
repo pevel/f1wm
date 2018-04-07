@@ -2,8 +2,7 @@ using System.Collections.Generic;
 using F1WM.Controllers;
 using F1WM.Model;
 using F1WM.Services;
-using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -47,11 +46,22 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public void ShouldReturnNewsDetailsById()
 		{
-			var id = 42;
+			var id = 43;
 
 			controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
+		}
+
+		[Fact]
+		public void ShouldReturn404IfSingleNewsNotFound()
+		{
+			var id = 44;
+
+			var result = controller.GetSingle(id);
+
+			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
+			Assert.IsType<NotFoundResult>(result);
 		}
 	}
 }
