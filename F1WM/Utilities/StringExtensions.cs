@@ -22,5 +22,10 @@ namespace F1WM.Utilities
 			}
 			return text;
 		}
+
+		public static string Cleanup(this string text)
+		{
+			return text.Replace("[urlb=", "[url=").Replace("[urln=", "[url=");
+		}
 	}
 }
