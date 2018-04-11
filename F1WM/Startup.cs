@@ -18,7 +18,6 @@ namespace F1WM
 {
 	public class Startup
 	{
-		private const string connectionStringKey = "DefaultConnectionString";
 		private const string corsPolicy = "DefaultPolicy";
 		private LoggingService logger;
 
@@ -46,10 +45,10 @@ namespace F1WM
 
 				services
 					.AddLogging()
-					.AddMemoryCache();
-
-				ConfigureRepositories(services);
-				ConfigureLogicServices(services);
+					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
+					.AddMemoryCache()
+					.ConfigureRepositories(Configuration)
+					.ConfigureLogicServices();
 			}
 			catch (Exception ex)
 			{
@@ -84,35 +83,6 @@ namespace F1WM
 				logger.LogError(ex);
 				throw ex;
 			}
-		}
-
-		private void ConfigureRepositories(IServiceCollection services)
-		{
-			services.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>();
-			services.AddSingleton<SqlStringBuilder>();
-			services.AddTransient<IDbContext, DbContext>(BuildDbContext);
-			services.AddTransient<INewsRepository, NewsRepository>();
-			services.AddTransient<ICommentsRepository, CommentsRepository>();
-		}
-
-		private void ConfigureLogicServices(IServiceCollection services)
-		{
-			services.AddSingleton<IBBCodeParser, BBCodeParser>();
-			services.AddTransient<INewsService, NewsService>();
-			services.AddTransient<IHealthCheckService, HealthCheckService>();
-			services.AddTransient<ICommentsService, CommentsService>();
-			services.AddTransient<ILoggingService, LoggingService>(provider => this.logger);
-			services.AddSingleton<ICachingService, CachingService>();
-		}
-
-		private DbContext BuildDbContext(IServiceProvider serviceProvider)
-		{
-			var connectionString = Configuration.GetConnectionString(connectionStringKey);
-			if (String.IsNullOrEmpty(connectionString))
-			{
-				throw new SystemException("Database connection string is missing in configuration.");
-			}
-			return new DbContext(connectionString);
 		}
 
 		private Action<CorsPolicyBuilder> GetCorsPolicyBuilder()
