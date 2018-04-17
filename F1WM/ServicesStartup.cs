@@ -30,7 +30,7 @@ namespace F1WM
 				new BBTag("li", "<li>", "</li>"),
 				new BBTag("url", "<a href=\"${href}\">", "</a>", new BBAttribute("href", ""), new BBAttribute("href", "href")),
 				new BBTag("cyt", "<q>", "</q>"),
-				new BBTag("red", "<span class='red'>", "</span>")
+				new BBTag("red", "<span class=\"news-text-red\">", "</span>")
 			});
 		}
 	}

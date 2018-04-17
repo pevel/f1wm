@@ -21,7 +21,7 @@ namespace F1WM.Services
 			var news = this.repository.GetNewsDetails(id);
 			if (news != null)
 			{
-				news.Text = this.bBCodeParser.ToHtml(news.Text.Cleanup()).ParseImageInformation();
+				news.Text = this.bBCodeParser.ToHtml(news.Text.Cleanup()).ParseCustomFormatting();
 			}
 			return news;
 		}
