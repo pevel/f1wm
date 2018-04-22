@@ -47,6 +47,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
+		[Produces("application/json", Type = typeof(NewsDetails))]
 		public IActionResult GetSingle(int id)
 		{
 			try
