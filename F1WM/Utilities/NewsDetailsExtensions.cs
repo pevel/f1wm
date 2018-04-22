@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using F1WM.Model;
 
 namespace F1WM.Utilities
@@ -24,12 +25,17 @@ namespace F1WM.Utilities
 				using (var writer = new StringWriter())
 				{
 					int? raceResultId;
+					TrainingResult trainingResult;
 					while (reader.Peek() != -1)
 					{
 						var line = reader.ReadLine();
 						if (line.TryGetRaceResultId(out raceResultId))
 						{
 							news.RaceResultId = raceResultId;
+						}
+						else if (line.TryGetTrainingResult(out trainingResult))
+						{
+							news.TrainingResult = trainingResult;
 						}
 						else
 						{
@@ -63,6 +69,26 @@ namespace F1WM.Utilities
 				raceResultId = null;
 				return false;
 			}
+		}
+
+		private static bool TryGetTrainingResult(this string line, out TrainingResult trainingResult)
+		{
+			if (!string.IsNullOrEmpty(line) && line.StartsWith("$^"))
+			{
+				var regex = new Regex(@"\$\^([\d]+)\$t([\d]+)");
+				var match = regex.Match(line);
+				if (match.Groups.Count == 3)
+				{
+					trainingResult = new TrainingResult()
+					{
+						Id = Int32.Parse(match.Groups[1].Value),
+						Series = Int32.Parse(match.Groups[2].Value)
+					};
+					return true;
+				}
+			}
+			trainingResult = null;
+			return false;
 		}
 	}
 }
