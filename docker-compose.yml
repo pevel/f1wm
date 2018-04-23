@@ -3,6 +3,7 @@ version: "3"
 services:
   app:
     image: f1wm:latest
+    restart: always
     build:
        context: F1WM
        dockerfile: Dockerfile
@@ -12,6 +13,7 @@ services:
 
   proxy:
     image: proxy:latest
+    restart: always
     build:
        context: F1WM.Proxy
        dockerfile: Dockerfile
