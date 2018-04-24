@@ -16,10 +16,16 @@ namespace F1WM.Repositories
 			{
 				return this.db.Connection.Query<NewsSummary>(
 					$@"{this.sqlStringBuilder.GetEncodingSet()} 
-					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n2")}
+					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n2")},
+					topic.topic_icon as TopicIcon,
+					type.type_title as Type
 					FROM f1_news n1
 					JOIN f1_news n2
 					ON n1.news_id = @firstId
+					JOIN f1_news_topics topic
+					ON n2.topic_id = topic.topic_id
+					JOIN f1_news_types type
+					ON n2.news_type = type.type_id
 					WHERE n1.news_date >= n2.news_date AND n2.news_hidden = 0
 					ORDER BY n2.news_date DESC
 					LIMIT 0, @count",
@@ -29,10 +35,16 @@ namespace F1WM.Repositories
 			{
 				return this.db.Connection.Query<NewsSummary>(
 					$@"{this.sqlStringBuilder.GetEncodingSet()}
-					SELECT {this.sqlStringBuilder.GetNewsSummaryFields()}
-					FROM f1_news
-					WHERE news_hidden = 0
-					ORDER BY news_date DESC
+					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n")},
+					topic.topic_icon as TopicIcon,
+					type.type_title as Type
+					FROM f1_news n
+					JOIN f1_news_topics topic
+					ON n.topic_id = topic.topic_id
+					JOIN f1_news_types type
+					ON n.news_type = type.type_id
+					WHERE n.news_hidden = 0
+					ORDER BY n.news_date DESC
 					LIMIT 0, @count",
 					new { count = count });
 			}

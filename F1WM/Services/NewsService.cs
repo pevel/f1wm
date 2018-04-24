@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using F1WM.Model;
 using F1WM.Repositories;
@@ -14,7 +15,7 @@ namespace F1WM.Services
 
 		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId)
 		{
-			return this.repository.GetLatestNews(count, firstId);
+			return this.repository.GetLatestNews(count, firstId).Select(n => n.ResolveTopicIcon());
 		}
 
 		public NewsDetails GetNewsDetails(int id)
