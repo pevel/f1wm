@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
 using F1WM.Model;
 using F1WM.Repositories;
 using F1WM.Utilities;
@@ -13,13 +15,17 @@ namespace F1WM.Services
 
 		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId)
 		{
-			return this.repository.GetLatestNews(count, firstId);
+			return this.repository.GetLatestNews(count, firstId).Select(n => n.ResolveTopicIcon());
 		}
 
 		public NewsDetails GetNewsDetails(int id)
 		{
 			var news = this.repository.GetNewsDetails(id);
-			news.Text = this.bBCodeParser.ToHtml(news.Text).ParseImageInformation();
+			if (news != null)
+			{
+				news.Text = WebUtility.HtmlDecode(this.bBCodeParser.ToHtml(news.Text.Cleanup()));
+				news = news.ParseCustomFormatting();
+			}
 			return news;
 		}
 

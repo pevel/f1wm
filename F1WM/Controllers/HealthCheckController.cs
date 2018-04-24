@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class HealthCheckController : Controller
+	public class HealthCheckController : ControllerBase
 	{
 		private IHealthCheckService service;
 		private ILoggingService logger;

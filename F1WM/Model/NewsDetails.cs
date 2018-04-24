@@ -7,5 +7,7 @@ namespace F1WM.Model
 		public string Text { get; set; }
 		public int? NextNewsId { get; set; }
 		public int? PreviousNewsId { get; set; }
+		public int? RaceResultId { get; set; }
+		public TrainingResult TrainingResult { get; set; }
 	}
 }

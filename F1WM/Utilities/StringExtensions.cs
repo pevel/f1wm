@@ -1,4 +1,7 @@
+using System;
+using System.Collections.Generic;
 using System.IO;
+using F1WM.Model;
 
 namespace F1WM.Utilities
 {
@@ -8,19 +11,17 @@ namespace F1WM.Utilities
 		{
 			if (!string.IsNullOrEmpty(text))
 			{
-				using (var reader = new StringReader(text))
-				{
-					if (reader.Peek() == '@')
-					{
-						var firstLine = reader.ReadLine();
-						var imageSource = firstLine.Split(',')[2];
-						imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
-						var imageInformation = $"<img src=\"{imageSource}\">";
-						text = text.Replace(firstLine, imageInformation);
-					}
-				}
+				var imageSource = text.Split(',')[2];
+				imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
+				var imageInformation = $"<img src=\"{imageSource}\">";
+				text = imageInformation;
 			}
 			return text;
+		}
+
+		public static string Cleanup(this string text)
+		{
+			return text?.Replace("[urlb=", "[url=").Replace("[urln=", "[url=");
 		}
 	}
 }

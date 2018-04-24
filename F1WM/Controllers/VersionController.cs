@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class VersionController : Controller
+	public class VersionController : ControllerBase
 	{
 		private ILoggingService logger;
 

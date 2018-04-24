@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class CommentsController : Controller
+	public class CommentsController : ControllerBase
 	{
 		private ICommentsService service;
 		private ILoggingService logger;
@@ -27,11 +27,22 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public Comment GetSingle(int id)
+		[Produces("application/json", Type = typeof(Comment))]
+		public IActionResult GetSingle(int id)
 		{
 			try
 			{
-				return service.GetComment(id);
+				var comment = service.GetComment(id);
+				IActionResult result;
+				if (comment != null)
+				{
+					result = Ok(service.GetComment(id));
+				}
+				else
+				{
+					result = NotFound();
+				}
+				return result;
 			}
 			catch (Exception ex)
 			{

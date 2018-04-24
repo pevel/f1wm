@@ -1,5 +1,6 @@
 using F1WM.Controllers;
 using F1WM.Services;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 
@@ -36,6 +37,18 @@ namespace F1WM.UnitTests.Controllers
 			controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetComment(id), Times.Once);
+		}
+
+		[Fact]
+		public void ShouldReturn404IfSingleCommentNotFound()
+		{
+			var id = 44;
+			serviceMock.Setup(s => s.GetComment(id)).Returns(() => null);
+
+			var result = controller.GetSingle(id);
+
+			serviceMock.Verify(s => s.GetComment(id), Times.Once);
+			Assert.IsType<NotFoundResult>(result);
 		}
 	}
 }

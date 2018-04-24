@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using F1WM.Model;
 using F1WM.Repositories;
+using F1WM.Utilities;
 using Narochno.BBCode;
 
 namespace F1WM.Services
@@ -14,7 +15,10 @@ namespace F1WM.Services
 		public Comment GetComment(int id)
 		{
 			var comment = repository.GetComment(id);
-			comment.Text = bBCodeParser.ToHtml(comment.Text);
+			if (comment != null)
+			{
+				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
+			}
 			return comment;
 		}
 
@@ -22,7 +26,7 @@ namespace F1WM.Services
 		{
 			return repository.GetCommentsByNewsId(newsId).Select(comment =>
 			{
-				comment.Text = bBCodeParser.ToHtml(comment.Text);
+				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
 				return comment;
 			});
 		}
