@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using F1WM.Model;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -35,7 +36,7 @@ namespace F1WM.Controllers
 				{
 					var news = service.GetLatestNews(count, firstId);
 					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-					cache.Set(cacheKey, news, options);
+					cache.Set(cacheKey, news.ToList(), options);
 					return news;
 				}
 			}
