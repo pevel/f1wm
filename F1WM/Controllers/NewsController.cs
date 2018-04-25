@@ -34,9 +34,9 @@ namespace F1WM.Controllers
 				}
 				else
 				{
-					var news = service.GetLatestNews(count, firstId);
+					var news = service.GetLatestNews(count, firstId).ToList();
 					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-					cache.Set(cacheKey, news.ToList(), options);
+					cache.Set(cacheKey, news, options);
 					return news;
 				}
 			}
