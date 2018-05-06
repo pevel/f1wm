@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using F1WM.Controllers;
-using F1WM.Model;
+using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;

@@ -1,6 +1,6 @@
 using System;
 
-namespace F1WM.Model
+namespace F1WM.ApiModel
 {
 	public class Comment
 	{

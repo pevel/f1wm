@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using F1WM.Model;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
 using Narochno.BBCode;

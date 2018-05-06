@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using F1WM.Model;
+using F1WM.ApiModel;
 
 namespace F1WM.Services
 {

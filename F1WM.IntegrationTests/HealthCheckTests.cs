@@ -1,5 +1,5 @@
 using System.Threading.Tasks;
-using F1WM.Model;
+using F1WM.ApiModel;
 using Newtonsoft.Json;
 using Xunit;
 

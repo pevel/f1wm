@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Dapper;
-using F1WM.Model;
+using F1WM.ApiModel;
 using F1WM.Utilities;
 
 namespace F1WM.Repositories

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using F1WM.Model;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Services;
 using Moq;
