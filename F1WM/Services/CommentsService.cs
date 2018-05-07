@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
@@ -17,7 +18,7 @@ namespace F1WM.Services
 			var comment = repository.GetComment(id);
 			if (comment != null)
 			{
-				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
+				comment.Text = WebUtility.HtmlDecode(bBCodeParser.ToHtml(comment.Text.Cleanup()));
 			}
 			return comment;
 		}
@@ -26,7 +27,7 @@ namespace F1WM.Services
 		{
 			return repository.GetCommentsByNewsId(newsId).Select(comment =>
 			{
-				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
+				comment.Text = WebUtility.HtmlDecode(bBCodeParser.ToHtml(comment.Text.Cleanup()));
 				return comment;
 			});
 		}
