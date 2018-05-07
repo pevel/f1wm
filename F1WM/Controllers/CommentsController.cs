@@ -36,7 +36,7 @@ namespace F1WM.Controllers
 				IActionResult result;
 				if (comment != null)
 				{
-					result = Ok(service.GetComment(id));
+					result = Ok(comment);
 				}
 				else
 				{
