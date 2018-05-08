@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Data;
 using System.Reflection;
-using F1WM.Repositories;
+using F1WM.DatabaseModel;
 using F1WM.Services;
-using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Narochno.BBCode;
 using NJsonSchema;
 using NSwag.AspNetCore;
 using NSwag.SwaggerGeneration.WebApi;
@@ -61,6 +61,7 @@ namespace F1WM
 		public void Configure(
 			IApplicationBuilder application,
 			IHostingEnvironment environment,
+			IServiceProvider serviceProvider,
 			IConfigurationBuilder configurationBuilder)
 		{
 			try
@@ -77,11 +78,27 @@ namespace F1WM
 					.UseCors(corsPolicy)
 					.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, GetSwaggerUiSettings())
 					.UseMvc();
+
+				SetDbEncoding(serviceProvider);
 			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex);
 				throw ex;
+			}
+		}
+
+		private static void SetDbEncoding(IServiceProvider serviceProvider)
+		{
+			var context = serviceProvider.GetService<F1WMContext>();
+			context.Database.OpenConnection();
+			using (var connection = context.Database.GetDbConnection())
+			{
+				var command = connection.CreateCommand();
+				command.CommandType = CommandType.Text;
+				command.CommandText = "SET NAMES utf8mb4; ";
+				command.ExecuteNonQuery();
+				connection.Close();
 			}
 		}
 
