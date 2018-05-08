@@ -1,44 +1,41 @@
 using System.Collections.Generic;
-using Dapper;
-using F1WM.Model;
-using F1WM.Utilities;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using F1WM.ApiModel;
+using F1WM.DatabaseModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
 	public class CommentsRepository : ICommentsRepository
 	{
-		private IDbContext db;
-		private SqlStringBuilder sqlStringBuilder;
+		private F1WMContext context;
+		private IMapper mapper;
 
-		public Comment GetComment(int id)
+		public async Task<Comment> GetComment(int id)
 		{
-			return db.Connection.QueryFirstOrDefault<Comment>(
-				$@"{this.sqlStringBuilder.GetEncodingSet()}
-				SELECT {sqlStringBuilder.GetCommentFields("c")},
-				t.comm_text as {nameof(Comment.Text)}
-				FROM f1_news_coms c
-				JOIN f1_news_comstext t ON c.comm_id = t.comm_id
-				WHERE c.comm_id = @id",
-				new { id = id });
+			var dbComment = await context.F1NewsComs
+				.Include(c => c.Text)
+				.FirstOrDefaultAsync(c => c.Id == id);
+			return mapper.Map<Comment>(dbComment);
 		}
 
-		public IEnumerable<Comment> GetCommentsByNewsId(int newsId)
+		public async Task<IEnumerable<Comment>> GetCommentsByNewsId(int newsId)
 		{
-			return db.Connection.Query<Comment>(
-				$@"{this.sqlStringBuilder.GetEncodingSet()}
-				SELECT {sqlStringBuilder.GetCommentFields("c")},
-				t.comm_text as {nameof(Comment.Text)}
-				FROM f1_news_coms c
-				JOIN f1_news_comstext t ON c.comm_id = t.comm_id
-				WHERE c.news_id = @newsId
-				ORDER BY {nameof(Comment.Date)} DESC",
-				new { newsId = newsId });
+			var dbComments = await context.F1NewsComs
+				.Include(c => c.Text)
+				.Where(c => c.NewsId == newsId)
+				.OrderByDescending(c => c.Date)
+				.ToListAsync();
+			return mapper.Map<IEnumerable<Comment>>(dbComments);
 		}
 
-		public CommentsRepository(IDbContext db, SqlStringBuilder sqlStringBuilder)
+		public CommentsRepository(F1WMContext context, IMapper mapper)
 		{
-			this.db = db;
-			this.sqlStringBuilder = sqlStringBuilder;
+			this.context = context;
+			this.mapper = mapper;
 		}
 	}
 }

@@ -1,87 +1,69 @@
 using System.Collections.Generic;
-using Dapper;
-using F1WM.Model;
-using F1WM.Utilities;
+using System.Linq;
+using System.Threading.Tasks;
+using AutoMapper;
+using F1WM.ApiModel;
+using F1WM.DatabaseModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
 	public class NewsRepository : INewsRepository
 	{
-		private IDbContext db;
-		private SqlStringBuilder sqlStringBuilder;
+		private F1WMContext context;
+		private IMapper mapper;
 
-		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null)
+		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null)
 		{
+			IEnumerable<News> dbNews;
 			if (firstId != null)
 			{
-				return this.db.Connection.Query<NewsSummary>(
-					$@"{this.sqlStringBuilder.GetEncodingSet()} 
-					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n2")},
-					topic.topic_icon as TopicIcon,
-					type.type_title as Type
-					FROM f1_news n1
-					JOIN f1_news n2
-					ON n1.news_id = @firstId
-					JOIN f1_news_topics topic
-					ON n2.topic_id = topic.topic_id
-					JOIN f1_news_types type
-					ON n2.news_type = type.type_id
-					WHERE n1.news_date >= n2.news_date AND n2.news_hidden = 0
-					ORDER BY n2.news_date DESC
-					LIMIT 0, @count",
-					new { firstId = firstId, count = count });
+				dbNews = await context.F1News
+					.Join(context.F1News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
+					.Where(n => n.n1.Date >= n.n2.Date)
+					.Select(n => n.n2)
+					.Include(n => n.Topic)
+					.Where(n => !n.NewsHidden)
+					.OrderByDescending(n => n.Date)
+					.Take(count)
+					.ToListAsync();
 			}
 			else
 			{
-				return this.db.Connection.Query<NewsSummary>(
-					$@"{this.sqlStringBuilder.GetEncodingSet()}
-					SELECT {this.sqlStringBuilder.GetNewsSummaryFields("n")},
-					topic.topic_icon as TopicIcon,
-					type.type_title as Type
-					FROM f1_news n
-					JOIN f1_news_topics topic
-					ON n.topic_id = topic.topic_id
-					JOIN f1_news_types type
-					ON n.news_type = type.type_id
-					WHERE n.news_hidden = 0
-					ORDER BY n.news_date DESC
-					LIMIT 0, @count",
-					new { count = count });
+				dbNews = await context.F1News
+					.Where(n => !n.NewsHidden)
+					.Include(n => n.Topic)
+					.OrderByDescending(n => n.Date)
+					.Take(count)
+					.ToListAsync();
 			}
+			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
 		}
 
-		public NewsDetails GetNewsDetails(int id)
+		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			var news = this.db.Connection.QuerySingleOrDefault<NewsDetails>(
-				$@"{this.sqlStringBuilder.GetEncodingSet()} 
-				SELECT {this.sqlStringBuilder.GetNewsDetailsFields()}
-				FROM f1_news
-				WHERE news_id = @id",
-				new { id = id });
+			var dbNews = await context.F1News
+				.Where(n => n.Id == id && !n.NewsHidden)
+				.FirstOrDefaultAsync();
+			var news = mapper.Map<NewsDetails>(dbNews);
 			if (news != null)
 			{
-				news.PreviousNewsId = this.db.Connection.QuerySingleOrDefault<int?>(
-				@"SELECT news_id
-				FROM f1_news
-				WHERE news_date < @date AND news_hidden = 0
-				ORDER BY news_date DESC
-				LIMIT 0,1",
-				new { date = news.Date });
-				news.NextNewsId = this.db.Connection.QuerySingleOrDefault<int?>(
-				@"SELECT news_id
-				FROM f1_news
-				WHERE news_date > @date AND news_hidden = 0
-				ORDER BY news_date ASC
-				LIMIT 0,1",
-				new { date = news.Date });
+				news.PreviousNewsId = (int?)(await context.F1News
+					.Where(n => n.Date < news.Date && !n.NewsHidden)
+					.OrderByDescending(n => n.Date)
+					.FirstOrDefaultAsync())?.Id;
+				news.NextNewsId = (int?)(await context.F1News
+					.Where(n => n.Date > news.Date && !n.NewsHidden)
+					.OrderBy(n => n.Date)
+					.FirstOrDefaultAsync())?.Id;
 			}
 			return news;
 		}
 
-		public NewsRepository(IDbContext db, SqlStringBuilder sqlStringBuilder)
+		public NewsRepository(F1WMContext context, IMapper mapper)
 		{
-			this.db = db;
-			this.sqlStringBuilder = sqlStringBuilder;
+			this.context = context;
+			this.mapper = mapper;
 		}
 	}
 }

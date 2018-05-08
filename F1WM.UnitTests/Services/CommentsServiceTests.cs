@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
-using F1WM.Model;
+using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Services;
 using Moq;
@@ -23,20 +24,20 @@ namespace F1WM.UnitTests.Services
 		}
 
 		[Fact]
-		public void ShouldGetSingleCommentWithParsedText()
+		public async Task ShouldGetSingleCommentWithParsedText()
 		{
 			var id = 42;
 			var text = "Test text";
-			repositoryMock.Setup(r => r.GetComment(id)).Returns(new Comment() { Text = text });
+			repositoryMock.Setup(r => r.GetComment(id)).ReturnsAsync(new Comment() { Text = text });
 
-			service.GetComment(id);
+			await service.GetComment(id);
 
 			repositoryMock.Verify(r => r.GetComment(id), Times.Once);
 			parserMock.Verify(p => p.ToHtml(text), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldGetCommentsListWithParsedText()
+		public async Task ShouldGetCommentsListWithParsedText()
 		{
 			var newsId = 43;
 			var commentsCount = 5;
@@ -46,9 +47,9 @@ namespace F1WM.UnitTests.Services
 			{
 				comments.Add(new Comment() { Text = text });
 			}
-			repositoryMock.Setup(r => r.GetCommentsByNewsId(newsId)).Returns(comments);
+			repositoryMock.Setup(r => r.GetCommentsByNewsId(newsId)).ReturnsAsync(comments);
 
-			service.GetCommentsByNewsId(newsId).ToList();
+			await service.GetCommentsByNewsId(newsId);
 
 			repositoryMock.Verify(r => r.GetCommentsByNewsId(newsId), Times.Once);
 			parserMock.Verify(p => p.ToHtml(text), Times.Exactly(commentsCount));

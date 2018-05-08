@@ -1,7 +1,7 @@
 using System;
 using System.Data;
+using F1WM.Repositories;
 using F1WM.Services;
-using F1WM.Utilities;
 using Moq;
 using Xunit;
 
@@ -10,22 +10,19 @@ namespace F1WM.UnitTests.Services
 	public class HealthCheckServiceTests
 	{
 		private HealthCheckService service;
-		private Mock<IDbContext> dbMock;
-		private Mock<IDbConnection> connectionMock;
+		private Mock<IHealthCheckRepository> repositoryMock;
 
 		public HealthCheckServiceTests()
 		{
-			dbMock = new Mock<IDbContext>();
-			connectionMock = new Mock<IDbConnection>();
-			dbMock.SetupGet(d => d.Connection).Returns(connectionMock.Object);
-			service = new HealthCheckService(dbMock.Object);
+			repositoryMock = new Mock<IHealthCheckRepository>();
+			service = new HealthCheckService(repositoryMock.Object);
 		}
 
 		[Fact]
 		public void ShouldReturnOkDatabaseStatus()
 		{
 			var expectedStatus = "OK";
-			connectionMock.SetupGet(c => c.State).Returns(ConnectionState.Open);
+			repositoryMock.Setup(r => r.GetConnectionState()).Returns(ConnectionState.Open);
 
 			var actualStatus = service.GetDatabaseStatus();
 
@@ -36,7 +33,7 @@ namespace F1WM.UnitTests.Services
 		public void ShouldReturnErrorDatabaseStatus()
 		{
 			var expectedStatus = "Down";
-			connectionMock.Setup(c => c.Open()).Throws<Exception>();
+			repositoryMock.Setup(c => c.GetConnectionState()).Throws<Exception>();
 
 			var actualStatus = service.GetDatabaseStatus();
 

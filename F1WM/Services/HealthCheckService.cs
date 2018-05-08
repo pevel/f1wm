@@ -1,20 +1,18 @@
 using System;
 using System.Data;
-using F1WM.Utilities;
+using F1WM.Repositories;
 
 namespace F1WM.Services
 {
 	public class HealthCheckService : IHealthCheckService
 	{
-		private IDbContext db;
+		private IHealthCheckRepository repository;
 
 		public string GetDatabaseStatus()
 		{
 			try
 			{
-				db.Connection.Open();
-				var state = db.Connection.State;
-				db.Connection.Close();
+				var state = repository.GetConnectionState();
 				return state == ConnectionState.Open ? "OK" : $"Not totally OK. Connection state: {state.ToString()}";
 			}
 			catch (Exception ex)
@@ -23,16 +21,13 @@ namespace F1WM.Services
 			}
 			finally
 			{
-				if (db.Connection.State == ConnectionState.Open)
-				{
-					db.Connection.Close();
-				}
+				repository.CloseConnection();
 			}
 		}
 
-		public HealthCheckService(IDbContext db)
+		public HealthCheckService(IHealthCheckRepository repository)
 		{
-			this.db = db;
+			this.repository = repository;
 		}
 	}
 }

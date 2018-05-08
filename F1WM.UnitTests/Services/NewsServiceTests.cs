@@ -1,4 +1,5 @@
-using F1WM.Model;
+using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Services;
 using Moq;
@@ -21,25 +22,25 @@ namespace F1WM.UnitTests.Services
 		}
 
 		[Fact]
-		public void ShouldGetNewsDetailsWithParsedText()
+		public async Task ShouldGetNewsDetailsWithParsedText()
 		{
 			var id = 42;
 			var text = "Test text";
-			repositoryMock.Setup(r => r.GetNewsDetails(id)).Returns(new NewsDetails() { Text = text });
+			repositoryMock.Setup(r => r.GetNewsDetails(id)).ReturnsAsync(new NewsDetails() { Text = text });
 
-			service.GetNewsDetails(id);
+			await service.GetNewsDetails(id);
 
 			repositoryMock.Verify(r => r.GetNewsDetails(id), Times.Once);
 			parserMock.Verify(p => p.ToHtml(text), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldGetNewsSummaryList()
+		public async Task ShouldGetNewsSummaryList()
 		{
 			var count = 21;
 			var firstId = 43;
 
-			service.GetLatestNews(count, firstId);
+			await service.GetLatestNews(count, firstId);
 
 			repositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
 		}

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using F1WM.Model;
+using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
@@ -20,7 +21,7 @@ namespace F1WM.Controllers
 		private ILoggingService logger;
 
 		[HttpGet]
-		public IEnumerable<NewsSummary> GetMany(
+		public async Task<IEnumerable<NewsSummary>> GetMany(
 			[FromQuery(Name = "firstId")] int? firstId = null,
 			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
@@ -34,9 +35,9 @@ namespace F1WM.Controllers
 				}
 				else
 				{
-					var news = service.GetLatestNews(count, firstId);
+					var news = (await service.GetLatestNews(count, firstId)).ToList();
 					var options = new MemoryCacheEntryOptions().SetSlidingExpiration(cacheExpiration);
-					cache.Set(cacheKey, news.ToList(), options);
+					cache.Set(cacheKey, news, options);
 					return news;
 				}
 			}
@@ -49,7 +50,7 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(NewsDetails))]
-		public IActionResult GetSingle(int id)
+		public async Task<IActionResult> GetSingle(int id)
 		{
 			try
 			{
@@ -61,7 +62,7 @@ namespace F1WM.Controllers
 				}
 				else
 				{
-					var news = service.GetNewsDetails(id);
+					var news = await service.GetNewsDetails(id);
 					IActionResult result;
 					if (news != null)
 					{

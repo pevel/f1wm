@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
-using F1WM.Model;
+using System.Net;
+using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
 using Narochno.BBCode;
@@ -12,23 +14,24 @@ namespace F1WM.Services
 		private ICommentsRepository repository;
 		private IBBCodeParser bBCodeParser;
 
-		public Comment GetComment(int id)
+		public async Task<Comment> GetComment(int id)
 		{
-			var comment = repository.GetComment(id);
+			var comment = await repository.GetComment(id);
 			if (comment != null)
 			{
-				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
+				comment.Text = WebUtility.HtmlDecode(bBCodeParser.ToHtml(comment.Text.Cleanup()));
 			}
 			return comment;
 		}
 
-		public IEnumerable<Comment> GetCommentsByNewsId(int newsId)
+		public async Task<IEnumerable<Comment>> GetCommentsByNewsId(int newsId)
 		{
-			return repository.GetCommentsByNewsId(newsId).Select(comment =>
+			var comments = await repository.GetCommentsByNewsId(newsId);
+			return comments.Select(comment =>
 			{
-				comment.Text = bBCodeParser.ToHtml(comment.Text.Cleanup());
+				comment.Text = WebUtility.HtmlDecode(bBCodeParser.ToHtml(comment.Text.Cleanup()));
 				return comment;
-			});
+			}).ToList();
 		}
 
 		public CommentsService(ICommentsRepository repository, IBBCodeParser bBCodeParser)
