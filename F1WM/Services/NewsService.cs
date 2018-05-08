@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
@@ -13,14 +14,15 @@ namespace F1WM.Services
 		private INewsRepository repository;
 		private IBBCodeParser bBCodeParser;
 
-		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId)
+		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId)
 		{
-			return this.repository.GetLatestNews(count, firstId).Select(n => n.ResolveTopicIcon());
+			var news = await this.repository.GetLatestNews(count, firstId);
+			return news.Select(n => n.ResolveTopicIcon());
 		}
 
-		public NewsDetails GetNewsDetails(int id)
+		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			var news = this.repository.GetNewsDetails(id);
+			var news = await this.repository.GetNewsDetails(id);
 			if (news != null)
 			{
 				news.Text = WebUtility.HtmlDecode(this.bBCodeParser.ToHtml(news.Text.Cleanup()));

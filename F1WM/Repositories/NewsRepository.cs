@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -12,47 +13,49 @@ namespace F1WM.Repositories
 		private F1WMContext context;
 		private IMapper mapper;
 
-		public IEnumerable<NewsSummary> GetLatestNews(int count, int? firstId = null)
+		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null)
 		{
 			IEnumerable<News> dbNews;
 			if (firstId != null)
 			{
-				dbNews = context.F1News
+				dbNews = await context.F1News
 					.Join(context.F1News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
 					.Where(n => n.n1.Date >= n.n2.Date)
 					.Select(n => n.n2)
 					.Include(n => n.Topic)
 					.Where(n => !n.NewsHidden)
 					.OrderByDescending(n => n.Date)
-					.Take(count);
+					.Take(count)
+					.ToListAsync();
 			}
 			else
 			{
-				dbNews = context.F1News
+				dbNews = await context.F1News
 					.Where(n => !n.NewsHidden)
 					.Include(n => n.Topic)
 					.OrderByDescending(n => n.Date)
-					.Take(count);
+					.Take(count)
+					.ToListAsync();
 			}
 			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
 		}
 
-		public NewsDetails GetNewsDetails(int id)
+		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			var dbNews = context.F1News
+			var dbNews = await context.F1News
 				.Where(n => n.Id == id && !n.NewsHidden)
-				.FirstOrDefault();
+				.FirstOrDefaultAsync();
 			var news = mapper.Map<NewsDetails>(dbNews);
 			if (news != null)
 			{
-				news.PreviousNewsId = (int?)context.F1News
+				news.PreviousNewsId = (int?)(await context.F1News
 					.Where(n => n.Date < news.Date && !n.NewsHidden)
 					.OrderByDescending(n => n.Date)
-					.FirstOrDefault()?.Id;
-				news.NextNewsId = (int?)context.F1News
+					.FirstOrDefaultAsync())?.Id;
+				news.NextNewsId = (int?)(await context.F1News
 					.Where(n => n.Date > news.Date && !n.NewsHidden)
 					.OrderBy(n => n.Date)
-					.FirstOrDefault()?.Id;
+					.FirstOrDefaultAsync())?.Id;
 			}
 			return news;
 		}

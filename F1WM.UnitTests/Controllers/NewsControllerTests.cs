@@ -5,6 +5,7 @@ using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -26,39 +27,39 @@ namespace F1WM.UnitTests.Controllers
 		}
 
 		[Fact]
-		public void ShouldReturnLast20NewsByDefault()
+		public async Task ShouldReturnLast20NewsByDefault()
 		{
-			controller.GetMany(null);
+			await controller.GetMany(null);
 
 			serviceMock.Verify(s => s.GetLatestNews(20, null), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldReturnNewsOlderThanFirstId()
+		public async Task ShouldReturnNewsOlderThanFirstId()
 		{
 			var firstId = 42;
 
-			controller.GetMany(firstId);
+			await controller.GetMany(firstId);
 
 			serviceMock.Verify(s => s.GetLatestNews(20, firstId), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldReturnNewsDetailsById()
+		public async Task ShouldReturnNewsDetailsById()
 		{
 			var id = 43;
 
-			controller.GetSingle(id);
+			await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldReturn404IfSingleNewsNotFound()
+		public async Task ShouldReturn404IfSingleNewsNotFound()
 		{
 			var id = 44;
 
-			var result = controller.GetSingle(id);
+			var result = await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
