@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using F1WM.Controllers;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -20,32 +21,32 @@ namespace F1WM.UnitTests.Controllers
 		}
 
 		[Fact]
-		public void ShouldReturnCommentsByNewsId()
+		public async Task ShouldReturnCommentsByNewsId()
 		{
 			var newsId = 42;
 
-			controller.GetMany(newsId);
+			await controller.GetMany(newsId);
 
 			serviceMock.Verify(s => s.GetCommentsByNewsId(newsId), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldReturnSingleComment()
+		public async Task ShouldReturnSingleComment()
 		{
 			var id = 43;
 
-			controller.GetSingle(id);
+			await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetComment(id), Times.Once);
 		}
 
 		[Fact]
-		public void ShouldReturn404IfSingleCommentNotFound()
+		public async Task ShouldReturn404IfSingleCommentNotFound()
 		{
 			var id = 44;
-			serviceMock.Setup(s => s.GetComment(id)).Returns(() => null);
+			serviceMock.Setup(s => s.GetComment(id)).ReturnsAsync(() => null);
 
-			var result = controller.GetSingle(id);
+			var result = await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetComment(id), Times.Once);
 			Assert.IsType<NotFoundResult>(result);

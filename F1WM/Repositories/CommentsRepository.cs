@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
@@ -12,20 +14,21 @@ namespace F1WM.Repositories
 		private F1WMContext context;
 		private IMapper mapper;
 
-		public Comment GetComment(int id)
+		public async Task<Comment> GetComment(int id)
 		{
-			var dbComment = context.F1NewsComs
+			var dbComment = await context.F1NewsComs
 				.Include(c => c.Text)
-				.FirstOrDefault(c => c.Id == id);
+				.FirstOrDefaultAsync(c => c.Id == id);
 			return mapper.Map<Comment>(dbComment);
 		}
 
-		public IEnumerable<Comment> GetCommentsByNewsId(int newsId)
+		public async Task<IEnumerable<Comment>> GetCommentsByNewsId(int newsId)
 		{
-			var dbComments = context.F1NewsComs
+			var dbComments = await context.F1NewsComs
 				.Include(c => c.Text)
 				.Where(c => c.NewsId == newsId)
-				.OrderByDescending(c => c.Date);
+				.OrderByDescending(c => c.Date)
+				.ToListAsync();
 			return mapper.Map<IEnumerable<Comment>>(dbComments);
 		}
 

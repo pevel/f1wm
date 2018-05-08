@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +14,11 @@ namespace F1WM.Controllers
 		private ILoggingService logger;
 
 		[HttpGet]
-		public IEnumerable<Comment> GetMany([FromQuery(Name = "newsId")] int newsId)
+		public async Task<IEnumerable<Comment>> GetMany([FromQuery(Name = "newsId")] int newsId)
 		{
 			try
 			{
-				return service.GetCommentsByNewsId(newsId);
+				return await service.GetCommentsByNewsId(newsId);
 			}
 			catch (Exception ex)
 			{
@@ -28,11 +29,11 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(Comment))]
-		public IActionResult GetSingle(int id)
+		public async Task<IActionResult> GetSingle(int id)
 		{
 			try
 			{
-				var comment = service.GetComment(id);
+				var comment = await service.GetComment(id);
 				IActionResult result;
 				if (comment != null)
 				{
