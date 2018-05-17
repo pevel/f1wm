@@ -9,13 +9,13 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
-		public virtual DbSet<F1carmakes> F1carmakes { get; set; }
+		public virtual DbSet<CarMake> F1carmakes { get; set; }
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
 		public virtual DbSet<F1ConfigText> F1ConfigText { get; set; }
 		public virtual DbSet<F1ConfigVarchar> F1ConfigVarchar { get; set; }
-		public virtual DbSet<F1constrcs> F1constrcs { get; set; }
+		public virtual DbSet<ConstructorStandingsPosition> F1constrcs { get; set; }
 		public virtual DbSet<F1constrcsLastpos> F1constrcsLastpos { get; set; }
 		public virtual DbSet<F1constrpoints> F1constrpoints { get; set; }
 		public virtual DbSet<F1drivercs> F1drivercs { get; set; }
@@ -237,9 +237,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1carmakes>(entity =>
+			modelBuilder.Entity<CarMake>(entity =>
 			{
-				entity.HasKey(e => e.Carmakeid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1carmakes");
 
@@ -247,7 +247,7 @@ namespace F1WM.DatabaseModel
 					.HasName("ascid")
 					.IsUnique();
 
-				entity.HasIndex(e => e.Carmake)
+				entity.HasIndex(e => e.Name)
 					.HasName("carmake");
 
 				entity.HasIndex(e => e.Litera)
@@ -256,7 +256,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Status)
 					.HasName("status");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.Id)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned");
 
@@ -266,7 +266,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(3)")
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Carmake)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("carmake")
 					.HasMaxLength(64)
@@ -438,40 +438,40 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(255);
 			});
 
-			modelBuilder.Entity<F1constrcs>(entity =>
+			modelBuilder.Entity<ConstructorStandingsPosition>(entity =>
 			{
-				entity.HasKey(e => e.Constrcsid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1constrcs");
 
-				entity.HasIndex(e => e.Carmakeid)
+				entity.HasIndex(e => e.CarMakeId)
 					.HasName("carmakeid");
 
-				entity.HasIndex(e => e.Enginemakeid)
+				entity.HasIndex(e => e.EngineMakeId)
 					.HasName("enginemakeid");
 
-				entity.HasIndex(e => e.Seasonid)
+				entity.HasIndex(e => e.SeasonId)
 					.HasName("seasonid");
 
-				entity.Property(e => e.Constrcsid)
+				entity.Property(e => e.Id)
 					.HasColumnName("constrcsid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.CarMakeId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Cspos)
+				entity.Property(e => e.Position)
 					.HasColumnName("cspos")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Enginemakeid)
+				entity.Property(e => e.EngineMakeId)
 					.HasColumnName("enginemakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Seasonid)
+				entity.Property(e => e.SeasonId)
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");

@@ -22,7 +22,8 @@ namespace F1WM
 				.AddAutoMapper(options => options.AddProfile(new MappingProfile()))
 				.AddTransient<INewsRepository, NewsRepository>()
 				.AddTransient<ICommentsRepository, CommentsRepository>()
-				.AddTransient<IHealthCheckRepository, HealthCheckRepository>();
+				.AddTransient<IHealthCheckRepository, HealthCheckRepository>()
+				.AddTransient<IStandingsRepository, StandingsRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration)
