@@ -15,7 +15,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
 		public virtual DbSet<F1ConfigText> F1ConfigText { get; set; }
 		public virtual DbSet<F1ConfigVarchar> F1ConfigVarchar { get; set; }
-		public virtual DbSet<ConstructorStandingsPosition> F1constrcs { get; set; }
+		public virtual DbSet<ConstructorStandingsPosition> ConstructorStandingsPositions { get; set; }
 		public virtual DbSet<F1constrcsLastpos> F1constrcsLastpos { get; set; }
 		public virtual DbSet<F1constrpoints> F1constrpoints { get; set; }
 		public virtual DbSet<F1drivercs> F1drivercs { get; set; }
@@ -36,15 +36,15 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Linki> F1Linki { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<F1nations> F1nations { get; set; }
-		public virtual DbSet<News> F1News { get; set; }
+		public virtual DbSet<News> News { get; set; }
 		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
-		public virtual DbSet<NewsComment> F1NewsComs { get; set; }
-		public virtual DbSet<NewsCommentText> F1NewsComstext { get; set; }
+		public virtual DbSet<NewsComment> NewsComments { get; set; }
+		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
 		public virtual DbSet<F1newsgp> F1newsgp { get; set; }
 		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
-		public virtual DbSet<NewsTopic> F1NewsTopics { get; set; }
+		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
 		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
 		public virtual DbSet<F1othersessions> F1othersessions { get; set; }
 		public virtual DbSet<F1quals> F1quals { get; set; }
@@ -53,7 +53,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Redakcja> F1Redakcja { get; set; }
 		public virtual DbSet<F1results> F1results { get; set; }
 		public virtual DbSet<F1Rezerwacje> F1Rezerwacje { get; set; }
-		public virtual DbSet<F1seasons> F1seasons { get; set; }
+		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
 		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
 		public virtual DbSet<F1teams> F1teams { get; set; }
@@ -2309,9 +2309,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1seasons>(entity =>
+			modelBuilder.Entity<Season>(entity =>
 			{
-				entity.HasKey(e => e.Seasonid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1seasons");
 
@@ -2321,14 +2321,14 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Races)
 					.HasName("races");
 
-				entity.HasIndex(e => e.Seasonid)
+				entity.HasIndex(e => e.Id)
 					.HasName("seasonid")
 					.IsUnique();
 
 				entity.HasIndex(e => e.Year)
 					.HasName("year");
 
-				entity.Property(e => e.Seasonid)
+				entity.Property(e => e.Id)
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned");
 

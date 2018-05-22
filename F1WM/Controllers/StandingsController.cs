@@ -14,13 +14,22 @@ namespace F1WM.Controllers
 		private ILoggingService logger;
 
 		[HttpGet("constructors")]
-		public async Task<IActionResult> GetConstructorsStandings()
+		[Produces("application/json", Type = typeof(ConstructorsStandings))]
+		public async Task<IActionResult> GetConstructorsStandings([FromQuery(Name = "seasonId")] int? seasonId = null)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				return Ok(await service.GetConstructorsStandings(seasonId));
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
 		}
 
 		[HttpGet("drivers")]
-		public async Task<IActionResult> GetDriversStandings()
+		public Task<IActionResult> GetDriversStandings()
 		{
 			throw new NotImplementedException();
 		}

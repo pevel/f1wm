@@ -14,6 +14,7 @@ namespace F1WM.Utilities
 			CreateMap<News, NewsSummary>()
 				.ForMember(api => api.TopicIcon, o => o.MapFrom(db => db.Topic.TopicIcon));
 			CreateMap<News, NewsDetails>();
+			CreateMap<ConstructorStandingsPosition, ConstructorPosition>();
 		}
 	}
 }
