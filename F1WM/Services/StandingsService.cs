@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using System.Linq;
 using F1WM.Repositories;
 
 namespace F1WM.Services
@@ -8,9 +9,11 @@ namespace F1WM.Services
 	{
 		private IStandingsRepository repository;
 
-		public Task<ConstructorsStandings> GetConstructorsStandings(int? seasonId)
+		public async Task<ConstructorsStandings> GetConstructorsStandings(int? seasonId)
 		{
-			return this.repository.GetConstructorsStandings(seasonId);
+			var model = await repository.GetConstructorsStandings();
+			model.Standings = model.Standings.OrderBy(s => s.Position).ToList();
+			return model;
 		}
 
 		public Task<DriversStandings> GetDriversStandings(int? seasonId)

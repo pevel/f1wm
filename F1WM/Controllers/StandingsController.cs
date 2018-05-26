@@ -19,7 +19,8 @@ namespace F1WM.Controllers
 		{
 			try
 			{
-				return Ok(await service.GetConstructorsStandings(seasonId));
+				var standings = await service.GetConstructorsStandings(seasonId);
+				return Ok(standings);
 			}
 			catch (Exception ex)
 			{

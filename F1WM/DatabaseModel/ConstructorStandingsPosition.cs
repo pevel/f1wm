@@ -10,5 +10,6 @@ namespace F1WM.DatabaseModel
 		public uint CarMakeId { get; set; }
 		public uint EngineMakeId { get; set; }
 		public ushort Position { get; set; }
+		public double Points { get; set; }
 	}
 }

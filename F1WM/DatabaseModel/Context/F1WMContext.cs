@@ -475,6 +475,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Points)
+					.HasColumnName("points")
+					.HasColumnType("double")
+					.HasDefaultValueSql("'0'");
 			});
 
 			modelBuilder.Entity<F1constrcsLastpos>(entity =>
