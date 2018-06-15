@@ -16,6 +16,7 @@ namespace F1WM.Utilities
 			CreateMap<News, NewsDetails>();
 			CreateMap<ConstructorStandingsPosition, ConstructorPosition>()
 				.ForMember(api => api.Name, o => o.MapFrom(db => db.CarMake.Name));
+			CreateMap<DriverStandingsPosition, DriverPosition>();
 		}
 	}
 }
