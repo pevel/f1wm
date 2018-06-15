@@ -44,7 +44,8 @@ namespace F1WM.Repositories
 		private async Task<IEnumerable<ConstructorPosition>> GetConstructorsStandingsBySeasonId(int seasonId)
 		{
 			var dbStandings = await context.ConstructorStandingsPositions
-				.Where(s => s.SeasonId == seasonId)
+				.Include(cs => cs.CarMake)
+				.Where(cs => cs.SeasonId == seasonId)
 				.ToListAsync();
 			return mapper.Map<IEnumerable<ConstructorPosition>>(dbStandings);
 		}

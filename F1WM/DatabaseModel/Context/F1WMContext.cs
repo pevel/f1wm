@@ -9,7 +9,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
-		public virtual DbSet<CarMake> F1carmakes { get; set; }
+		public virtual DbSet<CarMake> CarMakes { get; set; }
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
@@ -250,7 +250,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Name)
 					.HasName("carmake");
 
-				entity.HasIndex(e => e.Litera)
+				entity.HasIndex(e => e.Letter)
 					.HasName("litera");
 
 				entity.HasIndex(e => e.Status)
@@ -272,12 +272,12 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Litera)
+				entity.Property(e => e.Letter)
 					.IsRequired()
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nat)
+				entity.Property(e => e.Nationality)
 					.IsRequired()
 					.HasColumnName("nat")
 					.HasColumnType("char(3)")
@@ -480,6 +480,9 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("points")
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'");
+
+				entity.HasOne(e => e.CarMake)
+					.WithMany(e => e.Positions);
 			});
 
 			modelBuilder.Entity<F1constrcsLastpos>(entity =>

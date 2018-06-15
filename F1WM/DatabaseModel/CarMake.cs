@@ -8,8 +8,9 @@ namespace F1WM.DatabaseModel
 		public uint Id { get; set; }
 		public string Ascid { get; set; }
 		public string Name { get; set; }
-		public string Nat { get; set; }
-		public byte Status { get; set; }
-		public string Litera { get; set; }
+		public string Nationality { get; set; }
+		public bool Status { get; set; }
+		public string Letter { get; set; }
+		public IEnumerable<ConstructorStandingsPosition> Positions { get; set; }
 	}
 }

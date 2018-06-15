@@ -11,5 +11,6 @@ namespace F1WM.DatabaseModel
 		public uint EngineMakeId { get; set; }
 		public ushort Position { get; set; }
 		public double Points { get; set; }
+		public virtual CarMake CarMake { get; set; }
 	}
 }
