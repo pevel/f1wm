@@ -21,7 +21,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<DriverStandingsPosition> DriverStandingsPositions { get; set; }
 		public virtual DbSet<F1drivercsLastpos> F1drivercsLastpos { get; set; }
 		public virtual DbSet<F1driverpoints> F1driverpoints { get; set; }
-		public virtual DbSet<F1drivers> F1drivers { get; set; }
+		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
 		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
 		public virtual DbSet<F1engines> F1engines { get; set; }
@@ -580,6 +580,14 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Points)
+					.HasColumnName("points")
+					.HasColumnType("double")
+					.HasDefaultValueSql("'0'");
+
+				entity.HasOne(e => e.Driver)
+					.WithMany(e => e.Positions);
 			});
 
 			modelBuilder.Entity<F1drivercsLastpos>(entity =>
@@ -640,9 +648,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1drivers>(entity =>
+			modelBuilder.Entity<Driver>(entity =>
 			{
-				entity.HasKey(e => e.Driverid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1drivers");
 
@@ -668,7 +676,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => new { e.Group, e.Surname })
 					.HasName("group");
 
-				entity.Property(e => e.Driverid)
+				entity.Property(e => e.Id)
 					.HasColumnName("driverid")
 					.HasColumnType("mediumint unsigned");
 

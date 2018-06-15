@@ -9,5 +9,7 @@ namespace F1WM.DatabaseModel
 		public uint SeasonId { get; set; }
 		public uint DriverId { get; set; }
 		public ushort Position { get; set; }
+		public double Points { get; set; }
+		public virtual Driver Driver { get; set; }
 	}
 }

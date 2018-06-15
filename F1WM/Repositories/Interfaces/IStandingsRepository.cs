@@ -7,6 +7,6 @@ namespace F1WM.Repositories
 	public interface IStandingsRepository
 	{
 		Task<ConstructorsStandings> GetConstructorsStandings(int? seasonId = null);
-		Task<DriversStandings> GetDriversStandings(int? seasonId);
+		Task<DriversStandings> GetDriversStandings(int? seasonId = null);
 	}
 }

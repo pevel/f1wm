@@ -30,9 +30,19 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("drivers")]
-		public Task<IActionResult> GetDriversStandings()
+		[Produces("application/json", Type = typeof(DriversStandings))]
+		public async Task<IActionResult> GetDriversStandings([FromQuery(Name = "seasonId")] int? seasonId = null)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var standings = await service.GetDriversStandings(seasonId);
+				return Ok(standings);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
 		}
 
 		public StandingsController(IStandingsService service, ILoggingService logger)

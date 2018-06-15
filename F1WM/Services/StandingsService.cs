@@ -16,9 +16,11 @@ namespace F1WM.Services
 			return model;
 		}
 
-		public Task<DriversStandings> GetDriversStandings(int? seasonId)
+		public async Task<DriversStandings> GetDriversStandings(int? seasonId)
 		{
-			throw new System.NotImplementedException();
+			var model = await repository.GetDriversStandings();
+			model.Standings = model.Standings.OrderBy(s => s.Position).ToList();
+			return model;
 		}
 
 		public StandingsService(IStandingsRepository repository)

@@ -30,9 +30,21 @@ namespace F1WM.Repositories
 			return model;
 		}
 
-		public Task<DriversStandings> GetDriversStandings(int? seasonId)
+		public async Task<DriversStandings> GetDriversStandings(int? seasonId)
 		{
-			throw new System.NotImplementedException();
+			var model = new DriversStandings();
+			if (seasonId == null)
+			{
+				seasonId = await context.Seasons
+					.Join(context.DriverStandingsPositions, s => s.Id, d => d.SeasonId, (s, d) => new { s, d })
+					.Where(g => g.d != null)
+					.Select(g => g.s)
+					.OrderByDescending(s => s.Year)
+					.Select(s => (int)s.Id)
+					.FirstAsync();
+			}
+			model.Standings = await GetDriverStandingsBySeasonId(seasonId.Value);
+			return model;
 		}
 
 		public StandingsRepository(F1WMContext context, IMapper mapper)
@@ -48,6 +60,15 @@ namespace F1WM.Repositories
 				.Where(cs => cs.SeasonId == seasonId)
 				.ToListAsync();
 			return mapper.Map<IEnumerable<ConstructorPosition>>(dbStandings);
+		}
+
+		private async Task<IEnumerable<DriverPosition>> GetDriverStandingsBySeasonId(int seasonId)
+		{
+			var dbStandings = await context.DriverStandingsPositions
+				.Include(ds => ds.Driver)
+				.Where(ds => ds.SeasonId == seasonId)
+				.ToListAsync();
+			return mapper.Map<IEnumerable<DriverPosition>>(dbStandings);
 		}
 	}
 }
