@@ -12,10 +12,11 @@ namespace F1WM
 		{
 			return services
 				.AddSingleton<IBBCodeParser, BBCodeParser>(BuildBBCodeParser)
+				.AddSingleton<ICachingService, CachingService>()
 				.AddTransient<INewsService, NewsService>()
 				.AddTransient<IHealthCheckService, HealthCheckService>()
 				.AddTransient<ICommentsService, CommentsService>()
-				.AddSingleton<ICachingService, CachingService>();
+				.AddTransient<IStandingsService, StandingsService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

@@ -16,7 +16,7 @@ namespace F1WM.Repositories
 
 		public async Task<Comment> GetComment(int id)
 		{
-			var dbComment = await context.F1NewsComs
+			var dbComment = await context.NewsComments
 				.Include(c => c.Text)
 				.FirstOrDefaultAsync(c => c.Id == id);
 			return mapper.Map<Comment>(dbComment);
@@ -24,7 +24,7 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<Comment>> GetCommentsByNewsId(int newsId)
 		{
-			var dbComments = await context.F1NewsComs
+			var dbComments = await context.NewsComments
 				.Include(c => c.Text)
 				.Where(c => c.NewsId == newsId)
 				.OrderByDescending(c => c.Date)

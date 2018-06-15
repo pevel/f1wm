@@ -18,8 +18,8 @@ namespace F1WM.Repositories
 			IEnumerable<News> dbNews;
 			if (firstId != null)
 			{
-				dbNews = await context.F1News
-					.Join(context.F1News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
+				dbNews = await context.News
+					.Join(context.News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
 					.Where(n => n.n1.Date >= n.n2.Date)
 					.Select(n => n.n2)
 					.Include(n => n.Topic)
@@ -30,7 +30,7 @@ namespace F1WM.Repositories
 			}
 			else
 			{
-				dbNews = await context.F1News
+				dbNews = await context.News
 					.Where(n => !n.NewsHidden)
 					.Include(n => n.Topic)
 					.OrderByDescending(n => n.Date)
@@ -42,17 +42,17 @@ namespace F1WM.Repositories
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			var dbNews = await context.F1News
+			var dbNews = await context.News
 				.Where(n => n.Id == id && !n.NewsHidden)
 				.FirstOrDefaultAsync();
 			var news = mapper.Map<NewsDetails>(dbNews);
 			if (news != null)
 			{
-				news.PreviousNewsId = (int?)(await context.F1News
+				news.PreviousNewsId = (int?)(await context.News
 					.Where(n => n.Date < news.Date && !n.NewsHidden)
 					.OrderByDescending(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;
-				news.NextNewsId = (int?)(await context.F1News
+				news.NextNewsId = (int?)(await context.News
 					.Where(n => n.Date > news.Date && !n.NewsHidden)
 					.OrderBy(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;

@@ -9,13 +9,13 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
-		public virtual DbSet<F1carmakes> F1carmakes { get; set; }
+		public virtual DbSet<CarMake> CarMakes { get; set; }
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
 		public virtual DbSet<F1ConfigText> F1ConfigText { get; set; }
 		public virtual DbSet<F1ConfigVarchar> F1ConfigVarchar { get; set; }
-		public virtual DbSet<F1constrcs> F1constrcs { get; set; }
+		public virtual DbSet<ConstructorStandingsPosition> ConstructorStandingsPositions { get; set; }
 		public virtual DbSet<F1constrcsLastpos> F1constrcsLastpos { get; set; }
 		public virtual DbSet<F1constrpoints> F1constrpoints { get; set; }
 		public virtual DbSet<F1drivercs> F1drivercs { get; set; }
@@ -36,15 +36,15 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Linki> F1Linki { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<F1nations> F1nations { get; set; }
-		public virtual DbSet<News> F1News { get; set; }
+		public virtual DbSet<News> News { get; set; }
 		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
-		public virtual DbSet<NewsComment> F1NewsComs { get; set; }
-		public virtual DbSet<NewsCommentText> F1NewsComstext { get; set; }
+		public virtual DbSet<NewsComment> NewsComments { get; set; }
+		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
 		public virtual DbSet<F1newsgp> F1newsgp { get; set; }
 		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
-		public virtual DbSet<NewsTopic> F1NewsTopics { get; set; }
+		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
 		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
 		public virtual DbSet<F1othersessions> F1othersessions { get; set; }
 		public virtual DbSet<F1quals> F1quals { get; set; }
@@ -53,7 +53,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Redakcja> F1Redakcja { get; set; }
 		public virtual DbSet<F1results> F1results { get; set; }
 		public virtual DbSet<F1Rezerwacje> F1Rezerwacje { get; set; }
-		public virtual DbSet<F1seasons> F1seasons { get; set; }
+		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
 		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
 		public virtual DbSet<F1teams> F1teams { get; set; }
@@ -237,9 +237,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1carmakes>(entity =>
+			modelBuilder.Entity<CarMake>(entity =>
 			{
-				entity.HasKey(e => e.Carmakeid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1carmakes");
 
@@ -247,16 +247,16 @@ namespace F1WM.DatabaseModel
 					.HasName("ascid")
 					.IsUnique();
 
-				entity.HasIndex(e => e.Carmake)
+				entity.HasIndex(e => e.Name)
 					.HasName("carmake");
 
-				entity.HasIndex(e => e.Litera)
+				entity.HasIndex(e => e.Letter)
 					.HasName("litera");
 
 				entity.HasIndex(e => e.Status)
 					.HasName("status");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.Id)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned");
 
@@ -266,18 +266,18 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(3)")
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Carmake)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("carmake")
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Litera)
+				entity.Property(e => e.Letter)
 					.IsRequired()
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nat)
+				entity.Property(e => e.Nationality)
 					.IsRequired()
 					.HasColumnName("nat")
 					.HasColumnType("char(3)")
@@ -438,43 +438,51 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(255);
 			});
 
-			modelBuilder.Entity<F1constrcs>(entity =>
+			modelBuilder.Entity<ConstructorStandingsPosition>(entity =>
 			{
-				entity.HasKey(e => e.Constrcsid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1constrcs");
 
-				entity.HasIndex(e => e.Carmakeid)
+				entity.HasIndex(e => e.CarMakeId)
 					.HasName("carmakeid");
 
-				entity.HasIndex(e => e.Enginemakeid)
+				entity.HasIndex(e => e.EngineMakeId)
 					.HasName("enginemakeid");
 
-				entity.HasIndex(e => e.Seasonid)
+				entity.HasIndex(e => e.SeasonId)
 					.HasName("seasonid");
 
-				entity.Property(e => e.Constrcsid)
+				entity.Property(e => e.Id)
 					.HasColumnName("constrcsid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.CarMakeId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Cspos)
+				entity.Property(e => e.Position)
 					.HasColumnName("cspos")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Enginemakeid)
+				entity.Property(e => e.EngineMakeId)
 					.HasColumnName("enginemakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Seasonid)
+				entity.Property(e => e.SeasonId)
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Points)
+					.HasColumnName("points")
+					.HasColumnType("double")
+					.HasDefaultValueSql("'0'");
+
+				entity.HasOne(e => e.CarMake)
+					.WithMany(e => e.Positions);
 			});
 
 			modelBuilder.Entity<F1constrcsLastpos>(entity =>
@@ -2309,9 +2317,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1seasons>(entity =>
+			modelBuilder.Entity<Season>(entity =>
 			{
-				entity.HasKey(e => e.Seasonid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1seasons");
 
@@ -2321,14 +2329,14 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Races)
 					.HasName("races");
 
-				entity.HasIndex(e => e.Seasonid)
+				entity.HasIndex(e => e.Id)
 					.HasName("seasonid")
 					.IsUnique();
 
 				entity.HasIndex(e => e.Year)
 					.HasName("year");
 
-				entity.Property(e => e.Seasonid)
+				entity.Property(e => e.Id)
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned");
 
