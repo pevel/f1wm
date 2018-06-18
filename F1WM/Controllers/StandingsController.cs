@@ -10,16 +10,21 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class StandingsController : ControllerBase
 	{
+		private const int defaultConstructorsStandingsCount = 10;
+		private const int defaultDriversStandingsCount = 10;
+
 		private IStandingsService service;
 		private ILoggingService logger;
 
 		[HttpGet("constructors")]
 		[Produces("application/json", Type = typeof(ConstructorsStandings))]
-		public async Task<IActionResult> GetConstructorsStandings([FromQuery(Name = "seasonId")] int? seasonId = null)
+		public async Task<IActionResult> GetConstructorsStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
 		{
 			try
 			{
-				var standings = await service.GetConstructorsStandings(seasonId);
+				var standings = await service.GetConstructorsStandings(count, seasonId);
 				return Ok(standings);
 			}
 			catch (Exception ex)
@@ -30,9 +35,21 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("drivers")]
-		public Task<IActionResult> GetDriversStandings()
+		[Produces("application/json", Type = typeof(DriversStandings))]
+		public async Task<IActionResult> GetDriversStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
 		{
-			throw new NotImplementedException();
+			try
+			{
+				var standings = await service.GetDriversStandings(count, seasonId);
+				return Ok(standings);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
 		}
 
 		public StandingsController(IStandingsService service, ILoggingService logger)

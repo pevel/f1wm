@@ -9,16 +9,16 @@ namespace F1WM.Services
 	{
 		private IStandingsRepository repository;
 
-		public async Task<ConstructorsStandings> GetConstructorsStandings(int? seasonId)
+		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId)
 		{
-			var model = await repository.GetConstructorsStandings();
-			model.Standings = model.Standings.OrderBy(s => s.Position).ToList();
+			var model = await repository.GetConstructorsStandings(count, seasonId);
 			return model;
 		}
 
-		public Task<DriversStandings> GetDriversStandings(int? seasonId)
+		public async Task<DriversStandings> GetDriversStandings(int count, int? seasonId)
 		{
-			throw new System.NotImplementedException();
+			var model = await repository.GetDriversStandings(count, seasonId);
+			return model;
 		}
 
 		public StandingsService(IStandingsRepository repository)
