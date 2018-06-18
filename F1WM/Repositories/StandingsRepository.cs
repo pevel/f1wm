@@ -26,7 +26,7 @@ namespace F1WM.Repositories
 					.Select(s => (int)s.Id)
 					.FirstAsync();
 			}
-			model.Standings = await GetConstructorsStandingsBySeasonId(count, seasonId.Value);
+			model.Positions = await GetConstructorsStandingsBySeasonId(count, seasonId.Value);
 			return model;
 		}
 
@@ -43,7 +43,7 @@ namespace F1WM.Repositories
 					.Select(s => (int)s.Id)
 					.FirstAsync();
 			}
-			model.Standings = await GetDriverStandingsBySeasonId(count, seasonId.Value);
+			model.Positions = await GetDriverStandingsBySeasonId(count, seasonId.Value);
 			return model;
 		}
 

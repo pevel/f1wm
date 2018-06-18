@@ -4,6 +4,6 @@ namespace F1WM.ApiModel
 {
 	public class DriversStandings
 	{
-		public IEnumerable<DriverPosition> Standings { get; set; }
+		public IEnumerable<DriverPosition> Positions { get; set; }
 	}
 }
