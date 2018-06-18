@@ -6,7 +6,7 @@ namespace F1WM.Services
 {
 	public interface IStandingsService
 	{
-		Task<ConstructorsStandings> GetConstructorsStandings(int? seasonId);
-		Task<DriversStandings> GetDriversStandings(int? seasonId);
+		Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId);
+		Task<DriversStandings> GetDriversStandings(int count, int? seasonId);
 	}
 }
