@@ -58,6 +58,7 @@ namespace F1WM.Repositories
 		{
 			var dbStandings = await context.ConstructorStandingsPositions
 				.Include(cs => cs.CarMake)
+					.ThenInclude(c => c.Nationality)
 				.Where(cs => cs.SeasonId == seasonId)
 				.OrderBy(cs => cs.Position)
 				.Take(count)
@@ -69,6 +70,7 @@ namespace F1WM.Repositories
 		{
 			var dbStandings = await context.DriverStandingsPositions
 				.Include(ds => ds.Driver)
+					.ThenInclude(d => d.Nationality)
 				.Where(ds => ds.SeasonId == seasonId)
 				.OrderBy(ds => ds.Position)
 				.Take(count)

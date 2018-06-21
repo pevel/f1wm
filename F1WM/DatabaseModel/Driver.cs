@@ -10,7 +10,7 @@ namespace F1WM.DatabaseModel
 		public string Surname { get; set; }
 		public string Forename { get; set; }
 		public string Initial { get; set; }
-		public string Nat { get; set; }
+		public string NationalityKey { get; set; }
 		public string Birthplc { get; set; }
 		public string Resides { get; set; }
 		public string Status { get; set; }
@@ -29,5 +29,6 @@ namespace F1WM.DatabaseModel
 		public ushort Debiut { get; set; }
 		public string Career { get; set; }
 		public virtual IEnumerable<DriverStandingsPosition> Positions { get; set; }
+		public virtual Nationality Nationality { get; set; }
 	}
 }

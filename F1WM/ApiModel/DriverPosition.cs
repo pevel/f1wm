@@ -6,5 +6,6 @@ namespace F1WM.ApiModel
 		public int Position { get; set; }
 		public double Points { get; set; }
 		public string DriverName { get; set; }
+		public Nationality Nationality { get; set; }
 	}
 }
