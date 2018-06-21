@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class StandingsRepository : IStandingsRepository
+	public class StandingsRepository : RepositoryBase, IStandingsRepository
 	{
-		private F1WMContext context;
 		private IMapper mapper;
 
 		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId = null)
 		{
+			await SetDbEncoding();
 			var model = new ConstructorsStandings();
 			if (seasonId == null)
 			{
@@ -32,6 +32,7 @@ namespace F1WM.Repositories
 
 		public async Task<DriversStandings> GetDriversStandings(int count, int? seasonId = null)
 		{
+			await SetDbEncoding();
 			var model = new DriversStandings();
 			if (seasonId == null)
 			{
