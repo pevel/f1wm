@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-	public class CarMake
+	public class Constructor
 	{
 		public uint Id { get; set; }
 		public string Ascid { get; set; }

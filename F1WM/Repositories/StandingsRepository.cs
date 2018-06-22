@@ -57,7 +57,7 @@ namespace F1WM.Repositories
 		private async Task<IEnumerable<ConstructorPosition>> GetConstructorsStandingsBySeasonId(int count, int seasonId)
 		{
 			var dbStandings = await context.ConstructorStandingsPositions
-				.Include(cs => cs.CarMake)
+				.Include(cs => cs.Constructor)
 					.ThenInclude(c => c.Nationality)
 				.Where(cs => cs.SeasonId == seasonId)
 				.OrderBy(cs => cs.Position)

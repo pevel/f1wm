@@ -9,7 +9,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
-		public virtual DbSet<CarMake> CarMakes { get; set; }
+		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
@@ -237,7 +237,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<CarMake>(entity =>
+			modelBuilder.Entity<Constructor>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
@@ -449,7 +449,7 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1constrcs");
 
-				entity.HasIndex(e => e.CarMakeId)
+				entity.HasIndex(e => e.ConstructorId)
 					.HasName("carmakeid");
 
 				entity.HasIndex(e => e.EngineMakeId)
@@ -462,7 +462,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("constrcsid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.CarMakeId)
+				entity.Property(e => e.ConstructorId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -486,7 +486,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'");
 
-				entity.HasOne(e => e.CarMake)
+				entity.HasOne(e => e.Constructor)
 					.WithMany(e => e.Positions);
 			});
 
@@ -724,7 +724,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("debiut")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Forename)
+				entity.Property(e => e.FirstName)
 					.IsRequired()
 					.HasColumnName("forename")
 					.HasMaxLength(64)

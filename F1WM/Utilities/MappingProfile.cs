@@ -14,26 +14,12 @@ namespace F1WM.Utilities
 			CreateMap<News, NewsSummary>()
 				.ForMember(api => api.TopicIcon, o => o.MapFrom(db => db.Topic.TopicIcon));
 			CreateMap<News, NewsDetails>();
-			CreateMap<ConstructorStandingsPosition, ConstructorPosition>()
-				.ForMember(api => api.ConstructorName, o => o.MapFrom(db => db.CarMake.Name))
-				.ForMember(api => api.Nationality, o =>
-				{
-					o.MapFrom(db => new ApiModel.Nationality()
-					{
-						Name = db.CarMake.Nationality.Name,
-						FlagIcon = db.CarMake.NationalityKey.GetFlagIconPath()
-					});
-				});
-			CreateMap<DriverStandingsPosition, DriverPosition>()
-				.ForMember(api => api.DriverName, o => o.MapFrom(db => $"{db.Driver.Initial} {db.Driver.Surname}"))
-				.ForMember(api => api.Nationality, o =>
-				{
-					o.MapFrom(db => new ApiModel.Nationality()
-					{
-						Name = db.Driver.Nationality.Name,
-						FlagIcon = db.Driver.NationalityKey.GetFlagIconPath()
-					});
-				});
+			CreateMap<ConstructorStandingsPosition, ConstructorPosition>();
+			CreateMap<Constructor, ConstructorSummary>();
+			CreateMap<DriverStandingsPosition, DriverPosition>();
+			CreateMap<Driver, DriverSummary>();
+			CreateMap<DatabaseModel.Nationality, ApiModel.Nationality>()
+				.ForMember(api => api.FlagIcon, o => o.MapFrom(db => db.Key.GetFlagIconPath()));
 		}
 	}
 }
