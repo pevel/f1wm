@@ -26,7 +26,7 @@ namespace F1WM.Utilities
 
 		public static string GetFlagIconPath(this string id)
 		{
-			return $"/img/ikony/{id}2.gif";
+			return $"/img/flag/{id}2.gif";
 		}
 	}
 }
