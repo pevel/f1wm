@@ -9,7 +9,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
-		public virtual DbSet<CarMake> CarMakes { get; set; }
+		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
@@ -35,7 +35,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Ligna> F1Ligna { get; set; }
 		public virtual DbSet<F1Linki> F1Linki { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
-		public virtual DbSet<F1nations> F1nations { get; set; }
+		public virtual DbSet<Nationality> Nationalities { get; set; }
 		public virtual DbSet<News> News { get; set; }
 		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
@@ -237,7 +237,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<CarMake>(entity =>
+			modelBuilder.Entity<Constructor>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
@@ -277,7 +277,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nationality)
+				entity.Property(e => e.NationalityKey)
 					.IsRequired()
 					.HasColumnName("nat")
 					.HasColumnType("char(3)")
@@ -286,6 +286,11 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Status)
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
+
+				entity.HasOne(e => e.Nationality)
+					.WithMany()
+					.HasPrincipalKey(n => n.Key)
+					.HasForeignKey(e => e.NationalityKey);
 			});
 
 			modelBuilder.Entity<F1cars>(entity =>
@@ -444,7 +449,7 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1constrcs");
 
-				entity.HasIndex(e => e.CarMakeId)
+				entity.HasIndex(e => e.ConstructorId)
 					.HasName("carmakeid");
 
 				entity.HasIndex(e => e.EngineMakeId)
@@ -457,7 +462,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("constrcsid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.CarMakeId)
+				entity.Property(e => e.ConstructorId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -481,7 +486,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'");
 
-				entity.HasOne(e => e.CarMake)
+				entity.HasOne(e => e.Constructor)
 					.WithMany(e => e.Positions);
 			});
 
@@ -719,7 +724,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("debiut")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Forename)
+				entity.Property(e => e.FirstName)
 					.IsRequired()
 					.HasColumnName("forename")
 					.HasMaxLength(64)
@@ -752,7 +757,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nat)
+				entity.Property(e => e.NationalityKey)
 					.IsRequired()
 					.HasColumnName("nat")
 					.HasColumnType("char(3)")
@@ -799,6 +804,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("weight")
 					.HasMaxLength(4)
 					.HasDefaultValueSql("'-'");
+
+				entity.HasOne(e => e.Nationality)
+					.WithMany()
+					.HasPrincipalKey(n => n.Key)
+					.HasForeignKey(e => e.NationalityKey);
 			});
 
 			modelBuilder.Entity<F1driversid3>(entity =>
@@ -1338,16 +1348,16 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<F1nations>(entity =>
+			modelBuilder.Entity<Nationality>(entity =>
 			{
-				entity.HasKey(e => e.Ascid);
+				entity.HasKey(e => e.Key);
 
 				entity.ToTable("f1nations");
 
-				entity.HasIndex(e => e.Nacja)
+				entity.HasIndex(e => e.Name)
 					.HasName("nacja");
 
-				entity.Property(e => e.Ascid)
+				entity.Property(e => e.Key)
 					.HasColumnName("ascid")
 					.HasColumnType("char(3)")
 					.HasDefaultValueSql("''");
@@ -1356,7 +1366,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("jezyk")
 					.HasMaxLength(20);
 
-				entity.Property(e => e.Nacja)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("nacja")
 					.HasMaxLength(40)

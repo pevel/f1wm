@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class NewsRepository : INewsRepository
+	public class NewsRepository : RepositoryBase, INewsRepository
 	{
-		private F1WMContext context;
 		private IMapper mapper;
 
 		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null)
 		{
+			await SetDbEncoding();
 			IEnumerable<News> dbNews;
 			if (firstId != null)
 			{
@@ -42,6 +42,7 @@ namespace F1WM.Repositories
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
+			await SetDbEncoding();
 			var dbNews = await context.News
 				.Where(n => n.Id == id && !n.NewsHidden)
 				.FirstOrDefaultAsync();

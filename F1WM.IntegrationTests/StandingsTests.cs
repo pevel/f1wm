@@ -19,6 +19,12 @@ namespace F1WM.IntegrationTests
 			var standings = JsonConvert.DeserializeObject<ConstructorsStandings>(responseContent);
 			Assert.NotNull(standings);
 			Assert.True(standings.Positions.ToList().Count <= count);
+			Assert.All(standings.Positions, position =>
+			{
+				Assert.NotNull(position.Constructor.Name);
+				Assert.NotNull(position.Constructor.Nationality.FlagIcon);
+				Assert.NotNull(position.Constructor.Nationality.Name);
+			});
 		}
 
 		[Fact]
@@ -32,6 +38,13 @@ namespace F1WM.IntegrationTests
 			var standings = JsonConvert.DeserializeObject<DriversStandings>(responseContent);
 			Assert.NotNull(standings);
 			Assert.True(standings.Positions.ToList().Count <= count);
+			Assert.All(standings.Positions, position =>
+			{
+				Assert.NotNull(position.Driver.FirstName);
+				Assert.NotNull(position.Driver.Surname);
+				Assert.NotNull(position.Driver.Nationality.FlagIcon);
+				Assert.NotNull(position.Driver.Nationality.Name);
+			});
 		}
 	}
 }

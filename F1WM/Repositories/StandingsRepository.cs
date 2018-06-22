@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class StandingsRepository : IStandingsRepository
+	public class StandingsRepository : RepositoryBase, IStandingsRepository
 	{
-		private F1WMContext context;
 		private IMapper mapper;
 
 		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId = null)
 		{
+			await SetDbEncoding();
 			var model = new ConstructorsStandings();
 			if (seasonId == null)
 			{
@@ -32,6 +32,7 @@ namespace F1WM.Repositories
 
 		public async Task<DriversStandings> GetDriversStandings(int count, int? seasonId = null)
 		{
+			await SetDbEncoding();
 			var model = new DriversStandings();
 			if (seasonId == null)
 			{
@@ -56,7 +57,8 @@ namespace F1WM.Repositories
 		private async Task<IEnumerable<ConstructorPosition>> GetConstructorsStandingsBySeasonId(int count, int seasonId)
 		{
 			var dbStandings = await context.ConstructorStandingsPositions
-				.Include(cs => cs.CarMake)
+				.Include(cs => cs.Constructor)
+					.ThenInclude(c => c.Nationality)
 				.Where(cs => cs.SeasonId == seasonId)
 				.OrderBy(cs => cs.Position)
 				.Take(count)
@@ -68,6 +70,7 @@ namespace F1WM.Repositories
 		{
 			var dbStandings = await context.DriverStandingsPositions
 				.Include(ds => ds.Driver)
+					.ThenInclude(d => d.Nationality)
 				.Where(ds => ds.SeasonId == seasonId)
 				.OrderBy(ds => ds.Position)
 				.Take(count)

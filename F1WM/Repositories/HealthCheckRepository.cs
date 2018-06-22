@@ -4,10 +4,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class HealthCheckRepository : IHealthCheckRepository
+	public class HealthCheckRepository : RepositoryBase, IHealthCheckRepository
 	{
-		private F1WMContext context;
-
 		public ConnectionState GetConnectionState()
 		{
 			context.Database.OpenConnection();

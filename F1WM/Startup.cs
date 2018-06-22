@@ -78,27 +78,11 @@ namespace F1WM
 					.UseCors(corsPolicy)
 					.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, GetSwaggerUiSettings())
 					.UseMvc();
-
-				SetDbEncoding(serviceProvider);
 			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex);
 				throw ex;
-			}
-		}
-
-		private static void SetDbEncoding(IServiceProvider serviceProvider)
-		{
-			var context = serviceProvider.GetService<F1WMContext>();
-			context.Database.OpenConnection();
-			using (var connection = context.Database.GetDbConnection())
-			{
-				var command = connection.CreateCommand();
-				command.CommandType = CommandType.Text;
-				command.CommandText = "SET NAMES utf8mb4; ";
-				command.ExecuteNonQuery();
-				connection.Close();
 			}
 		}
 

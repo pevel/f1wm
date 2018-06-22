@@ -5,6 +5,6 @@ namespace F1WM.ApiModel
 		public int Id { get; set; }
 		public int Position { get; set; }
 		public double Points { get; set; }
-		public string DriverName { get; set; }
+		public DriverSummary Driver { get; set; }
 	}
 }

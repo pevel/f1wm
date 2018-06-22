@@ -23,5 +23,10 @@ namespace F1WM.Utilities
 		{
 			return text?.Replace("[urlb=", "[url=").Replace("[urln=", "[url=");
 		}
+
+		public static string GetFlagIconPath(this string id)
+		{
+			return $"/img/flag/{id}2.gif";
+		}
 	}
 }
