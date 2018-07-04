@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -41,7 +42,8 @@ namespace F1WM
 					.AddDataAnnotations()
 					.AddFormatterMappings()
 					.AddCors(o => o.AddPolicy(corsPolicy, GetCorsPolicyBuilder()))
-					.AddJsonFormatters();
+					.AddJsonFormatters()
+					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
 				services
 					.AddLogging()

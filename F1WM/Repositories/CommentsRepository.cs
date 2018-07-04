@@ -28,7 +28,7 @@ namespace F1WM.Repositories
 			var dbComments = await context.NewsComments
 				.Include(c => c.Text)
 				.Where(c => c.NewsId == newsId)
-				.OrderByDescending(c => c.Date)
+				.OrderByDescending(c => c.UnixTime)
 				.ToListAsync();
 			return mapper.Map<IEnumerable<Comment>>(dbComments);
 		}

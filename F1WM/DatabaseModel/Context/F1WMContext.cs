@@ -1503,11 +1503,13 @@ namespace F1WM.DatabaseModel
 			{
 				entity.HasKey(e => e.Id);
 
-				entity.HasOne(e => e.Text);
+				entity.HasOne(e => e.Text)
+					.WithOne(e => e.Comment)
+					.HasForeignKey(typeof(NewsCommentText));
 
 				entity.ToTable("f1_news_coms");
 
-				entity.HasIndex(e => e.Date)
+				entity.HasIndex(e => e.UnixTime)
 					.HasName("comm_time");
 
 				entity.HasIndex(e => e.NewsId)
@@ -1524,7 +1526,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("comm_status")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Date)
+				entity.Property(e => e.UnixTime)
 					.HasColumnName("comm_time")
 					.HasColumnType("int(11)")
 					.HasDefaultValueSql("'0'");
@@ -1553,8 +1555,6 @@ namespace F1WM.DatabaseModel
 			modelBuilder.Entity<NewsCommentText>(entity =>
 			{
 				entity.HasKey(e => e.CommId);
-
-				entity.HasOne(e => e.Comment);
 
 				entity.ToTable("f1_news_comstext");
 
