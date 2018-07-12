@@ -49,7 +49,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1othersessions> F1othersessions { get; set; }
 		public virtual DbSet<F1quals> F1quals { get; set; }
 		public virtual DbSet<F1quotes> F1quotes { get; set; }
-		public virtual DbSet<F1races> F1races { get; set; }
+		public virtual DbSet<Race> Races { get; set; }
 		public virtual DbSet<F1Redakcja> F1Redakcja { get; set; }
 		public virtual DbSet<F1results> F1results { get; set; }
 		public virtual DbSet<F1Rezerwacje> F1Rezerwacje { get; set; }
@@ -2067,9 +2067,9 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Teampos).HasColumnName("teampos");
 			});
 
-			modelBuilder.Entity<F1races>(entity =>
+			modelBuilder.Entity<Race>(entity =>
 			{
-				entity.HasKey(e => e.Raceid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1races");
 
@@ -2082,7 +2082,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Yearmonth)
 					.HasName("yearmonth");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.Id)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned");
 
@@ -2140,6 +2140,10 @@ namespace F1WM.DatabaseModel
 					.IsRequired()
 					.HasColumnName("yearmonth")
 					.HasColumnType("char(6)");
+
+				entity.Property(e => e.Date)
+					.HasColumnName("date")
+					.HasColumnType("date");
 			});
 
 			modelBuilder.Entity<F1Redakcja>(entity =>

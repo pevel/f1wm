@@ -20,6 +20,7 @@ namespace F1WM.Utilities
 			CreateMap<Driver, DriverSummary>();
 			CreateMap<DatabaseModel.Nationality, ApiModel.Nationality>()
 				.ForMember(api => api.FlagIcon, o => o.MapFrom(db => db.Key.GetFlagIconPath()));
+			CreateMap<Race, NextRaceSummary>();
 		}
 	}
 }
