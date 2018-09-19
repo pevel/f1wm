@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
-    <Exec Command="scripts/add_build_number.sh" />
+    <Exec Command="py scripts/add_build_number.py" />
   </Target>
 
   <ItemGroup>
