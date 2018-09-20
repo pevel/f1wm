@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
-    <Exec Command="py scripts/add_build_number.py" />
+    <Exec Command="ruby scripts/add_build_number.rb" />
   </Target>
 
   <ItemGroup>
