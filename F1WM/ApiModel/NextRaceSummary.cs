@@ -7,8 +7,8 @@ namespace F1WM.ApiModel
 		public string Name { get; set; }
 		public DateTime Date { get; set; }
 		public TrackSummary Track { get; set; }
-		public LapResultSummary PolePositionLapResult { get; set; }
-		public RaceResultSummary WinnerRaceResult { get; set; }
-		public LapResultSummary FastestLapResult { get; set; }
+		public LapResultSummary LastYearPolePositionLapResult { get; set; }
+		public RaceResultSummary LastYearWinnerRaceResult { get; set; }
+		public LapResultSummary LastYearFastestLapResult { get; set; }
 	}
 }

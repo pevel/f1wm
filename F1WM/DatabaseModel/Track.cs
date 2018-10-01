@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-    public class F1tracks
+    public class Track
     {
-        public uint Trackid { get; set; }
+        public uint Id { get; set; }
         public string Ascid { get; set; }
-        public string Track { get; set; }
+        public string ShortName { get; set; }
         public string Country { get; set; }
-        public string Fulltrackname { get; set; }
+        public string Name { get; set; }
         public string City { get; set; }
         public ushort? Longeststraight { get; set; }
         public string Width { get; set; }
@@ -26,8 +26,8 @@ namespace F1WM.DatabaseModel
         public string Zipcode { get; set; }
         public string Satmapcoords { get; set; }
         public byte? Satmapzoom { get; set; }
-        public byte Status { get; set; }
-        public byte Fiatrackmap { get; set; }
+        public bool Status { get; set; }
+        public bool Fiatrackmap { get; set; }
         public ushort? Length { get; set; }
         public uint? Newstopicid { get; set; }
         public string LapDriver { get; set; }

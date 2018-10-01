@@ -14,7 +14,10 @@ namespace F1WM.Repositories
 
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
 		{
-			var dbNextRace = await context.Races.OrderBy(r => r.Date).FirstOrDefaultAsync(r => r.Date > afterDate);
+			var dbNextRace = await context.Races
+				.OrderBy(r => r.Date)
+				.Include(r => r.Track)
+				.FirstOrDefaultAsync(r => r.Date > afterDate);
 			return mapper.Map<NextRaceSummary>(dbNextRace);
 		}
 

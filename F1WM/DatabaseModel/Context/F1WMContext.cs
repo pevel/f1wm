@@ -58,7 +58,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
 		public virtual DbSet<F1teams> F1teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
-		public virtual DbSet<F1tracks> F1tracks { get; set; }
+		public virtual DbSet<Track> Tracks { get; set; }
 		public virtual DbSet<F1tyres> F1tyres { get; set; }
 		public virtual DbSet<F1ZgloszoneBledy> F1ZgloszoneBledy { get; set; }
 		public virtual DbSet<GpmAdmkonfig> GpmAdmkonfig { get; set; }
@@ -2076,7 +2076,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Seasonid)
 					.HasName("seasonid");
 
-				entity.HasIndex(e => e.Trackid)
+				entity.HasIndex(e => e.TrackId)
 					.HasName("trackid");
 
 				entity.HasIndex(e => e.Yearmonth)
@@ -2123,7 +2123,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Trackid)
+				entity.Property(e => e.TrackId)
 					.HasColumnName("trackid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -2144,6 +2144,11 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Date)
 					.HasColumnName("date")
 					.HasColumnType("date");
+				
+				entity.HasOne(e => e.Track)
+					.WithMany()
+					.HasPrincipalKey(t => t.Id)
+					.HasForeignKey(e => e.TrackId);
 			});
 
 			modelBuilder.Entity<F1Redakcja>(entity =>
@@ -2667,9 +2672,9 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("datetime");
 			});
 
-			modelBuilder.Entity<F1tracks>(entity =>
+			modelBuilder.Entity<Track>(entity =>
 			{
-				entity.HasKey(e => e.Trackid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1tracks");
 
@@ -2680,10 +2685,10 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Status)
 					.HasName("status");
 
-				entity.HasIndex(e => e.Track)
+				entity.HasIndex(e => e.ShortName)
 					.HasName("track");
 
-				entity.Property(e => e.Trackid)
+				entity.Property(e => e.Id)
 					.HasColumnName("trackid")
 					.HasColumnType("mediumint unsigned");
 
@@ -2713,7 +2718,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("fiatrackmap")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Fulltrackname)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("fulltrackname")
 					.HasMaxLength(50)
@@ -2797,7 +2802,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Track)
+				entity.Property(e => e.ShortName)
 					.IsRequired()
 					.HasColumnName("track")
 					.HasMaxLength(64)

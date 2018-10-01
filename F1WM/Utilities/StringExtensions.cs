@@ -28,5 +28,10 @@ namespace F1WM.Utilities
 		{
 			return $"/img/flagi/{id}2.gif";
 		}
+
+		public static string GetTrackIconPath(this string id)
+		{
+			return $"/img/tory/{id}_m2.png";
+		}
 	}
 }
