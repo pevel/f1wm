@@ -17,6 +17,7 @@ namespace F1WM.Repositories
 			var dbNextRace = await context.Races
 				.OrderBy(r => r.Date)
 				.Include(r => r.Track)
+				.Include(r => r.Country)
 				.FirstOrDefaultAsync(r => r.Date > afterDate);
 			return mapper.Map<NextRaceSummary>(dbNextRace);
 		}

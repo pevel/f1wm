@@ -8,7 +8,7 @@ namespace F1WM.DatabaseModel
 		public uint Id { get; set; }
 		public uint Seasonid { get; set; }
 		public byte Numinseason { get; set; }
-		public string Country { get; set; }
+		public string CountryKey { get; set; }
 		public uint TrackId { get; set; }
 		public bool Weather { get; set; }
 		public byte Laps { get; set; }
@@ -20,5 +20,6 @@ namespace F1WM.DatabaseModel
 		public string Yearmonth { get; set; }
 		public DateTime Date { get; set; }
 		public virtual Track Track { get; set; }
+		public virtual Country Country { get; set; }
 	}
 }

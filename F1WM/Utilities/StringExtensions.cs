@@ -33,5 +33,10 @@ namespace F1WM.Utilities
 		{
 			return $"/img/tory/{id}_m2.png";
 		}
+
+		public static string GetGrandPrixName(this string genitive)
+		{
+			return $"Grand Prix {genitive}";
+		}
 	}
 }

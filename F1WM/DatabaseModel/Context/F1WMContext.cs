@@ -35,7 +35,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Ligna> F1Ligna { get; set; }
 		public virtual DbSet<F1Linki> F1Linki { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
-		public virtual DbSet<Nationality> Nationalities { get; set; }
+		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
 		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
@@ -1348,7 +1348,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<Nationality>(entity =>
+			modelBuilder.Entity<Country>(entity =>
 			{
 				entity.HasKey(e => e.Key);
 
@@ -1372,7 +1372,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(40)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Nacji)
+				entity.Property(e => e.GenitiveName)
 					.IsRequired()
 					.HasColumnName("nacji")
 					.HasMaxLength(40)
@@ -2086,7 +2086,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Country)
+				entity.Property(e => e.CountryKey)
 					.IsRequired()
 					.HasColumnName("country")
 					.HasColumnType("char(3)")
@@ -2149,6 +2149,11 @@ namespace F1WM.DatabaseModel
 					.WithMany()
 					.HasPrincipalKey(t => t.Id)
 					.HasForeignKey(e => e.TrackId);
+
+				entity.HasOne(e => e.Country)
+					.WithMany()
+					.HasPrincipalKey(c => c.Key)
+					.HasForeignKey(e => e.CountryKey);
 			});
 
 			modelBuilder.Entity<F1Redakcja>(entity =>

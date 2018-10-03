@@ -29,6 +29,6 @@ namespace F1WM.DatabaseModel
 		public ushort Debiut { get; set; }
 		public string Career { get; set; }
 		public virtual IEnumerable<DriverStandingsPosition> Positions { get; set; }
-		public virtual Nationality Nationality { get; set; }
+		public virtual Country Nationality { get; set; }
 	}
 }

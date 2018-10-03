@@ -1,6 +1,6 @@
 namespace F1WM.ApiModel
 {
-	public class Nationality
+	public class Country
 	{
 		public string Name { get; set; }
 		public string FlagIcon { get; set; }
