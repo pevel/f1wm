@@ -19,7 +19,8 @@ namespace F1WM.Repositories
 				.Include(r => r.Track)
 				.Include(r => r.Country)
 				.FirstOrDefaultAsync(r => r.Date > afterDate);
-			var dbPolePositionResult = await context.Grids
+			var apiNextRace = mapper.Map<NextRaceSummary>(dbNextRace);
+			var dbLastPolePositionResult = await context.Grids
 				.Include(g => g.Race)
 				.Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartingPosition == "1")
 				.Include(g => g.Entry)
@@ -27,8 +28,16 @@ namespace F1WM.Repositories
 				.ThenInclude(d => d.Nationality)
 				.OrderByDescending(g => g.Race.Date)
 				.FirstAsync();
-			var apiNextRace = mapper.Map<NextRaceSummary>(dbNextRace);
-			apiNextRace.LastYearPolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
+			apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
+			var dbLastWinnerResult = await context.Results
+				.Include(r => r.Race)
+				.Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.FinishPosition == "1")
+				.Include(r => r.Entry)
+				.ThenInclude(e => e.Driver)
+				.ThenInclude(d => d.Nationality)
+				.OrderByDescending(r => r.Race.Date)
+				.FirstAsync();
+			apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
 			return apiNextRace;
 		}
 

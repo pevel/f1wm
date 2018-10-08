@@ -19,5 +19,6 @@ namespace F1WM.DatabaseModel
         public bool Thirddriver { get; set; }
         public virtual Driver Driver { get; set; }
         public virtual Grid Grid { get; set; }
+        public virtual Result Result { get; set; }
     }
 }

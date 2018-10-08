@@ -1129,10 +1129,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("time")
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'")
-					.HasConversion(
-						v => v.TotalSeconds,
-						v => TimeSpan.FromMilliseconds(v * 1000)
-					);
+					.HasTimeConversions();
 			});
 
 			modelBuilder.Entity<F1Hideusercoms>(entity =>
@@ -2263,10 +2260,10 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1results");
 
-				entity.HasIndex(e => e.Endpos)
+				entity.HasIndex(e => e.FinishPosition)
 					.HasName("endpos");
 
-				entity.HasIndex(e => e.Raceid)
+				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
 				entity.Property(e => e.EntryId)
@@ -2274,7 +2271,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Endpos)
+				entity.Property(e => e.FinishPosition)
 					.IsRequired()
 					.HasColumnName("endpos")
 					.HasColumnType("char(2)")
@@ -2296,10 +2293,16 @@ namespace F1WM.DatabaseModel
 
 				entity.Property(e => e.Pits).HasColumnName("pits");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Time)
+					.HasColumnName("time")
+					.HasColumnType("double")
+					.HasDefaultValueSql("'0'")
+					.HasTimeConversions();
 			});
 
 			modelBuilder.Entity<F1Rezerwacje>(entity =>
