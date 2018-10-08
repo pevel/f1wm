@@ -24,6 +24,8 @@ namespace F1WM.Utilities
 				.ForMember(api => api.TranslatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 			CreateMap<Track, TrackSummary>()
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
+			CreateMap<Entry, LapResultSummary>()
+				.ForMember(api => api.Time, o => o.MapFrom(db => db.Grid.Time));
 		}
 	}
 }

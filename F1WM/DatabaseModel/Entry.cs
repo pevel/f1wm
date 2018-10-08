@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-    public class F1entries
+    public class Entry
     {
         public uint Entryid { get; set; }
         public uint Raceid { get; set; }
@@ -16,6 +16,8 @@ namespace F1WM.DatabaseModel
         public uint Engineid { get; set; }
         public uint Enginemakeid { get; set; }
         public uint Tyresid { get; set; }
-        public byte Thirddriver { get; set; }
+        public bool Thirddriver { get; set; }
+        public virtual Driver Driver { get; set; }
+        public virtual Grid Grid { get; set; }
     }
 }

@@ -21,5 +21,6 @@ namespace F1WM.DatabaseModel
 		public DateTime Date { get; set; }
 		public virtual Track Track { get; set; }
 		public virtual Country Country { get; set; }
+		public virtual IEnumerable<Grid> Grids { get; set; }
 	}
 }
