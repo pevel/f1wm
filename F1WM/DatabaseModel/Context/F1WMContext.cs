@@ -27,7 +27,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1engines> F1engines { get; set; }
 		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
-		public virtual DbSet<F1fastestlaps> F1fastestlaps { get; set; }
+		public virtual DbSet<FastestLap> FastestLaps { get; set; }
 		public virtual DbSet<F1glossary> F1glossary { get; set; }
 		public virtual DbSet<Grid> Grids { get; set; }
 		public virtual DbSet<F1Hideusercoms> F1Hideusercoms { get; set; }
@@ -934,59 +934,59 @@ namespace F1WM.DatabaseModel
 
 			modelBuilder.Entity<Entry>(entity =>
 			{
-				entity.HasKey(e => e.Entryid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1entries");
 
-				entity.HasIndex(e => e.Carid)
+				entity.HasIndex(e => e.CarId)
 					.HasName("carid");
 
-				entity.HasIndex(e => e.Carmakeid)
+				entity.HasIndex(e => e.CarMakeId)
 					.HasName("carmakeid");
 
-				entity.HasIndex(e => e.Driverid)
+				entity.HasIndex(e => e.DriverId)
 					.HasName("driverid");
 
-				entity.HasIndex(e => e.Engineid)
+				entity.HasIndex(e => e.EngineId)
 					.HasName("engineid");
 
-				entity.HasIndex(e => e.Enginemakeid)
+				entity.HasIndex(e => e.EngineMakeId)
 					.HasName("enginemakeid");
 
-				entity.HasIndex(e => e.Raceid)
+				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
-				entity.HasIndex(e => e.Teamid)
+				entity.HasIndex(e => e.TeamId)
 					.HasName("teamid");
 
-				entity.HasIndex(e => e.Tyresid)
+				entity.HasIndex(e => e.TyresId)
 					.HasName("tyresid");
 
-				entity.Property(e => e.Entryid)
+				entity.Property(e => e.Id)
 					.HasColumnName("entryid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Carid)
+				entity.Property(e => e.CarId)
 					.HasColumnName("carid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.CarMakeId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Driverid)
+				entity.Property(e => e.DriverId)
 					.HasColumnName("driverid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Engineid)
+				entity.Property(e => e.EngineId)
 					.HasColumnName("engineid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Enginemakeid)
+				entity.Property(e => e.EngineMakeId)
 					.HasColumnName("enginemakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -995,44 +995,44 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("number")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Teamid)
+				entity.Property(e => e.TeamId)
 					.HasColumnName("teamid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Teamnameid)
+				entity.Property(e => e.TeamNameId)
 					.HasColumnName("teamnameid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Thirddriver)
+				entity.Property(e => e.ThirdDriver)
 					.HasColumnName("thirddriver")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Tyresid)
+				entity.Property(e => e.TyresId)
 					.HasColumnName("tyresid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1fastestlaps>(entity =>
+			modelBuilder.Entity<FastestLap>(entity =>
 			{
-				entity.HasKey(e => e.Entryid);
+				entity.HasKey(e => e.EntryId);
 
 				entity.ToTable("f1fastestlaps");
 
 				entity.HasIndex(e => e.Frlpos)
 					.HasName("frlpos");
 
-				entity.HasIndex(e => e.Raceid)
+				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
-				entity.Property(e => e.Entryid)
+				entity.Property(e => e.EntryId)
 					.HasColumnName("entryid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -1051,10 +1051,16 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("ord")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Time)
+					.HasColumnName("time")
+					.HasColumnType("double")
+					.HasDefaultValueSql("'0'")
+					.HasTimeConversions();
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>

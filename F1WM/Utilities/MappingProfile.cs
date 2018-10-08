@@ -25,7 +25,7 @@ namespace F1WM.Utilities
 			CreateMap<Track, TrackSummary>()
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
 			CreateMap<Entry, LapResultSummary>()
-				.ForMember(api => api.Time, o => o.MapFrom(db => db.Grid.Time));
+				.ForMember(api => api.Time, o => o.MapFrom(db => db.GetLapTime()));
 			CreateMap<Entry, RaceResultSummary>()
 				.ForMember(api => api.Time, o => o.MapFrom(db => db.Result.Time));
 		}
