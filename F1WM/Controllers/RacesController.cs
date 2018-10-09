@@ -15,11 +15,19 @@ namespace F1WM.Controllers
 
 		[HttpGet("next")]
 		[Produces("application/json", Type = typeof(NextRaceSummary))]
-		public async Task<NextRaceSummary> GetNextRace()
+		public async Task<IActionResult> GetNextRace()
 		{
 			try
 			{
-				return await service.GetNextRace();
+				var nextRace = await service.GetNextRace();
+				if (nextRace != null)
+				{
+					return Ok(nextRace);
+				}
+				else
+				{
+					return NotFound();
+				}
 			}
 			catch (Exception ex)
 			{
