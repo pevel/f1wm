@@ -16,7 +16,9 @@ namespace F1WM
 				.AddTransient<INewsService, NewsService>()
 				.AddTransient<IHealthCheckService, HealthCheckService>()
 				.AddTransient<ICommentsService, CommentsService>()
-				.AddTransient<IStandingsService, StandingsService>();
+				.AddTransient<IStandingsService, StandingsService>()
+				.AddTransient<IRacesService, RacesService>()
+				.AddTransient<ITimeService, TimeService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

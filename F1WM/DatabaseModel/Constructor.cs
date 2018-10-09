@@ -12,6 +12,6 @@ namespace F1WM.DatabaseModel
 		public bool Status { get; set; }
 		public string Letter { get; set; }
 		public virtual IEnumerable<ConstructorStandingsPosition> Positions { get; set; }
-		public virtual Nationality Nationality { get; set; }
+		public virtual Country Nationality { get; set; }
 	}
 }

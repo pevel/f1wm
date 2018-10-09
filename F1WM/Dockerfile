@@ -5,6 +5,11 @@ WORKDIR /app
 COPY ./F1WM.csproj ./
 RUN dotnet restore
 
+# install Ruby to run scripts
+RUN \
+  apt-get update && \
+  apt-get install -y ruby
+
 # copy everything else and build
 COPY . ./
 RUN dotnet publish -c Release -o bin
