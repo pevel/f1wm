@@ -27,15 +27,15 @@ namespace F1WM.IntegrationTests
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Name));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.TranslatedName));
 			Assert.NotNull(nextRace.LastFastestLapResult);
-			Assert.NotEqual(nextRace.LastFastestLapResult.Time.TotalMilliseconds, 0);
+			Assert.NotEqual(0, nextRace.LastFastestLapResult.Time.TotalMilliseconds);
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastFastestLapResult.Driver.FirstName));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastFastestLapResult.Driver.Surname));
 			Assert.NotNull(nextRace.LastPolePositionLapResult);
-			Assert.NotEqual(nextRace.LastPolePositionLapResult.Time.TotalMilliseconds, 0);
+			Assert.NotEqual(0, nextRace.LastPolePositionLapResult.Time.TotalMilliseconds);
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastPolePositionLapResult.Driver.FirstName));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastPolePositionLapResult.Driver.Surname));
 			Assert.NotNull(nextRace.LastWinnerRaceResult);
-			Assert.NotEqual(nextRace.LastWinnerRaceResult.Time.TotalMilliseconds, 0);
+			Assert.NotEqual(0, nextRace.LastWinnerRaceResult.Time.TotalMilliseconds);
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastWinnerRaceResult.Driver.FirstName));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastWinnerRaceResult.Driver.Surname));
 			Assert.True(nextRace.Date > nowAtRequestTime);
