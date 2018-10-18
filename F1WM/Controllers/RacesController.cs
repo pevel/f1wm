@@ -9,7 +9,6 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class RacesController : ControllerBase
 	{
-
 		private IRacesService service;
 		private ILoggingService logger;
 
