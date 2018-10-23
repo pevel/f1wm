@@ -1,19 +1,15 @@
 ﻿using System;
-using System.Data;
-using System.Reflection;
-using F1WM.DatabaseModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NJsonSchema;
 using NSwag.AspNetCore;
-using NSwag.SwaggerGeneration.WebApi;
+using NSwag.SwaggerGeneration.AspNetCore;
 
 namespace F1WM
 {
@@ -47,6 +43,7 @@ namespace F1WM
 
 				services
 					.AddLogging()
+					.AddSwagger()
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
 					.AddMemoryCache()
 					.ConfigureRepositories(Configuration)
@@ -78,7 +75,7 @@ namespace F1WM
 				application
 					.UseForwardedHeaders(GetForwardedHeadersOptions())
 					.UseCors(corsPolicy)
-					.UseSwaggerUi(typeof(Startup).GetTypeInfo().Assembly, GetSwaggerUiSettings())
+					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings())
 					.UseMvc();
 			}
 			catch (Exception ex)
@@ -108,7 +105,7 @@ namespace F1WM
 			};
 		}
 
-		private Action<SwaggerUiSettings<WebApiToSwaggerGeneratorSettings>> GetSwaggerUiSettings()
+		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings()
 		{
 			return settings =>
 			{

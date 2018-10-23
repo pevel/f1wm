@@ -13,6 +13,7 @@ namespace F1WM.ApiModel
 		public int FinishedLaps { get; set; }
 		public TimeSpan Time { get; set; }
 		public int PitStopVisits { get; set; }
+		public string NotClassifiedReason { get; set; }
 		public string DisqualifiedReason { get; set; }
 	}
 }
