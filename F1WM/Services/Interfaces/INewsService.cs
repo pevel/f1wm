@@ -8,5 +8,6 @@ namespace F1WM.Services
 	{
 		Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId);
 		Task<NewsDetails> GetNewsDetails(int id);
+		Task<IEnumerable<ImportantNewsSummary>> GetImportantNews();
 	}
 }

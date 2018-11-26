@@ -11,14 +11,16 @@ namespace F1WM.UnitTests.Services
 	public class NewsServiceTests
 	{
 		private NewsService service;
-		private Mock<INewsRepository> repositoryMock;
+		private Mock<INewsRepository> newsRepositoryMock;
+		private Mock<IConfigTextRepository> configTextRepositoryMock;
 		private Mock<IBBCodeParser> parserMock;
 
 		public NewsServiceTests()
 		{
-			repositoryMock = new Mock<INewsRepository>();
+			newsRepositoryMock = new Mock<INewsRepository>();
+			configTextRepositoryMock = new Mock<IConfigTextRepository>();
 			parserMock = new Mock<IBBCodeParser>();
-			service = new NewsService(repositoryMock.Object, parserMock.Object);
+			service = new NewsService(newsRepositoryMock.Object, configTextRepositoryMock.Object, parserMock.Object);
 		}
 
 		[Fact]
@@ -26,11 +28,11 @@ namespace F1WM.UnitTests.Services
 		{
 			var id = 42;
 			var text = "Test text";
-			repositoryMock.Setup(r => r.GetNewsDetails(id)).ReturnsAsync(new NewsDetails() { Text = text });
+			newsRepositoryMock.Setup(r => r.GetNewsDetails(id)).ReturnsAsync(new NewsDetails() { Text = text });
 
 			await service.GetNewsDetails(id);
 
-			repositoryMock.Verify(r => r.GetNewsDetails(id), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetNewsDetails(id), Times.Once);
 			parserMock.Verify(p => p.ToHtml(text), Times.Once);
 		}
 
@@ -42,7 +44,7 @@ namespace F1WM.UnitTests.Services
 
 			await service.GetLatestNews(count, firstId);
 
-			repositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
 		}
 	}
 }

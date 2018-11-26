@@ -13,7 +13,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1cars> F1cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
-		public virtual DbSet<F1ConfigText> F1ConfigText { get; set; }
+		public virtual DbSet<ConfigText> ConfigTexts { get; set; }
 		public virtual DbSet<F1ConfigVarchar> F1ConfigVarchar { get; set; }
 		public virtual DbSet<ConstructorStandingsPosition> ConstructorStandingsPositions { get; set; }
 		public virtual DbSet<F1constrcsLastpos> F1constrcsLastpos { get; set; }
@@ -372,7 +372,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(45);
 			});
 
-			modelBuilder.Entity<F1ConfigText>(entity =>
+			modelBuilder.Entity<ConfigText>(entity =>
 			{
 				entity.ToTable("f1_config_text");
 

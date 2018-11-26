@@ -48,8 +48,22 @@ namespace F1WM.Controllers
 				logger.LogError(ex);
 				throw ex;
 			}
-
 		}
+
+		[HttpGet("important")]
+		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
+		{
+			try
+			{
+				return await service.GetImportantNews();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 
 		public NewsController(INewsService service, ILoggingService logger)
 		{

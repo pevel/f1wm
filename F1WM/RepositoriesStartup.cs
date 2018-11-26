@@ -24,7 +24,8 @@ namespace F1WM
 				.AddTransient<ICommentsRepository, CommentsRepository>()
 				.AddTransient<IHealthCheckRepository, HealthCheckRepository>()
 				.AddTransient<IStandingsRepository, StandingsRepository>()
-				.AddTransient<IRacesRepository, RacesRepository>();
+				.AddTransient<IRacesRepository, RacesRepository>()
+				.AddTransient<IConfigTextRepository, ConfigTextRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration)

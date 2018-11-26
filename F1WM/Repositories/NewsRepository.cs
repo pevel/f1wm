@@ -10,7 +10,14 @@ namespace F1WM.Repositories
 {
 	public class NewsRepository : RepositoryBase, INewsRepository
 	{
-		private IMapper mapper;
+		private readonly IMapper mapper;
+
+		public async Task<IEnumerable<NewsSummary>> GetNews(ICollection<uint> ids)
+		{
+			await SetDbEncoding();
+			var dbNews = await context.News.Where(n => ids.Contains(n.Id)).ToListAsync();
+			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+		}
 
 		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null)
 		{
