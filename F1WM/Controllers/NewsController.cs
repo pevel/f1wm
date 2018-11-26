@@ -15,8 +15,8 @@ namespace F1WM.Controllers
 	{
 		private const int defaultLatestNewsCount = 20;
 
-		private INewsService service;
-		private ILoggingService logger;
+		private readonly INewsService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public async Task<IEnumerable<NewsSummary>> GetMany(

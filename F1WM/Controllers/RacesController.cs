@@ -9,8 +9,8 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class RacesController : ControllerBase
 	{
-		private IRacesService service;
-		private ILoggingService logger;
+		private readonly IRacesService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
 		[Produces("application/json", Type = typeof(NextRaceSummary))]
