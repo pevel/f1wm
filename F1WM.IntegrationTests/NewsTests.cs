@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using F1WM.Controllers;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -46,6 +46,23 @@ namespace F1WM.IntegrationTests
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
+			});
+		}
+
+		[Fact]
+		public async Task GetImportantNewsTest()
+		{
+			var response = await client.GetAsync($"{baseAddress}/news/important");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var newsList = JsonConvert.DeserializeObject<IEnumerable<ImportantNewsSummary>>(responseContent);
+			Assert.NotNull(newsList);
+			Assert.All(newsList, news =>
+			{
+				Assert.False(string.IsNullOrWhiteSpace(news.ImageUrl));
+				Assert.False(string.IsNullOrWhiteSpace(news.ShortText));
+				Assert.False(string.IsNullOrWhiteSpace(news.Title));
 			});
 		}
 	}
