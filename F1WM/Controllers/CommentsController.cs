@@ -10,8 +10,8 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class CommentsController : ControllerBase
 	{
-		private ICommentsService service;
-		private ILoggingService logger;
+		private readonly ICommentsService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public async Task<IEnumerable<Comment>> GetMany([FromQuery(Name = "newsId")] int newsId)

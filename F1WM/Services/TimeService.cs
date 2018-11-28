@@ -4,9 +4,6 @@ namespace F1WM.Services
 {
     public class TimeService : ITimeService
     {
-        public DateTime Now()
-        {
-            return DateTime.Now;
-        }
+        public DateTime Now => System.DateTime.Now;
     }
 }

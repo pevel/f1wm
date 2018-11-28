@@ -4,6 +4,6 @@ namespace F1WM.Services
 {
     public interface ITimeService
 	{
-		DateTime Now();
+		DateTime Now { get; }
 	}
 }

@@ -5,7 +5,7 @@ namespace F1WM.Services
 {
 	public class CachingService : ICachingService
 	{
-		private IMemoryCache cache;
+		private readonly IMemoryCache cache;
 
 		public T Get<T>(string key)
 		{

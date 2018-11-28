@@ -10,10 +10,11 @@ namespace F1WM.Repositories
 {
 	public class RacesRepository : RepositoryBase, IRacesRepository
 	{
-		private IMapper mapper;
+		private readonly IMapper mapper;
 
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
         {
+            await SetDbEncoding();
             var dbNextRace = await context.Races
                 .OrderBy(r => r.Date)
                 .Include(r => r.Track)

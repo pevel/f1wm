@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using F1WM.Controllers;
+using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
-using System.Threading.Tasks;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -59,6 +59,25 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnImportantNews()
+		{
+			var result = await controller.GetImportantNews();
+
+			serviceMock.Verify(s => s.GetImportantNews(), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnEmptyListOfImportantNews()
+		{
+			serviceMock.Setup(s => s.GetImportantNews()).ReturnsAsync(new List<ImportantNewsSummary>());
+
+			var result = await controller.GetImportantNews();
+
+			serviceMock.Verify(s => s.GetImportantNews(), Times.Once);
+			Assert.Empty(result);
 		}
 	}
 }

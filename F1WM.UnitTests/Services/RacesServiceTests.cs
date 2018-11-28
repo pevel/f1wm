@@ -24,7 +24,7 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetNextRaceAfterToday()
 		{
 			var now = new DateTime(1992, 10, 14);
-			timeServiceMock.Setup(t => t.Now()).Returns(now);
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
 
 			await service.GetNextRace();
 

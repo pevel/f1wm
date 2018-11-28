@@ -7,7 +7,7 @@ namespace F1WM.Services
 {
 	public class StandingsService : IStandingsService
 	{
-		private IStandingsRepository repository;
+		private readonly IStandingsRepository repository;
 
 		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId)
 		{

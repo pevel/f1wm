@@ -8,8 +8,8 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class HealthCheckController : ControllerBase
 	{
-		private IHealthCheckService service;
-		private ILoggingService logger;
+		private readonly IHealthCheckService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public HealthCheck CheckHealth()

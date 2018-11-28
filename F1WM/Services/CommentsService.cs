@@ -11,8 +11,8 @@ namespace F1WM.Services
 {
 	public class CommentsService : ICommentsService
 	{
-		private ICommentsRepository repository;
-		private IBBCodeParser bBCodeParser;
+		private readonly ICommentsRepository repository;
+		private readonly IBBCodeParser bBCodeParser;
 
 		public async Task<Comment> GetComment(int id)
 		{

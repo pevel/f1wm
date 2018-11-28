@@ -10,7 +10,7 @@ namespace F1WM.Repositories
 {
 	public class StandingsRepository : RepositoryBase, IStandingsRepository
 	{
-		private IMapper mapper;
+		private readonly IMapper mapper;
 
 		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId = null)
 		{

@@ -12,7 +12,7 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class VersionController : ControllerBase
 	{
-		private ILoggingService logger;
+		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public ApiVersion GetVersion()

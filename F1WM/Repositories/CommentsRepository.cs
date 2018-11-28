@@ -11,7 +11,7 @@ namespace F1WM.Repositories
 {
 	public class CommentsRepository : RepositoryBase, ICommentsRepository
 	{
-		private IMapper mapper;
+		private readonly IMapper mapper;
 
 		public async Task<Comment> GetComment(int id)
 		{

@@ -6,7 +6,7 @@ namespace F1WM.Services
 {
 	public class HealthCheckService : IHealthCheckService
 	{
-		private IHealthCheckRepository repository;
+		private readonly IHealthCheckRepository repository;
 
 		public string GetDatabaseStatus()
 		{

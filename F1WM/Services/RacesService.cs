@@ -6,12 +6,12 @@ namespace F1WM.Services
 {
     public class RacesService : IRacesService
 	{
-		private IRacesRepository repository;
-		private ITimeService time;
+		private readonly IRacesRepository repository;
+		private readonly ITimeService time;
 
 		public Task<NextRaceSummary> GetNextRace()
 		{
-			return repository.GetFirstRaceAfter(time.Now());
+			return repository.GetFirstRaceAfter(time.Now);
 		}
 
 		public RacesService(IRacesRepository repository, ITimeService time)

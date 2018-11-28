@@ -13,8 +13,8 @@ namespace F1WM.Controllers
 		private const int defaultConstructorsStandingsCount = 10;
 		private const int defaultDriversStandingsCount = 10;
 
-		private IStandingsService service;
-		private ILoggingService logger;
+		private readonly IStandingsService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet("constructors")]
 		[Produces("application/json", Type = typeof(ConstructorsStandings))]

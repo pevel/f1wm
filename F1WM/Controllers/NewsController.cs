@@ -15,8 +15,8 @@ namespace F1WM.Controllers
 	{
 		private const int defaultLatestNewsCount = 20;
 
-		private INewsService service;
-		private ILoggingService logger;
+		private readonly INewsService service;
+		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public async Task<IEnumerable<NewsSummary>> GetMany(
@@ -48,8 +48,22 @@ namespace F1WM.Controllers
 				logger.LogError(ex);
 				throw ex;
 			}
-
 		}
+
+		[HttpGet("important")]
+		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
+		{
+			try
+			{
+				return await service.GetImportantNews();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 
 		public NewsController(INewsService service, ILoggingService logger)
 		{

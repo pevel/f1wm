@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-    public class F1ConfigText
+    public class ConfigText
     {
         public uint Id { get; set; }
         public byte Section { get; set; }
