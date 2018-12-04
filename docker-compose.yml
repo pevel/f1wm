@@ -5,7 +5,7 @@ services:
     image: f1wm:latest
     restart: always
     build:
-       context: F1WM
+       context: F1WM-context
        dockerfile: Dockerfile
     expose:
       - "5000"
