@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NJsonSchema;
+using NSwag;
 using NSwag.AspNetCore;
 using NSwag.SwaggerGeneration.AspNetCore;
 
@@ -75,7 +76,7 @@ namespace F1WM
 				application
 					.UseForwardedHeaders(GetForwardedHeadersOptions())
 					.UseCors(corsPolicy)
-					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings())
+					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
 					.UseMvc();
 			}
 			catch (Exception ex)
@@ -105,10 +106,14 @@ namespace F1WM
 			};
 		}
 
-		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings()
+		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings(bool httpsEnabled)
 		{
 			return settings =>
 			{
+				if (httpsEnabled) 
+				{
+					settings.PostProcess = (document) => document.Schemes = new [] { SwaggerSchema.Https };
+				}
 				settings.GeneratorSettings.Title = "F1WM web API";
 				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
 			};
