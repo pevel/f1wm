@@ -10,14 +10,3 @@ services:
     expose:
       - "5000"
     env_file: docker.env
-
-  proxy:
-    image: proxy:latest
-    restart: always
-    build:
-       context: F1WM.Proxy
-       dockerfile: Dockerfile
-    ports:
-      - "80:80"
-    links:
-      - app
