@@ -13,7 +13,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task GetSingleNewsTest()
 		{
-			var id = 42;
+			var id = 42000;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -31,7 +31,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task GetManyNewsTest()
 		{
-			var firstId = 43;
+			var firstId = 42001;
 			var count = 5;
 
 			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&count={count}");
