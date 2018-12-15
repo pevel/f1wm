@@ -18,7 +18,8 @@ namespace F1WM
 				.AddTransient<ICommentsService, CommentsService>()
 				.AddTransient<IStandingsService, StandingsService>()
 				.AddTransient<IRacesService, RacesService>()
-				.AddTransient<ITimeService, TimeService>();
+				.AddTransient<ITimeService, TimeService>()
+				.AddTransient<ICalendarService, CalendarService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

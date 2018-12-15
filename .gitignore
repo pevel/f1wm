@@ -20,3 +20,5 @@ msbuild.wrn
 F1WM/version.json
 F1WM/logs/*
 docker.env
+.DS_Store
+.idea/
