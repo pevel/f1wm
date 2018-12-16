@@ -6,6 +6,6 @@ namespace F1WM.Repositories
 {
 	public interface IResultsRepository
 	{
-		Task<RaceResult> GetRaceResult(int id);
+		Task<RaceResult> GetRaceResult(int raceId);
 	}
 }

@@ -23,9 +23,9 @@ namespace F1WM.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<RaceResult> GetRaceResult(int id)
+		public Task<RaceResult> GetRaceResult(int raceId)
 		{
-			return repository.GetRaceResult(id);
+			return repository.GetRaceResult(raceId);
 		}
 
 		public ResultsService(IResultsRepository repository)

@@ -14,11 +14,11 @@ namespace F1WM.Controllers
 
 		[HttpGet("race/{id}")]
 		[Produces("application/json", Type = typeof(RaceResult))]
-		public async Task<IActionResult> GetRaceResult(int id)
+		public async Task<IActionResult> GetRaceResult(int raceId)
 		{
 			try
 			{
-				var raceResult = await service.GetRaceResult(id);
+				var raceResult = await service.GetRaceResult(raceId);
 				if (raceResult != null)
 				{
 					return Ok(raceResult);
