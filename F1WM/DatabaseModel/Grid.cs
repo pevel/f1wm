@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
     {
         public uint EntryId { get; set; }
         public uint RaceId { get; set; }
-        public string StartingPosition { get; set; }
+        public string StartPosition { get; set; }
         public byte Ord { get; set; }
         public TimeSpan Time { get; set; }
         public virtual Entry Entry { get; set; }

@@ -6,8 +6,8 @@ namespace F1WM.ApiModel
 {
 	public class RaceResultPosition
 	{
-		public int? Position { get; set; }
-		public int PositionChange { get; set; }
+		public int? FinishPosition { get; set; }
+		public int StartPosition { get; set; }
 		public int Number { get; set; }
 		public DriverSummary Driver { get; set; }
 		public CarSummary Car { get; set; }

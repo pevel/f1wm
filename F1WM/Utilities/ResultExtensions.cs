@@ -10,12 +10,12 @@ public static class ResultExtensions
 	{
 		if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
 		{
-			dbResult.Position = position;
+			dbResult.FinishPosition = position;
 			dbResult.Status = null;
 		}
 		else
 		{
-			dbResult.Position = null;
+			dbResult.FinishPosition = null;
 			dbResult.Status = dbResult.PositionOrStatus;
 		}
 		return dbResult;

@@ -16,7 +16,13 @@ namespace F1WM.Repositories
 		{
 			await SetDbEncoding();
 			var model = new RaceResult();
-			var dbResults = await context.Results.Where(r => r.RaceId == id).ToListAsync();
+			var dbResults = await context.Results
+				.Where(r => r.RaceId == id)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver)
+				.Include(r => r.Entry).ThenInclude(e => e.Car)
+				.Include(r => r.Entry).ThenInclude(e => e.Grid)
+				.ToListAsync();
+			model.RaceId = id;
 			model.Results = mapper.Map<IEnumerable<RaceResultPosition>>(dbResults.Select(r => r.FillPositionInfo()));
 			return model;
 		}
