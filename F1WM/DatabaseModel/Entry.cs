@@ -23,5 +23,6 @@ namespace F1WM.DatabaseModel
         public virtual Race Race { get; set; }
         public virtual FastestLap FastestLap { get; set; }
         public virtual Car Car { get; set; }
+        public virtual Tyres Tyres { get; set; }
     }
 }

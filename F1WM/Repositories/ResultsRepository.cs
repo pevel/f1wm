@@ -12,17 +12,23 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 		
-		public async Task<RaceResult> GetRaceResult(int id)
+		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			await SetDbEncoding();
 			var model = new RaceResult();
 			var dbResults = await context.Results
-				.Where(r => r.RaceId == id)
+				.Where(r => r.RaceId == raceId)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
+				.Include(r => r.Entry).ThenInclude(e => e.Tyres)
 				.Include(r => r.Entry).ThenInclude(e => e.Grid)
 				.ToListAsync();
-			model.RaceId = id;
+			var dbFastestLap = await context.FastestLaps
+				.Include(r => r.Entry).ThenInclude(e => e.Driver)
+				.Include(r => r.Entry).ThenInclude(e => e.Car)
+				.SingleAsync(f => f.RaceId == raceId && f.Frlpos == "1");
+			model.RaceId = raceId;
+			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = mapper.Map<IEnumerable<RaceResultPosition>>(dbResults.Select(r => r.FillPositionInfo()));
 			return model;
 		}

@@ -10,7 +10,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
-		public virtual DbSet<Car> F1cars { get; set; }
+		public virtual DbSet<Car> Cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
 		public virtual DbSet<ConfigText> ConfigTexts { get; set; }
@@ -59,7 +59,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1teams> F1teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
-		public virtual DbSet<F1tyres> F1tyres { get; set; }
+		public virtual DbSet<Tyres> Tyres { get; set; }
 		public virtual DbSet<F1ZgloszoneBledy> F1ZgloszoneBledy { get; set; }
 		public virtual DbSet<GpmAdmkonfig> GpmAdmkonfig { get; set; }
 		public virtual DbSet<GpmAdmskladniki> GpmAdmskladniki { get; set; }
@@ -1043,7 +1043,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(2)")
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Lap)
+				entity.Property(e => e.LapNumber)
 					.HasColumnName("lap")
 					.HasDefaultValueSql("'0'");
 
@@ -2853,9 +2853,9 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(8);
 			});
 
-			modelBuilder.Entity<F1tyres>(entity =>
+			modelBuilder.Entity<Tyres>(entity =>
 			{
-				entity.HasKey(e => e.Tyresid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1tyres");
 
@@ -2863,10 +2863,10 @@ namespace F1WM.DatabaseModel
 					.HasName("ascid")
 					.IsUnique();
 
-				entity.HasIndex(e => e.Tyres)
+				entity.HasIndex(e => e.Name)
 					.HasName("tyres");
 
-				entity.Property(e => e.Tyresid)
+				entity.Property(e => e.Id)
 					.HasColumnName("tyresid")
 					.HasColumnType("mediumint unsigned");
 
@@ -2886,7 +2886,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Tyres)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("tyres")
 					.HasMaxLength(64)
