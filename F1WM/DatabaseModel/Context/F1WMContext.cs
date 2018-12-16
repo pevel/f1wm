@@ -2266,7 +2266,11 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1results");
 
-				entity.HasIndex(e => e.FinishPosition)
+				entity.Ignore(e => e.Position);
+
+				entity.Ignore(e => e.Status);
+
+				entity.HasIndex(e => e.PositionOrStatus)
 					.HasName("endpos");
 
 				entity.HasIndex(e => e.RaceId)
@@ -2277,7 +2281,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.FinishPosition)
+				entity.Property(e => e.PositionOrStatus)
 					.IsRequired()
 					.HasColumnName("endpos")
 					.HasColumnType("char(2)")
@@ -2289,7 +2293,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(128)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Laps)
+				entity.Property(e => e.FinishedLaps)
 					.HasColumnName("laps")
 					.HasDefaultValueSql("'0'");
 

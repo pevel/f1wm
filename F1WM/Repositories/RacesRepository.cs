@@ -37,7 +37,7 @@ namespace F1WM.Repositories
         {
             var dbLastWinnerResult = await context.Results
                 .Include(r => r.Race)
-                .Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.FinishPosition == "1")
+                .Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.PositionOrStatus == "1")
                 .Include(r => r.Entry)
                 .ThenInclude(e => e.Driver)
                 .ThenInclude(d => d.Nationality)

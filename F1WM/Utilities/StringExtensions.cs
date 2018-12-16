@@ -3,11 +3,21 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using F1WM.ApiModel;
+using Constants = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
+		private static Dictionary<string, ApiModel.ResultStatus> textToResultStatus = new Dictionary<string, ApiModel.ResultStatus>()
+		{
+			{ Constants.ResultStatus.DidNotStart, ApiModel.ResultStatus.DidNotStart },
+			{ Constants.ResultStatus.DidNotStartAgain, ApiModel.ResultStatus.DidNotStartAgain },
+			{ Constants.ResultStatus.Disqualified, ApiModel.ResultStatus.Disqualified },
+			{ Constants.ResultStatus.Excluded, ApiModel.ResultStatus.Excluded },
+			{ Constants.ResultStatus.NotClassified, ApiModel.ResultStatus.NotClassified }
+		};
+
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))
@@ -63,6 +73,18 @@ namespace F1WM.Utilities
 		public static string GetGrandPrixName(this string genitive)
 		{
 			return $"Grand Prix {genitive}";
+		}
+
+		public static ResultStatus GetResultStatus(this string statusText)
+		{
+			if (textToResultStatus.TryGetValue(statusText, out ResultStatus status))
+			{
+				return status;
+			}
+			else
+			{
+				return ResultStatus.Unknown;
+			}
 		}
 	}
 }

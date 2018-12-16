@@ -28,6 +28,9 @@ namespace F1WM.Utilities
 				.ForMember(api => api.Time, o => o.MapFrom(db => db.GetLapTime()));
 			CreateMap<Entry, RaceResultSummary>()
 				.ForMember(api => api.Time, o => o.MapFrom(db => db.Result.Time));
+			CreateMap<Result, RaceResultPosition>()
+				.ForMember(api => api.NotFinishedReason, o => o.MapFrom(db => db.Info))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetResultStatus()));
 		}
 	}
 }
