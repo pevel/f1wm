@@ -20,7 +20,7 @@ namespace F1WM.Utilities
 
 		private static Dictionary<string, ApiModel.StartStatus> textToStartStatus = new Dictionary<string, StartStatus>()
 		{
-			{ Constants.StartStatus.CouldNotStart, ApiModel.StartStatus.CouldNotStart },
+			{ Constants.StartStatus.NotClassified, ApiModel.StartStatus.NotClassified },
 			{ Constants.StartStatus.Excluded, ApiModel.StartStatus.Excluded },
 			{ Constants.StartStatus.FromPitLane, ApiModel.StartStatus.FromPitLane },
 			{ Constants.StartStatus.NotPreQualified, ApiModel.StartStatus.NotPreQualified },

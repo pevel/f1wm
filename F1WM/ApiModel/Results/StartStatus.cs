@@ -6,7 +6,7 @@ namespace F1WM.ApiModel
 		FromPitLane,
 		NotQualified,
 		NotPreQualified,
-		CouldNotStart,
+		NotClassified,
 		Excluded,
 		Unknown
 	}
