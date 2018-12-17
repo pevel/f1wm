@@ -16,10 +16,8 @@ namespace F1WM.ApiModel
 		public TimeSpan Time { get; set; }
 		public int PitStopVisits { get; set; }
 		public string Information { get; set; }
-
 		[JsonConverter(typeof(StringEnumConverter))]
 		public ResultStatus Status { get; set; }
-
 		[JsonConverter(typeof(StringEnumConverter))]
 		public StartStatus StartStatus { get; set; }
 	}
