@@ -12,7 +12,7 @@ namespace F1WM.Controllers
 		private readonly IResultsService service;
 		private readonly ILoggingService logger;
 
-		[HttpGet("race/{id}")]
+		[HttpGet("race/{raceId}")]
 		[Produces("application/json", Type = typeof(RaceResult))]
 		public async Task<IActionResult> GetRaceResult(int raceId)
 		{
