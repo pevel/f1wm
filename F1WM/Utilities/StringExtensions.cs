@@ -10,12 +10,21 @@ namespace F1WM.Utilities
 	public static class StringExtensions
 	{
 		private static Dictionary<string, ApiModel.ResultStatus> textToResultStatus = new Dictionary<string, ApiModel.ResultStatus>()
-		{
+		{ 
 			{ Constants.ResultStatus.DidNotStart, ApiModel.ResultStatus.DidNotStart },
 			{ Constants.ResultStatus.DidNotStartAgain, ApiModel.ResultStatus.DidNotStartAgain },
 			{ Constants.ResultStatus.Disqualified, ApiModel.ResultStatus.Disqualified },
 			{ Constants.ResultStatus.Excluded, ApiModel.ResultStatus.Excluded },
 			{ Constants.ResultStatus.NotClassified, ApiModel.ResultStatus.NotClassified }
+		};
+
+		private static Dictionary<string, ApiModel.StartStatus> textToStartStatus = new Dictionary<string, StartStatus>()
+		{
+			{ Constants.StartStatus.CouldNotStart, ApiModel.StartStatus.CouldNotStart },
+			{ Constants.StartStatus.Excluded, ApiModel.StartStatus.Excluded },
+			{ Constants.StartStatus.FromPitLane, ApiModel.StartStatus.FromPitLane },
+			{ Constants.StartStatus.NotPreQualified, ApiModel.StartStatus.NotPreQualified },
+			{ Constants.StartStatus.NotQualified, ApiModel.StartStatus.NotQualified }
 		};
 
 		public static string ParseImageInformation(this string text)
@@ -36,15 +45,15 @@ namespace F1WM.Utilities
 			{
 				var tokens = text.Split('|');
 				int id;
-				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id)) 
+				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id))
 				{
 					throw new ArgumentException("Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)", nameof(text));
 				}
 				return new ImportantNewsSummary()
 				{
 					Id = id,
-					ImageUrl = tokens[1].GetImageUrl(),
-					ShortText = tokens[2]
+						ImageUrl = tokens[1].GetImageUrl(),
+						ShortText = tokens[2]
 				};
 			}
 			return null;
@@ -77,14 +86,12 @@ namespace F1WM.Utilities
 
 		public static ResultStatus GetResultStatus(this string statusText)
 		{
-			if (textToResultStatus.TryGetValue(statusText, out ResultStatus status))
-			{
-				return status;
-			}
-			else
-			{
-				return ResultStatus.Unknown;
-			}
+			return textToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
+		}
+
+		public static StartStatus GetStartStatus(this string statusText)
+		{
+			return textToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
 		}
 	}
 }

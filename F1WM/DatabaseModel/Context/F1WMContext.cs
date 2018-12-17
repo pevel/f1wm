@@ -99,11 +99,9 @@ namespace F1WM.DatabaseModel
 		// Unable to generate entity type for table 'sympoll_data'. Please see the warning messages.
 		// Unable to generate entity type for table 'sympoll_iplog'. Please see the warning messages.
 
-		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options)
-		{ }
+		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options) { }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{ }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -1104,10 +1102,14 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1grids");
 
+				entity.Ignore(e => e.StartPosition);
+
+				entity.Ignore(e => e.StartStatus);
+
 				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
-				entity.HasIndex(e => e.StartPosition)
+				entity.HasIndex(e => e.StartPositionOrStatus)
 					.HasName("startpos");
 
 				entity.Property(e => e.EntryId)
@@ -1124,7 +1126,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.StartPosition)
+				entity.Property(e => e.StartPositionOrStatus)
 					.IsRequired()
 					.HasColumnName("startpos")
 					.HasColumnType("char(2)")
@@ -2157,7 +2159,7 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Date)
 					.HasColumnName("date")
 					.HasColumnType("date");
-				
+
 				entity.HasOne(e => e.Track)
 					.WithMany()
 					.HasPrincipalKey(t => t.Id)

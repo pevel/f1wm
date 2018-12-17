@@ -6,7 +6,7 @@ using F1WM.Utilities;
 
 public static class ResultExtensions
 {
-	public static Result FillPositionInfo(this Result dbResult)
+	public static Result FillFinishPositionInfo(this Result dbResult)
 	{
 		if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
 		{
