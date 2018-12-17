@@ -2,7 +2,7 @@ namespace F1WM.ApiModel
 {
 	public enum ResultStatus
 	{
-		Finished,
+		Classified,
 		DidNotStartAgain,
 		NotClassified,
 		DidNotStart,
