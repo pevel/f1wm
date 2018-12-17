@@ -11,7 +11,7 @@ namespace F1WM.Repositories
 	public class ResultsRepository : RepositoryBase, IResultsRepository
 	{
 		private readonly IMapper mapper;
-		
+
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			await SetDbEncoding();
@@ -29,7 +29,12 @@ namespace F1WM.Repositories
 				.SingleAsync(f => f.RaceId == raceId && f.Frlpos == "1");
 			model.RaceId = raceId;
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
-			model.Results = mapper.Map<IEnumerable<RaceResultPosition>>(dbResults.Select(r => r.FillPositionInfo()));
+			model.Results = mapper.Map<IEnumerable<RaceResultPosition>>(dbResults.Select(r =>
+			{
+				r.FillFinishPositionInfo();
+				r.Entry.Grid.FillStartPositionInfo();
+				return r;
+			}).OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition));
 			return model;
 		}
 

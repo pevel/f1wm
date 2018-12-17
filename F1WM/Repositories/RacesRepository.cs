@@ -50,7 +50,7 @@ namespace F1WM.Repositories
         {
             var dbLastPolePositionResult = await context.Grids
                 .Include(g => g.Race)
-                .Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartPosition == "1")
+                .Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartPositionOrStatus == "1")
                 .Include(g => g.Entry)
                 .ThenInclude(e => e.Driver)
                 .ThenInclude(d => d.Nationality)

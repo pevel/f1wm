@@ -13,7 +13,7 @@ namespace F1WM.DatabaseModel
         public byte FinishedLaps { get; set; }
         public string Info { get; set; }
         public byte Ord { get; set; }
-        public byte PitStopVisits { get; set; }
+        public byte? PitStopVisits { get; set; }
         public TimeSpan Time { get; set; }
         public virtual Entry Entry { get; set; }
         public virtual Race Race { get; set; }

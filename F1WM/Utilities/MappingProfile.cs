@@ -29,11 +29,12 @@ namespace F1WM.Utilities
 			CreateMap<Entry, RaceResultSummary>()
 				.ForMember(api => api.Time, o => o.MapFrom(db => db.Result.Time));
 			CreateMap<Result, RaceResultPosition>()
-				.ForMember(api => api.NotFinishedReason, o => o.MapFrom(db => db.Info))
+				.ForMember(api => api.Information, o => o.MapFrom(db => db.Info))
 				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetResultStatus()))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.Entry.Grid.StartStatus.GetStartStatus()))
 				.ForMember(api => api.StartPosition, o => o.MapFrom(db => db.Entry.Grid.StartPosition))
 				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres.Name));
 			CreateMap<Car, CarSummary>();
