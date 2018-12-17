@@ -34,7 +34,7 @@ namespace F1WM.Repositories
 				r.FillFinishPositionInfo();
 				r.Entry.Grid.FillStartPositionInfo();
 				return r;
-			}));
+			}).OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition));
 			return model;
 		}
 
