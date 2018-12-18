@@ -3,11 +3,30 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using F1WM.ApiModel;
+using Constants = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
+		private static Dictionary<string, ApiModel.ResultStatus> textToResultStatus = new Dictionary<string, ApiModel.ResultStatus>()
+		{ 
+			{ Constants.ResultStatus.DidNotStart, ApiModel.ResultStatus.DidNotStart },
+			{ Constants.ResultStatus.DidNotStartAgain, ApiModel.ResultStatus.DidNotStartAgain },
+			{ Constants.ResultStatus.Disqualified, ApiModel.ResultStatus.Disqualified },
+			{ Constants.ResultStatus.Excluded, ApiModel.ResultStatus.Excluded },
+			{ Constants.ResultStatus.NotClassified, ApiModel.ResultStatus.NotClassified }
+		};
+
+		private static Dictionary<string, ApiModel.StartStatus> textToStartStatus = new Dictionary<string, StartStatus>()
+		{
+			{ Constants.StartStatus.NotClassified, ApiModel.StartStatus.NotClassified },
+			{ Constants.StartStatus.Excluded, ApiModel.StartStatus.Excluded },
+			{ Constants.StartStatus.FromPitLane, ApiModel.StartStatus.FromPitLane },
+			{ Constants.StartStatus.NotPreQualified, ApiModel.StartStatus.NotPreQualified },
+			{ Constants.StartStatus.NotQualified, ApiModel.StartStatus.NotQualified }
+		};
+
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))
@@ -63,6 +82,16 @@ namespace F1WM.Utilities
 		public static string GetGrandPrixName(this string genitive)
 		{
 			return $"Grand Prix {genitive}";
+		}
+
+		public static ResultStatus GetResultStatus(this string statusText)
+		{
+			return textToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
+		}
+
+		public static StartStatus GetStartStatus(this string statusText)
+		{
+			return textToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
 		}
 	}
 }

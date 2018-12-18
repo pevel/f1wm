@@ -1,4 +1,4 @@
-namespace F1WM.DatabaseModel
+namespace F1WM.DatabaseModel.Constants
 {
 	public static class ConfigTextName
 	{

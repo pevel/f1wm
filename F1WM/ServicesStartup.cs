@@ -18,6 +18,7 @@ namespace F1WM
 				.AddTransient<ICommentsService, CommentsService>()
 				.AddTransient<IStandingsService, StandingsService>()
 				.AddTransient<IRacesService, RacesService>()
+				.AddTransient<IResultsService, ResultsService>()
 				.AddTransient<ITimeService, TimeService>();
 		}
 

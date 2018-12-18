@@ -10,7 +10,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
-		public virtual DbSet<F1cars> F1cars { get; set; }
+		public virtual DbSet<Car> Cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
 		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
 		public virtual DbSet<ConfigText> ConfigTexts { get; set; }
@@ -59,7 +59,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1teams> F1teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
-		public virtual DbSet<F1tyres> F1tyres { get; set; }
+		public virtual DbSet<Tyres> Tyres { get; set; }
 		public virtual DbSet<F1ZgloszoneBledy> F1ZgloszoneBledy { get; set; }
 		public virtual DbSet<GpmAdmkonfig> GpmAdmkonfig { get; set; }
 		public virtual DbSet<GpmAdmskladniki> GpmAdmskladniki { get; set; }
@@ -99,11 +99,9 @@ namespace F1WM.DatabaseModel
 		// Unable to generate entity type for table 'sympoll_data'. Please see the warning messages.
 		// Unable to generate entity type for table 'sympoll_iplog'. Please see the warning messages.
 
-		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options)
-		{ }
+		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options) { }
 
-		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-		{ }
+		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
@@ -293,22 +291,22 @@ namespace F1WM.DatabaseModel
 					.HasForeignKey(e => e.NationalityKey);
 			});
 
-			modelBuilder.Entity<F1cars>(entity =>
+			modelBuilder.Entity<Car>(entity =>
 			{
-				entity.HasKey(e => e.Carid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1cars");
 
-				entity.HasIndex(e => e.Car)
+				entity.HasIndex(e => e.Name)
 					.HasName("car");
 
-				entity.HasIndex(e => e.Carmakeid)
+				entity.HasIndex(e => e.CarMakeId)
 					.HasName("carmakeid");
 
 				entity.HasIndex(e => e.Litera)
 					.HasName("litera");
 
-				entity.Property(e => e.Carid)
+				entity.Property(e => e.Id)
 					.HasColumnName("carid")
 					.HasColumnType("mediumint unsigned");
 
@@ -317,13 +315,13 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Car)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("car")
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Carmakeid)
+				entity.Property(e => e.CarMakeId)
 					.HasColumnName("carmakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -1043,7 +1041,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(2)")
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Lap)
+				entity.Property(e => e.LapNumber)
 					.HasColumnName("lap")
 					.HasDefaultValueSql("'0'");
 
@@ -1104,10 +1102,14 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1grids");
 
+				entity.Ignore(e => e.StartPosition);
+
+				entity.Ignore(e => e.StartStatus);
+
 				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
-				entity.HasIndex(e => e.StartingPosition)
+				entity.HasIndex(e => e.StartPositionOrStatus)
 					.HasName("startpos");
 
 				entity.Property(e => e.EntryId)
@@ -1124,7 +1126,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.StartingPosition)
+				entity.Property(e => e.StartPositionOrStatus)
 					.IsRequired()
 					.HasColumnName("startpos")
 					.HasColumnType("char(2)")
@@ -2157,7 +2159,7 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Date)
 					.HasColumnName("date")
 					.HasColumnType("date");
-				
+
 				entity.HasOne(e => e.Track)
 					.WithMany()
 					.HasPrincipalKey(t => t.Id)
@@ -2266,7 +2268,11 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1results");
 
-				entity.HasIndex(e => e.FinishPosition)
+				entity.Ignore(e => e.FinishPosition);
+
+				entity.Ignore(e => e.Status);
+
+				entity.HasIndex(e => e.PositionOrStatus)
 					.HasName("endpos");
 
 				entity.HasIndex(e => e.RaceId)
@@ -2277,7 +2283,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.FinishPosition)
+				entity.Property(e => e.PositionOrStatus)
 					.IsRequired()
 					.HasColumnName("endpos")
 					.HasColumnType("char(2)")
@@ -2289,7 +2295,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(128)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Laps)
+				entity.Property(e => e.FinishedLaps)
 					.HasColumnName("laps")
 					.HasDefaultValueSql("'0'");
 
@@ -2297,7 +2303,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("ord")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Pits).HasColumnName("pits");
+				entity.Property(e => e.PitStopVisits).HasColumnName("pits");
 
 				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
@@ -2849,9 +2855,9 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(8);
 			});
 
-			modelBuilder.Entity<F1tyres>(entity =>
+			modelBuilder.Entity<Tyres>(entity =>
 			{
-				entity.HasKey(e => e.Tyresid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1tyres");
 
@@ -2859,10 +2865,10 @@ namespace F1WM.DatabaseModel
 					.HasName("ascid")
 					.IsUnique();
 
-				entity.HasIndex(e => e.Tyres)
+				entity.HasIndex(e => e.Name)
 					.HasName("tyres");
 
-				entity.Property(e => e.Tyresid)
+				entity.Property(e => e.Id)
 					.HasColumnName("tyresid")
 					.HasColumnType("mediumint unsigned");
 
@@ -2882,7 +2888,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Tyres)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("tyres")
 					.HasMaxLength(64)
