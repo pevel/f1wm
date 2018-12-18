@@ -14,6 +14,11 @@ namespace F1WM.Services
 			return repository.GetFirstRaceAfter(time.Now);
 		}
 
+		public Task<LastRaceSummary> GetLastRace()
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public RacesService(IRacesRepository repository, ITimeService time)
 		{
 			this.repository = repository;

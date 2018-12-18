@@ -35,6 +35,29 @@ namespace F1WM.Controllers
 			}
 		}
 
+		[HttpGet("last")]
+		[Produces("application/json", Type = typeof(LastRaceSummary))]
+		public async Task<IActionResult> GetLastRace()
+		{
+			try
+			{
+				var nextRace = await service.GetLastRace();
+				if (nextRace != null)
+				{
+					return Ok(nextRace);
+				}
+				else
+				{
+					return NotFound();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 		public RacesController(IRacesService service, ILoggingService logger)
 		{
 			this.service = service;
