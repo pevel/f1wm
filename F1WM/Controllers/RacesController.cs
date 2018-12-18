@@ -41,10 +41,10 @@ namespace F1WM.Controllers
 		{
 			try
 			{
-				var nextRace = await service.GetLastRace();
-				if (nextRace != null)
+				var lastRace = await service.GetLastRace();
+				if (lastRace != null)
 				{
-					return Ok(nextRace);
+					return Ok(lastRace);
 				}
 				else
 				{

@@ -22,6 +22,8 @@ namespace F1WM.Utilities
 				.ForMember(api => api.FlagIcon, o => o.MapFrom(db => db.Key.GetFlagIconPath()));
 			CreateMap<Race, NextRaceSummary>()
 				.ForMember(api => api.TranslatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
+			CreateMap<Race, LastRaceSummary>()
+				.ForMember(api => api.TranslatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 			CreateMap<Track, TrackSummary>()
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
 			CreateMap<Entry, LapResultSummary>()

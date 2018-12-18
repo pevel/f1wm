@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class RacesRepository : RepositoryBase, IRacesRepository
-	{
-		private readonly IMapper mapper;
+    public class RacesRepository : RepositoryBase, IRacesRepository
+    {
+        private readonly IMapper mapper;
 
-		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
+        public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
         {
             await SetDbEncoding();
             var dbNextRace = await context.Races
@@ -28,12 +28,12 @@ namespace F1WM.Repositories
         }
 
         public RacesRepository(F1WMContext context, IMapper mapper)
-		{
-			this.context = context;
-			this.mapper = mapper;
-		}
+        {
+            this.context = context;
+            this.mapper = mapper;
+        }
 
-		private async Task IncludeLastWinnerResult(Race dbNextRace, NextRaceSummary apiNextRace)
+        private async Task IncludeLastWinnerResult(Race dbNextRace, NextRaceSummary apiNextRace)
         {
             var dbLastWinnerResult = await context.Results
                 .Include(r => r.Race)
@@ -59,17 +59,28 @@ namespace F1WM.Repositories
             apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
         }
 
-		private async Task IncludeFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
-		{
-			var dbFastestResult = await context.Entries
-				.Include(e => e.Race)
-				.Include(e => e.FastestLap)
-				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
-				.Include(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
-				.OrderByDescending(e => e.Race.Date)
-				.FirstAsync();
-			apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
-		}
-	}
+        private async Task IncludeFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
+        {
+            var dbFastestResult = await context.Entries
+                .Include(e => e.Race)
+                .Include(e => e.FastestLap)
+                .Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
+                .Include(e => e.Driver)
+                .ThenInclude(d => d.Nationality)
+                .OrderByDescending(e => e.Race.Date)
+                .FirstAsync();
+            apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
+        }
+
+        public async Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate)
+        {
+            await SetDbEncoding();
+            var dbLastRace = await context.Races
+                .OrderByDescending(r => r.Date)
+                .Include(r => r.Track)
+                .Include(r => r.Country)
+                .FirstOrDefaultAsync(r => r.Date < beforeDate);
+            return mapper.Map<LastRaceSummary>(dbLastRace);
+        }
+    }
 }

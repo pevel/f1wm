@@ -1,11 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using F1WM.Controllers;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
-using System;
 
 namespace F1WM.IntegrationTests
 {
@@ -22,6 +22,7 @@ namespace F1WM.IntegrationTests
 			var nextRace = JsonConvert.DeserializeObject<NextRaceSummary>(responseContent);
 			Assert.NotNull(nextRace);
 			Assert.NotNull(nextRace.Track);
+			Assert.NotEqual(0, nextRace.Id);
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.Name));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.TrackIcon));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Name));

@@ -4,7 +4,7 @@ using F1WM.Repositories;
 
 namespace F1WM.Services
 {
-    public class RacesService : IRacesService
+	public class RacesService : IRacesService
 	{
 		private readonly IRacesRepository repository;
 		private readonly ITimeService time;
@@ -16,7 +16,7 @@ namespace F1WM.Services
 
 		public Task<LastRaceSummary> GetLastRace()
 		{
-			throw new System.NotImplementedException();
+			return repository.GetMostRecentRaceBefore(time.Now);
 		}
 
 		public RacesService(IRacesRepository repository, ITimeService time)
