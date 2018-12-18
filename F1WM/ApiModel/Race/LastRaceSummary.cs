@@ -8,6 +8,6 @@ namespace F1WM.ApiModel
 		public int NewsId { get; set; }
 		public LapResultSummary PolePositionLapResult { get; set; }
 		public FastestLapResultSummary FastestLapResult { get; set; }
-		public IEnumerable<RaceResultPosition> Results { get; set; }
+		public IEnumerable<RaceResultPosition> ShortResults { get; set; }
 	}
 }

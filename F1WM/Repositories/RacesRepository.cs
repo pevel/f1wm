@@ -27,6 +27,17 @@ namespace F1WM.Repositories
             return apiNextRace;
         }
 
+        public async Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate)
+        {
+            await SetDbEncoding();
+            var dbLastRace = await context.Races
+                .OrderByDescending(r => r.Date)
+                .Include(r => r.Track)
+                .Include(r => r.Country)
+                .FirstOrDefaultAsync(r => r.Date < beforeDate);
+            return mapper.Map<LastRaceSummary>(dbLastRace);
+        }
+
         public RacesRepository(F1WMContext context, IMapper mapper)
         {
             this.context = context;
@@ -70,17 +81,6 @@ namespace F1WM.Repositories
                 .OrderByDescending(e => e.Race.Date)
                 .FirstAsync();
             apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
-        }
-
-        public async Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate)
-        {
-            await SetDbEncoding();
-            var dbLastRace = await context.Races
-                .OrderByDescending(r => r.Date)
-                .Include(r => r.Track)
-                .Include(r => r.Country)
-                .FirstOrDefaultAsync(r => r.Date < beforeDate);
-            return mapper.Map<LastRaceSummary>(dbLastRace);
         }
     }
 }
