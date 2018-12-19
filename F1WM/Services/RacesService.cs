@@ -6,22 +6,29 @@ namespace F1WM.Services
 {
 	public class RacesService : IRacesService
 	{
-		private readonly IRacesRepository repository;
+		private readonly IRacesRepository racesRepository;
+		private readonly IResultsRepository resultsRepository;
 		private readonly ITimeService time;
 
 		public Task<NextRaceSummary> GetNextRace()
 		{
-			return repository.GetFirstRaceAfter(time.Now);
+			return racesRepository.GetFirstRaceAfter(time.Now);
 		}
 
-		public Task<LastRaceSummary> GetLastRace()
+		public async Task<LastRaceSummary> GetLastRace()
 		{
-			return repository.GetMostRecentRaceBefore(time.Now);
+			var model = await racesRepository.GetMostRecentRaceBefore(time.Now);
+			model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
+			return model;
 		}
 
-		public RacesService(IRacesRepository repository, ITimeService time)
+		public RacesService(
+			IRacesRepository racesRepository,
+			IResultsRepository resultsRepository,
+			ITimeService time)
 		{
-			this.repository = repository;
+			this.racesRepository = racesRepository;
+			this.resultsRepository = resultsRepository;
 			this.time = time;
 		}
 	}

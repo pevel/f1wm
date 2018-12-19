@@ -7,17 +7,19 @@ using Xunit;
 
 namespace F1WM.UnitTests.Services
 {
-    public class RacesServiceTests
+	public class RacesServiceTests
 	{
 		private RacesService service;
-		private Mock<IRacesRepository> repositoryMock;
+		private Mock<IRacesRepository> racesRepositoryMock;
+		private Mock<IResultsRepository> resultsRepositoryMock;
 		private Mock<ITimeService> timeServiceMock;
 
 		public RacesServiceTests()
 		{
-			repositoryMock = new Mock<IRacesRepository>();
+			racesRepositoryMock = new Mock<IRacesRepository>();
+			resultsRepositoryMock = new Mock<IResultsRepository>();
 			timeServiceMock = new Mock<ITimeService>();
-			service = new RacesService(repositoryMock.Object, timeServiceMock.Object);
+			service = new RacesService(racesRepositoryMock.Object, resultsRepositoryMock.Object, timeServiceMock.Object);
 		}
 
 		[Fact]
@@ -28,7 +30,7 @@ namespace F1WM.UnitTests.Services
 
 			await service.GetNextRace();
 
-			repositoryMock.Verify(r => r.GetFirstRaceAfter(now), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetFirstRaceAfter(now), Times.Once);
 		}
 	}
 }
