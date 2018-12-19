@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Services;
 using Moq;
@@ -31,6 +32,20 @@ namespace F1WM.UnitTests.Services
 			await service.GetNextRace();
 
 			racesRepositoryMock.Verify(r => r.GetFirstRaceAfter(now), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetLastRaceBeforeTodayWithResults()
+		{
+			var now = new DateTime(1992, 10, 14);
+			var raceId = 777;
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			racesRepositoryMock.Setup(r => r.GetMostRecentRaceBefore(now)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
+
+			await service.GetLastRace();
+
+			racesRepositoryMock.Verify(r => r.GetMostRecentRaceBefore(now), Times.Once);
+			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
 		}
 	}
 }
