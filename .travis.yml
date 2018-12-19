@@ -1,7 +1,5 @@
 sudo: required
-language: csharp
-mono: none
-dotnet: 2.1.300
+language: minimal
 env:
   global:
   # ConnectionString
@@ -24,8 +22,7 @@ before_install:
 - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
 - install -vm700 <(echo "ConnectionStrings__DefaultConnectionString=$ConnectionString") "docker.env"
 script:
-- dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
-- docker build -t f1wm:latest F1WM --file F1WM/Dockerfile
+- docker build -t f1wm:latest .
 - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
 - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker.env docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
 - docker save f1wm:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
