@@ -1707,7 +1707,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("op")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.RaceNewsId)
+				entity.Property(e => e.Id)
 					.HasColumnName("ow")
 					.HasColumnType("mediumint unsigned");
 

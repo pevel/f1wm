@@ -25,7 +25,7 @@ namespace F1WM.DatabaseModel
         public uint? FastestLapsNewsId { get; set; }
         public uint? PitStopsNewsId { get; set; }
         public uint? Pw { get; set; }
-        public uint? RaceNewsId { get; set; }
+        public uint? Id { get; set; }
         public uint? CommentsAfterQualifyingNewsId { get; set; }
         public uint? CommentsAfterRaceNewsId { get; set; }
         public uint? CommentsAfterTrainingNewsId { get; set; }

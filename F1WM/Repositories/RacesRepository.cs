@@ -34,6 +34,7 @@ namespace F1WM.Repositories
                 .OrderByDescending(r => r.Date)
                 .Include(r => r.Track)
                 .Include(r => r.Country)
+                .Include(r => r.RaceNews)
                 .FirstOrDefaultAsync(r => r.Date < beforeDate);
             return mapper.Map<LastRaceSummary>(dbLastRace);
         }
