@@ -42,7 +42,6 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(result.Driver);
 				Assert.NotEqual(0, result.Driver.Id);
 				Assert.Null(result.Driver.Nationality);
-				Assert.True(TimeSpan.Zero < result.Time);
 				Assert.True(0 <= result.FinishedLaps);
 				Assert.True(0 < result.Number);
 				Assert.True(0 <= result.PitStopVisits);

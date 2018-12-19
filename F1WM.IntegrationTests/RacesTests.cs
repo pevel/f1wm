@@ -41,5 +41,50 @@ namespace F1WM.IntegrationTests
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastWinnerRaceResult.Driver.Surname));
 			Assert.True(nextRace.Date > nowAtRequestTime);
 		}
+
+		[Fact]
+		public async Task GetLastRaceTest()
+		{
+			var nowAtRequestTime = DateTime.Now;
+			var response = await client.GetAsync($"{baseAddress}/races/last");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var lastRace = JsonConvert.DeserializeObject<LastRaceSummary>(responseContent);
+			Assert.NotNull(lastRace);
+			Assert.NotNull(lastRace.Track);
+			Assert.NotEqual(0, lastRace.Id);
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.Name));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.TrackIcon));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.Name));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.TranslatedName));
+			Assert.NotNull(lastRace.FastestLapResult);
+			Assert.NotEqual(0, lastRace.FastestLapResult.Time.TotalMilliseconds);
+			Assert.NotEqual(0, lastRace.FastestLapResult.LapNumber);
+			Assert.NotNull(lastRace.FastestLapResult.Car);
+			Assert.NotEqual(0, lastRace.FastestLapResult.Car.Id);
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Car.Name));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Driver.FirstName));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Driver.Surname));
+			Assert.NotNull(lastRace.PolePositionLapResult);
+			Assert.NotEqual(0, lastRace.PolePositionLapResult.Time.TotalMilliseconds);
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.PolePositionLapResult.Driver.FirstName));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.PolePositionLapResult.Driver.Surname));
+			Assert.True(lastRace.Date < nowAtRequestTime);
+			Assert.NotNull(lastRace.ShortResults);
+			Assert.Equal(10, lastRace.ShortResults.Count());
+			Assert.All(lastRace.ShortResults, result => {
+				Assert.NotNull(result.Car);
+				Assert.NotEqual(0, result.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
+				Assert.NotNull(result.Driver);
+				Assert.NotEqual(0, result.Driver.Id);
+				Assert.Null(result.Driver.Nationality);
+				Assert.True(0 <= result.FinishedLaps);
+				Assert.True(0 < result.Number);
+				Assert.True(0 <= result.PitStopVisits);
+				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
+			});
+		}
 	}
 }
