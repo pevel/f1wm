@@ -23,7 +23,7 @@ namespace F1WM.Repositories
             var apiNextRace = mapper.Map<NextRaceSummary>(dbNextRace);
             await IncludeLastPolePositionResult(dbNextRace, apiNextRace);
             await IncludeLastWinnerResult(dbNextRace, apiNextRace);
-            await IncludeFastestResult(dbNextRace, apiNextRace);
+            await IncludeLastFastestResult(dbNextRace, apiNextRace);
             return apiNextRace;
         }
 
@@ -33,10 +33,14 @@ namespace F1WM.Repositories
             var dbLastRace = await context.Races
                 .OrderByDescending(r => r.Date)
                 .Include(r => r.Track)
+                .Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Driver)
+                .Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Car)
                 .Include(r => r.Country)
                 .Include(r => r.RaceNews)
                 .FirstOrDefaultAsync(r => r.Date < beforeDate);
-            return mapper.Map<LastRaceSummary>(dbLastRace);
+            var apiLastRace = mapper.Map<LastRaceSummary>(dbLastRace);
+            await IncludePolePositionResult(dbLastRace, apiLastRace);
+            return apiLastRace;
         }
 
         public RacesRepository(F1WMContext context, IMapper mapper)
@@ -71,7 +75,7 @@ namespace F1WM.Repositories
             apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
         }
 
-        private async Task IncludeFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
+        private async Task IncludeLastFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
         {
             var dbFastestResult = await context.Entries
                 .Include(e => e.Race)
@@ -82,6 +86,16 @@ namespace F1WM.Repositories
                 .OrderByDescending(e => e.Race.Date)
                 .FirstAsync();
             apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
+        }
+
+        private async Task IncludePolePositionResult(Race dbLastRace, LastRaceSummary apiLastRace)
+        {
+            var dbPolePositionResult = await context.Grids
+                .Include(g => g.Race)
+                .Include(g => g.Entry)
+                .ThenInclude(e => e.Driver)
+                .SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
+            apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
         }
     }
 }
