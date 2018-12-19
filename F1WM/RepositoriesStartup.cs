@@ -18,7 +18,7 @@ namespace F1WM
 			AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
 			return services
 				.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>()
-				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration))
+				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration), ServiceLifetime.Transient, ServiceLifetime.Singleton)
 				.AddAutoMapper(options => options.AddProfile(new MappingProfile()))
 				.AddTransient<INewsRepository, NewsRepository>()
 				.AddTransient<ICommentsRepository, CommentsRepository>()
