@@ -42,7 +42,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
-		public virtual DbSet<F1newsgp> F1newsgp { get; set; }
+		public virtual DbSet<RaceNews> RaceNews { get; set; }
 		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
 		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
 		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
@@ -1643,27 +1643,27 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("''");
 			});
 
-			modelBuilder.Entity<F1newsgp>(entity =>
+			modelBuilder.Entity<RaceNews>(entity =>
 			{
-				entity.HasKey(e => e.Raceid);
+				entity.HasKey(e => e.RaceId);
 
 				entity.ToTable("f1newsgp");
 
-				entity.HasIndex(e => e.Nr)
+				entity.HasIndex(e => e.Number)
 					.HasName("nr");
 
-				entity.HasIndex(e => e.Rok)
+				entity.HasIndex(e => e.Year)
 					.HasName("rok");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Fl)
+				entity.Property(e => e.FastestLapsNewsId)
 					.HasColumnName("fl")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Gal)
+				entity.Property(e => e.GalleryNewsId)
 					.HasColumnName("gal")
 					.HasColumnType("mediumint unsigned");
 
@@ -1683,39 +1683,39 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("k2")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Kk)
+				entity.Property(e => e.CommentsAfterQualifyingResultsNewsId)
 					.HasColumnName("kk")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Kpw)
+				entity.Property(e => e.PressConferenceNewsId)
 					.HasColumnName("kpw")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Kw)
+				entity.Property(e => e.CommentsAfterRaceResultsNewsId)
 					.HasColumnName("kw")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Mw)
+				entity.Property(e => e.ManeuversNewsId)
 					.HasColumnName("mw")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Nr)
+				entity.Property(e => e.Number)
 					.HasColumnName("nr")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Op)
+				entity.Property(e => e.TyresNewsId)
 					.HasColumnName("op")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Ow)
+				entity.Property(e => e.RaceNewsId)
 					.HasColumnName("ow")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Pk)
+				entity.Property(e => e.QualifyingNewsId)
 					.HasColumnName("pk")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Ps)
+				entity.Property(e => e.PitStopsNewsId)
 					.HasColumnName("ps")
 					.HasColumnType("mediumint unsigned");
 
@@ -1727,11 +1727,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("pw")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Rok)
+				entity.Property(e => e.Year)
 					.HasColumnName("rok")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.T1)
+				entity.Property(e => e.Training1NewsId)
 					.HasColumnName("t1")
 					.HasColumnType("mediumint unsigned");
 
@@ -1739,11 +1739,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("t12")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.T2)
+				entity.Property(e => e.Training2NewsId)
 					.HasColumnName("t2")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.T3)
+				entity.Property(e => e.Training3NewsId)
 					.HasColumnName("t3")
 					.HasColumnType("mediumint unsigned");
 
@@ -1759,11 +1759,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("wbk")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Wk)
+				entity.Property(e => e.CommentsAfterQualifyingNewsId)
 					.HasColumnName("wk")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Wt)
+				entity.Property(e => e.CommentsAfterTrainingNewsId)
 					.HasColumnName("wt")
 					.HasColumnType("mediumint unsigned");
 
@@ -1771,7 +1771,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("wu")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Ww)
+				entity.Property(e => e.CommentsAfterRaceNewsId)
 					.HasColumnName("ww")
 					.HasColumnType("mediumint unsigned");
 			});
