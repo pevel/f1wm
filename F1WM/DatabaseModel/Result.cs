@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel
         public int? FinishPosition { get; set; }
         public string Status { get; set; }
         public byte FinishedLaps { get; set; }
-        public string Info { get; set; }
+        public string Information { get; set; }
         public byte Ord { get; set; }
         public byte? PitStopVisits { get; set; }
         public TimeSpan Time { get; set; }

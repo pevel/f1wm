@@ -2301,7 +2301,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(2)")
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Info)
+				entity.Property(e => e.Information)
 					.IsRequired()
 					.HasColumnName("info")
 					.HasMaxLength(128)

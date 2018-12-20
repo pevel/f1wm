@@ -6,7 +6,6 @@ namespace F1WM.ApiModel
 		public int Number { get; set; }
 		public DriverSummary Driver { get; set; }
 		public CarSummary Car { get; set; }
-		public int FinishedLaps { get; set; }
 		public string Information { get; set; }
 		public QualifyingSessionResultPosition Session1 { get; set; }
 		public QualifyingSessionResultPosition Session2 { get; set; }

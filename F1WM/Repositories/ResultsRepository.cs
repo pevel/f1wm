@@ -35,9 +35,17 @@ namespace F1WM.Repositories
 			return GetRaceResultPositions(dbResults).Take(10);
 		}
 
-		public Task<QualifyingResult> GetQualifyingResult(int raceId)
+		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
-			throw new NotImplementedException();
+			await SetDbEncoding();
+			var model = new QualifyingResult();
+			var dbResults = await context.Qualifying
+				.Where(q => q.RaceId == raceId)
+				.Include(q => q.Entry).ThenInclude(e => e.Driver)
+				.Include(q => q.Entry).ThenInclude(e => e.Car)
+				.ToListAsync();
+			model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults);
+			return model;
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)
