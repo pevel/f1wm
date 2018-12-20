@@ -66,7 +66,7 @@ namespace F1WM.Utilities
 
 		public static string Cleanup(this string text)
 		{
-			return text?.Replace("[urlb=", "[url=").Replace("[urln=", "[url=");
+			return text == null ? string.Empty : text.Replace("[urlb=", "[url=").Replace("[urln=", "[url=");
 		}
 
 		public static string GetFlagIconPath(this string id)
