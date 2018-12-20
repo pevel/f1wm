@@ -37,14 +37,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("qualifying/{id}")]
 		[Produces("application/json", Type = typeof(QualifyingResult))]
-		public async Task<IActionResult> GetQualifyingResult(int id)
+		public async Task<IActionResult> GetQualifyingResult(int raceId)
 		{
 			try
 			{
-				var result = await service.GetQualifyingResult(id);
-				if (result != null)
+				var qualifyingResult = await service.GetQualifyingResult(raceId);
+				if (qualifyingResult != null)
 				{
-					return Ok(result);
+					return Ok(qualifyingResult);
 				}
 				else
 				{
