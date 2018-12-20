@@ -4,19 +4,31 @@ using F1WM.Repositories;
 
 namespace F1WM.Services
 {
-    public class RacesService : IRacesService
+	public class RacesService : IRacesService
 	{
-		private readonly IRacesRepository repository;
+		private readonly IRacesRepository racesRepository;
+		private readonly IResultsRepository resultsRepository;
 		private readonly ITimeService time;
 
 		public Task<NextRaceSummary> GetNextRace()
 		{
-			return repository.GetFirstRaceAfter(time.Now);
+			return racesRepository.GetFirstRaceAfter(time.Now);
 		}
 
-		public RacesService(IRacesRepository repository, ITimeService time)
+		public async Task<LastRaceSummary> GetLastRace()
 		{
-			this.repository = repository;
+			var model = await racesRepository.GetMostRecentRaceBefore(time.Now);
+			model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
+			return model;
+		}
+
+		public RacesService(
+			IRacesRepository racesRepository,
+			IResultsRepository resultsRepository,
+			ITimeService time)
+		{
+			this.racesRepository = racesRepository;
+			this.resultsRepository = resultsRepository;
 			this.time = time;
 		}
 	}

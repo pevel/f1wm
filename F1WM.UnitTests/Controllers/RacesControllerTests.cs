@@ -44,5 +44,27 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetNextRace(), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnLastRace()
+		{
+			serviceMock.Setup(s => s.GetLastRace()).ReturnsAsync(new LastRaceSummary());
+
+			var result = await controller.GetLastRace();
+
+			serviceMock.Verify(s => s.GetLastRace(), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfLastRaceNotFound()
+		{
+			serviceMock.Setup(s => s.GetLastRace()).ReturnsAsync((LastRaceSummary)null);
+
+			var result = await controller.GetLastRace();
+
+			serviceMock.Verify(s => s.GetLastRace(), Times.Once);
+			Assert.IsType<NotFoundResult>(result);
+		}
 	}
 }
