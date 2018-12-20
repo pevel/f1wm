@@ -4,7 +4,7 @@ using F1WM.Repositories;
 
 namespace F1WM.Services
 {
-    public class ResultsService : IResultsService
+	public class ResultsService : IResultsService
 	{
 		private readonly IResultsRepository repository;
 
@@ -18,9 +18,9 @@ namespace F1WM.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<QualifyingResult> GetQualifyingResult(int id)
+		public Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetQualifyingResult(raceId);
 		}
 
 		public Task<RaceResult> GetRaceResult(int raceId)

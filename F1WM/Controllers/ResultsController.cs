@@ -35,7 +35,7 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpGet("qualifying/{id}")]
+		[HttpGet("qualifying/{raceId}")]
 		[Produces("application/json", Type = typeof(QualifyingResult))]
 		public async Task<IActionResult> GetQualifyingResult(int raceId)
 		{

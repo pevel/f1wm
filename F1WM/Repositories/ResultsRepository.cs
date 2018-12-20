@@ -34,6 +34,12 @@ namespace F1WM.Repositories
 			return GetRaceResultPositions(dbResults).Take(10);
 		}
 
+		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
+		{
+			await SetDbEncoding();
+			return new QualifyingResult();
+		}
+
 		public ResultsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
