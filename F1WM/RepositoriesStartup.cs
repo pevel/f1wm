@@ -15,7 +15,6 @@ namespace F1WM
 
 		public static IServiceCollection ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
 		{
-			AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
 			return services
 				.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>()
 				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration), ServiceLifetime.Transient, ServiceLifetime.Singleton)
