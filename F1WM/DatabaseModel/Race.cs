@@ -24,5 +24,6 @@ namespace F1WM.DatabaseModel
 		public virtual IEnumerable<Grid> Grids { get; set; }
 		public virtual FastestLap FastestLap { get; set; }
 		public virtual RaceNews RaceNews { get; set; }
+		public virtual Qualifying Qualifying { get; set; }
 	}
 }

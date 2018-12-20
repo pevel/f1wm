@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -34,10 +35,9 @@ namespace F1WM.Repositories
 			return GetRaceResultPositions(dbResults).Take(10);
 		}
 
-		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
+		public Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
-			await SetDbEncoding();
-			return new QualifyingResult();
+			throw new NotImplementedException();
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)
