@@ -12,6 +12,7 @@ namespace F1WM.ApiModel
 		public int Number { get; set; }
 		public DriverSummary Driver { get; set; }
 		public CarSummary Car { get; set; }
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string Information { get; set; }
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
@@ -19,6 +20,7 @@ namespace F1WM.ApiModel
 
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public QualifyingSessionResultPosition Session2 { get; set; }
+
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public QualifyingSessionResultPosition Session3 { get; set; }
 	}

@@ -20,4 +20,14 @@ public static class GridExtensions
 		}
 		return dbGrid;
 	}
+
+	public static void FillSessionsInfo(this Grid dbResult, QualifyingResultPosition apiResult)
+	{
+		apiResult.Session1 = dbResult.Time == TimeSpan.Zero ? null : new QualifyingSessionResultPosition()
+		{
+			FinishPosition = dbResult.StartPosition,
+			FinishedLaps = null,
+			Time = dbResult.Time
+		};
+	}
 }

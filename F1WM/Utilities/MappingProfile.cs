@@ -52,6 +52,13 @@ namespace F1WM.Utilities
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
 				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetQualifyStatus()))
 				.AfterMap((db, api) => db.FillSessionsInfo(api));
+			CreateMap<Grid, QualifyingResultPosition>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.FinishPosition, o => o.MapFrom(db => db.StartPosition))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.StartStatus.GetQualifyStatus()))
+				.AfterMap((db, api) => db.FillSessionsInfo(api));
 		}
 	}
 }
