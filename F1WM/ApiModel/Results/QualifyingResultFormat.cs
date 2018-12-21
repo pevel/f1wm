@@ -4,7 +4,7 @@ namespace F1WM.ApiModel
 	{
 		Unknown,
 		Basic,
-		CombinedAll,
+		Combined123,
 		Combined12,
 		CombinedSummed12
 	}

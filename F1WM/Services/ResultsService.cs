@@ -40,7 +40,7 @@ namespace F1WM.Services
 		{
 			if (result.Results.Any(r => r.Session3 != null))
 			{
-				return QualifyingResultFormat.CombinedAll;
+				return QualifyingResultFormat.Combined123;
 			}
 			else if (result.Results.Any(r => r.Session1 != null && r.Session2 != null))
 			{
