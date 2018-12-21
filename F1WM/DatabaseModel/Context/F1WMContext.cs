@@ -283,6 +283,7 @@ namespace F1WM.DatabaseModel
 
 				entity.Property(e => e.Status)
 					.HasColumnName("status")
+					.IsRequired()
 					.HasDefaultValueSql("'0'");
 
 				entity.HasOne(e => e.Nationality)
@@ -1426,8 +1427,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned");
 
 				entity.Property(e => e.CommBlock)
-					.HasColumnName("comm_block")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("comm_block");
 
 				entity.Property(e => e.CommentCount)
 					.HasColumnName("comm_count")
@@ -1443,12 +1443,10 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.NewsHidden)
-					.HasColumnName("news_hidden")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("news_hidden");
 
 				entity.Property(e => e.NewsHighlight)
-					.HasColumnName("news_highlight")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("news_highlight");
 
 				entity.Property(e => e.NewsModified)
 					.HasColumnName("news_modified")
@@ -1474,8 +1472,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(80);
 
 				entity.Property(e => e.Type)
-					.HasColumnName("news_type")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("news_type");
 
 				entity.Property(e => e.Views)
 					.HasColumnName("news_views")
@@ -2156,12 +2153,10 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.Trackver)
-					.HasColumnName("trackver")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("trackver");
 
 				entity.Property(e => e.Weather)
-					.HasColumnName("weather")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("weather");
 
 				entity.Property(e => e.Yearmonth)
 					.IsRequired()
@@ -2757,8 +2752,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("''");
 
 				entity.Property(e => e.Fiatrackmap)
-					.HasColumnName("fiatrackmap")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("fiatrackmap");
 
 				entity.Property(e => e.Name)
 					.IsRequired()
@@ -2841,8 +2835,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("''");
 
 				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
+					.HasColumnName("status");
 
 				entity.Property(e => e.ShortName)
 					.IsRequired()

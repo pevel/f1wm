@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
 	{
 		public uint Id { get; set; }
 		public DateTime Date { get; set; }
-		public bool Type { get; set; }
+		public byte Type { get; set; }
 		public int? NewsModified { get; set; }
 		public string PosterName { get; set; }
 		public uint TopicId { get; set; }

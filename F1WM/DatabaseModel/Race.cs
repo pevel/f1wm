@@ -14,7 +14,7 @@ namespace F1WM.DatabaseModel
 		public byte Laps { get; set; }
 		public double Offset { get; set; }
 		public string Name { get; set; }
-		public bool Trackver { get; set; }
+		public byte Trackver { get; set; }
 		public byte Gridtype { get; set; }
 		public byte Qualtype { get; set; }
 		public string Yearmonth { get; set; }
