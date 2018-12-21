@@ -1947,6 +1947,10 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("q1pos")
 					.HasDefaultValueSql("'0'");
 
+				entity.Property(e => e.Session1Time)
+					.HasColumnName("q1time")
+					.HasTimeConversions();
+
 				entity.Property(e => e.Session2Laps)
 					.HasColumnName("q2laps")
 					.HasDefaultValueSql("'0'");
@@ -1955,6 +1959,10 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("q2pos")
 					.HasDefaultValueSql("'0'");
 
+				entity.Property(e => e.Session2Time)
+					.HasColumnName("q2time")
+					.HasTimeConversions();
+
 				entity.Property(e => e.Session3Laps)
 					.HasColumnName("q3laps")
 					.HasDefaultValueSql("'0'");
@@ -1962,6 +1970,10 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Session3Position)
 					.HasColumnName("q3pos")
 					.HasDefaultValueSql("'0'");
+
+				entity.Property(e => e.Session3Time)
+					.HasColumnName("q3time")
+					.HasTimeConversions();
 
 				entity.Property(e => e.PositionOrStatus)
 					.IsRequired()
