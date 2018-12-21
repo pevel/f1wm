@@ -27,6 +27,13 @@ namespace F1WM.Utilities
 			{ Constants.StartStatus.NotQualified, ApiModel.StartStatus.NotQualified }
 		};
 
+		private static Dictionary<string, ApiModel.QualifyStatus> textToQualifyStatus = new Dictionary<string, QualifyStatus>()
+		{
+			{ Constants.QualifyStatus.DidNotStart, ApiModel.QualifyStatus.DidNotStart },
+			{ Constants.QualifyStatus.Excluded, ApiModel.QualifyStatus.Excluded },
+			{ Constants.QualifyStatus.NotQualified, ApiModel.QualifyStatus.NotQualified }
+		};
+
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))
@@ -92,6 +99,11 @@ namespace F1WM.Utilities
 		public static StartStatus GetStartStatus(this string statusText)
 		{
 			return textToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
+		}
+
+		public static QualifyStatus GetQualifyStatus(this string statusText)
+		{
+			return textToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
 		}
 	}
 }

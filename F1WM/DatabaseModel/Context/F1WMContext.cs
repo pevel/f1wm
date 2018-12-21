@@ -1917,7 +1917,7 @@ namespace F1WM.DatabaseModel
 
 				entity.ToTable("f1quals");
 
-				entity.Ignore(e => e.Position);
+				entity.Ignore(e => e.FinishPosition);
 
 				entity.Ignore(e => e.Status);
 

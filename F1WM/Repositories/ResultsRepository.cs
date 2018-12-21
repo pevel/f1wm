@@ -44,7 +44,7 @@ namespace F1WM.Repositories
 				.Include(q => q.Entry).ThenInclude(e => e.Driver)
 				.Include(q => q.Entry).ThenInclude(e => e.Car)
 				.ToListAsync();
-			model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults);
+			model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillFinishPositionInfo()));
 			return model;
 		}
 

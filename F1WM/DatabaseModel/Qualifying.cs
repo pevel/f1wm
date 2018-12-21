@@ -5,7 +5,7 @@
         public uint EntryId { get; set; }
         public uint RaceId { get; set; }
         public string PositionOrStatus { get; set; }
-        public int? Position { get; set; }
+        public int? FinishPosition { get; set; }
         public string Status { get; set; }
         public byte Ord { get; set; }
         public string Information { get; set; }
