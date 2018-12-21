@@ -8,7 +8,7 @@ namespace F1WM.ApiModel
 	public class QualifyingResult
 	{
 		public IEnumerable<QualifyingResultPosition> Results { get; set; }
-		public LapResultSummary FastestLap { get; set; }
+		[JsonConverter(typeof(StringEnumConverter))]
 		public QualifyingResultFormat Format { get; set; }
 	}
 }
