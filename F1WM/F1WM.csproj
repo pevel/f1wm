@@ -26,8 +26,9 @@
     <PackageReference Include="Serilog.Sinks.File" Version="4.0.0" />
   </ItemGroup>
 
-  <Target Name="PrecompileScript" BeforeTargets="BeforeBuild">
-    <Exec Command="ruby scripts/add_build_number.rb" />
+  <Target Name="PrecompileScript" BeforeTargets="BeforeBuild" >
+    <Exec Command="sh scripts/add_build_number.sh" Condition="'$(OS)' != 'Windows_NT'"/>
+    <Exec Command="ruby scripts/add_build_number.rb" Condition="'$(OS)' == 'Windows_NT'"/>
   </Target>
 
   <ItemGroup>

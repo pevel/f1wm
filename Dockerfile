@@ -1,12 +1,7 @@
 FROM microsoft/dotnet:2.2-sdk-bionic AS build-env
 WORKDIR /app
 
-# install Ruby to run scripts
-RUN \
-  apt-get update && \
-  apt-get install -y ruby
-
-# copy everything else and run unit tests and build
+# copy everything and run unit tests and build
 COPY . ./
 RUN dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
 RUN dotnet publish -c Release -o bin F1WM/F1WM.csproj
