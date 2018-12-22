@@ -41,6 +41,7 @@ namespace F1WM.Repositories
 		{
 			await SetDbEncoding();
 			var model = new QualifyingResult();
+			model.RaceId = raceId;
 			if (raceId >= searchInGridBeforeRaceId)
 			{
 				var dbResults = await context.Qualifying
