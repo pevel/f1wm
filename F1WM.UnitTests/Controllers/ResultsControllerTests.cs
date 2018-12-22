@@ -25,10 +25,12 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnRaceResults()
 		{
 			int raceId = 42;
+			serviceMock.Setup(s => s.GetRaceResult(raceId)).ReturnsAsync(new RaceResult());
 
-			await controller.GetRaceResult(raceId);
+			var result = await controller.GetRaceResult(raceId);
 
 			serviceMock.Verify(s => s.GetRaceResult(raceId), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
 		}
 
 		[Fact]
@@ -38,6 +40,29 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Setup(s => s.GetRaceResult(raceId)).ReturnsAsync((RaceResult)null);
 
 			var result = await controller.GetRaceResult(raceId);
+
+			Assert.IsType<NotFoundResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnQualifyingResults()
+		{
+			int raceId = 52;
+			serviceMock.Setup(s => s.GetQualifyingResult(raceId)).ReturnsAsync(new QualifyingResult());
+
+			var result = await controller.GetQualifyingResult(raceId);
+
+			serviceMock.Verify(s => s.GetQualifyingResult(raceId), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfQualifyingResultsNotFound()
+		{
+			int raceId = 53;
+			serviceMock.Setup(s => s.GetQualifyingResult(raceId)).ReturnsAsync((QualifyingResult)null);
+
+			var result = await controller.GetQualifyingResult(raceId);
 
 			Assert.IsType<NotFoundResult>(result);
 		}

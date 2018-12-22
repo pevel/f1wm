@@ -22,7 +22,10 @@ namespace F1WM.Services
 		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
 			var result = await repository.GetQualifyingResult(raceId);
-			result.Format = DetectQualifyingResultFormat(result);
+			if (result != null && result.Results != null)
+			{
+				result.Format = DetectQualifyingResultFormat(result);
+			}
 			return result;
 		}
 
