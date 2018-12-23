@@ -81,6 +81,12 @@ namespace F1WM.Repositories
 			return model.Results.Any() ? model : null;
 		}
 
+		public async Task<ApiModel.OtherResult> GetOtherResult(int eventId)
+		{
+			await SetDbEncoding();
+			throw new NotImplementedException();
+		}
+
 		public ResultsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;

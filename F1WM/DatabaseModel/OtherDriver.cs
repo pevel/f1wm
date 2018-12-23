@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-    public class InneKierowcy
+    public class OtherDriver
     {
         public uint Id { get; set; }
         public string Imie { get; set; }

@@ -9,9 +9,9 @@ namespace F1WM.Services
 	{
 		private readonly IResultsRepository repository;
 
-		public Task<OtherResult> GetOtherResult(int id)
+		public Task<OtherResult> GetOtherResult(int eventId)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetOtherResult(eventId);
 		}
 
 		public Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
