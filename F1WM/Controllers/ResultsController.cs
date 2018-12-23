@@ -12,13 +12,13 @@ namespace F1WM.Controllers
 		private readonly IResultsService service;
 		private readonly ILoggingService logger;
 
-		[HttpGet("race/{id}")]
+		[HttpGet("race/{raceId}")]
 		[Produces("application/json", Type = typeof(RaceResult))]
-		public async Task<IActionResult> GetRaceResult(int id)
+		public async Task<IActionResult> GetRaceResult(int raceId)
 		{
 			try
 			{
-				var raceResult = await service.GetRaceResult(id);
+				var raceResult = await service.GetRaceResult(raceId);
 				if (raceResult != null)
 				{
 					return Ok(raceResult);
@@ -35,16 +35,16 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpGet("qualifying/{id}")]
+		[HttpGet("qualifying/{raceId}")]
 		[Produces("application/json", Type = typeof(QualifyingResult))]
-		public async Task<IActionResult> GetQualifyingResult(int id)
+		public async Task<IActionResult> GetQualifyingResult(int raceId)
 		{
 			try
 			{
-				var result = await service.GetQualifyingResult(id);
-				if (result != null)
+				var qualifyingResult = await service.GetQualifyingResult(raceId);
+				if (qualifyingResult != null)
 				{
-					return Ok(result);
+					return Ok(qualifyingResult);
 				}
 				else
 				{

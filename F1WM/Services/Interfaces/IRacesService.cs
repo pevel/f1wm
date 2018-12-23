@@ -7,5 +7,6 @@ namespace F1WM.Services
 	public interface IRacesService
 	{
 		Task<NextRaceSummary> GetNextRace();
+		Task<LastRaceSummary> GetLastRace();
 	}
 }

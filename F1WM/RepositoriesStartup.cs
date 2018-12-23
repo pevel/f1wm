@@ -15,10 +15,9 @@ namespace F1WM
 
 		public static IServiceCollection ConfigureRepositories(this IServiceCollection services, IConfiguration configuration)
 		{
-			AutoMapper.ServiceCollectionExtensions.UseStaticRegistration = false;
 			return services
 				.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>()
-				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration))
+				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration), ServiceLifetime.Transient, ServiceLifetime.Singleton)
 				.AddAutoMapper(options => options.AddProfile(new MappingProfile()))
 				.AddTransient<INewsRepository, NewsRepository>()
 				.AddTransient<ICommentsRepository, CommentsRepository>()
@@ -27,6 +26,8 @@ namespace F1WM
 				.AddTransient<IRacesRepository, RacesRepository>()
 				.AddTransient<IConfigTextRepository, ConfigTextRepository>()
 				.AddTransient<ICalendarRepository, CalendarRepository>();
+				.AddTransient<IResultsRepository, ResultsRepository>()
+				.AddTransient<IConfigTextRepository, ConfigTextRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration)
