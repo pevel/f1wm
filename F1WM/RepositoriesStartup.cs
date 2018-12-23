@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using AutoMapper;
 using F1WM.DatabaseModel;
 using F1WM.Repositories;
@@ -18,7 +19,7 @@ namespace F1WM
 			return services
 				.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>()
 				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration), ServiceLifetime.Transient, ServiceLifetime.Singleton)
-				.AddAutoMapper(options => options.AddProfile(new MappingProfile()))
+				.AddAutoMapper(options => options.AddProfiles(Assembly.GetExecutingAssembly()))
 				.AddTransient<INewsRepository, NewsRepository>()
 				.AddTransient<ICommentsRepository, CommentsRepository>()
 				.AddTransient<IHealthCheckRepository, HealthCheckRepository>()
