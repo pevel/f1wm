@@ -41,5 +41,17 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetQualifyingResult(raceId), Times.Once);
 			Assert.Equal(QualifyingResultFormat.Unknown, result.Format);
 		}
+
+		[Fact]
+		public async Task ShouldGetPracticeSessionResult()
+		{
+			int raceId = 52;
+			string session = "t1";
+			repositoryMock.Setup(r => r.GetPracticeSessionResult(raceId, session)).ReturnsAsync(new PracticeSessionResult());
+
+			var result = await service.GetPracticeSessionResult(raceId, session);
+
+			repositoryMock.Verify(r => r.GetPracticeSessionResult(raceId, session), Times.Once);
+		}
 	}
 }

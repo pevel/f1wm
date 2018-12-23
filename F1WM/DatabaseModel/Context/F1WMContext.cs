@@ -46,7 +46,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
 		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
 		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
-		public virtual DbSet<F1othersessions> F1othersessions { get; set; }
+		public virtual DbSet<OtherSession> OtherSessions { get; set; }
 		public virtual DbSet<Qualifying> Qualifying { get; set; }
 		public virtual DbSet<F1quotes> F1quotes { get; set; }
 		public virtual DbSet<Race> Races { get; set; }
@@ -1865,38 +1865,38 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(14);
 			});
 
-			modelBuilder.Entity<F1othersessions>(entity =>
+			modelBuilder.Entity<OtherSession>(entity =>
 			{
 				entity.ToTable("f1othersessions");
 
-				entity.HasIndex(e => e.Entryid)
+				entity.HasIndex(e => e.EntryId)
 					.HasName("entryid");
 
-				entity.HasIndex(e => e.Raceid)
+				entity.HasIndex(e => e.RaceId)
 					.HasName("raceid");
 
-				entity.HasIndex(e => e.Sespos)
+				entity.HasIndex(e => e.FinishPosition)
 					.HasName("sespos");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Entryid)
+				entity.Property(e => e.EntryId)
 					.HasColumnName("entryid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Laps)
+				entity.Property(e => e.FinishedLaps)
 					.HasColumnName("laps")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Raceid)
+				entity.Property(e => e.RaceId)
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Sespos)
+				entity.Property(e => e.FinishPosition)
 					.HasColumnName("sespos")
 					.HasDefaultValueSql("'0'");
 
@@ -1908,7 +1908,8 @@ namespace F1WM.DatabaseModel
 
 				entity.Property(e => e.Time)
 					.HasColumnName("time")
-					.HasDefaultValueSql("'0'");
+					.HasColumnType("double")
+					.HasTimeConversions();
 			});
 
 			modelBuilder.Entity<Qualifying>(entity =>

@@ -58,13 +58,13 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpGet("practice/{id}")]
-		[Produces("application/json", Type = typeof(PracticeResult))]
-		public async Task<IActionResult> GetPracticeResult(int id)
+		[HttpGet("practice/{raceId}/sessions/{session}")]
+		[Produces("application/json", Type = typeof(PracticeSessionResult))]
+		public async Task<IActionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			try
 			{
-				var result = await service.GetPracticeResult(id);
+				var result = await service.GetPracticeSessionResult(raceId, session);
 				if (result != null)
 				{
 					return Ok(result);
