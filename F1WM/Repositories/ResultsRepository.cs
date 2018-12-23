@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -11,6 +12,8 @@ namespace F1WM.Repositories
 	public class ResultsRepository : RepositoryBase, IResultsRepository
 	{
 		private readonly IMapper mapper;
+
+		private const int searchInGridBeforeRaceId = 598;
 
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
@@ -32,6 +35,34 @@ namespace F1WM.Repositories
 			await SetDbEncoding();
 			var dbResults = await GetDbRaceResults(raceId);
 			return GetRaceResultPositions(dbResults).Take(10);
+		}
+
+		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
+		{
+			await SetDbEncoding();
+			var model = new QualifyingResult();
+			model.RaceId = raceId;
+			if (raceId >= searchInGridBeforeRaceId)
+			{
+				var dbResults = await context.Qualifying
+					.Where(q => q.RaceId == raceId)
+					.Include(q => q.Entry).ThenInclude(e => e.Driver)
+					.Include(q => q.Entry).ThenInclude(e => e.Car)
+					.ToListAsync();
+				model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillFinishPositionInfo()))
+					.OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition);
+			}
+			else
+			{
+				var dbResults = await context.Grids
+					.Where(g => g.RaceId == raceId)
+					.Include(q => q.Entry).ThenInclude(e => e.Driver)
+					.Include(q => q.Entry).ThenInclude(e => e.Car)
+					.ToListAsync();
+				model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillStartPositionInfo()))
+					.OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition);
+			}
+			return model;
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)

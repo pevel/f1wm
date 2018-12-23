@@ -9,5 +9,6 @@ namespace F1WM.Repositories
 	{
 		Task<RaceResult> GetRaceResult(int raceId);
 		Task<IEnumerable<RaceResultPosition>> GetShortRaceResult(int raceId);
+		Task<QualifyingResult> GetQualifyingResult(int raceId);
 	}
 }

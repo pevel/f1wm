@@ -16,7 +16,7 @@ namespace F1WM.DatabaseModel
         public uint EngineId { get; set; }
         public uint EngineMakeId { get; set; }
         public uint TyresId { get; set; }
-        public bool ThirdDriver { get; set; }
+        public bool? ThirdDriver { get; set; }
         public virtual Driver Driver { get; set; }
         public virtual Grid Grid { get; set; }
         public virtual Result Result { get; set; }
@@ -24,5 +24,6 @@ namespace F1WM.DatabaseModel
         public virtual FastestLap FastestLap { get; set; }
         public virtual Car Car { get; set; }
         public virtual Tyres Tyres { get; set; }
+        public virtual Qualifying Qualifying { get; set; }
     }
 }

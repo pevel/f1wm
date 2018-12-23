@@ -32,7 +32,6 @@ namespace F1WM.Utilities
 			CreateMap<Entry, RaceResultSummary>()
 				.ForMember(api => api.Time, o => o.MapFrom(db => db.Result.Time));
 			CreateMap<Result, RaceResultPosition>()
-				.ForMember(api => api.Information, o => o.MapFrom(db => db.Info))
 				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetResultStatus()))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
@@ -47,6 +46,19 @@ namespace F1WM.Utilities
 			CreateMap<FastestLap, FastestLapResultSummary>()
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
+			CreateMap<Qualifying, QualifyingResultPosition>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetQualifyStatus()))
+				.AfterMap((db, api) => db.FillSessionsInfo(api));
+			CreateMap<Grid, QualifyingResultPosition>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.FinishPosition, o => o.MapFrom(db => db.StartPosition))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.StartStatus.GetQualifyStatus()))
+				.AfterMap((db, api) => db.FillSessionsInfo(api));
 		}
 	}
 }

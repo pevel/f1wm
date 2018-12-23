@@ -2,8 +2,6 @@ sudo: required
 language: minimal
 env:
   global:
-  # ConnectionString
-  - secure: lZnvYlQUl07lXzS5FfUCgnkidJG7xncGguMnaSMJXb5c+fmnuqCi4Kb5faR5k82EtDdYFUzusFVoTXCYmLzQWZx6znFEfEU7u6pW/MjIYt/dbV9A5JXqus/qLXM8nKj3UUo6/Bpji+1YH1bUjcUnqyDM078eBzuh8wETUUB5oTrpnDdtIbjohJHFbpSs68spF+7wMkBebca8/CG4ujnRokqtDqj2xRu2BdvQyLsfnq7Skzu96XIFUkzf1ho0Mj7QN5BAFS51OXw85v2YYs0qgTKp0taca9vm+Gx97agxPUUdWUBl4wYD1wakr7iHYmPI00RB0oX5lTaa+JhtOxVH/xW5XIp/eU8yXAyKkIyX/OLFrNvyQ4mYT7tNet3uKw7iWFTafD6/FjmwdVIW7J9Tm7qNLjP775bmIOyMV+f6ATLO4aXJ5KP5pnsqZsPrwzIvSOWHF+fIhrbef0cTCr8DX/MTByA+12MHwY0CXNUpU5xR8SVCQ1ymENq3Jq79wUVq+cuz7SAs/icfhqns5G3aaQWlaKGddKP9+Hwc+4mHM0CbMYH7SU306G93ax7UFxztXpo2d5ZYlAuG3XPzxDbdFMLqKlIySBvOoFDawyVUs/bGwLEAHJdPud9++Sz2/t0Kn8W49f+78vLsSjRXT2FYZ38xNP+c32JCK+FZEIZVSh8=
   # DeployUser
   - secure: nxwFVSuA4n6UzNO2kICwMdRBA62iZE681nc5nrhjoBV1mbObCl8z7pSHkGcRVym4IPJXVvm+QCbNn+qLdbHQNHmYaxBQdXDMhfQjjlHpUfofiWDJmZsNJsAFRR/l0kGmEIR3CvkaLs0EiClguAT6Wj8iuzQVYeeG0yFLbYae01e90XQe4V3SowHxADmRUlmqmOGAMLjVpoN1BJmlSAGyHONkMhGir8V7/1uNP4Qa1PenyZBsWywRiHAELXHh1k9RJXiKC0nXRFSK16SfR1+nqNqUBc6ZKNkzfkaNvaEdH5yRxzk4Gd+0J9ZCNiXLfhGpElgCgGQIbsJDkMx9FfSP0gl/gabku2g1EJC0pfw/U8rM1uc+qccEBtfuLkkuO48Jem6A0uZlcnGKCPT1rnrWAwK5aURmCCIzNAzo0qTS9IX7V22UAFuCedfS3Tyao+CMmeKvqTZcZ4lYifBz5uQbRO5z5GS47pDerjp4HydyurqreZYfQJuwWiwR0UJVthvWi+1n2piouZikiYOrRK+hYpW5e+HvzAn+KU8zUbNcBO/ExsCYdybgCInm4G+JWjjEbroAHl0FeZbOy09Kjcci6R2gMZxmkI3VcxQHxAvNqgAGPlzPL0lag0HZIephAftqqkImlEpnl8llO6eF11gsgHeaGP+PUoYu64DXeR7W0+I=
   # DeployServer
@@ -20,10 +18,9 @@ before_install:
 - chmod 600 /tmp/deploy_rsa
 - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
 - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
-- install -vm700 <(echo "ConnectionStrings__DefaultConnectionString=$ConnectionString") "docker.env"
 script:
 - docker build -t f1wm:latest .
 - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
-- scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker.env docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
+- scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
 - docker save f1wm:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
 - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'

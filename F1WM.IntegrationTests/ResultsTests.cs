@@ -52,5 +52,129 @@ namespace F1WM.IntegrationTests
 				return current;
 			});
 		}
+
+		[Fact]
+		public async Task GetBasicQualifyingResultTest()
+		{
+			var raceId = 1;
+			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var qualifyingResult = JsonConvert.DeserializeObject<QualifyingResult>(responseContent);
+			Assert.NotNull(qualifyingResult);
+			Assert.Equal(raceId, qualifyingResult.RaceId);
+			Assert.Equal(QualifyingResultFormat.Basic, qualifyingResult.Format);
+			Assert.NotNull(qualifyingResult.Results);
+			Assert.NotEmpty(qualifyingResult.Results);
+			Assert.All(qualifyingResult.Results, result => {
+				Assert.NotNull(result.Car);
+				Assert.NotEqual(0, result.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
+				Assert.NotNull(result.Driver);
+				Assert.NotEqual(0, result.Driver.Id);
+				Assert.Null(result.Driver.Nationality);
+				Assert.True(0 < result.Number);
+				Assert.NotNull(result.Session1);
+				Assert.True(TimeSpan.Zero < result.Session1.Time);
+				Assert.Null(result.Session2);
+				Assert.Null(result.Session3);
+			});
+			qualifyingResult.Results.Aggregate((previous, current) => {
+				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
+				return current;
+			});
+		}
+
+		[Fact]
+		public async Task GetCombined12QualifyingResultTest()
+		{
+			var raceId = 700;
+			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var qualifyingResult = JsonConvert.DeserializeObject<QualifyingResult>(responseContent);
+			Assert.NotNull(qualifyingResult);
+			Assert.Equal(raceId, qualifyingResult.RaceId);
+			Assert.Equal(QualifyingResultFormat.Combined12, qualifyingResult.Format);
+			Assert.NotNull(qualifyingResult.Results);
+			Assert.NotEmpty(qualifyingResult.Results);
+			Assert.All(qualifyingResult.Results, result => {
+				Assert.NotNull(result.Car);
+				Assert.NotEqual(0, result.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
+				Assert.NotNull(result.Driver);
+				Assert.NotEqual(0, result.Driver.Id);
+				Assert.Null(result.Driver.Nationality);
+				Assert.True(0 < result.Number);
+			});
+			qualifyingResult.Results.Aggregate((previous, current) => {
+				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
+				return current;
+			});
+		}
+
+		[Fact]
+		public async Task GetCombinedSummed12QualifyingResultTest()
+		{
+			var raceId = 733;
+			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var qualifyingResult = JsonConvert.DeserializeObject<QualifyingResult>(responseContent);
+			Assert.NotNull(qualifyingResult);
+			Assert.Equal(raceId, qualifyingResult.RaceId);
+			Assert.Equal(QualifyingResultFormat.CombinedSummed12, qualifyingResult.Format);
+			Assert.NotNull(qualifyingResult.Results);
+			Assert.NotEmpty(qualifyingResult.Results);
+			Assert.All(qualifyingResult.Results, result => {
+				Assert.NotNull(result.Car);
+				Assert.NotEqual(0, result.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
+				Assert.NotNull(result.Driver);
+				Assert.NotEqual(0, result.Driver.Id);
+				Assert.Null(result.Driver.Nationality);
+				Assert.True(0 < result.Number);
+				Assert.NotNull(result.Session1);
+				Assert.True(TimeSpan.Zero < result.Session1.Time);
+			});
+			qualifyingResult.Results.Aggregate((previous, current) => {
+				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
+				return current;
+			});
+		}
+
+		[Fact]
+		public async Task GetCombined123QualifyingResultTest()
+		{
+			var raceId = 1044;
+			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var qualifyingResult = JsonConvert.DeserializeObject<QualifyingResult>(responseContent);
+			Assert.NotNull(qualifyingResult);
+			Assert.Equal(raceId, qualifyingResult.RaceId);
+			Assert.Equal(QualifyingResultFormat.Combined123, qualifyingResult.Format);
+			Assert.NotNull(qualifyingResult.Results);
+			Assert.NotEmpty(qualifyingResult.Results);
+			Assert.All(qualifyingResult.Results, result => {
+				Assert.NotNull(result.Car);
+				Assert.NotEqual(0, result.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
+				Assert.NotNull(result.Driver);
+				Assert.NotEqual(0, result.Driver.Id);
+				Assert.Null(result.Driver.Nationality);
+				Assert.True(0 < result.Number);
+				Assert.NotNull(result.Session1);
+				Assert.True(TimeSpan.Zero < result.Session1.Time);
+			});
+			qualifyingResult.Results.Aggregate((previous, current) => {
+				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
+				return current;
+			});
+		}
 	}
 }

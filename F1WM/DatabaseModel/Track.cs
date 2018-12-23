@@ -26,7 +26,7 @@ namespace F1WM.DatabaseModel
         public string Zipcode { get; set; }
         public string Satmapcoords { get; set; }
         public byte? Satmapzoom { get; set; }
-        public bool Status { get; set; }
+        public byte Status { get; set; }
         public bool Fiatrackmap { get; set; }
         public ushort? Length { get; set; }
         public uint? Newstopicid { get; set; }
