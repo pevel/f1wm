@@ -68,7 +68,17 @@ namespace F1WM.Repositories
 		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			await SetDbEncoding();
-			throw new NotImplementedException();
+			var model = new PracticeSessionResult();
+			model.RaceId = raceId;
+			model.Session = session;
+			var dbResults = await context.OtherSessions
+				.Where(s => s.RaceId == raceId && s.Session == session)
+				.Include(s => s.Entry).ThenInclude(e => e.Driver)
+				.Include(s => s.Entry).ThenInclude(e => e.Car)
+				.ToListAsync();
+			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition);
+			return model;
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)

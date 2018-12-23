@@ -12,5 +12,6 @@ namespace F1WM.DatabaseModel
         public byte FinishPosition { get; set; }
         public TimeSpan Time { get; set; }
         public byte FinishedLaps { get; set; }
+        public virtual Entry Entry { get; set; }
     }
 }
