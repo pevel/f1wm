@@ -14,9 +14,9 @@ namespace F1WM.Services
 			throw new System.NotImplementedException();
 		}
 
-		public Task<PracticeResult> GetPracticeResult(int id)
+		public Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetPracticeSessionResult(raceId, session);
 		}
 
 		public async Task<QualifyingResult> GetQualifyingResult(int raceId)

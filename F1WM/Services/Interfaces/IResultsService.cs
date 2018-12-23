@@ -8,7 +8,7 @@ namespace F1WM.Services
 	{
 		Task<RaceResult> GetRaceResult(int raceId);
 		Task<OtherResult> GetOtherResult(int id);
-		Task<PracticeResult> GetPracticeResult(int id);
+		Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session);
 		Task<QualifyingResult> GetQualifyingResult(int raceId);
 	}
 }

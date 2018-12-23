@@ -65,6 +65,12 @@ namespace F1WM.Repositories
 			return model;
 		}
 
+		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
+		{
+			await SetDbEncoding();
+			throw new NotImplementedException();
+		}
+
 		public ResultsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
