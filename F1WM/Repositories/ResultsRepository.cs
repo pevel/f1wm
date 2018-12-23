@@ -27,7 +27,7 @@ namespace F1WM.Repositories
 			model.RaceId = raceId;
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
-			return model;
+			return model.Results.Any() ? model : null;
 		}
 
 		public async Task<IEnumerable<RaceResultPosition>> GetShortRaceResult(int raceId)
@@ -62,7 +62,7 @@ namespace F1WM.Repositories
 				model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillStartPositionInfo()))
 					.OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition);
 			}
-			return model;
+			return model.Results.Any() ? model : null;
 		}
 
 		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
@@ -76,9 +76,9 @@ namespace F1WM.Repositories
 				.Include(s => s.Entry).ThenInclude(e => e.Driver)
 				.Include(s => s.Entry).ThenInclude(e => e.Car)
 				.ToListAsync();
-			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
-				.OrderBy(r => r.FinishPosition);
-			return model;
+				model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
+					.OrderBy(r => r.FinishPosition);
+			return model.Results.Any() ? model : null;
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)
