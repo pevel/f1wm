@@ -66,5 +66,30 @@ namespace F1WM.UnitTests.Controllers
 
 			Assert.IsType<NotFoundResult>(result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnPracticeSessionResults()
+		{
+			int raceId = 62;
+			string session = "t1";
+			serviceMock.Setup(s => s.GetPracticeSessionResult(raceId, session)).ReturnsAsync(new PracticeSessionResult());
+
+			var result = await controller.GetPracticeSessionResult(raceId, session);
+
+			serviceMock.Verify(s => s.GetPracticeSessionResult(raceId, session), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfPracticeSessionResultsNotFound()
+		{
+			int raceId = 63;
+			string session = "t1";
+			serviceMock.Setup(s => s.GetPracticeSessionResult(raceId, session)).ReturnsAsync((PracticeSessionResult)null);
+
+			var result = await controller.GetPracticeSessionResult(raceId, session);
+
+			Assert.IsType<NotFoundResult>(result);
+		}
 	}
 }

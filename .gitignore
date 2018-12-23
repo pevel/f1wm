@@ -18,5 +18,5 @@ msbuild.wrn
 
 # Project specific
 F1WM/version.json
-F1WM/logs/*
+F1WM/logs
 docker.env
