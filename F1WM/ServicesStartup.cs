@@ -19,7 +19,7 @@ namespace F1WM
 				.AddTransient<IStandingsService, StandingsService>()
 				.AddTransient<IRacesService, RacesService>()
 				.AddTransient<ITimeService, TimeService>()
-				.AddTransient<ICalendarService, CalendarService>();
+				.AddTransient<ICalendarService, CalendarService>()
 				.AddTransient<IResultsService, ResultsService>()
 				.AddTransient<ITimeService, TimeService>();
 		}
