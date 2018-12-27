@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -3961,7 +3961,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Litera)
 					.HasName("litera");
 
-				entity.HasIndex(e => e.Nazwisko)
+				entity.HasIndex(e => e.Surname)
 					.HasName("nazwisko");
 
 				entity.Property(e => e.Id)
@@ -3973,17 +3973,17 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("f1ascid")
 					.HasMaxLength(4);
 
-				entity.Property(e => e.Imie)
+				entity.Property(e => e.FirstName)
 					.IsRequired()
 					.HasColumnName("imie")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Inicjal)
+				entity.Property(e => e.Initial)
 					.IsRequired()
 					.HasColumnName("inicjal")
 					.HasMaxLength(5);
 
-				entity.Property(e => e.Kraj)
+				entity.Property(e => e.NationalityKey)
 					.IsRequired()
 					.HasColumnName("kraj")
 					.HasMaxLength(3);
@@ -3993,12 +3993,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nazwisko)
+				entity.Property(e => e.Surname)
 					.IsRequired()
 					.HasColumnName("nazwisko")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Plec)
+				entity.Property(e => e.Gender)
 					.HasColumnName("plec")
 					.HasDefaultValueSql("'0'");
 			});
@@ -4147,7 +4147,9 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Time).HasColumnName("czas");
+				entity.Property(e => e.Time)
+					.HasColumnName("czas")
+					.HasTimeConversions();
 
 				entity.Property(e => e.Dodpktza)
 					.HasColumnName("dodpktza")

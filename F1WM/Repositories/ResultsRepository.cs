@@ -18,13 +18,12 @@ namespace F1WM.Repositories
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			await SetDbEncoding();
-			var model = new RaceResult();
+			var model = new RaceResult() { RaceId = raceId };
 			var dbResults = await GetDbRaceResults(raceId);
 			var dbFastestLap = await context.FastestLaps
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
 				.SingleAsync(f => f.RaceId == raceId && f.Frlpos == "1");
-			model.RaceId = raceId;
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
 			return model.Results.Any() ? model : null;
@@ -40,8 +39,7 @@ namespace F1WM.Repositories
 		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
 			await SetDbEncoding();
-			var model = new QualifyingResult();
-			model.RaceId = raceId;
+			var model = new QualifyingResult() { RaceId = raceId };
 			if (raceId >= searchInGridBeforeRaceId)
 			{
 				var dbResults = await context.Qualifying
@@ -68,23 +66,28 @@ namespace F1WM.Repositories
 		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			await SetDbEncoding();
-			var model = new PracticeSessionResult();
-			model.RaceId = raceId;
-			model.Session = session;
+			var model = new PracticeSessionResult() { RaceId = raceId, Session = session };
 			var dbResults = await context.OtherSessions
 				.Where(s => s.RaceId == raceId && s.Session == session)
 				.Include(s => s.Entry).ThenInclude(e => e.Driver)
 				.Include(s => s.Entry).ThenInclude(e => e.Car)
 				.ToListAsync();
-				model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
-					.OrderBy(r => r.FinishPosition);
+			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition);
 			return model.Results.Any() ? model : null;
 		}
 
 		public async Task<ApiModel.OtherResult> GetOtherResult(int eventId)
 		{
 			await SetDbEncoding();
-			throw new NotImplementedException();
+			var model = new ApiModel.OtherResult() { EventId = eventId };
+			var dbResults = await context.OtherResults
+				.Where(r => r.EventId == eventId)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver)
+				.ToListAsync();
+			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition);
+			return model.Results.Any() ? model : null;
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)

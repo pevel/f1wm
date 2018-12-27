@@ -45,6 +45,10 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number));
+			CreateMap<DatabaseModel.OtherResult, OtherResultPosition>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()))
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number));
 		}
 	}
 }
