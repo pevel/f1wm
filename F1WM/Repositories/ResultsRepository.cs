@@ -83,7 +83,7 @@ namespace F1WM.Repositories
 			var model = new ApiModel.OtherResult() { EventId = eventId };
 			var dbResults = await context.OtherResults
 				.Where(r => r.EventId == eventId)
-				.Include(r => r.Entry).ThenInclude(e => e.Driver)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.ToListAsync();
 			var resultsOrdered = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
 				.OrderBy(r => r.FinishPosition).ToList();
