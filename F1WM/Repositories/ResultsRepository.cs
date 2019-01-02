@@ -85,8 +85,11 @@ namespace F1WM.Repositories
 				.Where(r => r.EventId == eventId)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.ToListAsync();
-			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
-				.OrderBy(r => r.FinishPosition);
+			var resultsOrdered = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition).ToList();
+			model.Results = resultsOrdered.Take(dbResults.Count >= 2 ? dbResults.Count - 2 : 0);
+			model.PolePositionLapResult = mapper.Map<LapResultSummary>(resultsOrdered.ElementAtOrDefault(resultsOrdered.Count - 2));
+			model.FastestLapResult = mapper.Map<FastestLapResultSummary>(resultsOrdered.LastOrDefault());
 			return model.Results.Any() ? model : null;
 		}
 

@@ -25,9 +25,6 @@ namespace F1WM.Mapping
 			CreateMap<FastestLap, FastestLapResultSummary>()
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
-			CreateMap<FastestLap, FastestLapResultSummary>()
-				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
-				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
 			CreateMap<Qualifying, QualifyingResultPosition>()
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
@@ -50,6 +47,8 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
 				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres));
+			CreateMap<OtherResultPosition, FastestLapResultSummary>()
+				.ForMember(f => f.LapNumber, o => o.MapFrom(r => r.FinishedLaps));
 		}
 	}
 }
