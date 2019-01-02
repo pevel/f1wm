@@ -4151,7 +4151,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("czas")
 					.HasTimeConversions();
 
-				entity.Property(e => e.Dodpktza)
+				entity.Property(e => e.AdditionalPoints)
 					.HasColumnName("dodpktza")
 					.HasDefaultValueSql("'0'");
 

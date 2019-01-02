@@ -8,7 +8,7 @@ namespace F1WM.ApiModel
 		public int EventId { get; set; }
 		public SeriesSummary Series { get; set; }
 		public IEnumerable<OtherResultPosition> Results { get; set; }
-		public FastestLapResultSummary FastestLapResult { get; set; }
-		public LapResultSummary PolePositionLapResult { get; set; }
+		public OtherFastestLapResultSummary FastestLapResult { get; set; }
+		public OtherLapResultSummary PolePositionLapResult { get; set; }
 	}
 }

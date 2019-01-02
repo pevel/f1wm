@@ -47,7 +47,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
 				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres));
-			CreateMap<OtherResultPosition, FastestLapResultSummary>()
+			CreateMap<OtherResultPosition, OtherFastestLapResultSummary>()
 				.ForMember(f => f.LapNumber, o => o.MapFrom(r => r.FinishedLaps));
 		}
 	}

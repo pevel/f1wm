@@ -19,5 +19,6 @@ namespace F1WM.DatabaseModel
 		public string Class { get; set; }
 		public byte Guest { get; set; }
 		public virtual OtherDriver Driver { get; set; }
+		public virtual OtherSeries Series { get; set; }
 	}
 }

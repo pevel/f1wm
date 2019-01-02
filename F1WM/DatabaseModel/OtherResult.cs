@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel
         public byte FinishPosition { get; set; }
         public string Status { get; set; }
         public uint OtherEntryId { get; set; }
-        public ushort Dodpktza { get; set; }
+        public ushort AdditionalPoints { get; set; }
         public byte Pozklasa { get; set; }
         public virtual Event Event { get; set; }
         public virtual OtherEntry Entry { get; set; }
