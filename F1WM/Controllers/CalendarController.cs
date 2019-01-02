@@ -14,7 +14,7 @@ namespace F1WM.Controllers
         private readonly ILoggingService logger;
 
         [HttpGet]
-        public async Task<CalendarRace> GetCalendar([FromQuery(Name = "year")] int year)
+        public async Task<Calendar> GetCalendar([FromQuery(Name = "year")] int year)
         {
             try
             {

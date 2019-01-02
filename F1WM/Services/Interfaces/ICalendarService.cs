@@ -5,6 +5,6 @@ namespace F1WM.Services
 {
     public interface ICalendarService
     {
-        Task<CalendarRace> GetCalendar(int? year);
+        Task<Calendar> GetCalendar(int? year);
     }
 }

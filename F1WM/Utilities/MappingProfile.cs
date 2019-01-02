@@ -59,6 +59,14 @@ namespace F1WM.Utilities
 				.ForMember(api => api.FinishPosition, o => o.MapFrom(db => db.StartPosition))
 				.ForMember(api => api.Status, o => o.MapFrom(db => db.StartStatus.GetQualifyStatus()))
 				.AfterMap((db, api) => db.FillSessionsInfo(api));
+			CreateMap<Race, CalendarRace>()
+				.ForMember(api => api.date, o => o.MapFrom(a => a.Date))
+				.ForMember(api => api.laps, o => o.MapFrom(a => a.Laps))
+				.ForMember(api => api.name, o => o.MapFrom(a => a.Name))
+				.ForMember(api => api.translatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()))
+				.ForMember(api => api.track, o => o.MapFrom(a => a.Track))
+				.ForMember(api => api.trackid, o => o.MapFrom(a => a.TrackId))
+				.ForMember(api => api.raceid, o => o.MapFrom(a => a.Id));
 		}
 	}
 }

@@ -10,12 +10,12 @@ namespace F1WM.ApiModel
         public DateTime date { get; set; }
         public QualifyingResult polePositionLapResult { get; set; }
         public RaceResult winnerRaceResult { get; set; }
-        public LapResultSummary fastestLapResult { get; set; }
+        public FastestLapResultSummary fastestLap { get; set; }
         public string name { get; set; }
-        public string translatedName { get; set; }
-        public double lapLength { get; set; }
+        public string translatedName { get; set; }//
+        public double lapLength { get; set; }//
         public int laps { get; set; }
-        public string track { get; set; }
+        public Track track { get; set; }
         public int raceid { get; set; }
         public int trackid { get; set; }
     }

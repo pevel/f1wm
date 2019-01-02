@@ -5,6 +5,6 @@ namespace F1WM.Repositories
 {
     public interface ICalendarRepository
     {
-        Task<CalendarRace> GetCalendar(int year);
+        Task<Calendar> GetCalendar(int year);
     }
 }

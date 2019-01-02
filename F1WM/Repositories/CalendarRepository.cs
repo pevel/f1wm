@@ -1,9 +1,12 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace F1WM.Repositories
 {
@@ -13,17 +16,30 @@ namespace F1WM.Repositories
 
         public async Task<Calendar> GetCalendar(int year)
         {
-                       await SetDbEncoding();
-            var dbRace =  context.Races
-                    .OrderBy(r=>r.Id)
-                    .Where(r=>r.Date.Year==2017);
-            //return mapper.Map<Comment>(dbComment);
-            Console.WriteLine(  dbRace  );
-            var result = new CalendarRace();
-            result.date = dbRace.FirstOrDefault(r => r.Qualtype == 3).Date;
+            await SetDbEncoding();
+            var dbRace = context.Races
+                .OrderBy(r => r.Id)
+                .Include(r => r.FastestLap)
+                .Where(r => r.Date.Year == year)
+                .Join(context.Results, ra => ra.Id, rc => rc.RaceId, (ra, rc) => new {ra, rc});
+                //.Where(res=>res.rc.RaceId == res.ra.Id && res.rc.FinishPosition == 1);
+            var race = mapper.Map<IQueryable<Race>, List<CalendarRace>>(dbRace);
+            var result = new Calendar();
+            result.seasonid = (int) dbRace.FirstOrDefault().Seasonid;
+            result.Races = race;
             return result;
         }
 
+        
+//       seasonId = await context.Seasons
+//            .Join(context.ConstructorStandingsPositions, s => s.Id, c => c.SeasonId, (s, c) => new { s, c })
+//        .Where(g => g.c != null)
+//        .Select(g => g.s)
+//            .OrderByDescending(s => s.Year)
+//            .Select(s => (int)s.Id)
+//            .FirstAsync();
+        
+        
 //        
 //        public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
 //        {
@@ -56,7 +72,7 @@ namespace F1WM.Repositories
 //                .ThenInclude(d => d.Nationality)
 //                .OrderByDescending(r => r.Race.Date)
 //                .FirstAsync();
-//            apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
+//           apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
 //        }
 //
 //        private async Task IncludeLastPolePositionResult(Race dbNextRace, NextRaceSummary apiNextRace)
