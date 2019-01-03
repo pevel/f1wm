@@ -17,93 +17,65 @@ namespace F1WM.Repositories
         public async Task<Calendar> GetCalendar(int year)
         {
             await SetDbEncoding();
-            var dbRace = context.Races
-                .OrderBy(r => r.Id)
+            var dbRace = await context.Races
                 .Include(r => r.FastestLap)
+                    .ThenInclude(r => r.Entry)
+                    .ThenInclude(r => r.Driver)
+                    .ThenInclude(d => d.Nationality)
+                    .Where(r => r.FastestLap.Frlpos == "1")
+                .Include(r => r.Result)
+                    .ThenInclude(r => r.Entry)
+                    .ThenInclude(r => r.Driver)
+                    .ThenInclude(r => r.Nationality)
+                    .Where(r => r.Result.PositionOrStatus == "1")
+                .Include(r => r.Track)
+                .OrderBy(r => r.Id)
                 .Where(r => r.Date.Year == year)
-                .Join(context.Results, ra => ra.Id, rc => rc.RaceId, (ra, rc) => new {ra, rc});
-                //.Where(res=>res.rc.RaceId == res.ra.Id && res.rc.FinishPosition == 1);
-            var race = mapper.Map<IQueryable<Race>, List<CalendarRace>>(dbRace);
+                .ToListAsync();
+
+            var race = mapper.Map<List<Race>, List<CalendarRace>>(dbRace);
+            await IncludeLastPolePositionResult(year, race);
             var result = new Calendar();
-            result.seasonid = (int) dbRace.FirstOrDefault().Seasonid;
+            await GetSeasonId(year, result);
             result.Races = race;
+            await CalculateLap(result);
             return result;
         }
 
-        
-//       seasonId = await context.Seasons
-//            .Join(context.ConstructorStandingsPositions, s => s.Id, c => c.SeasonId, (s, c) => new { s, c })
-//        .Where(g => g.c != null)
-//        .Select(g => g.s)
-//            .OrderByDescending(s => s.Year)
-//            .Select(s => (int)s.Id)
-//            .FirstAsync();
-        
-        
-//        
-//        public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
-//        {
-//            await SetDbEncoding();
-//            var dbNextRace = await context.Races
-//                .OrderBy(r => r.Date)
-//                .Include(r => r.Track)
-//                .Include(r => r.Country)
-//                .FirstOrDefaultAsync(r => r.Date > afterDate);
-//            var apiNextRace = mapper.Map<NextRaceSummary>(dbNextRace);
-//            await IncludeLastPolePositionResult(dbNextRace, apiNextRace);
-//            await IncludeLastWinnerResult(dbNextRace, apiNextRace);
-//            await IncludeFastestResult(dbNextRace, apiNextRace);
-//            return apiNextRace;
-//        }
-//
-//        public RacesRepository(F1WMContext context, IMapper mapper)
-//		{
-//			this.context = context;
-//			this.mapper = mapper;
-//		}
-//
-//		private async Task IncludeLastWinnerResult(Race dbNextRace, NextRaceSummary apiNextRace)
-//        {
-//            var dbLastWinnerResult = await context.Results
-//                .Include(r => r.Race)
-//                .Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.FinishPosition == "1")
-//                .Include(r => r.Entry)
-//                .ThenInclude(e => e.Driver)
-//                .ThenInclude(d => d.Nationality)
-//                .OrderByDescending(r => r.Race.Date)
-//                .FirstAsync();
-//           apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
-//        }
-//
-//        private async Task IncludeLastPolePositionResult(Race dbNextRace, NextRaceSummary apiNextRace)
-//        {
-//            var dbLastPolePositionResult = await context.Grids
-//                .Include(g => g.Race)
-//                .Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartingPosition == "1")
-//                .Include(g => g.Entry)
-//                .ThenInclude(e => e.Driver)
-//                .ThenInclude(d => d.Nationality)
-//                .OrderByDescending(g => g.Race.Date)
-//                .FirstAsync();
-//            apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
-//        }
-//
-//		private async Task IncludeFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
-//		{
-//			var dbFastestResult = await context.Entries
-//				.Include(e => e.Race)
-//				.Include(e => e.FastestLap)
-//				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
-//				.Include(e => e.Driver)
-//				.ThenInclude(d => d.Nationality)
-//				.OrderByDescending(e => e.Race.Date)
-//				.FirstAsync();
-//			apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
-//		}	
         public CalendarRepository(F1WMContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
+        }
+
+        private async Task IncludeLastPolePositionResult(int year, List<CalendarRace> calendar)
+        {
+            var dbPolePositionResults = await context.Grids
+                            .Include(g => g.Race)
+                            .Where(g => g.Race.Date.Year == year && g.StartPositionOrStatus == "1")
+                            .Include(g => g.Entry)
+                            .ThenInclude(e => e.Driver)
+                            .ThenInclude(d => d.Nationality)
+                            .ToListAsync();
+
+            foreach (CalendarRace calendarRace in calendar)
+            {
+                calendarRace.polePositionLapResult = mapper.Map<QualifyingResultPosition>(dbPolePositionResults.FirstOrDefault(q => q.RaceId == calendarRace.raceid));
+            }
+        }
+
+        private async Task GetSeasonId(int year, Calendar calendar)
+        {
+            var season = await context.Seasons.SingleAsync(s => s.Year == year);
+            calendar.seasonid = (int)season.Id;
+        }
+
+        private async Task CalculateLap(Calendar calendar)
+        {
+            foreach (CalendarRace calendarRace in calendar.Races)
+            {
+                calendarRace.lapLength = calendarRace.distance / calendarRace.laps;
+            }
         }
     }
 }

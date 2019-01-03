@@ -11,8 +11,8 @@ namespace F1WM.Services
         private readonly ICalendarRepository repository;
         public async Task<Calendar> GetCalendar(int? year)
         {
-            var news = await repository.GetCalendar(DateTime.Now.Year);
-            return news;//.Select(n => n.ResolveTopicIcon());
+            var news = await repository.GetCalendar(year.HasValue ? year.Value : DateTime.Now.Year);
+            return news;
         }
 
         public CalendarService(ICalendarRepository repository)
