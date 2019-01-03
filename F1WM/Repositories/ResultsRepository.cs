@@ -82,10 +82,12 @@ namespace F1WM.Repositories
 			var model = new ApiModel.OtherResult() { EventId = eventId };
 			var dbResults = await context.OtherResults
 				.Where(r => r.EventId == eventId)
+				.Include(r => r.Event)
 				.Include(r => r.Entry).ThenInclude(e => e.Series)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.Include(r => r.AdditionalPointsReason)
 				.ToListAsync();
+			model.EventName = dbResults.FirstOrDefault()?.Event?.Name;
 			model.Series = mapper.Map<SeriesSummary>(dbResults.FirstOrDefault()?.Entry?.Series);
 			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
 				.OrderBy(r => r.FinishPosition)
