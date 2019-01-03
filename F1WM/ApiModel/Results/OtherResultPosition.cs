@@ -10,7 +10,6 @@ namespace F1WM.ApiModel
 		public string Number { get; set; }
 		public DriverSummary Driver { get; set; }
 		public CarSummary Car { get; set; }
-		public string Tyres { get; set; }
 		public int FinishedLaps { get; set; }
 		public TimeSpan Time { get; set; }
 		[JsonConverter(typeof(StringEnumConverter))]
