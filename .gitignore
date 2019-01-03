@@ -1,6 +1,9 @@
 # Visual Studio Code
 .vscode
 
+#JetBrains Rider
+.idea/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
@@ -20,5 +23,3 @@ msbuild.wrn
 F1WM/version.json
 F1WM/logs/*
 docker.env
-.DS_Store
-.idea/

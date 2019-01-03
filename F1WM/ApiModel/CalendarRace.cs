@@ -7,18 +7,17 @@ namespace F1WM.ApiModel
 {
     public class CalendarRace
     {
-        [DisplayFormat(DataFormatString = "{yyyy/mm/dd:HH:MM:ss}")]
         public DateTime date { get; set; }
-        public QualifyingResultPosition polePositionLapResult { get; set; }
-        public RaceResultPosition winnerRaceResult { get; set; }
-        public FastestLapResultSummary fastestLapResult { get; set; }
-        public string name { get; set; }
-        public string translatedName { get; set; }
-        public double distance { get; set; }
-        public double lapLength { get; set; }
-        public int laps { get; set; }
-        public TrackSummary track { get; set; }
-        public int raceid { get; set; }
-        public int trackid { get; set; }
+        public LapResultSummary PolePositionLapResult { get; set; }
+        public RaceResultPosition WinnerRaceResult { get; set; }
+        public FastestLapResultSummary FastestLapResult { get; set; }
+        public string Name { get; set; }
+        public string TranslatedName { get; set; }
+        public double Distance { get; set; }
+        public double LapLength { get; set; }
+        public int Laps { get; set; }
+        public TrackSummary Track { get; set; }
+        public int Id { get; set; }
+        public int TrackId { get; set; }
     }
 }

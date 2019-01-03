@@ -5,7 +5,7 @@ namespace F1WM.ApiModel
 {
     public class Calendar
     {
-        public int seasonid { get; set; }
+        public int SeasonId { get; set; }
         public IEnumerable<CalendarRace> Races { get; set; }
     }
 }

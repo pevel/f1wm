@@ -24,7 +24,6 @@ namespace F1WM
 				.AddTransient<IHealthCheckRepository, HealthCheckRepository>()
 				.AddTransient<IStandingsRepository, StandingsRepository>()
 				.AddTransient<IRacesRepository, RacesRepository>()
-				.AddTransient<IConfigTextRepository, ConfigTextRepository>()
 				.AddTransient<ICalendarRepository, CalendarRepository>()
 				.AddTransient<IResultsRepository, ResultsRepository>()
 				.AddTransient<IConfigTextRepository, ConfigTextRepository>();

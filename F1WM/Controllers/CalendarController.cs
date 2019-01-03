@@ -14,11 +14,20 @@ namespace F1WM.Controllers
         private readonly ILoggingService logger;
 
         [HttpGet]
-        public async Task<Calendar> GetCalendar([FromQuery(Name = "year")] int year)
+        [Produces("application/json", Type = typeof(Calendar))]
+        public async Task<IActionResult> GetCalendar([FromQuery(Name = "year")] int? year)
         {
             try
             {
-                return await service.GetCalendar(year);
+                var calendar = await service.GetCalendar(year);
+                if(calendar != null)
+                {
+                    return Ok(calendar);
+                }
+                else
+                {
+                    return NotFound();
+                }
             }
             catch (Exception ex)
             {

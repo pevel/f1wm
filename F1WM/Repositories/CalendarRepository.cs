@@ -29,7 +29,7 @@ namespace F1WM.Repositories
                     .ThenInclude(r => r.Nationality)
                     .Where(r => r.Result.PositionOrStatus == "1")
                 .Include(r => r.Track)
-                .OrderBy(r => r.Id)
+                .OrderBy(r => r.Date)
                 .Where(r => r.Date.Year == year)
                 .ToListAsync();
 
@@ -38,7 +38,7 @@ namespace F1WM.Repositories
             var result = new Calendar();
             await GetSeasonId(year, result);
             result.Races = race;
-            await CalculateLap(result);
+            CalculateLap(result);
             return result;
         }
 
@@ -60,21 +60,21 @@ namespace F1WM.Repositories
 
             foreach (CalendarRace calendarRace in calendar)
             {
-                calendarRace.polePositionLapResult = mapper.Map<QualifyingResultPosition>(dbPolePositionResults.FirstOrDefault(q => q.RaceId == calendarRace.raceid));
+                calendarRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResults.FirstOrDefault(q => q.RaceId == calendarRace.Id));
             }
         }
 
         private async Task GetSeasonId(int year, Calendar calendar)
         {
             var season = await context.Seasons.SingleAsync(s => s.Year == year);
-            calendar.seasonid = (int)season.Id;
+            calendar.SeasonId = (int)season.Id;
         }
 
-        private async Task CalculateLap(Calendar calendar)
+        private void CalculateLap(Calendar calendar)
         {
             foreach (CalendarRace calendarRace in calendar.Races)
             {
-                calendarRace.lapLength = calendarRace.distance / calendarRace.laps;
+                calendarRace.LapLength = calendarRace.Distance / calendarRace.Laps;
             }
         }
     }
