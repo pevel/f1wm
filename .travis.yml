@@ -4,7 +4,9 @@ services:
 - docker
 cache:
   directories:
-  - $HOME/images 
+  - $HOME/images
+before_cache:
+- rm -rf $HOME/images
 jobs:
   include:
   - stage: build and run unit tests
@@ -32,5 +34,7 @@ jobs:
     - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
     - cat $HOME/images/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
-  - stage: cleanup
-    script: rm -rf $HOME/images
+  - stage: deploy to production
+    if: branch = master
+    script:
+    - echo "deploying to production"
