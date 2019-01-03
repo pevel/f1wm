@@ -33,7 +33,7 @@ jobs:
     - cat $HOME/images/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
   - stage: deploy to production
-    # if: branch = master
+    if: branch = master
     env:
     # DeployUser
     - secure: DP5mwCng+/PG3mX7hRhybS2MIfYhso/i8IIbYNVGtZanww3wCK4zkHgIlkUgtIiUrmwzOm1VsE3WctKpAlZO281zPyuN+gZ58DqdeR1UFKpA0yH4HzYLm+x02whAVurhASLveWFKYq+K0kZJVvENEXrVh9TToOaC7YSbIE1m9V1F9HBNCLxkZgs072xR2Lc7TIIyKUbjJPDbjjG1rL//X87M1rd7x3B7ss5qIZqQYWwTvSXvHjs5/vDbbiMXthaqvTIKMcnYdxqxrXe6DjQosx2+0QuRcBGVzppxACkAjv9ZGTFD/wgfpW8/5VLMthzUJYArusBgOSYjH4vbGiNQTMvWbk5d89Pmb3Jmt0qn7tUEuEAlCY2Dr9VBoIXT7LIfJ9S2as5wPvu8s4St/0zfv7IzTy2VEzArH5K9GqM+G43UqRPGMEljEA6HhWKkpUPQLWcqA6Ee3Dp3eIOn9DUcnZ5hpQSglE4B6pWPACKKXfrhDwXb8S3VtY8hgUfwWubKEEv5A5MvPcW4YXHeFJMSJKZnVzvhtnouKaHikfbeqyanKaIAfVp7uKQqwU+TfL9p9+3vFp3i6eQ8Q3mCV1CsjJSN8tQFo9QElM0dZOYt1J+7PQbpvfCor7BRzl2TykLQNDdtTPfymi/2Av4EhursBr7QuJHjFe2KjSTvWSZoRAw=
