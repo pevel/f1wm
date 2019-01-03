@@ -1,5 +1,6 @@
 using System;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace F1WM.ApiModel
 {
@@ -12,7 +13,8 @@ namespace F1WM.ApiModel
 		public string Tyres { get; set; }
 		public int FinishedLaps { get; set; }
 		public TimeSpan Time { get; set; }
-		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public int? AdditionalPoints { get; set; }
+		[JsonConverter(typeof(StringEnumConverter))]
+		public OtherResultStatus Status { get; set; }
+		public int Points { get; set; }
 	}
 }

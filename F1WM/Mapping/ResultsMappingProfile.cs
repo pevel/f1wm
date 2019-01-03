@@ -46,9 +46,17 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
-				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres));
-			CreateMap<OtherResultPosition, OtherFastestLapResultSummary>()
-				.ForMember(f => f.LapNumber, o => o.MapFrom(r => r.FinishedLaps));
+				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetOtherResultStatus()));
+			CreateMap<DatabaseModel.OtherResult, OtherFastestLapResultSummary>()
+				.ForMember(api => api.LapNumber, o => o.MapFrom(db => db.FinishedLaps))
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()));
+			CreateMap<DatabaseModel.OtherResult, OtherLapResultSummary>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
+			CreateMap<DatabaseModel.OtherResult, OtherAdditionalPoints>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Reason, o => o.MapFrom(db => db.AdditionalPointsReason.Description));
 		}
 	}
 }

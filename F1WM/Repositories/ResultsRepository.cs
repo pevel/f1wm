@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -82,14 +83,23 @@ namespace F1WM.Repositories
 				.Where(r => r.EventId == eventId)
 				.Include(r => r.Entry).ThenInclude(e => e.Series)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
+				.Include(r => r.AdditionalPointsReason)
 				.ToListAsync();
-			var resultsOrdered = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
-				.OrderBy(r => r.FinishPosition).ToList();
 			model.Series = mapper.Map<SeriesSummary>(dbResults.FirstOrDefault()?.Entry?.Series);
-			model.Results = resultsOrdered.Take(resultsOrdered.Count >= 2 ? resultsOrdered.Count - 2 : 0);
-			model.PolePositionLapResult = mapper.Map<OtherLapResultSummary>(resultsOrdered.ElementAtOrDefault(resultsOrdered.Count - 2));
-			model.FastestLapResult = mapper.Map<OtherFastestLapResultSummary>(resultsOrdered.LastOrDefault());
-			return model.Results.Any() ? model : null;
+			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition)
+				.Where(r => r.Status != OtherResultStatus.Other);
+			if (model.Results.Any())
+			{
+				model.FastestLapResult = mapper.Map<OtherFastestLapResultSummary>(dbResults.SingleOrDefault(r => r.Status.IsFastestLapStatus()));
+				model.PolePositionLapResult = mapper.Map<OtherLapResultSummary>(dbResults.SingleOrDefault(r => r.Status.IsPolePositionStatus()));
+				model.AdditionalPoints = mapper.Map<IEnumerable<OtherAdditionalPoints>>(dbResults.Where(r => r.Status.HasAdditionalPoints() && !r.AdditionalPointsReason.IsHidden));
+				return model;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)

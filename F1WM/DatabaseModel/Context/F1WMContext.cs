@@ -73,7 +73,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<GpmSklady> GpmSklady { get; set; }
 		public virtual DbSet<GpmZespoly> GpmZespoly { get; set; }
 		public virtual DbSet<GpmZwyciezcy> GpmZwyciezcy { get; set; }
-		public virtual DbSet<InneDodpktza> InneDodpktza { get; set; }
+		public virtual DbSet<OtherAdditionalPointsReason> OtherAdditionalPointsReasons { get; set; }
 		public virtual DbSet<Event> Events { get; set; }
 		public virtual DbSet<OtherDriver> OtherDrivers { get; set; }
 		public virtual DbSet<InneKlaskier> InneKlaskier { get; set; }
@@ -3832,23 +3832,22 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<InneDodpktza>(entity =>
+			modelBuilder.Entity<OtherAdditionalPointsReason>(entity =>
 			{
 				entity.ToTable("inne_dodpktza");
 
-				entity.HasIndex(e => e.Opis)
+				entity.HasIndex(e => e.Description)
 					.HasName("opis");
 
 				entity.Property(e => e.Id).HasColumnName("id");
 
-				entity.Property(e => e.Opis)
+				entity.Property(e => e.Description)
 					.IsRequired()
 					.HasColumnName("opis")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Ukryte)
-					.HasColumnName("ukryte")
-					.HasDefaultValueSql("'0'");
+				entity.Property(e => e.IsHidden)
+					.HasColumnName("ukryte");
 			});
 
 			modelBuilder.Entity<Event>(entity =>
@@ -4151,7 +4150,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("czas")
 					.HasTimeConversions();
 
-				entity.Property(e => e.AdditionalPoints)
+				entity.Property(e => e.OtherAdditionalPointsReasonId)
 					.HasColumnName("dodpktza")
 					.HasDefaultValueSql("'0'");
 
@@ -4166,6 +4165,11 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.FinishPosition).HasColumnName("pozycja");
+
+				entity.Property(e => e.Points)
+					.HasColumnName("punkty")
+					.HasColumnType("float")
+					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.Status)
 					.IsRequired()
