@@ -69,6 +69,7 @@ namespace F1WM.Repositories
 			var dbResults = context.OtherSessions
 				.Where(s => s.RaceId == raceId && s.Session == session)
 				.Include(s => s.Entry).ThenInclude(e => e.Driver)
+				.Include(s => s.Entry).ThenInclude(e => e.Tyres)
 				.Include(s => s.Entry).ThenInclude(e => e.Car);
 			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
 				.OrderBy(r => r.FinishPosition);

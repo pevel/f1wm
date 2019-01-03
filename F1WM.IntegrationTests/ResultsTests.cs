@@ -213,6 +213,7 @@ namespace F1WM.IntegrationTests
 				Assert.Null(result.Driver.Nationality);
 				Assert.True(0 <= result.FinishedLaps);
 				Assert.True(0 < result.Number);
+				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
 			practiceSessionResult.Results.Aggregate((previous, current) => {
 				Assert.True(previous.FinishPosition < current.FinishPosition, "Results are not sorted properly");
