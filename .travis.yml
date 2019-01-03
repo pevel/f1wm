@@ -12,15 +12,19 @@ env:
   - secure: LrI6u8Z65bt9ik11MOf4unxq2aRqz07LTDtvK0D8IwNd/3WKky5ewIM1+sAMeSD041f12ga4GE0BMoKUeQvFnD9EDLri0KCDLmj76YNJdSpidY42LjgNiuiAIQhqm/qWIRsHOoh59QmrdfnNTM357JoPbdSxEkgo94jAMSRMpg9Lv7mYBzWWwiGCm5n1CiWJm4dQb8mr8p2h4iL0lQm3CyLMrfdiR+uk8fkVBQ3IHOGHTsyD78NJLroIcMceRB+dcw1w8c4/73Ii5yg5wkLTP63JyhjbbJdzLg7Sdp2aP7PfxmsxuvekNFQOlmADVHgJtEHAdHsD1BQM1GJ8JeIb7R2jWgKOeLWqrM8UvN80JvjKnhHGG6EacGOpOnjeDc0gPaLPh95ihvEbdh/nv2pb8br0BVlwDGs07ClJN1/6lNZDX6sMT8EkhgVc0YgJDoME7SGb8Y66u831KCIz2oRaoJ7OmorzphFegsTJe0SYSWuKmgiifKC6kLqs2T4ePsbdVc05sGVKVyuYfYThhGojbHAw4cHLL7b6N5I3lHq3/FDEDUnb840tg4tfYM/UW2rI8T5x7Ju/8MtGR1R20YdQx3tRSTNHQRlu7fWhlBrtCbA+dk8+4P7Fj4Ok0LvIU4c2cd9DkoT/sghUi8zfgSU/dtfbOcpp7w91nmG3/g/y0yY=
 services:
 - docker
-before_install:
-- openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
-- eval "$(ssh-agent -s)"
-- chmod 600 /tmp/deploy_rsa
-- install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
-- cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
-script:
-- docker build -t f1wm:latest .
-- ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
-- scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
-- docker save f1wm:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
-- ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
+jobs:
+  include:
+  - stage: build and run unit tests
+    script:
+    - docker build -t f1wm:latest .
+  - stage: deploy to testing
+    script:
+    - openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+    - eval "$(ssh-agent -s)"
+    - chmod 600 /tmp/deploy_rsa
+    - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
+    - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
+    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
+    - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
+    - docker save f1wm:latest | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
+    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
