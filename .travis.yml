@@ -5,8 +5,6 @@ services:
 cache:
   directories:
   - $HOME/images
-before_cache:
-- rm -rf $HOME/images
 jobs:
   include:
   - stage: build and run unit tests
@@ -35,6 +33,6 @@ jobs:
     - cat $HOME/images/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
   - stage: deploy to production
-    if: branch = master
+    # if: branch = master
     script:
     - echo "deploying to production"
