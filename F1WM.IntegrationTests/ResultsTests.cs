@@ -213,8 +213,50 @@ namespace F1WM.IntegrationTests
 				Assert.Null(result.Driver.Nationality);
 				Assert.True(0 <= result.FinishedLaps);
 				Assert.True(0 < result.Number);
+				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
 			practiceSessionResult.Results.Aggregate((previous, current) => {
+				Assert.True(previous.FinishPosition < current.FinishPosition, "Results are not sorted properly");
+				return current;
+			});
+		}
+
+		[Fact]
+		public async Task GetOtherResultTest()
+		{
+			var eventId = 3234;
+			var response = await client.GetAsync($"{baseAddress}/results/other/{eventId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<OtherResult>(responseContent);
+			Assert.NotNull(result);
+			Assert.Equal(eventId, result.EventId);
+			Assert.False(string.IsNullOrWhiteSpace(result.EventName));
+			Assert.NotNull(result.Results);
+			Assert.NotEmpty(result.Results);
+			Assert.NotNull(result.AdditionalPoints);
+			Assert.False(string.IsNullOrWhiteSpace(result.FastestLapResult.Car.Name));
+			Assert.False(string.IsNullOrWhiteSpace(result.FastestLapResult.Driver.FirstName));
+			Assert.False(string.IsNullOrWhiteSpace(result.FastestLapResult.Driver.Surname));
+			Assert.True(0 < result.FastestLapResult.LapNumber);
+			Assert.True(TimeSpan.Zero < result.FastestLapResult.Time);
+			Assert.False(string.IsNullOrWhiteSpace(result.PolePositionLapResult.Driver.FirstName));
+			Assert.False(string.IsNullOrWhiteSpace(result.PolePositionLapResult.Driver.Surname));
+			Assert.True(TimeSpan.Zero < result.PolePositionLapResult.Time);
+			Assert.All(result.Results, r => {
+				Assert.NotNull(r.Car);
+				Assert.NotEqual(0, r.Car.Id);
+				Assert.False(string.IsNullOrWhiteSpace(r.Car.Name));
+				Assert.NotNull(r.Driver);
+				Assert.NotEqual(0, r.Driver.Id);
+				Assert.False(string.IsNullOrWhiteSpace(r.Driver.FirstName));
+				Assert.False(string.IsNullOrWhiteSpace(r.Driver.Surname));
+				Assert.NotNull(r.Driver.Nationality);
+				Assert.True(0 <= r.FinishedLaps);
+				Assert.False(string.IsNullOrWhiteSpace(r.Number));
+			});
+			result.Results.Aggregate((previous, current) => {
 				Assert.True(previous.FinishPosition < current.FinishPosition, "Results are not sorted properly");
 				return current;
 			});

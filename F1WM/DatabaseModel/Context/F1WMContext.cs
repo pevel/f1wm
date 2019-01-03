@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -73,14 +73,14 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<GpmSklady> GpmSklady { get; set; }
 		public virtual DbSet<GpmZespoly> GpmZespoly { get; set; }
 		public virtual DbSet<GpmZwyciezcy> GpmZwyciezcy { get; set; }
-		public virtual DbSet<InneDodpktza> InneDodpktza { get; set; }
-		public virtual DbSet<InneImprezy> InneImprezy { get; set; }
-		public virtual DbSet<InneKierowcy> InneKierowcy { get; set; }
+		public virtual DbSet<OtherAdditionalPointsReason> OtherAdditionalPointsReasons { get; set; }
+		public virtual DbSet<Event> Events { get; set; }
+		public virtual DbSet<OtherDriver> OtherDrivers { get; set; }
 		public virtual DbSet<InneKlaskier> InneKlaskier { get; set; }
-		public virtual DbSet<InneListystart> InneListystart { get; set; }
-		public virtual DbSet<InneRezultaty> InneRezultaty { get; set; }
+		public virtual DbSet<OtherEntry> OtherEntries { get; set; }
+		public virtual DbSet<OtherResult> OtherResults { get; set; }
 		public virtual DbSet<InneRezultatyBk> InneRezultatyBk { get; set; }
-		public virtual DbSet<InneSerie> InneSerie { get; set; }
+		public virtual DbSet<OtherSeries> OtherSeries { get; set; }
 		public virtual DbSet<InneTerminy> InneTerminy { get; set; }
 		public virtual DbSet<InneZasady> InneZasady { get; set; }
 		public virtual DbSet<StatLog> StatLog { get; set; }
@@ -3832,42 +3832,41 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<InneDodpktza>(entity =>
+			modelBuilder.Entity<OtherAdditionalPointsReason>(entity =>
 			{
 				entity.ToTable("inne_dodpktza");
 
-				entity.HasIndex(e => e.Opis)
+				entity.HasIndex(e => e.Description)
 					.HasName("opis");
 
 				entity.Property(e => e.Id).HasColumnName("id");
 
-				entity.Property(e => e.Opis)
+				entity.Property(e => e.Description)
 					.IsRequired()
 					.HasColumnName("opis")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Ukryte)
-					.HasColumnName("ukryte")
-					.HasDefaultValueSql("'0'");
+				entity.Property(e => e.IsHidden)
+					.HasColumnName("ukryte");
 			});
 
-			modelBuilder.Entity<InneImprezy>(entity =>
+			modelBuilder.Entity<Event>(entity =>
 			{
 				entity.ToTable("inne_imprezy");
 
 				entity.HasIndex(e => e.Rokmies)
 					.HasName("rokmies");
 
-				entity.HasIndex(e => e.Seriaid)
+				entity.HasIndex(e => e.OtherSeriesId)
 					.HasName("seriaid");
 
 				entity.HasIndex(e => e.Startgrupy)
 					.HasName("startgrupy");
 
-				entity.HasIndex(e => new { e.Sezon, e.Seriaid })
+				entity.HasIndex(e => new { e.Season, e.OtherSeriesId })
 					.HasName("sezon");
 
-				entity.HasIndex(e => new { e.Seriaid, e.Typ, e.Okrazenia })
+				entity.HasIndex(e => new { e.OtherSeriesId, e.Type, e.Laps })
 					.HasName("seria+typ+okr");
 
 				entity.Property(e => e.Id)
@@ -3878,7 +3877,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("bezstats")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Dlugtoru)
+				entity.Property(e => e.TrackLength)
 					.HasColumnName("dlugtoru")
 					.HasDefaultValueSql("'0'");
 
@@ -3902,19 +3901,19 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("kraj")
 					.HasMaxLength(3);
 
-				entity.Property(e => e.Nazwa)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("nazwa")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Newsid)
+				entity.Property(e => e.NewsId)
 					.HasColumnName("newsid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.Nrwsez).HasColumnName("nrwsez");
 
-				entity.Property(e => e.Okrazenia)
+				entity.Property(e => e.Laps)
 					.HasColumnName("okrazenia")
 					.HasDefaultValueSql("'0'");
 
@@ -3923,11 +3922,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("rokmies")
 					.HasColumnType("char(6)");
 
-				entity.Property(e => e.Seriaid)
+				entity.Property(e => e.OtherSeriesId)
 					.HasColumnName("seriaid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Sezon)
+				entity.Property(e => e.Season)
 					.IsRequired()
 					.HasColumnName("sezon")
 					.HasMaxLength(9);
@@ -3937,12 +3936,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Tor)
+				entity.Property(e => e.TrackName)
 					.IsRequired()
 					.HasColumnName("tor")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Typ)
+				entity.Property(e => e.Type)
 					.HasColumnName("typ")
 					.HasDefaultValueSql("'0'");
 
@@ -3951,7 +3950,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<InneKierowcy>(entity =>
+			modelBuilder.Entity<OtherDriver>(entity =>
 			{
 				entity.ToTable("inne_kierowcy");
 
@@ -3961,7 +3960,7 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Litera)
 					.HasName("litera");
 
-				entity.HasIndex(e => e.Nazwisko)
+				entity.HasIndex(e => e.Surname)
 					.HasName("nazwisko");
 
 				entity.Property(e => e.Id)
@@ -3973,17 +3972,17 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("f1ascid")
 					.HasMaxLength(4);
 
-				entity.Property(e => e.Imie)
+				entity.Property(e => e.FirstName)
 					.IsRequired()
 					.HasColumnName("imie")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Inicjal)
+				entity.Property(e => e.Initial)
 					.IsRequired()
 					.HasColumnName("inicjal")
 					.HasMaxLength(5);
 
-				entity.Property(e => e.Kraj)
+				entity.Property(e => e.NationalityKey)
 					.IsRequired()
 					.HasColumnName("kraj")
 					.HasMaxLength(3);
@@ -3993,12 +3992,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
 
-				entity.Property(e => e.Nazwisko)
+				entity.Property(e => e.Surname)
 					.IsRequired()
 					.HasColumnName("nazwisko")
 					.HasMaxLength(64);
 
-				entity.Property(e => e.Plec)
+				entity.Property(e => e.Gender)
 					.HasColumnName("plec")
 					.HasDefaultValueSql("'0'");
 			});
@@ -4052,130 +4051,132 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("char(7)");
 			});
 
-			modelBuilder.Entity<InneListystart>(entity =>
+			modelBuilder.Entity<OtherEntry>(entity =>
 			{
 				entity.ToTable("inne_listystart");
 
-				entity.HasIndex(e => e.Kierowcaid)
+				entity.HasIndex(e => e.OtherDriverId)
 					.HasName("kierowcaid");
 
-				entity.HasIndex(e => e.Nr)
+				entity.HasIndex(e => e.Number)
 					.HasName("nr");
 
-				entity.HasIndex(e => e.Seriaid)
+				entity.HasIndex(e => e.OtherSeriesId)
 					.HasName("seriaid");
 
-				entity.HasIndex(e => e.Sezon)
+				entity.HasIndex(e => e.Season)
 					.HasName("sezon");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Debiutant)
+				entity.Property(e => e.Debut)
 					.HasColumnName("debiutant")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Gosc)
+				entity.Property(e => e.Guest)
 					.HasColumnName("gosc")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Kierowcaid)
+				entity.Property(e => e.OtherDriverId)
 					.HasColumnName("kierowcaid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Klasa)
+				entity.Property(e => e.Class)
 					.IsRequired()
 					.HasColumnName("klasa")
 					.HasColumnType("char(10)");
 
-				entity.Property(e => e.Nieaktywny)
+				entity.Property(e => e.Inactive)
 					.HasColumnName("nieaktywny")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Niezalezny)
+				entity.Property(e => e.Independent)
 					.HasColumnName("niezalezny")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Nr)
+				entity.Property(e => e.Number)
 					.IsRequired()
 					.HasColumnName("nr")
 					.HasMaxLength(3)
 					.HasDefaultValueSql("'-'");
 
-				entity.Property(e => e.Opony)
+				entity.Property(e => e.Tyres)
 					.IsRequired()
 					.HasColumnName("opony")
 					.HasMaxLength(3);
 
-				entity.Property(e => e.Samochod)
+				entity.Property(e => e.CarName)
 					.IsRequired()
 					.HasColumnName("samochod")
 					.HasMaxLength(45);
 
-				entity.Property(e => e.Seriaid)
+				entity.Property(e => e.OtherSeriesId)
 					.HasColumnName("seriaid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Sezon)
+				entity.Property(e => e.Season)
 					.IsRequired()
 					.HasColumnName("sezon")
 					.HasMaxLength(7);
 
-				entity.Property(e => e.Zespol)
+				entity.Property(e => e.TeamName)
 					.IsRequired()
 					.HasColumnName("zespol")
 					.HasMaxLength(45);
-
-				entity.Property(e => e.Zespolwwyniku)
-					.IsRequired()
-					.HasColumnName("zespolwwyniku")
-					.HasMaxLength(45);
 			});
 
-			modelBuilder.Entity<InneRezultaty>(entity =>
+			modelBuilder.Entity<OtherResult>(entity =>
 			{
 				entity.ToTable("inne_rezultaty");
 
-				entity.HasIndex(e => e.Imprezaid)
+				entity.HasIndex(e => e.EventId)
 					.HasName("imprezaid");
 
-				entity.HasIndex(e => e.Pozycja)
+				entity.HasIndex(e => e.FinishPosition)
 					.HasName("pozycja");
 
-				entity.HasIndex(e => e.Zgloszenieid)
+				entity.HasIndex(e => e.OtherEntryId)
 					.HasName("zgloszenieid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Czas).HasColumnName("czas");
+				entity.Property(e => e.Time)
+					.HasColumnName("czas")
+					.HasTimeConversions();
 
-				entity.Property(e => e.Dodpktza)
+				entity.Property(e => e.OtherAdditionalPointsReasonId)
 					.HasColumnName("dodpktza")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Imprezaid)
+				entity.Property(e => e.EventId)
 					.HasColumnName("imprezaid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Okrazenia).HasColumnName("okrazenia");
+				entity.Property(e => e.FinishedLaps).HasColumnName("okrazenia");
 
 				entity.Property(e => e.Pozklasa)
 					.HasColumnName("pozklasa")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Pozycja).HasColumnName("pozycja");
+				entity.Property(e => e.FinishPosition).HasColumnName("pozycja");
+
+				entity.Property(e => e.Points)
+					.HasColumnName("punkty")
+					.HasColumnType("float")
+					.HasDefaultValueSql("'0'");
 
 				entity.Property(e => e.Status)
 					.IsRequired()
 					.HasColumnName("status")
 					.HasColumnType("char(2)");
 
-				entity.Property(e => e.Zgloszenieid)
+				entity.Property(e => e.OtherEntryId)
 					.HasColumnName("zgloszenieid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -4227,14 +4228,14 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<InneSerie>(entity =>
+			modelBuilder.Entity<OtherSeries>(entity =>
 			{
 				entity.ToTable("inne_serie");
 
-				entity.HasIndex(e => e.Nazwa)
+				entity.HasIndex(e => e.Name)
 					.HasName("nazwa");
 
-				entity.HasIndex(e => new { e.Status, e.Nazwa })
+				entity.HasIndex(e => new { e.Status, e.Name })
 					.HasName("status");
 
 				entity.Property(e => e.Id)
@@ -4270,12 +4271,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("listastartwgnr")
 					.HasDefaultValueSql("'1'");
 
-				entity.Property(e => e.Nazwa)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("nazwa")
 					.HasMaxLength(45);
 
-				entity.Property(e => e.Newscatid)
+				entity.Property(e => e.NewsCategoryId)
 					.HasColumnName("newscatid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");

@@ -25,9 +25,6 @@ namespace F1WM.Mapping
 			CreateMap<FastestLap, FastestLapResultSummary>()
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
-			CreateMap<FastestLap, FastestLapResultSummary>()
-				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
-				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
 			CreateMap<Qualifying, QualifyingResultPosition>()
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
@@ -44,7 +41,22 @@ namespace F1WM.Mapping
 			CreateMap<OtherSession, PracticeSessionResultPosition>()
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
-				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number));
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres.Name));
+			CreateMap<DatabaseModel.OtherResult, OtherResultPosition>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()))
+				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
+				.ForMember(api => api.Status, o => o.MapFrom(db => db.Status.GetOtherResultStatus()));
+			CreateMap<DatabaseModel.OtherResult, OtherFastestLapResultSummary>()
+				.ForMember(api => api.LapNumber, o => o.MapFrom(db => db.FinishedLaps))
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.GetCarInfo()));
+			CreateMap<DatabaseModel.OtherResult, OtherLapResultSummary>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
+			CreateMap<DatabaseModel.OtherResult, OtherAdditionalPoints>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Reason, o => o.MapFrom(db => db.AdditionalPointsReason.Description));
 		}
 	}
 }

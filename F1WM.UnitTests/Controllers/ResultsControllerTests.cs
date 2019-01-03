@@ -91,5 +91,28 @@ namespace F1WM.UnitTests.Controllers
 
 			Assert.IsType<NotFoundResult>(result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnOtherSeriesResults()
+		{
+			int eventId = 72;
+			serviceMock.Setup(s => s.GetOtherResult(eventId)).ReturnsAsync(new OtherResult());
+
+			var result = await controller.GetOtherResult(eventId);
+
+			serviceMock.Verify(s => s.GetOtherResult(eventId), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfOtherSeriesResultsNotFound()
+		{
+			int eventId = 73;
+			serviceMock.Setup(s => s.GetOtherResult(eventId)).ReturnsAsync((OtherResult)null);
+
+			var result = await controller.GetOtherResult(eventId);
+
+			Assert.IsType<NotFoundResult>(result);
+		}
 	}
 }

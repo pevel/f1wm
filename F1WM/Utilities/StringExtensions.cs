@@ -34,6 +34,15 @@ namespace F1WM.Utilities
 			{ Constants.QualifyStatus.NotQualified, ApiModel.QualifyStatus.NotQualified }
 		};
 
+		private static Dictionary<string, ApiModel.OtherResultStatus> textToOtherResultStatus = new Dictionary<string, OtherResultStatus>()
+		{
+			{ String.Empty, ApiModel.OtherResultStatus.Classified },
+			{ Constants.OtherResultStatus.DidNotStart, ApiModel.OtherResultStatus.DidNotStart },
+			{ Constants.OtherResultStatus.Disqualified, ApiModel.OtherResultStatus.Disqualified },
+			{ Constants.OtherResultStatus.NotClassified, ApiModel.OtherResultStatus.NotClassified },
+			{ Constants.OtherResultStatus.NotQualified, ApiModel.OtherResultStatus.NotQualified }
+		};
+
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))
@@ -104,6 +113,26 @@ namespace F1WM.Utilities
 		public static QualifyStatus GetQualifyStatus(this string statusText)
 		{
 			return textToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
+		}
+
+		public static OtherResultStatus GetOtherResultStatus(this string statusText)
+		{
+			return textToOtherResultStatus.TryGetValue(statusText, out OtherResultStatus status) ? status : OtherResultStatus.Other;
+		}
+
+		public static bool IsPolePositionStatus(this string statusText)
+		{
+			return statusText == Constants.OtherResultStatus.PolePosition;
+		}
+
+		public static bool IsFastestLapStatus(this string statusText)
+		{
+			return statusText == Constants.OtherResultStatus.FastestLap;
+		}
+
+		public static bool HasAdditionalPoints(this string statusText)
+		{
+			return statusText == Constants.OtherResultStatus.AdditionalPoints;
 		}
 	}
 }

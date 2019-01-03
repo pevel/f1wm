@@ -81,13 +81,13 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpGet("other/{id}")]
+		[HttpGet("other/{eventId}")]
 		[Produces("application/json", Type = typeof(OtherResult))]
-		public async Task<IActionResult> GetOtherResult(int id)
+		public async Task<IActionResult> GetOtherResult(int eventId)
 		{
 			try
 			{
-				var result = await service.GetOtherResult(id);
+				var result = await service.GetOtherResult(eventId);
 				if (result != null)
 				{
 					return Ok(result);
