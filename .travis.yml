@@ -5,6 +5,8 @@ services:
 cache:
   directories:
   - $HOME/images
+before_cache:
+  - find $HOME/images -mindepth 1 ! -regex '^$HOME/images/$TRAVIS_BUILD_ID\(/.*\)?' -delete
 jobs:
   include:
   - stage: build and run unit tests
@@ -12,7 +14,7 @@ jobs:
     script:
     - docker build -t f1wm:latest .
     - mkdir -p $HOME/images
-    - docker save f1wm:latest >> $HOME/images/f1wm
+    - docker save f1wm:latest >> $HOME/images/$TRAVIS_BUILD_ID/f1wm
   - stage: deploy to testing
     if: type != pull_request
     env:
@@ -32,7 +34,7 @@ jobs:
     - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
     - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
-    - cat $HOME/images/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
+    - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
   - stage: deploy to production
     if: branch = master && type != pull_request
@@ -53,5 +55,5 @@ jobs:
     - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
     - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
-    - cat $HOME/images/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
+    - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
     - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
