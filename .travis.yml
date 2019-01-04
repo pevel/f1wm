@@ -13,7 +13,7 @@ jobs:
     if: type != pull_request
     script:
     - docker build -t f1wm:latest .
-    - mkdir -p $HOME/images
+    - mkdir -p $HOME/images/$TRAVIS_BUILD_ID/f1wm
     - docker save f1wm:latest >> $HOME/images/$TRAVIS_BUILD_ID/f1wm
   - stage: deploy to testing
     if: type != pull_request
