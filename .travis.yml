@@ -6,7 +6,7 @@ cache:
   directories:
   - $HOME/images
 before_cache:
-  - find $HOME/images -mindepth 1 ! -regex '^$HOME/images/$TRAVIS_BUILD_ID\(/.*\)?' -delete
+  - shopt -s extglob && cd $HOME/images && rm -rf !($TRAVIS_BUILD_ID)
 jobs:
   include:
   - stage: build and run unit tests
