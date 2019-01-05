@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 using Database = F1WM.DatabaseModel.Constants;
 
 public static class Constants
@@ -38,5 +39,14 @@ public static class Constants
 			{ Database.OtherResultStatus.Disqualified, OtherResultStatus.Disqualified },
 			{ Database.OtherResultStatus.NotClassified, OtherResultStatus.NotClassified },
 			{ Database.OtherResultStatus.NotQualified, OtherResultStatus.NotQualified }
+		};
+
+		public readonly static Dictionary<string, Func<string, string>> TokenToParserMapping = new Dictionary<string, Func<string, string>>()
+		{
+			{ "#", line => $"<span class=\"news-text-center\">{line.Substring(1)}</span>" },
+			{ "*", line => $"<h2 class=\"news-text-center\">{line.Substring(1)}</h2>" },
+			{ ">", line => $"<h3>{line.Substring(1)}</h3>"},
+			{ "=", line => $"<span class=\"news-text-title\">{line.Substring(1)}</span>" },
+			{ "@", line => line.ParseImageInformation()}
 		};
 }
