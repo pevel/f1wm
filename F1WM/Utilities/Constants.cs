@@ -49,4 +49,15 @@ public static class Constants
 			{ "=", line => $"<span class=\"news-text-title\">{line.Substring(1)}</span>" },
 			{ "@", line => line.ParseImageInformation()}
 		};
+
+		public readonly static Dictionary<Database.ResultType, ResultLinkType> ResultTypeToLinkType = new Dictionary<Database.ResultType, ResultLinkType>()
+		{
+			{ Database.ResultType.QualifyingComments, ResultLinkType.Qualifying },
+			{ Database.ResultType.QualifyingSummary, ResultLinkType.Qualifying },
+			{ Database.ResultType.Race, ResultLinkType.Race },
+			{ Database.ResultType.FastestLaps, ResultLinkType.Unknown },
+			{ Database.ResultType.PitStops, ResultLinkType.Unknown },
+			{ Database.ResultType.Tyres, ResultLinkType.Unknown },
+			{ Database.ResultType.RaceCharts, ResultLinkType.Unknown }
+		};
 }

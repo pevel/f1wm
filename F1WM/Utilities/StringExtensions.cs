@@ -2,13 +2,36 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Text.RegularExpressions;
 using F1WM.ApiModel;
+using F1WM.DatabaseModel;
 using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
+		public static bool TryParseResultRedirect(this string text, out ResultRedirectLink link)
+		{
+			if (!string.IsNullOrWhiteSpace(text))
+			{
+				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)&dzial=([\d]+)");
+				var match = regex.Match(text);
+				if (match.Groups.Count == 4)
+				{
+					link = new ResultRedirectLink()
+					{
+						Year = int.Parse(match.Groups[1].Value),
+						Number = int.Parse(match.Groups[2].Value),
+						ResultType = (Database.ResultType)int.Parse(match.Groups[3].Value)
+					};
+					return true;
+				}
+			}
+			link = null;
+			return false;
+		}
+
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))

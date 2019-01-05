@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -64,6 +65,16 @@ namespace F1WM.Repositories
 					.Where(n => n.Date > news.Date && !n.NewsHidden)
 					.OrderBy(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;
+				if (news.Redirect != null && news.Redirect.TryParseResultRedirect(out ResultRedirectLink link))
+				{
+					news.ResultLink = new ResultLink()
+					{
+						Type = Constants.ResultTypeToLinkType[link.ResultType],
+						RaceId = (int?)(await context.Races
+							.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number))
+							?.Id
+					};
+				}
 			}
 			return news;
 		}
