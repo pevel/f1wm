@@ -23,11 +23,6 @@ namespace F1WM.Repositories
                     .ThenInclude(r => r.Driver)
                     .ThenInclude(d => d.Nationality)
                     .Where(r => r.FastestLap.Frlpos == "1")
-                .Include(r => r.Results)
-                    .ThenInclude(r => r.Entry)
-                    .ThenInclude(r => r.Driver)
-                    .ThenInclude(r => r.Nationality)
-                    .Where(r => r.Results.PositionOrStatus == "1")
                 .Include(r => r.Track)
                 .OrderBy(r => r.Date)
                 .Where(r => r.Date.Year == year)
@@ -35,6 +30,7 @@ namespace F1WM.Repositories
 
             var race = mapper.Map<List<Race>, List<CalendarRace>>(dbRace);
             await IncludeLastPolePositionResult(year, race);
+            await IncludeLastRaceResult(year, race);
             var result = new Calendar();
             await GetSeasonId(year, result);
             result.Races = race;
@@ -54,14 +50,30 @@ namespace F1WM.Repositories
                             .Include(g => g.Race)
                             .Where(g => g.Race.Date.Year == year && g.StartPositionOrStatus == "1")
                             .Include(g => g.Entry)
-                            .ThenInclude(e => e.Driver)
-                            .ThenInclude(d => d.Nationality)
+                                .ThenInclude(e => e.Driver)
+                                .ThenInclude(d => d.Nationality)
                             .ToListAsync();
 
             foreach (CalendarRace calendarRace in calendar)
             {
                 calendarRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResults.FirstOrDefault(q => q.RaceId == calendarRace.Id));
             }
+        }
+
+        private async Task IncludeLastRaceResult(int year, List<CalendarRace> calendar)
+        {
+            var dbRaceResults = await context.Results
+                .Include(r => r.Entry)
+                    .ThenInclude(r => r.Driver)
+                    .ThenInclude(r => r.Nationality)
+                .Where(r => r.PositionOrStatus == "1" && r.Race.Date.Year == year )
+                .ToListAsync();
+            
+            foreach (CalendarRace calendarRace in calendar)
+            {
+                calendarRace.WinnerRaceResult = mapper.Map<RaceResultPosition>(dbRaceResults.FirstOrDefault(q => q.RaceId == calendarRace.Id));
+            }
+            
         }
 
         private async Task GetSeasonId(int year, Calendar calendar)
