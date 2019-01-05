@@ -3,46 +3,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using F1WM.ApiModel;
-using Constants = F1WM.DatabaseModel.Constants;
+using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
-		private static Dictionary<string, ApiModel.ResultStatus> textToResultStatus = new Dictionary<string, ApiModel.ResultStatus>()
-		{ 
-			{ Constants.ResultStatus.DidNotStart, ApiModel.ResultStatus.DidNotStart },
-			{ Constants.ResultStatus.DidNotStartAgain, ApiModel.ResultStatus.DidNotStartAgain },
-			{ Constants.ResultStatus.Disqualified, ApiModel.ResultStatus.Disqualified },
-			{ Constants.ResultStatus.Excluded, ApiModel.ResultStatus.Excluded },
-			{ Constants.ResultStatus.NotClassified, ApiModel.ResultStatus.NotClassified }
-		};
-
-		private static Dictionary<string, ApiModel.StartStatus> textToStartStatus = new Dictionary<string, StartStatus>()
-		{
-			{ Constants.StartStatus.NotClassified, ApiModel.StartStatus.NotClassified },
-			{ Constants.StartStatus.Excluded, ApiModel.StartStatus.Excluded },
-			{ Constants.StartStatus.FromPitLane, ApiModel.StartStatus.FromPitLane },
-			{ Constants.StartStatus.NotPreQualified, ApiModel.StartStatus.NotPreQualified },
-			{ Constants.StartStatus.NotQualified, ApiModel.StartStatus.NotQualified }
-		};
-
-		private static Dictionary<string, ApiModel.QualifyStatus> textToQualifyStatus = new Dictionary<string, QualifyStatus>()
-		{
-			{ Constants.QualifyStatus.DidNotStart, ApiModel.QualifyStatus.DidNotStart },
-			{ Constants.QualifyStatus.Excluded, ApiModel.QualifyStatus.Excluded },
-			{ Constants.QualifyStatus.NotQualified, ApiModel.QualifyStatus.NotQualified }
-		};
-
-		private static Dictionary<string, ApiModel.OtherResultStatus> textToOtherResultStatus = new Dictionary<string, OtherResultStatus>()
-		{
-			{ String.Empty, ApiModel.OtherResultStatus.Classified },
-			{ Constants.OtherResultStatus.DidNotStart, ApiModel.OtherResultStatus.DidNotStart },
-			{ Constants.OtherResultStatus.Disqualified, ApiModel.OtherResultStatus.Disqualified },
-			{ Constants.OtherResultStatus.NotClassified, ApiModel.OtherResultStatus.NotClassified },
-			{ Constants.OtherResultStatus.NotQualified, ApiModel.OtherResultStatus.NotQualified }
-		};
-
 		public static string ParseImageInformation(this string text)
 		{
 			if (!string.IsNullOrEmpty(text))
@@ -102,37 +68,37 @@ namespace F1WM.Utilities
 
 		public static ResultStatus GetResultStatus(this string statusText)
 		{
-			return textToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
+			return Constants.TextToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
 		}
 
 		public static StartStatus GetStartStatus(this string statusText)
 		{
-			return textToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
+			return Constants.TextToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
 		}
 
 		public static QualifyStatus GetQualifyStatus(this string statusText)
 		{
-			return textToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
+			return Constants.TextToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
 		}
 
 		public static OtherResultStatus GetOtherResultStatus(this string statusText)
 		{
-			return textToOtherResultStatus.TryGetValue(statusText, out OtherResultStatus status) ? status : OtherResultStatus.Other;
+			return Constants.TextToOtherResultStatus.TryGetValue(statusText, out OtherResultStatus status) ? status : OtherResultStatus.Other;
 		}
 
 		public static bool IsPolePositionStatus(this string statusText)
 		{
-			return statusText == Constants.OtherResultStatus.PolePosition;
+			return statusText == Database.OtherResultStatus.PolePosition;
 		}
 
 		public static bool IsFastestLapStatus(this string statusText)
 		{
-			return statusText == Constants.OtherResultStatus.FastestLap;
+			return statusText == Database.OtherResultStatus.FastestLap;
 		}
 
 		public static bool HasAdditionalPoints(this string statusText)
 		{
-			return statusText == Constants.OtherResultStatus.AdditionalPoints;
+			return statusText == Database.OtherResultStatus.AdditionalPoints;
 		}
 	}
 }
