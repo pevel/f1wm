@@ -9,14 +9,14 @@ namespace F1WM.Services
 	{
 		private readonly IResultsRepository repository;
 
-		public Task<OtherResult> GetOtherResult(int id)
+		public Task<OtherResult> GetOtherResult(int eventId)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetOtherResult(eventId);
 		}
 
-		public Task<PracticeResult> GetPracticeResult(int id)
+		public Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetPracticeSessionResult(raceId, session);
 		}
 
 		public async Task<QualifyingResult> GetQualifyingResult(int raceId)

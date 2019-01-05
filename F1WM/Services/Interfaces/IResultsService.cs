@@ -7,8 +7,8 @@ namespace F1WM.Services
 	public interface IResultsService
 	{
 		Task<RaceResult> GetRaceResult(int raceId);
-		Task<OtherResult> GetOtherResult(int id);
-		Task<PracticeResult> GetPracticeResult(int id);
+		Task<OtherResult> GetOtherResult(int eventId);
+		Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session);
 		Task<QualifyingResult> GetQualifyingResult(int raceId);
 	}
 }

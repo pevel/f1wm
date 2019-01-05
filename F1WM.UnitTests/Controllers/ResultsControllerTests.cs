@@ -66,5 +66,53 @@ namespace F1WM.UnitTests.Controllers
 
 			Assert.IsType<NotFoundResult>(result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnPracticeSessionResults()
+		{
+			int raceId = 62;
+			string session = "t1";
+			serviceMock.Setup(s => s.GetPracticeSessionResult(raceId, session)).ReturnsAsync(new PracticeSessionResult());
+
+			var result = await controller.GetPracticeSessionResult(raceId, session);
+
+			serviceMock.Verify(s => s.GetPracticeSessionResult(raceId, session), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfPracticeSessionResultsNotFound()
+		{
+			int raceId = 63;
+			string session = "t1";
+			serviceMock.Setup(s => s.GetPracticeSessionResult(raceId, session)).ReturnsAsync((PracticeSessionResult)null);
+
+			var result = await controller.GetPracticeSessionResult(raceId, session);
+
+			Assert.IsType<NotFoundResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnOtherSeriesResults()
+		{
+			int eventId = 72;
+			serviceMock.Setup(s => s.GetOtherResult(eventId)).ReturnsAsync(new OtherResult());
+
+			var result = await controller.GetOtherResult(eventId);
+
+			serviceMock.Verify(s => s.GetOtherResult(eventId), Times.Once);
+			Assert.IsType<OkObjectResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfOtherSeriesResultsNotFound()
+		{
+			int eventId = 73;
+			serviceMock.Setup(s => s.GetOtherResult(eventId)).ReturnsAsync((OtherResult)null);
+
+			var result = await controller.GetOtherResult(eventId);
+
+			Assert.IsType<NotFoundResult>(result);
+		}
 	}
 }

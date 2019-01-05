@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -18,51 +19,90 @@ namespace F1WM.Repositories
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			await SetDbEncoding();
-			var model = new RaceResult();
-			var dbResults = await GetDbRaceResults(raceId);
-			var dbFastestLap = await context.FastestLaps
+			var model = new RaceResult() { RaceId = raceId };
+			var dbResults = GetDbRaceResults(raceId);
+			var dbFastestLap = context.FastestLaps
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
-				.SingleAsync(f => f.RaceId == raceId && f.Frlpos == "1");
-			model.RaceId = raceId;
+				.Single(f => f.RaceId == raceId && f.Frlpos == "1");
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
-			return model;
+			return model.Results.Any() ? model : null;
 		}
 
 		public async Task<IEnumerable<RaceResultPosition>> GetShortRaceResult(int raceId)
 		{
 			await SetDbEncoding();
-			var dbResults = await GetDbRaceResults(raceId);
+			var dbResults = GetDbRaceResults(raceId);
 			return GetRaceResultPositions(dbResults).Take(10);
 		}
 
 		public async Task<QualifyingResult> GetQualifyingResult(int raceId)
 		{
 			await SetDbEncoding();
-			var model = new QualifyingResult();
-			model.RaceId = raceId;
+			var model = new QualifyingResult() { RaceId = raceId };
 			if (raceId >= searchInGridBeforeRaceId)
 			{
-				var dbResults = await context.Qualifying
+				var dbResults = context.Qualifying
 					.Where(q => q.RaceId == raceId)
 					.Include(q => q.Entry).ThenInclude(e => e.Driver)
-					.Include(q => q.Entry).ThenInclude(e => e.Car)
-					.ToListAsync();
+					.Include(q => q.Entry).ThenInclude(e => e.Car);
 				model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillFinishPositionInfo()))
 					.OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition);
 			}
 			else
 			{
-				var dbResults = await context.Grids
+				var dbResults = context.Grids
 					.Where(g => g.RaceId == raceId)
 					.Include(q => q.Entry).ThenInclude(e => e.Driver)
-					.Include(q => q.Entry).ThenInclude(e => e.Car)
-					.ToListAsync();
+					.Include(q => q.Entry).ThenInclude(e => e.Car);
 				model.Results = mapper.Map<IEnumerable<QualifyingResultPosition>>(dbResults.Select(r => r.FillStartPositionInfo()))
 					.OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition);
 			}
-			return model;
+			return model.Results.Any() ? model : null;
+		}
+
+		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
+		{
+			await SetDbEncoding();
+			var model = new PracticeSessionResult() { RaceId = raceId, Session = session };
+			var dbResults = context.OtherSessions
+				.Where(s => s.RaceId == raceId && s.Session == session)
+				.Include(s => s.Entry).ThenInclude(e => e.Driver)
+				.Include(s => s.Entry).ThenInclude(e => e.Tyres)
+				.Include(s => s.Entry).ThenInclude(e => e.Car);
+			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition);
+			return model.Results.Any() ? model : null;
+		}
+
+		public async Task<ApiModel.OtherResult> GetOtherResult(int eventId)
+		{
+			await SetDbEncoding();
+			var model = new ApiModel.OtherResult() { EventId = eventId };
+			var dbResults = await context.OtherResults
+				.Where(r => r.EventId == eventId)
+				.Include(r => r.Event)
+				.Include(r => r.Entry).ThenInclude(e => e.Series)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
+				.Include(r => r.AdditionalPointsReason)
+				.ToListAsync();
+			model.EventName = dbResults.FirstOrDefault()?.Event?.Name;
+			model.Series = mapper.Map<SeriesSummary>(dbResults.FirstOrDefault()?.Entry?.Series);
+			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
+				.OrderBy(r => r.FinishPosition)
+				.Where(r => r.Status != OtherResultStatus.Other);
+			if (model.Results.Any())
+			{
+				model.FastestLapResult = mapper.Map<OtherFastestLapResultSummary>(dbResults.SingleOrDefault(r => r.Status.IsFastestLapStatus()));
+				model.PolePositionLapResult = mapper.Map<OtherLapResultSummary>(dbResults.SingleOrDefault(r => r.Status.IsPolePositionStatus()));
+				model.AdditionalPoints = mapper.Map<IEnumerable<OtherAdditionalPoints>>(dbResults.Where(r => r.Status.HasAdditionalPoints() && !r.AdditionalPointsReason.IsHidden));
+				return model;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public ResultsRepository(F1WMContext context, IMapper mapper)
@@ -81,15 +121,14 @@ namespace F1WM.Repositories
 			}).OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition));
 		}
 
-		private async Task<IEnumerable<Result>> GetDbRaceResults(int raceId)
+		private IEnumerable<Result> GetDbRaceResults(int raceId)
 		{
-			return await context.Results
+			return context.Results
 				.Where(r => r.RaceId == raceId)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.Entry).ThenInclude(e => e.Tyres)
-				.Include(r => r.Entry).ThenInclude(e => e.Grid)
-				.ToListAsync();
+				.Include(r => r.Entry).ThenInclude(e => e.Grid);
 		}
 	}
 }
