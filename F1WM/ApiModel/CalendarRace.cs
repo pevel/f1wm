@@ -7,7 +7,7 @@ namespace F1WM.ApiModel
 {
     public class CalendarRace
     {
-        public DateTime date { get; set; }
+        public DateTime Date { get; set; }
         public LapResultSummary PolePositionLapResult { get; set; }
         public RaceResultPosition WinnerRaceResult { get; set; }
         public FastestLapResultSummary FastestLapResult { get; set; }
@@ -20,5 +20,6 @@ namespace F1WM.ApiModel
         public TrackSummary Track { get; set; }
         public int Id { get; set; }
         public int TrackId { get; set; }
+        public virtual Country Country { get; set; }
     }
 }

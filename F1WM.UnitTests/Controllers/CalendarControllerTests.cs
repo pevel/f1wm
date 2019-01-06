@@ -14,6 +14,7 @@ namespace F1WM.UnitTests.Controllers
         private CalendarController controller;
         private Mock<ICalendarService> serviceMock;
         private Mock<ILoggingService> loggerMock;
+        private readonly int year = 2016;
 
         public CalendarControllerTests()
         {
@@ -25,11 +26,11 @@ namespace F1WM.UnitTests.Controllers
         [Fact]
         public async Task ShouldReturnCalendar()
         {
-            serviceMock.Setup(s => s.GetCalendar(2016)).ReturnsAsync(new Calendar());
+            serviceMock.Setup(s => s.GetCalendar(year)).ReturnsAsync(new Calendar());
 
-            var result = await controller.GetCalendar(2016);
+            var result = await controller.GetCalendar(year);
 
-            serviceMock.Verify(s => s.GetCalendar(2016), Times.Once);
+            serviceMock.Verify(s => s.GetCalendar(year), Times.Once);
             Assert.IsType<OkObjectResult>(result);
         }
 
@@ -37,11 +38,11 @@ namespace F1WM.UnitTests.Controllers
         [Fact]
         public async Task ShouldReturn404IfCalendarNotFound()
         {
-            serviceMock.Setup(s => s.GetCalendar(2016)).ReturnsAsync((Calendar) null);
+            serviceMock.Setup(s => s.GetCalendar(year)).ReturnsAsync((Calendar) null);
 
-            var result = await controller.GetCalendar(2016);
+            var result = await controller.GetCalendar(year);
 
-            serviceMock.Verify(s => s.GetCalendar(2016), Times.Once);
+            serviceMock.Verify(s => s.GetCalendar(year), Times.Once);
             Assert.IsType<NotFoundResult>(result);
         }
     }

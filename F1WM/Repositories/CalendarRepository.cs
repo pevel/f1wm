@@ -24,9 +24,12 @@ namespace F1WM.Repositories
                     .ThenInclude(d => d.Nationality)
                     .Where(r => r.FastestLap.Frlpos == "1")
                 .Include(r => r.Track)
+                .Include(r => r.Country)
                 .OrderBy(r => r.Date)
                 .Where(r => r.Date.Year == year)
                 .ToListAsync();
+
+            if (dbRace.Count() == 0) return null;
 
             var race = mapper.Map<List<Race>, List<CalendarRace>>(dbRace);
             await IncludeLastPolePositionResult(year, race);
