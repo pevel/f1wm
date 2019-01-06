@@ -48,12 +48,16 @@ namespace F1WM.Utilities
 
 		private static bool TryGetEventId(this string line, out ResultLink resultLink)
 		{
-			if (!string.IsNullOrEmpty(line) && line.StartsWith("^rezultat,"))
+			if (!string.IsNullOrEmpty(line) && line.StartsWith("^"))
 			{
+				if (line.StartsWith("^rezultat,"))
+				{
+					line = line.Replace("rezultat,", "");
+				}
 				resultLink = new ResultLink()
 				{
 					Type = ResultLinkType.Other,
-					EventId = Int32.Parse(line.Replace("^rezultat,", ""))
+					EventId = Int32.Parse(line.Replace("^", ""))
 				};
 				return true;
 			}
@@ -68,7 +72,7 @@ namespace F1WM.Utilities
 		{
 			if (!string.IsNullOrEmpty(line) && line.StartsWith("$^"))
 			{
-				var regex = new Regex(@"\$\^([\d]+)(\$t[\d]+)");
+				var regex = new Regex(@"\$\^([\d]+)\$(t[\d]+)");
 				var match = regex.Match(line);
 				if (match.Groups.Count == 3)
 				{
