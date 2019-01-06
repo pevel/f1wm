@@ -15,8 +15,7 @@ namespace F1WM.Mapping
                 .ForMember(api => api.WinnerRaceResult, o => o.MapFrom(db => db.Results))
                 .ForMember(api => api.FastestLapResult, o => o.MapFrom(db => db.FastestLap));
             CreateMap<Grid, LapResultSummary>()
-                .ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
-                .ForMember(api => api.Time, o => o.MapFrom(db => db.Time));
+                .ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
         }
     }
 }
