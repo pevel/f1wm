@@ -15,15 +15,19 @@ namespace F1WM.Utilities
 		{
 			if (!string.IsNullOrWhiteSpace(text))
 			{
-				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)&dzial=([\d]+)");
+				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)(&dzial=([\d]+))*");
 				var match = regex.Match(text);
-				if (match.Groups.Count == 4)
+				if (match.Groups.Count == 5)
 				{
+					if (!int.TryParse(match.Groups[4].Value, out int resultType))
+					{
+						resultType = (int)Database.ResultType.Race;
+					}
 					link = new ResultRedirectLink()
 					{
 						Year = int.Parse(match.Groups[1].Value),
 						Number = int.Parse(match.Groups[2].Value),
-						ResultType = (Database.ResultType)int.Parse(match.Groups[3].Value)
+						ResultType = (Database.ResultType)resultType
 					};
 					return true;
 				}
