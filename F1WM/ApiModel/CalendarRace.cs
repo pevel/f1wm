@@ -15,6 +15,7 @@ namespace F1WM.ApiModel
         public string TranslatedName { get; set; }
         public double Distance { get; set; }
         public double LapLength { get; set; }
+        public double Offset { get; set; }
         public int Laps { get; set; }
         public TrackSummary Track { get; set; }
         public int Id { get; set; }

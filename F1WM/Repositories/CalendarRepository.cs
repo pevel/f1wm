@@ -86,7 +86,7 @@ namespace F1WM.Repositories
         {
             foreach (CalendarRace calendarRace in calendar.Races)
             {
-                calendarRace.LapLength = calendarRace.Distance / calendarRace.Laps;
+                calendarRace.LapLength = (calendarRace.Distance + calendarRace.Offset) / calendarRace.Laps;
             }
         }
     }
