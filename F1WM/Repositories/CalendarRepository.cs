@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
+using F1WM.ApiModel.Results;
 using F1WM.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
@@ -19,9 +20,11 @@ namespace F1WM.Repositories
             await SetDbEncoding();
             var dbRace = await context.Races
                 .Include(r => r.FastestLap)
+                    .ThenInclude(r => r.Entry).ThenInclude(c=>c.Car)
+                .Include(r => r.FastestLap)
                     .ThenInclude(r => r.Entry)
                     .ThenInclude(r => r.Driver)
-                    .ThenInclude(d => d.Nationality)
+                    .ThenInclude(r => r.Nationality)
                     .Where(r => r.FastestLap.Frlpos == "1")
                 .Include(r => r.Track)
                 .Include(r => r.Country)
@@ -53,6 +56,8 @@ namespace F1WM.Repositories
                             .Include(g => g.Race)
                             .Where(g => g.Race.Date.Year == year && g.StartPositionOrStatus == "1")
                             .Include(g => g.Entry)
+                                .ThenInclude(c=>c.Car)
+                            .Include(g => g.Entry)
                                 .ThenInclude(e => e.Driver)
                                 .ThenInclude(d => d.Nationality)
                             .ToListAsync();
@@ -66,15 +71,17 @@ namespace F1WM.Repositories
         private async Task IncludeLastRaceResult(int year, List<CalendarRace> calendar)
         {
             var dbRaceResults = await context.Results
-                .Include(r => r.Entry)
-                    .ThenInclude(r => r.Driver)
-                    .ThenInclude(r => r.Nationality)
+                .Include(g => g.Entry)
+                    .ThenInclude(c => c.Car)
+                .Include(g => g.Entry)
+                    .ThenInclude(e => e.Driver)
+                    .ThenInclude(d => d.Nationality)
                 .Where(r => r.PositionOrStatus == "1" && r.Race.Date.Year == year )
                 .ToListAsync();
             
             foreach (CalendarRace calendarRace in calendar)
             {
-                calendarRace.WinnerRaceResult = mapper.Map<RaceResultPosition>(dbRaceResults.FirstOrDefault(q => q.RaceId == calendarRace.Id));
+                calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults.FirstOrDefault(q => q.RaceId == calendarRace.Id));
             }
             
         }
