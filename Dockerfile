@@ -2,6 +2,8 @@ FROM microsoft/dotnet:2.2-sdk-bionic AS build-env
 WORKDIR /app
 
 # copy everything and run unit tests and build
+ARG BRANCH
+ENV BRANCH=$BRANCH
 COPY . ./
 RUN dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
 RUN dotnet publish -c Release -o bin F1WM/F1WM.csproj
