@@ -41,7 +41,7 @@ namespace F1WM.Services
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
-				using (StringReader reader = new StringReader(configText.Value))
+				using(StringReader reader = new StringReader(configText.Value))
 				{
 					string line;
 					while ((line = reader.ReadLine()) != null)

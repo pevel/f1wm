@@ -26,8 +26,8 @@ public static class GridExtensions
 		apiResult.Session1 = dbResult.Time == TimeSpan.Zero ? null : new QualifyingSessionResultPosition()
 		{
 			FinishPosition = dbResult.StartPosition,
-			FinishedLaps = null,
-			Time = dbResult.Time
+				FinishedLaps = null,
+				Time = dbResult.Time
 		};
 	}
 }

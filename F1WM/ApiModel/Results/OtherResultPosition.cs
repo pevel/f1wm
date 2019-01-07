@@ -12,6 +12,7 @@ namespace F1WM.ApiModel
 		public CarSummary Car { get; set; }
 		public int FinishedLaps { get; set; }
 		public TimeSpan Time { get; set; }
+
 		[JsonConverter(typeof(StringEnumConverter))]
 		public OtherResultStatus Status { get; set; }
 		public int Points { get; set; }

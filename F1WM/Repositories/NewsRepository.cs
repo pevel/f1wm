@@ -70,9 +70,9 @@ namespace F1WM.Repositories
 					news.ResultLink = new ResultLink()
 					{
 						Type = Constants.ResultTypeToLinkType[link.ResultType],
-						RaceId = (int?)(await context.Races
-							.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number))
-							?.Id
+							RaceId = (int?)(await context.Races
+								.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number)) ?
+							.Id
 					};
 				}
 			}

@@ -9,6 +9,7 @@ namespace F1WM.ApiModel
 	{
 		public int RaceId { get; set; }
 		public IEnumerable<QualifyingResultPosition> Results { get; set; }
+
 		[JsonConverter(typeof(StringEnumConverter))]
 		public QualifyingResultFormat Format { get; set; }
 	}

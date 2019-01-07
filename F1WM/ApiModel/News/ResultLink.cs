@@ -7,10 +7,13 @@ namespace F1WM.ApiModel
 	{
 		[JsonConverter(typeof(StringEnumConverter))]
 		public ResultLinkType Type { get; set; }
+
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? RaceId { get; set; }
+
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? EventId { get; set; }
+
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string Session { get; set; }
 	}

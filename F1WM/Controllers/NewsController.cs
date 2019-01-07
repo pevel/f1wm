@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,8 +20,7 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		public async Task<IEnumerable<NewsSummary>> GetMany(
-			[FromQuery(Name = "firstId")] int? firstId = null,
-			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
+			[FromQuery(Name = "firstId")] int? firstId = null, [FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
 			try
 			{
@@ -63,7 +62,6 @@ namespace F1WM.Controllers
 				throw ex;
 			}
 		}
-
 
 		public NewsController(INewsService service, ILoggingService logger)
 		{

@@ -26,8 +26,8 @@ namespace F1WM.Utilities
 					link = new ResultRedirectLink()
 					{
 						Year = int.Parse(match.Groups[1].Value),
-						Number = int.Parse(match.Groups[2].Value),
-						ResultType = (Database.ResultType)resultType
+							Number = int.Parse(match.Groups[2].Value),
+							ResultType = (Database.ResultType)resultType
 					};
 					return true;
 				}
@@ -54,15 +54,15 @@ namespace F1WM.Utilities
 			{
 				var tokens = text.Split('|');
 				int id;
-				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id)) 
+				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id))
 				{
 					throw new ArgumentException("Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)", nameof(text));
 				}
 				return new ImportantNewsSummary()
 				{
 					Id = id,
-					ImageUrl = tokens[1].GetImageUrl(),
-					ShortText = tokens[2]
+						ImageUrl = tokens[1].GetImageUrl(),
+						ShortText = tokens[2]
 				};
 			}
 			return null;

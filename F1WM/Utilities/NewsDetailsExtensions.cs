@@ -12,8 +12,8 @@ namespace F1WM.Utilities
 		{
 			if (!string.IsNullOrEmpty(news.Text))
 			{
-				using (var reader = new StringReader(news.Text))
-				using (var writer = new StringWriter())
+				using(var reader = new StringReader(news.Text))
+				using(var writer = new StringWriter())
 				{
 					while (reader.Peek() != -1)
 					{
@@ -57,7 +57,7 @@ namespace F1WM.Utilities
 				resultLink = new ResultLink()
 				{
 					Type = ResultLinkType.Other,
-					EventId = Int32.Parse(line.Replace("^", ""))
+						EventId = Int32.Parse(line.Replace("^", ""))
 				};
 				return true;
 			}
@@ -79,8 +79,8 @@ namespace F1WM.Utilities
 					resultLink = new ResultLink()
 					{
 						Type = ResultLinkType.Practice,
-						RaceId = Int32.Parse(match.Groups[1].Value),
-						Session = match.Groups[2].Value
+							RaceId = Int32.Parse(match.Groups[1].Value),
+							Session = match.Groups[2].Value
 					};
 					return true;
 				}
