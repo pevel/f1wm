@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using F1WM.Controllers;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
 

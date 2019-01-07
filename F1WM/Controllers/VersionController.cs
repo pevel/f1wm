@@ -21,7 +21,7 @@ namespace F1WM.Controllers
 			{
 				var assembly = Assembly.GetEntryAssembly();
 				var resourceStream = assembly.GetManifestResourceStream("F1WM.version.json");
-				using (var reader = new StreamReader(resourceStream, Encoding.UTF8))
+				using(var reader = new StreamReader(resourceStream, Encoding.UTF8))
 				{
 					return JsonConvert.DeserializeObject<ApiVersion>(reader.ReadToEnd());
 				}

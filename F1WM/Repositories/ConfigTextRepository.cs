@@ -12,7 +12,7 @@ namespace F1WM.Repositories
 		public async Task<ConfigText> GetConfigText(string name)
 		{
 			await SetDbEncoding();
-			var dbConfigText = await context.ConfigTexts.FirstOrDefaultAsync(c => c.Name == name); 
+			var dbConfigText = await context.ConfigTexts.FirstOrDefaultAsync(c => c.Name == name);
 			return mapper.Map<ConfigText>(dbConfigText);
 		}
 

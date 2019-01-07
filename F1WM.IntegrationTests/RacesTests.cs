@@ -73,7 +73,8 @@ namespace F1WM.IntegrationTests
 			Assert.True(lastRace.Date < nowAtRequestTime);
 			Assert.NotNull(lastRace.ShortResults);
 			Assert.Equal(10, lastRace.ShortResults.Count());
-			Assert.All(lastRace.ShortResults, result => {
+			Assert.All(lastRace.ShortResults, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));

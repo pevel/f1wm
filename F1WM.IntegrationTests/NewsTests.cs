@@ -29,6 +29,91 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
+		public async Task GetSingleNewsWithPracticeResultLinkTest()
+		{
+			var id = 42422;
+
+			var response = await client.GetAsync($"{baseAddress}/news/{id}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
+			Assert.NotNull(news);
+			Assert.NotNull(news.Title);
+			Assert.NotNull(news.Text);
+			Assert.NotNull(news.Subtitle);
+			Assert.NotNull(news.PosterName);
+			Assert.NotNull(news.ResultLink);
+			Assert.Equal(ResultLinkType.Practice, news.ResultLink.Type);
+			Assert.NotEqual(0, news.ResultLink.RaceId);
+			Assert.False(string.IsNullOrWhiteSpace(news.ResultLink.Session));
+			Assert.Equal(id, news.Id);
+		}
+
+		[Fact]
+		public async Task GetSingleNewsWithRaceResultLinkTest()
+		{
+			var id = 2468;
+
+			var response = await client.GetAsync($"{baseAddress}/news/{id}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
+			Assert.NotNull(news);
+			Assert.NotNull(news.Title);
+			Assert.NotNull(news.Text);
+			Assert.NotNull(news.Subtitle);
+			Assert.NotNull(news.PosterName);
+			Assert.NotNull(news.ResultLink);
+			Assert.Equal(ResultLinkType.Race, news.ResultLink.Type);
+			Assert.NotEqual(0, news.ResultLink.RaceId);
+			Assert.Equal(id, news.Id);
+		}
+
+		[Fact]
+		public async Task GetSingleNewsWithQualifyingResultLinkTest()
+		{
+			var id = 2464;
+
+			var response = await client.GetAsync($"{baseAddress}/news/{id}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
+			Assert.NotNull(news);
+			Assert.NotNull(news.Title);
+			Assert.NotNull(news.Text);
+			Assert.NotNull(news.Subtitle);
+			Assert.NotNull(news.PosterName);
+			Assert.NotNull(news.ResultLink);
+			Assert.Equal(ResultLinkType.Qualifying, news.ResultLink.Type);
+			Assert.NotEqual(0, news.ResultLink.RaceId);
+			Assert.Equal(id, news.Id);
+		}
+
+		[Fact]
+		public async Task GetSingleNewsWithOtherResultLinkTest()
+		{
+			var id = 1010;
+
+			var response = await client.GetAsync($"{baseAddress}/news/{id}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
+			Assert.NotNull(news);
+			Assert.NotNull(news.Title);
+			Assert.NotNull(news.Text);
+			Assert.NotNull(news.Subtitle);
+			Assert.NotNull(news.PosterName);
+			Assert.NotNull(news.ResultLink);
+			Assert.Equal(ResultLinkType.Other, news.ResultLink.Type);
+			Assert.NotEqual(0, news.ResultLink.EventId);
+			Assert.Equal(id, news.Id);
+		}
+
+		[Fact]
 		public async Task GetManyNewsTest()
 		{
 			var firstId = 42001;

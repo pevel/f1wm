@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using F1WM.Controllers;
+using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
-using System.Threading.Tasks;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -32,7 +32,6 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetNextRace(), Times.Once);
 			Assert.IsType<OkObjectResult>(result);
 		}
-
 
 		[Fact]
 		public async Task ShouldReturn404IfNextRaceNotFound()

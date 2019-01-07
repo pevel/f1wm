@@ -2139,11 +2139,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("numinseason")
 					.HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.Distance)
-                    .HasColumnName("distance")
-                    .HasDefaultValueSql("'0'");
+				entity.Property(e => e.Distance)
+					.HasColumnName("distance")
+					.HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.Offset)
+				entity.Property(e => e.Offset)
 					.HasColumnName("offset")
 					.HasDefaultValueSql("'0'");
 

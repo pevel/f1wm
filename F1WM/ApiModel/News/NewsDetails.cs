@@ -7,7 +7,7 @@ namespace F1WM.ApiModel
 		public string Text { get; set; }
 		public int? NextNewsId { get; set; }
 		public int? PreviousNewsId { get; set; }
-		public int? RaceResultId { get; set; }
-		public TrainingResult TrainingResult { get; set; }
+		public ResultLink ResultLink { get; set; }
+		public string Redirect { get; set; }
 	}
 }

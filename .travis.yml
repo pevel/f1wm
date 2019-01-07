@@ -12,7 +12,7 @@ jobs:
   - stage: build and run unit tests
     if: type != pull_request
     script:
-    - docker build -t f1wm:latest .
+    - docker build --build-arg BRANCH=$TRAVIS_BRANCH -t f1wm:latest .
     - mkdir -p $HOME/images/$TRAVIS_BUILD_ID
     - docker save f1wm:latest >> $HOME/images/$TRAVIS_BUILD_ID/f1wm
   - stage: deploy to testing

@@ -8,4 +8,4 @@ In order to build the application, besides [.NET Core SDK 2.2](https://www.micro
 
 In order to run the API locally or run integration tests, you need to setup [User Secrets](https://docs.microsoft.com/en-us/aspnet/core/security/app-secrets?tabs=visual-studio) first.
 User secrets include connection string information. To populate it, run (in F1WM project directory):
-`dotnet user-secrets set ConnectionStrings:DefaultConnectionString "server=<server>;user id=<username>;password=<password>;port=3306;database=<database>;charset=<charset>"`
+`dotnet user-secrets set ConnectionStrings:DefaultConnectionString "server=<server>;user id=<username>;password=<password>;port=<port>;database=<database>;charset=<charset>"`

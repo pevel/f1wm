@@ -19,8 +19,7 @@ namespace F1WM.Controllers
 		[HttpGet("constructors")]
 		[Produces("application/json", Type = typeof(ConstructorsStandings))]
 		public async Task<IActionResult> GetConstructorsStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null,
-			[FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
+			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
 		{
 			try
 			{
@@ -37,8 +36,7 @@ namespace F1WM.Controllers
 		[HttpGet("drivers")]
 		[Produces("application/json", Type = typeof(DriversStandings))]
 		public async Task<IActionResult> GetDriversStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null,
-			[FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
+			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
 		{
 			try
 			{

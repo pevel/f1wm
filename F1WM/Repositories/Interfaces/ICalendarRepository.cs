@@ -3,8 +3,8 @@ using F1WM.ApiModel;
 
 namespace F1WM.Repositories
 {
-    public interface ICalendarRepository
-    {
-        Task<Calendar> GetCalendar(int year);
-    }
+	public interface ICalendarRepository
+	{
+		Task<Calendar> GetCalendar(int year);
+	}
 }

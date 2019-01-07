@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using F1WM.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -110,7 +110,7 @@ namespace F1WM
 		{
 			return settings =>
 			{
-				if (httpsEnabled) 
+				if (httpsEnabled)
 				{
 					settings.PostProcess = (document) => document.Schemes = new [] { SwaggerSchema.Https };
 				}

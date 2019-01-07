@@ -1,8 +1,8 @@
+using System.Threading.Tasks;
 using F1WM.Controllers;
 using F1WM.Services;
 using Moq;
 using Xunit;
-using System.Threading.Tasks;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -37,7 +37,6 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetConstructorsStandings(count, seasonId), Times.Once);
 		}
-
 
 		[Fact]
 		public async Task ShouldReturnFirst10DriverPositionsByDefault()

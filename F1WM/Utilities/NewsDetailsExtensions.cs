@@ -8,41 +8,30 @@ namespace F1WM.Utilities
 {
 	public static class NewsDetailsExtensions
 	{
-		public static Dictionary<string, Func<string, string>> TokenToParserMapping = new Dictionary<string, Func<string, string>>()
-		{
-			{ "#", line => $"<span class=\"news-text-center\">{line.Substring(1)}</span>" },
-			{ "*", line => $"<h2 class=\"news-text-center\">{line.Substring(1)}</h2>" },
-			{ ">", line => $"<h3>{line.Substring(1)}</h3>"},
-			{ "=", line => $"<span class=\"news-text-title\">{line.Substring(1)}</span>" },
-			{ "@", line => line.ParseImageInformation()}
-		};
-
 		public static NewsDetails ParseCustomFormatting(this NewsDetails news)
 		{
 			if (!string.IsNullOrEmpty(news.Text))
 			{
-				using (var reader = new StringReader(news.Text))
-				using (var writer = new StringWriter())
+				using(var reader = new StringReader(news.Text))
+				using(var writer = new StringWriter())
 				{
-					int? raceResultId;
-					TrainingResult trainingResult;
 					while (reader.Peek() != -1)
 					{
 						var line = reader.ReadLine();
-						if (line.TryGetRaceResultId(out raceResultId))
+						if (line.TryGetEventId(out ResultLink otherLink))
 						{
-							news.RaceResultId = raceResultId;
+							news.ResultLink = otherLink;
 						}
-						else if (line.TryGetTrainingResult(out trainingResult))
+						else if (line.TryGetPracticeResultLink(out ResultLink practiceLink))
 						{
-							news.TrainingResult = trainingResult;
+							news.ResultLink = practiceLink;
 						}
 						else
 						{
 							var token = line.Length > 0 ? $"{line[0]}" : "";
-							if (TokenToParserMapping.ContainsKey(token))
+							if (Constants.TokenToParserMapping.ContainsKey(token))
 							{
-								line = TokenToParserMapping[token](line);
+								line = Constants.TokenToParserMapping[token](line);
 							}
 							writer.WriteLine(line + "<br/>");
 						}
@@ -57,37 +46,46 @@ namespace F1WM.Utilities
 			}
 		}
 
-		private static bool TryGetRaceResultId(this string line, out int? raceResultId)
+		private static bool TryGetEventId(this string line, out ResultLink resultLink)
 		{
-			if (!string.IsNullOrEmpty(line) && line.StartsWith("^rezultat,"))
+			if (!string.IsNullOrEmpty(line) && line.StartsWith("^"))
 			{
-				raceResultId = Int32.Parse(line.Replace("^rezultat,", ""));
+				if (line.StartsWith("^rezultat,"))
+				{
+					line = line.Replace("rezultat,", "");
+				}
+				resultLink = new ResultLink()
+				{
+					Type = ResultLinkType.Other,
+					EventId = Int32.Parse(line.Replace("^", ""))
+				};
 				return true;
 			}
 			else
 			{
-				raceResultId = null;
+				resultLink = null;
 				return false;
 			}
 		}
 
-		private static bool TryGetTrainingResult(this string line, out TrainingResult trainingResult)
+		private static bool TryGetPracticeResultLink(this string line, out ResultLink resultLink)
 		{
 			if (!string.IsNullOrEmpty(line) && line.StartsWith("$^"))
 			{
-				var regex = new Regex(@"\$\^([\d]+)\$t([\d]+)");
+				var regex = new Regex(@"\$\^([\d]+)\$(t[\d]+)");
 				var match = regex.Match(line);
 				if (match.Groups.Count == 3)
 				{
-					trainingResult = new TrainingResult()
+					resultLink = new ResultLink()
 					{
-						Id = Int32.Parse(match.Groups[1].Value),
-						Series = Int32.Parse(match.Groups[2].Value)
+						Type = ResultLinkType.Practice,
+						RaceId = Int32.Parse(match.Groups[1].Value),
+						Session = match.Groups[2].Value
 					};
 					return true;
 				}
 			}
-			trainingResult = null;
+			resultLink = null;
 			return false;
 		}
 	}
