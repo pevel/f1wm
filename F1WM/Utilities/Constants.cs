@@ -29,7 +29,8 @@ public static class Constants
 		{
 			{ Database.QualifyStatus.DidNotStart, QualifyStatus.DidNotStart },
 			{ Database.QualifyStatus.Excluded, QualifyStatus.Excluded },
-			{ Database.QualifyStatus.NotQualified, QualifyStatus.NotQualified }
+			{ Database.QualifyStatus.NotQualified, QualifyStatus.NotQualified },
+			{ Database.QualifyStatus.NotPreQualified, QualifyStatus.NotPreQualified }
 		};
 
 		public readonly static Dictionary<string, OtherResultStatus> TextToOtherResultStatus = new Dictionary<string, OtherResultStatus>()

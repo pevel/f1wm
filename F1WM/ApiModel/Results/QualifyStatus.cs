@@ -6,6 +6,7 @@ namespace F1WM.ApiModel
 		DidNotStart,
 		Excluded,
 		NotQualified,
+		NotPreQualified,
 		Unknown
 	}
 }
