@@ -26,20 +26,20 @@ public static class QualifyingExtensions
 		apiResult.Session1 = dbResult.Session1Time == TimeSpan.Zero && dbResult.Session1Laps == 0 ? null : new QualifyingSessionResultPosition()
 		{
 			FinishPosition = dbResult.Session1Position,
-				FinishedLaps = dbResult.Session1Laps,
-				Time = dbResult.Session1Time
+			FinishedLaps = dbResult.Session1Laps,
+			Time = dbResult.Session1Time
 		};
 		apiResult.Session2 = dbResult.Session2Time == TimeSpan.Zero && dbResult.Session2Laps == 0 ? null : new QualifyingSessionResultPosition()
 		{
 			FinishPosition = dbResult.Session2Position,
-				FinishedLaps = dbResult.Session2Laps,
-				Time = dbResult.Session2Time
+			FinishedLaps = dbResult.Session2Laps,
+			Time = dbResult.Session2Time
 		};
 		apiResult.Session3 = dbResult.Session3Time == TimeSpan.Zero && dbResult.Session3Laps == 0 ? null : new QualifyingSessionResultPosition()
 		{
 			FinishPosition = dbResult.Session3Position,
-				FinishedLaps = dbResult.Session3Laps,
-				Time = dbResult.Session3Time
+			FinishedLaps = dbResult.Session3Laps,
+			Time = dbResult.Session3Time
 		};
 	}
 }

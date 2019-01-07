@@ -54,9 +54,7 @@ namespace F1WM.Repositories
 			var dbLastWinnerResult = await context.Results
 				.Include(r => r.Race)
 				.Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.PositionOrStatus == "1")
-				.Include(r => r.Entry)
-				.ThenInclude(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(r => r.Race.Date)
 				.FirstAsync();
 			apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
@@ -67,9 +65,7 @@ namespace F1WM.Repositories
 			var dbLastPolePositionResult = await context.Grids
 				.Include(g => g.Race)
 				.Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartPositionOrStatus == "1")
-				.Include(g => g.Entry)
-				.ThenInclude(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(g => g.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(g => g.Race.Date)
 				.FirstAsync();
 			apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
@@ -81,8 +77,7 @@ namespace F1WM.Repositories
 				.Include(e => e.Race)
 				.Include(e => e.FastestLap)
 				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
-				.Include(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(e => e.Race.Date)
 				.FirstAsync();
 			apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
@@ -92,8 +87,7 @@ namespace F1WM.Repositories
 		{
 			var dbPolePositionResult = await context.Grids
 				.Include(g => g.Race)
-				.Include(g => g.Entry)
-				.ThenInclude(e => e.Driver)
+				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
 		}

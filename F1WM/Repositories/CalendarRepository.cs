@@ -19,13 +19,8 @@ namespace F1WM.Repositories
 		{
 			await SetDbEncoding();
 			var dbRace = await context.Races
-				.Include(r => r.FastestLap)
-				.ThenInclude(f => f.Entry)
-				.ThenInclude(e => e.Car)
-				.Include(r => r.FastestLap)
-				.ThenInclude(f => f.Entry)
-				.ThenInclude(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Car)
+				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.Where(r => r.FastestLap.Frlpos == "1")
 				.Include(r => r.Track)
 				.Include(r => r.Country)
@@ -56,11 +51,8 @@ namespace F1WM.Repositories
 			var dbPolePositionResults = await context.Grids
 				.Include(g => g.Race)
 				.Where(g => g.Race.Date.Year == year && g.StartPositionOrStatus == "1")
-				.Include(g => g.Entry)
-				.ThenInclude(e => e.Car)
-				.Include(g => g.Entry)
-				.ThenInclude(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(g => g.Entry).ThenInclude(e => e.Car)
+				.Include(g => g.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.ToListAsync();
 
 			foreach (CalendarRace calendarRace in calendar)
@@ -72,11 +64,8 @@ namespace F1WM.Repositories
 		private async Task IncludeLastRaceResult(int year, List<CalendarRace> calendar)
 		{
 			var dbRaceResults = await context.Results
-				.Include(r => r.Entry)
-				.ThenInclude(e => e.Car)
-				.Include(r => r.Entry)
-				.ThenInclude(e => e.Driver)
-				.ThenInclude(d => d.Nationality)
+				.Include(r => r.Entry).ThenInclude(e => e.Car)
+				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.Where(r => r.PositionOrStatus == "1" && r.Race.Date.Year == year)
 				.ToListAsync();
 
