@@ -1986,14 +1986,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("raceid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
-
-				entity.HasOne(e => e.Entry)
-					.WithOne(e => e.Qualifying)
-					.HasForeignKey(typeof(Entry));
-
-				entity.HasOne(e => e.Race)
-					.WithOne(r => r.Qualifying)
-					.HasForeignKey(typeof(Race));
 			});
 
 			modelBuilder.Entity<F1quotes>(entity =>
@@ -2147,7 +2139,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("numinseason")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Offset)
+                entity.Property(e => e.Distance)
+                    .HasColumnName("distance")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.Offset)
 					.HasColumnName("offset")
 					.HasDefaultValueSql("'0'");
 
