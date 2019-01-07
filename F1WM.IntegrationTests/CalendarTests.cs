@@ -26,8 +26,17 @@ namespace F1WM.IntegrationTests
                 Assert.True(calendarRace.Date < nowAtRequestTime);
                 Assert.NotEqual(0, calendarRace.Distance);
                 Assert.NotNull(calendarRace.PolePositionLapResult);
+                Assert.NotEqual(0, calendarRace.PolePositionLapResult.Time.TotalMilliseconds);
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.PolePositionLapResult.Driver.FirstName));
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.PolePositionLapResult.Driver.Surname));
                 Assert.NotNull(calendarRace.WinnerRaceResult);
+                Assert.NotEqual(0, calendarRace.WinnerRaceResult.Time.TotalMilliseconds);
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.WinnerRaceResult.Driver.FirstName));
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.WinnerRaceResult.Driver.Surname));
                 Assert.NotNull(calendarRace.FastestLapResult);
+                Assert.NotEqual(0, calendarRace.FastestLapResult.Time.TotalMilliseconds);
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.FastestLapResult.Driver.FirstName));
+                Assert.False(string.IsNullOrWhiteSpace(calendarRace.FastestLapResult.Driver.Surname));
                 Assert.False(string.IsNullOrWhiteSpace(calendarRace.Name));
                 Assert.False(string.IsNullOrWhiteSpace(calendarRace.TranslatedName));
                 Assert.NotEqual(0, calendarRace.LapLength);
