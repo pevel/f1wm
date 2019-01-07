@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel
 		public uint TrackId { get; set; }
 		public bool Weather { get; set; }
 		public byte Laps { get; set; }
-        public double Distance { get; set; }
+		public double Distance { get; set; }
 		public double Offset { get; set; }
 		public string Name { get; set; }
 		public byte Trackver { get; set; }
@@ -23,7 +23,7 @@ namespace F1WM.DatabaseModel
 		public virtual Track Track { get; set; }
 		public virtual Country Country { get; set; }
 		public virtual IEnumerable<Grid> Grids { get; set; }
-        public virtual IEnumerable<Result> Results { get; set; }
+		public virtual IEnumerable<Result> Results { get; set; }
 		public virtual FastestLap FastestLap { get; set; }
 		public virtual RaceNews RaceNews { get; set; }
 		public virtual IEnumerable<Qualifying> Qualifying { get; set; }

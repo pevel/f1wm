@@ -1,10 +1,10 @@
-using F1WM.Controllers;
-using F1WM.Services;
-using Moq;
-using Xunit;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.Controllers;
+using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
+using Moq;
+using Xunit;
 
 namespace F1WM.UnitTests.Controllers
 {

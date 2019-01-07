@@ -1,11 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using F1WM.Controllers;
 using F1WM.ApiModel;
+using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
-using System;
 
 namespace F1WM.IntegrationTests
 {
@@ -35,7 +35,8 @@ namespace F1WM.IntegrationTests
 			Assert.True(TimeSpan.Zero < raceResult.FastestLap.Time);
 			Assert.NotNull(raceResult.Results);
 			Assert.NotEmpty(raceResult.Results);
-			Assert.All(raceResult.Results, result => {
+			Assert.All(raceResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -49,7 +50,8 @@ namespace F1WM.IntegrationTests
 				Assert.True(0 <= result.PitStopVisits);
 				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
-			raceResult.Results.Aggregate((previous, current) => {
+			raceResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
 				return current;
 			});
@@ -69,7 +71,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(QualifyingResultFormat.Basic, qualifyingResult.Format);
 			Assert.NotNull(qualifyingResult.Results);
 			Assert.NotEmpty(qualifyingResult.Results);
-			Assert.All(qualifyingResult.Results, result => {
+			Assert.All(qualifyingResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -84,7 +87,8 @@ namespace F1WM.IntegrationTests
 				Assert.Null(result.Session2);
 				Assert.Null(result.Session3);
 			});
-			qualifyingResult.Results.Aggregate((previous, current) => {
+			qualifyingResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
 				return current;
 			});
@@ -104,7 +108,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(QualifyingResultFormat.Combined12, qualifyingResult.Format);
 			Assert.NotNull(qualifyingResult.Results);
 			Assert.NotEmpty(qualifyingResult.Results);
-			Assert.All(qualifyingResult.Results, result => {
+			Assert.All(qualifyingResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -115,7 +120,8 @@ namespace F1WM.IntegrationTests
 				Assert.Null(result.Driver.Nationality);
 				Assert.True(0 < result.Number);
 			});
-			qualifyingResult.Results.Aggregate((previous, current) => {
+			qualifyingResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
 				return current;
 			});
@@ -135,7 +141,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(QualifyingResultFormat.CombinedSummed12, qualifyingResult.Format);
 			Assert.NotNull(qualifyingResult.Results);
 			Assert.NotEmpty(qualifyingResult.Results);
-			Assert.All(qualifyingResult.Results, result => {
+			Assert.All(qualifyingResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -148,7 +155,8 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(result.Session1);
 				Assert.True(TimeSpan.Zero < result.Session1.Time);
 			});
-			qualifyingResult.Results.Aggregate((previous, current) => {
+			qualifyingResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
 				return current;
 			});
@@ -168,7 +176,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(QualifyingResultFormat.Combined123, qualifyingResult.Format);
 			Assert.NotNull(qualifyingResult.Results);
 			Assert.NotEmpty(qualifyingResult.Results);
-			Assert.All(qualifyingResult.Results, result => {
+			Assert.All(qualifyingResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -181,7 +190,8 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(result.Session1);
 				Assert.True(TimeSpan.Zero < result.Session1.Time);
 			});
-			qualifyingResult.Results.Aggregate((previous, current) => {
+			qualifyingResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition || current.FinishPosition == null || previous.FinishPosition == null, "Results are not sorted properly");
 				return current;
 			});
@@ -202,7 +212,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(session, practiceSessionResult.Session);
 			Assert.NotNull(practiceSessionResult.Results);
 			Assert.NotEmpty(practiceSessionResult.Results);
-			Assert.All(practiceSessionResult.Results, result => {
+			Assert.All(practiceSessionResult.Results, result =>
+			{
 				Assert.NotNull(result.Car);
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
@@ -215,7 +226,8 @@ namespace F1WM.IntegrationTests
 				Assert.True(0 < result.Number);
 				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
-			practiceSessionResult.Results.Aggregate((previous, current) => {
+			practiceSessionResult.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition, "Results are not sorted properly");
 				return current;
 			});
@@ -244,7 +256,8 @@ namespace F1WM.IntegrationTests
 			Assert.False(string.IsNullOrWhiteSpace(result.PolePositionLapResult.Driver.FirstName));
 			Assert.False(string.IsNullOrWhiteSpace(result.PolePositionLapResult.Driver.Surname));
 			Assert.True(TimeSpan.Zero < result.PolePositionLapResult.Time);
-			Assert.All(result.Results, r => {
+			Assert.All(result.Results, r =>
+			{
 				Assert.NotNull(r.Car);
 				Assert.NotEqual(0, r.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(r.Car.Name));
@@ -256,7 +269,8 @@ namespace F1WM.IntegrationTests
 				Assert.True(0 <= r.FinishedLaps);
 				Assert.False(string.IsNullOrWhiteSpace(r.Number));
 			});
-			result.Results.Aggregate((previous, current) => {
+			result.Results.Aggregate((previous, current) =>
+			{
 				Assert.True(previous.FinishPosition < current.FinishPosition, "Results are not sorted properly");
 				return current;
 			});
