@@ -15,7 +15,7 @@ namespace F1WM.DatabaseModel
 		public string Redirect { get; set; }
 		public bool NewsHidden { get; set; }
 		public ushort CommentCount { get; set; }
-		public bool NewsHighlight { get; set; }
+		public bool IsHighlighted { get; set; }
 		public uint Views { get; set; }
 		public uint PosterId { get; set; }
 		public uint NewsDateym { get; set; }
