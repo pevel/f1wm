@@ -1,6 +1,9 @@
 # Visual Studio Code
 .vscode
 
+#JetBrains Rider
+.idea/
+
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/
