@@ -1,5 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using F1WM.Services;
+using IdentityServer4.Models;
+using IdentityServer4.Test;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
@@ -16,16 +20,19 @@ namespace F1WM
 {
 	public class Startup
 	{
+		private readonly IConfiguration configuration;
+
+		private readonly IHostingEnvironment environment;
+
 		private const string corsPolicy = "DefaultPolicy";
 		private LoggingService logger;
 
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IHostingEnvironment environment)
 		{
-			Configuration = configuration;
+			this.configuration = configuration;
+			this.environment = environment;
 			logger = new LoggingService(configuration);
 		}
-
-		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
@@ -47,8 +54,16 @@ namespace F1WM
 					.AddSwagger()
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
 					.AddMemoryCache()
-					.ConfigureRepositories(Configuration)
-					.ConfigureLogicServices();
+					.ConfigureRepositories(configuration)
+					.ConfigureLogicServices()
+					.AddAuthentication("Bearer").AddIdentityServerAuthentication(GetIdentityServerOptions());
+
+				services
+					.AddIdentityServer()
+					.AddDeveloperSigningCredential()
+					.AddInMemoryClients(GetTestClients())
+					.AddInMemoryApiResources(GetApiResources())
+					.AddTestUsers(GetTestUsers().ToList());
 			}
 			catch (Exception ex)
 			{
@@ -77,7 +92,8 @@ namespace F1WM
 					.UseForwardedHeaders(GetForwardedHeadersOptions())
 					.UseCors(corsPolicy)
 					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
-					.UseMvc();
+					.UseMvc()
+					.UseIdentityServer();
 			}
 			catch (Exception ex)
 			{
@@ -116,6 +132,46 @@ namespace F1WM
 				}
 				settings.GeneratorSettings.Title = "F1WM web API";
 				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+			};
+		}
+
+		private Action<IdentityServerAuthenticationOptions> GetIdentityServerOptions()
+		{
+			return options => 
+			{
+				options.Authority = "http://localhost:5000";
+				options.RequireHttpsMetadata = false;
+				options.ApiName = "f1wm-api";
+			};
+		}
+
+		private IEnumerable<ApiResource> GetApiResources()
+		{
+			return new List<ApiResource>()
+			{
+				new ApiResource("f1wm-api", "F1WM web API")
+			};
+		}
+
+		private IEnumerable<TestUser> GetTestUsers()
+		{
+			return new List<TestUser>()
+			{
+				new TestUser() { Username = "test", Password = "test" }
+			};
+		}
+
+		private IEnumerable<Client> GetTestClients()
+		{
+			return new List<Client>()
+			{
+				new Client()
+				{
+					ClientId = "test-client",
+					AllowedGrantTypes = GrantTypes.ClientCredentials,
+					ClientSecrets = { new Secret("test-secret".Sha256()) },
+					AllowedScopes = { "f1wm-api" }
+				}
 			};
 		}
 	}

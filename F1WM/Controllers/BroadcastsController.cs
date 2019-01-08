@@ -9,18 +9,19 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class BroadcastsController : ControllerBase
 	{
+		private readonly IBroadcastsService service;
 		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
 		[Produces("application/json", Type = typeof(BroadcastsInformation))]
-		public async Task<IActionResult> GetBroadcasts()
+		public async Task<IActionResult> GetNextBroadcasts()
 		{
 			try
 			{
-				var info = new BroadcastsInformation();
-				if (info != null)
+				var broadcasts = await service.GetNextBroadcasts();
+				if (broadcasts != null)
 				{
-					return Ok(info);
+					return Ok(broadcasts);
 				}
 				else
 				{
@@ -34,8 +35,9 @@ namespace F1WM.Controllers
 			}
 		}
 
-		public BroadcastsController(ILoggingService logger)
+		public BroadcastsController(IBroadcastsService service, ILoggingService logger)
 		{
+			this.service = service;
 			this.logger = logger;
 		}
 	}
