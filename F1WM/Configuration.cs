@@ -8,5 +8,6 @@ namespace F1WM
 		public const string JwtAudienceKey = "JwtAudience";
 		public const string JwtKeyKey = "JwtKey";
 		public const string JwtExpireSecondsKey = "JwtExpireSeconds";
+		public const string RegisterKeyKey = "RegisterKey";
 	}
 }

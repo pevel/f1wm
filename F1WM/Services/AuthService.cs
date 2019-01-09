@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
@@ -36,25 +39,20 @@ namespace F1WM.Services
 			this.userManager = userManager;
 		}
 
-		public async Task<string> GenerateJwtToken(string email)
+		public async Task<string> GenerateAccessToken(string email)
 		{
 			var user = await repository.GetUserByEmail(email);
-			var claims = new List<Claim>()
+			return GenerateToken(user, Auth.GetAccessTokenExpiration(configuration, time));
+		}
+
+		public async Task<Tokens> GenerateTokens(string email)
+		{
+			var user = await repository.GetUserByEmail(email);
+			return new Tokens()
 			{
-				new Claim(JwtRegisteredClaimNames.Sub, email),
-				new Claim(JwtRegisteredClaimNames.Jti, guid.NewGuid().ToString()),
-				new Claim(ClaimTypes.NameIdentifier, user.Id)
+				AccessToken = GenerateToken(user, Auth.GetAccessTokenExpiration(configuration, time)),
+				RefreshToken = GenerateToken(user, Auth.GetRefreshTokenExpiration(time))
 			};
-			var key = Auth.GetJwtKey(configuration);
-			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-			var expires = time.Now.ToUniversalTime().AddSeconds(double.Parse(configuration[Configuration.JwtExpireSecondsKey]));
-			var token = new JwtSecurityToken(
-				issuer: configuration[Configuration.JwtIssuerKey],
-				claims: claims,
-				expires: expires,
-				signingCredentials: credentials
-			);
-			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 
 		public Task<SignInResult> SignIn(string email, string password)
@@ -62,9 +60,55 @@ namespace F1WM.Services
 			return signInManager.PasswordSignInAsync(email, password, false, false);
 		}
 
-		public Task<IdentityResult> CreateUser(F1WMUser user, string password)
+		public Task<IdentityResult> SignUp(F1WMUser user, string password)
 		{
-			return (userManager.CreateAsync(user, password));
+			return userManager.CreateAsync(user, password);
+		}
+
+		public bool TryGetEmailFromTokens(Tokens tokens, out string email)
+		{
+			var accessValidation = Auth.GetLooseValidationParameters(configuration);
+			var refreshValidation = Auth.GetTokenValidationParameters(configuration);
+			var handler = new JwtSecurityTokenHandler();
+			email = null;
+			try
+			{
+				handler.ValidateToken(tokens.RefreshToken, refreshValidation, out var refreshToken);
+				var principal = handler.ValidateToken(tokens.AccessToken, accessValidation, out var accessToken);
+				if (refreshToken != null && accessToken != null)
+				{
+					email = principal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+			}
+			catch
+			{
+				return false;
+			}
+		}
+
+		private string GenerateToken(F1WMUser user, DateTime expiresAt)
+		{
+			var claims = new List<Claim>()
+			{
+				new Claim(JwtRegisteredClaimNames.Sub, user.Email),
+				new Claim(JwtRegisteredClaimNames.Jti, guid.NewGuid().ToString()),
+				new Claim(ClaimTypes.NameIdentifier, user.Id)
+			};
+			var key = Auth.GetJwtKey(configuration);
+			var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+			var token = new JwtSecurityToken(
+				issuer: configuration[Configuration.JwtIssuerKey],
+				claims: claims,
+				expires: expiresAt,
+				audience: configuration[Configuration.JwtAudienceKey],
+				signingCredentials: credentials
+			);
+			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 	}
 }

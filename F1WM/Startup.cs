@@ -159,12 +159,7 @@ namespace F1WM
 			{
 				options.RequireHttpsMetadata = false;
 				options.SaveToken = true;
-				options.TokenValidationParameters = new TokenValidationParameters()
-				{
-					ValidIssuer = configuration[Configuration.JwtIssuerKey],
-					IssuerSigningKey = Auth.GetJwtKey(configuration),
-					ClockSkew = TimeSpan.Zero
-				};
+				options.TokenValidationParameters = Auth.GetTokenValidationParameters(configuration);
 			};
 		}
 	}

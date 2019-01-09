@@ -1,9 +1,10 @@
 using System;
+using System.Threading.Tasks;
+using F1WM.ApiModel;
+using F1WM.DatabaseModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
-using F1WM.ApiModel;
-using System.Threading.Tasks;
-using F1WM.DatabaseModel;
+using Microsoft.Extensions.Configuration;
 
 namespace F1WM.Controllers
 {
@@ -11,10 +12,11 @@ namespace F1WM.Controllers
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthService service;
+		private readonly IConfiguration configuration;
 		private readonly ILoggingService logger;
 
 		[HttpPost]
-		[Produces("application/json", Type = typeof(string))]
+		[Produces("application/json", Type = typeof(Tokens))]
 		public async Task<IActionResult> Login([FromBody]Login login)
 		{
 			try
@@ -22,8 +24,8 @@ namespace F1WM.Controllers
 				var result = await service.SignIn(login.Email, login.Password);
 				if (result.Succeeded)
 				{
-					var token = await service.GenerateJwtToken(login.Email);
-					return Ok(token);
+					var tokens = await service.GenerateTokens(login.Email);
+					return Ok(tokens);
 				}
 				else
 				{
@@ -38,7 +40,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpPost]
-		[Produces("application/json", Type = typeof(string))]
+		[Produces("application/json", Type = typeof(Tokens))]
 		public async Task<IActionResult> Register([FromBody]RegisterRequest request)
 		{
 			try
@@ -48,15 +50,22 @@ namespace F1WM.Controllers
 					UserName = request.Email,
 					Email = request.Email
 				};
-				var result = await service.CreateUser(user, request.Password);
-				if (result.Succeeded)
+				if (request.Key == configuration[Configuration.RegisterKeyKey])
 				{
-					var token = await service.GenerateJwtToken(request.Email);
-					return Ok(token);
+					var result = await service.SignUp(user, request.Password);
+					if (result.Succeeded)
+					{
+						var tokens = await service.GenerateTokens(request.Email);
+						return Ok(tokens);
+					}
+					else
+					{
+						return UnprocessableEntity(result.Errors);
+					}
 				}
 				else
 				{
-					return UnprocessableEntity(result.Errors);
+					return UnprocessableEntity();
 				}
 			}
 			catch (Exception ex)
@@ -66,9 +75,37 @@ namespace F1WM.Controllers
 			}
 		}
 
-		public AuthController(IAuthService service, ILoggingService logger)
+		[HttpPost]
+		[Produces("application/json", Type = typeof(Tokens))]
+		public async Task<IActionResult> RefreshAccessToken([FromBody]Tokens tokens)
+		{
+			try
+			{
+				if (service.TryGetEmailFromTokens(tokens, out var email))
+				{
+					var accessToken = await service.GenerateAccessToken(email);
+					return Ok(new Tokens()
+					{
+						AccessToken = accessToken,
+						RefreshToken = tokens.RefreshToken
+					});
+				}
+				else
+				{
+					return Unauthorized();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		public AuthController(IAuthService service, IConfiguration configuration, ILoggingService logger)
 		{
 			this.service = service;
+			this.configuration = configuration;
 			this.logger = logger;
 		}
 	}

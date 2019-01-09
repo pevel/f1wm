@@ -11,6 +11,8 @@ User secrets include connection string information. To populate it, run (in F1WM
 `dotnet user-secrets set ConnectionStrings:DefaultConnectionString "server=<server>;user id=<username>;password=<password>;port=<port>;database=<database>;charset=<charset>"`  
 `dotnet user-secrets set ConnectionStrings:IdentityConnectionString "server=<server>;user id=<username>;password=<password>;port=<port>;database=<database>;charset=<charset>"`  
 `dotnet user-secrets set JwtIssuer "<jwt_issuer>"`  
+`dotnet user-secrets set JwtAudience "<jwt_audience>"`  
 `dotnet user-secrets set JwtExpireSeconds "<jwt_expire_seconds>"`  
 `dotnet user-secrets set JwtKey "<jwt_key>"`  
+`dotnet user-secrets set RegisterKey "<register_key>"`  
 Alternatively you can use environment variables with the same keys as User Secrets.
