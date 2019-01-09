@@ -9,9 +9,9 @@ namespace F1WM.Mapping
 	{
 		public NewsMappingProfile()
 		{
-            CreateMap<News, NewsSummary>()
-                .ForMember(api => api.TopicIcon, o => o.MapFrom(db => db.Topic.TopicIcon));
-            CreateMap<News, NewsDetails>();
+			CreateMap<News, NewsSummary>()
+				.ForMember(api => api.TopicIcon, o => o.MapFrom(db => db.Topic.TopicIcon));
+			CreateMap<News, NewsDetails>();
 		}
 	}
 }
