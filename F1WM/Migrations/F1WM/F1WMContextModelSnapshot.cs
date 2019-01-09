@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace F1WM.Migrations
+namespace F1WM.Migrations.F1WM
 {
     [DbContext(typeof(F1WMContext))]
     partial class F1WMContextModelSnapshot : ModelSnapshot

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace F1WM.Migrations
+namespace F1WM.Migrations.F1WM
 {
     [DbContext(typeof(F1WMContext))]
     [Migration("20190108091635_Initial")]

@@ -1,29 +1,31 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.IdentityModel.Tokens.Jwt;
+using F1WM.DatabaseModel;
 using F1WM.Services;
-using IdentityServer4.Models;
-using IdentityServer4.Test;
+using F1WM.Utilities;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using NJsonSchema;
 using NSwag;
 using NSwag.AspNetCore;
 using NSwag.SwaggerGeneration.AspNetCore;
+using NSwag.SwaggerGeneration.Processors.Security;
 
 namespace F1WM
 {
 	public class Startup
 	{
 		private readonly IConfiguration configuration;
-
 		private readonly IHostingEnvironment environment;
-
 		private const string corsPolicy = "DefaultPolicy";
 		private LoggingService logger;
 
@@ -39,6 +41,7 @@ namespace F1WM
 		{
 			try
 			{
+				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 				services
 					.AddMvcCore()
 					.AddApiExplorer()
@@ -48,7 +51,6 @@ namespace F1WM
 					.AddCors(o => o.AddPolicy(corsPolicy, GetCorsPolicyBuilder()))
 					.AddJsonFormatters()
 					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
 				services
 					.AddLogging()
 					.AddSwagger()
@@ -56,14 +58,12 @@ namespace F1WM
 					.AddMemoryCache()
 					.ConfigureRepositories(configuration)
 					.ConfigureLogicServices()
-					.AddAuthentication("Bearer").AddIdentityServerAuthentication(GetIdentityServerOptions());
-
+					.AddIdentity<F1WMUser, IdentityRole>()
+					.AddEntityFrameworkStores<F1WMIdentityContext>()
+					.AddDefaultTokenProviders();
 				services
-					.AddIdentityServer()
-					.AddDeveloperSigningCredential()
-					.AddInMemoryClients(GetTestClients())
-					.AddInMemoryApiResources(GetApiResources())
-					.AddTestUsers(GetTestUsers().ToList());
+					.AddAuthentication(GetAuthenticationOptions())
+					.AddJwtBearer(GetJwtBearerOptions());
 			}
 			catch (Exception ex)
 			{
@@ -87,13 +87,12 @@ namespace F1WM
 					configurationBuilder.AddUserSecrets<Startup>();
 				}
 				configurationBuilder.AddEnvironmentVariables();
-
 				application
 					.UseForwardedHeaders(GetForwardedHeadersOptions())
 					.UseCors(corsPolicy)
 					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
 					.UseMvc()
-					.UseIdentityServer();
+					.UseAuthentication();
 			}
 			catch (Exception ex)
 			{
@@ -132,46 +131,40 @@ namespace F1WM
 				}
 				settings.GeneratorSettings.Title = "F1WM web API";
 				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
+				settings.GeneratorSettings.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
+				settings.GeneratorSettings.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token",
+					new SwaggerSecurityScheme
+					{
+						Type = SwaggerSecuritySchemeType.ApiKey,
+						Name = "Authorization",
+						Description = "Copy 'Bearer ' + valid JWT token into field",
+						In = SwaggerSecurityApiKeyLocation.Header
+					}));
 			};
 		}
 
-		private Action<IdentityServerAuthenticationOptions> GetIdentityServerOptions()
+		private Action<AuthenticationOptions> GetAuthenticationOptions()
 		{
-			return options => 
+			return options =>
 			{
-				options.Authority = "http://localhost:5000";
+				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			};
+		}
+
+		private Action<JwtBearerOptions> GetJwtBearerOptions()
+		{
+			return options =>
+			{
 				options.RequireHttpsMetadata = false;
-				options.ApiName = "f1wm-api";
-			};
-		}
-
-		private IEnumerable<ApiResource> GetApiResources()
-		{
-			return new List<ApiResource>()
-			{
-				new ApiResource("f1wm-api", "F1WM web API")
-			};
-		}
-
-		private IEnumerable<TestUser> GetTestUsers()
-		{
-			return new List<TestUser>()
-			{
-				new TestUser() { Username = "test", Password = "test" }
-			};
-		}
-
-		private IEnumerable<Client> GetTestClients()
-		{
-			return new List<Client>()
-			{
-				new Client()
+				options.SaveToken = true;
+				options.TokenValidationParameters = new TokenValidationParameters()
 				{
-					ClientId = "test-client",
-					AllowedGrantTypes = GrantTypes.ClientCredentials,
-					ClientSecrets = { new Secret("test-secret".Sha256()) },
-					AllowedScopes = { "f1wm-api" }
-				}
+					ValidIssuer = configuration[Configuration.JwtIssuerKey],
+					IssuerSigningKey = Auth.GetJwtKey(configuration),
+					ClockSkew = TimeSpan.Zero
+				};
 			};
 		}
 	}
