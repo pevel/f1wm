@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Repositories;
 using F1WM.Utilities;
@@ -58,9 +57,14 @@ namespace F1WM.Services
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 
-		public Task<SignInResult> PasswordSignInAsync(string email, string password)
+		public Task<SignInResult> SignIn(string email, string password)
 		{
 			return signInManager.PasswordSignInAsync(email, password, false, false);
+		}
+
+		public Task<IdentityResult> CreateUser(F1WMUser user, string password)
+		{
+			return (userManager.CreateAsync(user, password));
 		}
 	}
 }
