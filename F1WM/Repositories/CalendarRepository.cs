@@ -21,7 +21,7 @@ namespace F1WM.Repositories
 			var dbRace = await context.Races
 				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Where(r => r.FastestLap.Frlpos == null || r.FastestLap.Frlpos == "1")
+				.Where(r => r.FastestLap.Frlpos == "1")
 				.Include(r => r.Track)
 				.Include(r => r.Country)
 				.OrderBy(r => r.Date)
