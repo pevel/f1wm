@@ -2,23 +2,13 @@ using System;
 using System.IdentityModel.Tokens.Jwt;
 using F1WM.DatabaseModel;
 using F1WM.Services;
-using F1WM.Utilities;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using NJsonSchema;
-using NSwag;
 using NSwag.AspNetCore;
-using NSwag.SwaggerGeneration.AspNetCore;
-using NSwag.SwaggerGeneration.Processors.Security;
 
 namespace F1WM
 {
@@ -61,8 +51,7 @@ namespace F1WM
 					.AddEntityFrameworkStores<F1WMIdentityContext>()
 					.AddDefaultTokenProviders();
 				services
-					.AddAuthentication(GetAuthenticationOptions())
-					.AddJwtBearer(GetJwtBearerOptions());
+					.AddCustomAuth(configuration);
 			}
 			catch (Exception ex)
 			{
@@ -89,7 +78,7 @@ namespace F1WM
 				application
 					.UseCustomForwardedHeaders()
 					.UseCors(Configuration.CorsPolicy)
-					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
+					.UseCustomSwaggerUi(environment)
 					.UseMvc()
 					.UseAuthentication();
 			}
@@ -98,48 +87,6 @@ namespace F1WM
 				logger.LogError(ex);
 				throw ex;
 			}
-		}
-
-		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings(bool httpsEnabled)
-		{
-			return settings =>
-			{
-				if (httpsEnabled)
-				{
-					settings.PostProcess = (document) => document.Schemes = new [] { SwaggerSchema.Https };
-				}
-				settings.GeneratorSettings.Title = "F1WM web API";
-				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
-				settings.GeneratorSettings.OperationProcessors.Add(new OperationSecurityScopeProcessor("JWT Token"));
-				settings.GeneratorSettings.DocumentProcessors.Add(new SecurityDefinitionAppender("JWT Token",
-					new SwaggerSecurityScheme
-					{
-						Type = SwaggerSecuritySchemeType.ApiKey,
-						Name = "Authorization",
-						Description = "Copy 'Bearer ' + valid JWT token into field",
-						In = SwaggerSecurityApiKeyLocation.Header
-					}));
-			};
-		}
-
-		private Action<AuthenticationOptions> GetAuthenticationOptions()
-		{
-			return options =>
-			{
-				options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-				options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-			};
-		}
-
-		private Action<JwtBearerOptions> GetJwtBearerOptions()
-		{
-			return options =>
-			{
-				options.RequireHttpsMetadata = false;
-				options.SaveToken = true;
-				options.TokenValidationParameters = Auth.GetTokenValidationParameters(configuration);
-			};
 		}
 	}
 }
