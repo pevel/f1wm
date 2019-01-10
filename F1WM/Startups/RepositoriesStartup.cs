@@ -26,6 +26,7 @@ namespace F1WM.Startups
 				.AddTransient<ICalendarRepository, CalendarRepository>()
 				.AddTransient<IResultsRepository, ResultsRepository>()
 				.AddTransient<IConfigTextRepository, ConfigTextRepository>()
+				.AddTransient<IBroadcastsRepository, BroadcastRepository>()
 				.AddTransient<IAuthRepository, AuthRepository>();
 		}
 

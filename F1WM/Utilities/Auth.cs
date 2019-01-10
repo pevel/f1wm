@@ -30,6 +30,7 @@ namespace F1WM.Utilities
 				ValidIssuer = configuration[Configuration.JwtIssuerKey],
 				ValidAudience = configuration[Configuration.JwtAudienceKey],
 				IssuerSigningKey = Auth.GetJwtKey(configuration),
+				ValidateIssuerSigningKey = true,
 				ClockSkew = TimeSpan.Zero
 			};
 		}

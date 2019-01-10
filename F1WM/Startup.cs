@@ -33,15 +33,6 @@ namespace F1WM
 			{
 				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 				services
-					.AddMvcCore()
-					.AddApiExplorer()
-					.AddAuthorization()
-					.AddDataAnnotations()
-					.AddFormatterMappings()
-					.AddCustomCors()
-					.AddJsonFormatters()
-					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-				services
 					.AddLogging()
 					.AddSwagger()
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
@@ -52,7 +43,16 @@ namespace F1WM
 					.AddEntityFrameworkStores<F1WMIdentityContext>()
 					.AddDefaultTokenProviders();
 				services
-					.AddCustomAuth(configuration);
+					.AddCustomAuth(environment, configuration);
+				services
+					.AddMvcCore()
+					.AddApiExplorer()
+					.AddAuthorization()
+					.AddDataAnnotations()
+					.AddFormatterMappings()
+					.AddCustomCors()
+					.AddJsonFormatters()
+					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			}
 			catch (Exception ex)
 			{
@@ -80,8 +80,8 @@ namespace F1WM
 					.UseCustomForwardedHeaders()
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)
-					.UseMvc()
-					.UseAuthentication();
+					.UseAuthentication()
+					.UseMvc();
 			}
 			catch (Exception ex)
 			{

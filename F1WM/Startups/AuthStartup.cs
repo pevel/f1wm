@@ -2,6 +2,7 @@ using System;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -9,9 +10,11 @@ namespace F1WM.Startups
 {
 	public static class AuthStartup
 	{
-		public static AuthenticationBuilder AddCustomAuth(this IServiceCollection services, IConfiguration configuration)
+		public static AuthenticationBuilder AddCustomAuth(this IServiceCollection services, IHostingEnvironment environment, IConfiguration configuration)
 		{
-			return services.AddAuthentication(GetAuthenticationOptions()).AddJwtBearer(GetJwtBearerOptions(configuration));
+			return services
+				.AddAuthentication(GetAuthenticationOptions())
+				.AddJwtBearer(GetJwtBearerOptions(environment, configuration));
 		}
 
 		private static Action<AuthenticationOptions> GetAuthenticationOptions()
@@ -24,11 +27,11 @@ namespace F1WM.Startups
 			};
 		}
 
-		private static Action<JwtBearerOptions> GetJwtBearerOptions(IConfiguration configuration)
+		private static Action<JwtBearerOptions> GetJwtBearerOptions(IHostingEnvironment environment, IConfiguration configuration)
 		{
 			return options =>
 			{
-				options.RequireHttpsMetadata = false;
+				options.RequireHttpsMetadata = !environment.IsDevelopment();
 				options.SaveToken = true;
 				options.TokenValidationParameters = Auth.GetTokenValidationParameters(configuration);
 			};

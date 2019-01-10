@@ -23,6 +23,7 @@ namespace F1WM.Startups
 				.AddTransient<IAuthService, AuthService>()
 				.AddTransient<ITimeService, TimeService>()
 				.AddTransient<IVersioningService, VersioningService>()
+				.AddTransient<IBroadcastsService, BroadcastsService>()
 				.AddTransient<IGuidService, GuidService>();
 		}
 
