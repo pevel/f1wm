@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace F1WM
+namespace F1WM.Startups
 {
 	public static class RepositoriesStartup
 	{

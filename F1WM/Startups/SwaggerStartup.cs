@@ -7,7 +7,7 @@ using NSwag.AspNetCore;
 using NSwag.SwaggerGeneration.AspNetCore;
 using NSwag.SwaggerGeneration.Processors.Security;
 
-namespace F1WM
+namespace F1WM.Startups
 {
 	public static class SwaggerStartup
 	{

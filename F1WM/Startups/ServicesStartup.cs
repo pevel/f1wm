@@ -3,7 +3,7 @@ using F1WM.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Narochno.BBCode;
 
-namespace F1WM
+namespace F1WM.Startups
 {
 	public static class ServicesStartup
 	{

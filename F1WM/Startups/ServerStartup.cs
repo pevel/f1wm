@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace F1WM
+namespace F1WM.Startups
 {
 	public static class ServerStartup
 	{
