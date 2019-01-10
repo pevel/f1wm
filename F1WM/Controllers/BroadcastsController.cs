@@ -1,7 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -26,6 +28,68 @@ namespace F1WM.Controllers
 				else
 				{
 					return NotFound();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpGet("broadcasters")]
+		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
+		{
+			try
+			{
+				return await service.GetBroadcasters();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpPost("broadcasters")]
+		[Authorize]
+		[Produces("application/json", Type = typeof(Broadcaster))]
+		public async Task<IActionResult> AddBroadcaster([FromBody]BroadcasterAddRequest request)
+		{
+			try
+			{
+				var broadcaster = await service.AddBroadcaster(request);
+				if (broadcaster != null)
+				{
+					return CreatedAtAction(nameof(GetBroadcasters), broadcaster);
+				}
+				else
+				{
+					return UnprocessableEntity();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpPost]
+		[Authorize]
+		[Produces("application/json", Type = typeof(BroadcastsInformation))]
+		public async Task<IActionResult> AddBroadcasts([FromBody]BroadcastsAddRequest request)
+		{
+			try
+			{
+				var broadcasts = await service.AddBroadcast(request);
+				if (broadcasts != null)
+				{
+					return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
+				}
+				else
+				{
+					return UnprocessableEntity();
 				}
 			}
 			catch (Exception ex)

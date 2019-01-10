@@ -2,10 +2,10 @@ using System;
 
 namespace F1WM.ApiModel
 {
-	public class SessionBroadcastSummary
+	public class BroadcastedSession
 	{
 		public int Id { get; set; }
-		public int SessionId { get; set; }
+		public string Name { get; set; }
 		public DateTime Start { get; set; }
 	}
 }
