@@ -26,7 +26,6 @@ namespace F1WM
 	{
 		private readonly IConfiguration configuration;
 		private readonly IHostingEnvironment environment;
-		private const string corsPolicy = "DefaultPolicy";
 		private LoggingService logger;
 
 		public Startup(IConfiguration configuration, IHostingEnvironment environment)
@@ -48,7 +47,7 @@ namespace F1WM
 					.AddAuthorization()
 					.AddDataAnnotations()
 					.AddFormatterMappings()
-					.AddCors(o => o.AddPolicy(corsPolicy, GetCorsPolicyBuilder()))
+					.AddCustomCors()
 					.AddJsonFormatters()
 					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 				services
@@ -88,8 +87,8 @@ namespace F1WM
 				}
 				configurationBuilder.AddEnvironmentVariables();
 				application
-					.UseForwardedHeaders(GetForwardedHeadersOptions())
-					.UseCors(corsPolicy)
+					.UseCustomForwardedHeaders()
+					.UseCors(Configuration.CorsPolicy)
 					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
 					.UseMvc()
 					.UseAuthentication();
@@ -99,26 +98,6 @@ namespace F1WM
 				logger.LogError(ex);
 				throw ex;
 			}
-		}
-
-		private Action<CorsPolicyBuilder> GetCorsPolicyBuilder()
-		{
-			return builder =>
-			{
-				builder
-					.AllowAnyOrigin()
-					.AllowAnyMethod()
-					.AllowAnyHeader()
-					.AllowCredentials();
-			};
-		}
-
-		private ForwardedHeadersOptions GetForwardedHeadersOptions()
-		{
-			return new ForwardedHeadersOptions
-			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-			};
 		}
 
 		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings(bool httpsEnabled)
