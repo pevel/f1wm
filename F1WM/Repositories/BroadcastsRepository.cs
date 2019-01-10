@@ -44,6 +44,20 @@ namespace F1WM.Repositories
 			throw new NotImplementedException();
 		}
 
+		public async Task<IEnumerable<Api.BroadcastSessionName>> GetSessionNames()
+		{
+			var dbNames = await context.BroadcastedSessionNames.ToListAsync();
+			return mapper.Map<IEnumerable<Api.BroadcastSessionName>>(dbNames);
+		}
+
+		public async Task<Api.BroadcastSessionName> AddSessionName(Api.BroadcastSessionName name)
+		{
+			var dbName = mapper.Map<Database.BroadcastedSessionName>(name);
+			context.BroadcastedSessionNames.Add(dbName);
+			await context.SaveChangesAsync();
+			return mapper.Map<Api.BroadcastSessionName>(dbName);
+		}
+
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
 		{
 			this.context = context;

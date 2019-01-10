@@ -30,6 +30,16 @@ namespace F1WM.Services
 			return repository.GetBroadcastsAfter(time.Now);
 		}
 
+		public Task<IEnumerable<BroadcastSessionName>> GetSessionNames()
+		{
+			return repository.GetSessionNames();
+		}
+
+		public Task<BroadcastSessionName> AddSessionName(BroadcastSessionName name)
+		{
+			return repository.AddSessionName(name);
+		}
+
 		public BroadcastsService(IBroadcastsRepository repository, ITimeService time)
 		{
 			this.repository = repository;

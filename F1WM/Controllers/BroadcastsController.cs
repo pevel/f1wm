@@ -51,6 +51,36 @@ namespace F1WM.Controllers
 			}
 		}
 
+		[HttpGet("session-names")]
+		public async Task<IEnumerable<BroadcastSessionName>> GetSessionNames()
+		{
+			try
+			{
+				return await service.GetSessionNames();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpPost("session-names")]
+		[Authorize]
+		[Produces("application/json", Type = typeof(BroadcastSessionName))]
+		public async Task<BroadcastSessionName> AddSessionName([FromBody]BroadcastSessionName name)
+		{
+			try
+			{
+				return await service.AddSessionName(name);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 		[HttpPost("broadcasters")]
 		[Authorize]
 		[Produces("application/json", Type = typeof(Broadcaster))]
