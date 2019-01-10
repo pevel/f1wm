@@ -1448,7 +1448,7 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.NewsHidden)
 					.HasColumnName("news_hidden");
 
-				entity.Property(e => e.NewsHighlight)
+				entity.Property(e => e.IsHighlighted)
 					.HasColumnName("news_highlight");
 
 				entity.Property(e => e.NewsModified)
@@ -2416,12 +2416,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Carweight)
+				entity.Property(e => e.CarWeight)
 					.IsRequired()
 					.HasColumnName("carweight")
 					.HasMaxLength(255);
 
-				entity.Property(e => e.Enginerules)
+				entity.Property(e => e.EngineRules)
 					.IsRequired()
 					.HasColumnName("enginerules")
 					.HasMaxLength(255);
@@ -2435,12 +2435,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Pointssystem)
+				entity.Property(e => e.PointsSystem)
 					.IsRequired()
 					.HasColumnName("pointssystem")
 					.HasMaxLength(255);
 
-				entity.Property(e => e.Qualrules)
+				entity.Property(e => e.QualifyingRules)
 					.IsRequired()
 					.HasColumnName("qualrules")
 					.HasColumnType("text");
