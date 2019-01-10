@@ -19,7 +19,9 @@ namespace F1WM.Repositories
 		public async Task<Api.Broadcaster> AddBroadcaster(Api.BroadcasterAddRequest request)
 		{
 			var dbBroadcaster = mapper.Map<Database.Broadcaster>(request);
-			return mapper.Map<Api.Broadcaster>((await context.Broadcasters.AddAsync(dbBroadcaster))?.Entity);
+			await context.Broadcasters.AddAsync(dbBroadcaster);
+			context.SaveChanges();
+			return mapper.Map<Api.Broadcaster>(dbBroadcaster);
 		}
 
 		public Task<IEnumerable<Api.Broadcaster>> GetBroadcasters()
