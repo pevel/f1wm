@@ -9,18 +9,18 @@ using Xunit;
 
 namespace F1WM.UnitTests.Controllers
 {
-    public class SeasonControllerTests
+    public class SeasonsControllerTests
     {
-        private SeasonController controller;
-        private Mock<ISeasonService> serviceMock;
+        private SeasonsController controller;
+        private Mock<ISeasonsService> serviceMock;
         private Mock<ILoggingService> loggerMock;
         private readonly int year = 2016;
 
-        public SeasonControllerTests()
+        public SeasonsControllerTests()
         {
-            serviceMock = new Mock<ISeasonService>();
+            serviceMock = new Mock<ISeasonsService>();
             loggerMock = new Mock<ILoggingService>();
-            controller = new SeasonController(serviceMock.Object, loggerMock.Object);
+            controller = new SeasonsController(serviceMock.Object, loggerMock.Object);
         }
 
         [Fact]

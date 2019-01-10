@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace F1WM.Repositories
+namespace F1WM.Services
 {
-    public interface ISeasonRepository
+    public interface ISeasonsService
     {
-        Task<SeasonRules> GetSeasonRules(int year);
+        Task<SeasonRules> GetSeasonRules(int? year);
     }
 }

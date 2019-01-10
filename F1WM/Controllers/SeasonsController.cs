@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace F1WM.Controllers
 {
     [Route("api/[controller]")]
-    public class SeasonController : ControllerBase
+    public class SeasonsController : ControllerBase
     {
-        private readonly ISeasonService service;
+        private readonly ISeasonsService service;
         private readonly ILoggingService logger;
 
         [HttpGet("rules")]
@@ -37,7 +37,7 @@ namespace F1WM.Controllers
             }
         }
 
-        public SeasonController(ISeasonService service, ILoggingService logger)
+        public SeasonsController(ISeasonsService service, ILoggingService logger)
         {
             this.service = service;
             this.logger = logger;

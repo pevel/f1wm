@@ -22,7 +22,7 @@ namespace F1WM
 				.AddTransient<ICalendarService, CalendarService>()
 				.AddTransient<IResultsService, ResultsService>()
 				.AddTransient<ITimeService, TimeService>()
-                .AddTransient<ISeasonService, SeasonService>();
+                .AddTransient<ISeasonsService, SeasonsService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

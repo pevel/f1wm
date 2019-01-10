@@ -28,7 +28,7 @@ namespace F1WM
 				.AddTransient<ICalendarRepository, CalendarRepository>()
 				.AddTransient<IResultsRepository, ResultsRepository>()
 				.AddTransient<IConfigTextRepository, ConfigTextRepository>()
-                .AddTransient<ISeasonRepository, SeasonRepository>();
+                .AddTransient<ISeasonsRepository, SeasonsRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration)

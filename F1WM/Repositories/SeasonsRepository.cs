@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace F1WM.Repositories
 {
-    public class SeasonRepository : RepositoryBase, ISeasonRepository
+    public class SeasonsRepository : RepositoryBase, ISeasonsRepository
     {
         private readonly IMapper mapper;
 
@@ -19,16 +19,12 @@ namespace F1WM.Repositories
             var seasonRules = await context.Seasons
                 .SingleOrDefaultAsync(s => s.Year == year);
 
-            if (seasonRules == null) return null;
-
             var result = mapper.Map<SeasonRules>(seasonRules);
-
-            result.QualRules = result.QualRules.Replace("\r\n", "<br>");
 
             return result;
         }
 
-        public SeasonRepository(F1WMContext context, IMapper mapper)
+        public SeasonsRepository(F1WMContext context, IMapper mapper)
         {
             this.context = context;
             this.mapper = mapper;
