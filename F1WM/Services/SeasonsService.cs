@@ -1,31 +1,29 @@
-﻿using F1WM.ApiModel;
+﻿using System.Threading.Tasks;
+using F1WM.ApiModel;
 using F1WM.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace F1WM.Services
 {
-    public class SeasonsService : ISeasonsService
-    {
-        private readonly ISeasonsRepository repository;
-        private readonly ITimeService timeService;
-        public async Task<SeasonRules> GetSeasonRules(int? year)
-        {
-            var seasonRules = await repository.GetSeasonRules(year.HasValue ? year.Value : timeService.Now.Year);
+	public class SeasonsService : ISeasonsService
+	{
+		private readonly ISeasonsRepository repository;
+		private readonly ITimeService timeService;
 
-            if (seasonRules == null) return null;
+		public async Task<SeasonRules> GetSeasonRules(int? year)
+		{
+			var seasonRules = await repository.GetSeasonRules(year.HasValue ? year.Value : timeService.Now.Year);
 
-            seasonRules.QualRules = seasonRules.QualRules.Replace("\r\n", "<br>");
-            seasonRules.QualRules = seasonRules.QualRules.Replace("\r", "<br>");
-            return seasonRules;
-        }
+			if (seasonRules == null) return null;
 
-        public SeasonsService(ISeasonsRepository repository, ITimeService timeService)
-        {
-            this.repository = repository;
-            this.timeService = timeService;
-        }
-    }
+			seasonRules.QualifyingRules = seasonRules.QualifyingRules.Replace("\r\n", "<br>");
+			seasonRules.QualifyingRules = seasonRules.QualifyingRules.Replace("\r", "<br>");
+			return seasonRules;
+		}
+
+		public SeasonsService(ISeasonsRepository repository, ITimeService timeService)
+		{
+			this.repository = repository;
+			this.timeService = timeService;
+		}
+	}
 }

@@ -1,13 +1,10 @@
-﻿using F1WM.ApiModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using F1WM.ApiModel;
 
 namespace F1WM.Services
 {
-    public interface ISeasonsService
-    {
-        Task<SeasonRules> GetSeasonRules(int? year);
-    }
+	public interface ISeasonsService
+	{
+		Task<SeasonRules> GetSeasonRules(int? year);
+	}
 }

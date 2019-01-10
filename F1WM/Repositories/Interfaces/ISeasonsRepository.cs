@@ -1,13 +1,13 @@
-﻿using F1WM.ApiModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using F1WM.ApiModel;
 
 namespace F1WM.Repositories
 {
-    public interface ISeasonsRepository
-    {
-        Task<SeasonRules> GetSeasonRules(int year);
-    }
+	public interface ISeasonsRepository
+	{
+		Task<SeasonRules> GetSeasonRules(int year);
+	}
 }
