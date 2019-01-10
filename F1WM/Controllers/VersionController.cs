@@ -1,17 +1,14 @@
 using System;
-using System.IO;
-using System.Reflection;
-using System.Text;
 using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
 	public class VersionController : ControllerBase
 	{
+		private readonly IVersioningService service;
 		private readonly ILoggingService logger;
 
 		[HttpGet]
@@ -19,12 +16,7 @@ namespace F1WM.Controllers
 		{
 			try
 			{
-				var assembly = Assembly.GetEntryAssembly();
-				var resourceStream = assembly.GetManifestResourceStream("F1WM.version.json");
-				using(var reader = new StreamReader(resourceStream, Encoding.UTF8))
-				{
-					return JsonConvert.DeserializeObject<ApiVersion>(reader.ReadToEnd());
-				}
+				return service.GetApiVersion();
 			}
 			catch (Exception ex)
 			{
@@ -33,8 +25,9 @@ namespace F1WM.Controllers
 			}
 		}
 
-		public VersionController(ILoggingService logger)
+		public VersionController(IVersioningService service, ILoggingService logger)
 		{
+			this.service = service;
 			this.logger = logger;
 		}
 	}
