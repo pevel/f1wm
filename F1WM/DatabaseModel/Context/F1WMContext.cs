@@ -1445,7 +1445,7 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.NewsHidden)
 					.HasColumnName("news_hidden");
 
-				entity.Property(e => e.NewsHighlight)
+				entity.Property(e => e.IsHighlighted)
 					.HasColumnName("news_highlight");
 
 				entity.Property(e => e.NewsModified)
