@@ -6,6 +6,9 @@ namespace F1WM.DatabaseModel
 {
 	public class F1WMContext : DbContext
 	{
+		public virtual DbSet<Broadcast> Broadcasts { get; set; }
+		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
+		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
