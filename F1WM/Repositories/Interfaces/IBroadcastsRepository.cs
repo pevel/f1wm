@@ -8,11 +8,11 @@ namespace F1WM.Repositories
 {
 	public interface IBroadcastsRepository
 	{
-		Task<BroadcastsInformation> AddBroadcast(BroadcastsAddRequest request);
+		Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request);
 		Task<ApiModel.Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
 		Task<IEnumerable<ApiModel.Broadcaster>> GetBroadcasters();
 		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
-		Task<IEnumerable<BroadcastSessionType>> GetSessionNames();
+		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
 	}
 }

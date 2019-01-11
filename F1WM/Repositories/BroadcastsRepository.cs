@@ -13,7 +13,7 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public async Task<Api.BroadcastsInformation> AddBroadcast(Api.BroadcastsAddRequest request)
+		public async Task<Api.BroadcastsInformation> AddBroadcasts(Api.BroadcastsAddRequest request)
 		{
 			var dbSessions = mapper.Map<IEnumerable<Database.BroadcastedSession>>(request.Sessions);
 			context.BroadcastedSessions.AddRange(dbSessions);
@@ -50,18 +50,18 @@ namespace F1WM.Repositories
 			return mapper.Map<Api.BroadcastsInformation>(dbRace);
 		}
 
-		public async Task<IEnumerable<Api.BroadcastSessionType>> GetSessionNames()
+		public async Task<IEnumerable<Api.BroadcastSessionType>> GetSessionTypes()
 		{
-			var dbNames = await context.BroadcastedSessionTypes.ToListAsync();
-			return mapper.Map<IEnumerable<Api.BroadcastSessionType>>(dbNames);
+			var dbTypes = await context.BroadcastedSessionTypes.ToListAsync();
+			return mapper.Map<IEnumerable<Api.BroadcastSessionType>>(dbTypes);
 		}
 
 		public async Task<Api.BroadcastSessionType> AddSessionType(Api.BroadcastSessionTypeAddRequest request)
 		{
-			var dbName = mapper.Map<Database.BroadcastedSessionType>(request);
-			context.BroadcastedSessionTypes.Add(dbName);
+			var dbType = mapper.Map<Database.BroadcastedSessionType>(request);
+			context.BroadcastedSessionTypes.Add(dbType);
 			await context.SaveChangesAsync();
-			return mapper.Map<Api.BroadcastSessionType>(dbName);
+			return mapper.Map<Api.BroadcastSessionType>(dbType);
 		}
 
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)

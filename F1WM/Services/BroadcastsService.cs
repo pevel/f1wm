@@ -13,7 +13,7 @@ namespace F1WM.Services
 
 		public Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request)
 		{
-			return repository.AddBroadcast(request);
+			return repository.AddBroadcasts(request);
 		}
 
 		public Task<Broadcaster> AddBroadcaster(BroadcasterAddRequest request)
@@ -35,7 +35,7 @@ namespace F1WM.Services
 
 		public Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
-			return repository.GetSessionNames();
+			return repository.GetSessionTypes();
 		}
 
 		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request)
