@@ -8,14 +8,14 @@ using Microsoft.Extensions.Configuration;
 
 namespace F1WM.Controllers
 {
-	[Route("api/[controller]/[action]")]
+	[Route("api/[controller]")]
 	public class AuthController : ControllerBase
 	{
 		private readonly IAuthService service;
 		private readonly IConfiguration configuration;
 		private readonly ILoggingService logger;
 
-		[HttpPost]
+		[HttpPost("login")]
 		[Produces("application/json", Type = typeof(Tokens))]
 		public async Task<IActionResult> Login([FromBody]Login login)
 		{
@@ -39,7 +39,7 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPost("register")]
 		[Produces("application/json", Type = typeof(Tokens))]
 		public async Task<IActionResult> Register([FromBody]RegisterRequest request)
 		{
@@ -75,7 +75,7 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPost("refresh-token")]
 		[Produces("application/json", Type = typeof(Tokens))]
 		public async Task<IActionResult> RefreshAccessToken([FromBody]Tokens tokens)
 		{
