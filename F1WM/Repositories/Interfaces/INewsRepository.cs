@@ -9,5 +9,11 @@ namespace F1WM.Repositories
 		Task<IEnumerable<NewsSummary>> GetNews(ICollection<uint> ids);
 		Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null);
 		Task<NewsDetails> GetNewsDetails(int id);
-	}
+        Task<IEnumerable<NewsSummary>> GetNewsByTag(int id);
+        Task<IEnumerable<NewsSummary>> GetNewsByType(int id);
+        Task<IEnumerable<NewsType>> GetNewsTypes();
+        Task<IEnumerable<NewsTag>> GetNewsTags();
+        Task<IEnumerable<NewsTag>> GetNewsTagsByCategory(int id);
+        Task<IEnumerable<NewsCategory>> GetNewsCategories();
+    }
 }

@@ -79,5 +79,92 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetImportantNews(), Times.Once);
 			Assert.Empty(result);
 		}
-	}
+
+        [Fact]
+        public async Task ShouldReturnNewsTypes()
+        {
+            await controller.GetTypes();
+
+            serviceMock.Verify(s => s.GetNewsTypes(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturnNewsTags()
+        {
+            await controller.GetTags();
+
+            serviceMock.Verify(s => s.GetNewsTags(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturnNewsCategories()
+        {
+            await controller.GetCategories();
+
+            serviceMock.Verify(s => s.GetNewsCategories(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturnNewsTagsByCategory()
+        {
+            var id = 1;
+
+            await controller.GetTagsbyCategory(id);
+
+            serviceMock.Verify(s => s.GetNewsTagsByCategory(id), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturnNewsByType()
+        {
+            var id = 0;
+
+            await controller.GetByType(id);
+
+            serviceMock.Verify(s => s.GetNewsByType(id), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturnNewsByTag()
+        {
+            var id = 0;
+
+            await controller.GetByTag(id);
+
+            serviceMock.Verify(s => s.GetNewsByTag(id), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldReturn404IfNewsByTagNotFound()
+        {
+            var id = 0;
+
+            var result = await controller.GetByTag(id);
+
+            serviceMock.Verify(s => s.GetNewsByTag(id), Times.Once);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task ShouldReturn404IfNewsByTypeNotFound()
+        {
+            var id = 0;
+
+            var result = await controller.GetByType(id);
+
+            serviceMock.Verify(s => s.GetNewsByType(id), Times.Once);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task ShouldReturn404IfTagByCategoryNotFound()
+        {
+            var id = 0;
+
+            var result = await controller.GetTagsbyCategory(id);
+
+            serviceMock.Verify(s => s.GetNewsTagsByCategory(id), Times.Once);
+            Assert.IsType<NotFoundResult>(result);
+        }
+    }
 }

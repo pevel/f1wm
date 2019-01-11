@@ -79,7 +79,62 @@ namespace F1WM.Repositories
 			return news;
 		}
 
-		public NewsRepository(F1WMContext context, IMapper mapper)
+        public async Task<IEnumerable<NewsSummary>> GetNewsByTag(int id)
+        {
+            await SetDbEncoding();
+            IEnumerable<News> dbNews;
+            dbNews = await context.News
+                .Include(n => n.Topics)
+                .Where(n => n.Topics.TopicId == id)
+                .OrderByDescending(n1 => n1.Date)
+                .ToListAsync();
+            return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+        }
+
+        public async Task<IEnumerable<NewsSummary>> GetNewsByType(int id)
+        {
+            await SetDbEncoding();
+            IEnumerable<News> dbNews;
+            dbNews = await context.News           
+                .Where(n => n.Type == id)
+                .OrderByDescending(n => n.Date)
+                .ToListAsync();
+            return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+        }
+
+        public async Task<IEnumerable<NewsType>> GetNewsTypes()
+        {
+            await SetDbEncoding();
+            IEnumerable<NewsTopic> dbNews;
+            dbNews = await context.NewsTopics.ToListAsync();
+            return mapper.Map<IEnumerable<NewsType>>(dbNews);
+        }
+
+        public async Task<IEnumerable<NewsTag>> GetNewsTags()
+        {
+            await SetDbEncoding();
+            IEnumerable<NewsTopic> dbNews;
+            dbNews = await context.NewsTopics.ToListAsync();
+            return mapper.Map<IEnumerable<NewsTag>>(dbNews);
+        }
+
+        public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategory(int id)
+        {
+            await SetDbEncoding();
+            IEnumerable<NewsTopic> dbNews;
+            dbNews = await context.NewsTopics.Where(nt => nt.CategoryId == id).ToListAsync();
+            return mapper.Map<IEnumerable<NewsTag>>(dbNews);
+        }
+
+        public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
+        {
+            await SetDbEncoding();
+            IEnumerable<F1NewsCats> dbNews;
+            dbNews = await context.F1NewsCats.ToListAsync();
+            return mapper.Map<IEnumerable<NewsCategory>>(dbNews);
+        }
+
+        public NewsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
 			this.mapper = mapper;

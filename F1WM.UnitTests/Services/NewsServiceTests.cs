@@ -51,7 +51,58 @@ namespace F1WM.UnitTests.Services
 			newsRepositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
 		}
 
-		[Fact]
+        [Fact]
+        public async Task ShouldGetNewsTypes()
+        {
+            await service.GetNewsTypes();
+
+            newsRepositoryMock.Verify(r => r.GetNewsTypes(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldGetNewsTags()
+        {
+            await service.GetNewsTags();
+
+            newsRepositoryMock.Verify(r => r.GetNewsTags(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldGetNewsTagsByCategory()
+        {
+            var id = 1;
+            await service.GetNewsTagsByCategory(id);
+
+            newsRepositoryMock.Verify(r => r.GetNewsTagsByCategory(id), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldGetNewsCategories()
+        {
+            await service.GetNewsCategories();
+
+            newsRepositoryMock.Verify(r => r.GetNewsCategories(), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldGetNewsByTag()
+        {
+            var id = 1;
+            await service.GetNewsByTag(id);
+
+            newsRepositoryMock.Verify(r => r.GetNewsByTag(id), Times.Once);
+        }
+
+        [Fact]
+        public async Task ShouldGetNewsByType()
+        {
+            var id = 1;
+            await service.GetNewsByType(id);
+
+            newsRepositoryMock.Verify(r => r.GetNewsByType(id), Times.Once);
+        }
+
+        [Fact]
 		public async Task ShouldGetImportantNews()
 		{
 			var newsIds = new List<uint>() { 101, 102, 103, 104 };

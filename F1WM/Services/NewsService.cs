@@ -35,7 +35,43 @@ namespace F1WM.Services
 			return news;
 		}
 
-		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
+        public async Task<IEnumerable<NewsSummary>> GetNewsByTag(int id)
+        {
+            var news = await newsRepository.GetNewsByTag(id);
+            return news.Select(n => n.ResolveTopicIcon());
+        }
+
+        public async Task<IEnumerable<NewsSummary>> GetNewsByType(int id)
+        {
+            var news = await newsRepository.GetNewsByType(id);
+            return news.Select(n => n.ResolveTopicIcon());
+        }
+
+        public async Task<IEnumerable<NewsType>> GetNewsTypes()
+        {
+            var types = await newsRepository.GetNewsTypes();
+            return types;
+        }
+
+        public async Task<IEnumerable<NewsTag>> GetNewsTags()
+        {
+            var types = await newsRepository.GetNewsTags();
+            return types;
+        }
+
+        public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategory(int id)
+        {
+            var types = await newsRepository.GetNewsTagsByCategory(id);
+            return types;
+        }
+        
+        public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
+        {
+            var types = await newsRepository.GetNewsCategories();
+            return types;
+        }
+
+        public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
 			var configText = await configTextRepository.GetConfigText(ConfigTextName.ImportantNews);
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
