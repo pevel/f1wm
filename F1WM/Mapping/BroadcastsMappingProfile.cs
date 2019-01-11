@@ -14,7 +14,7 @@ namespace F1WM.Mapping
 			CreateMap<DatabaseModel.Broadcaster, BroadcasterAddRequest>().ReverseMap();
 			CreateMap<DatabaseModel.Broadcaster, ApiModel.Broadcaster>().ReverseMap();
 			CreateMap<DatabaseModel.BroadcastedSession, ApiModel.BroadcastedSession>().ReverseMap();
-			CreateMap<DatabaseModel.BroadcastedSessionName, ApiModel.BroadcastSessionName>().ReverseMap();
+			CreateMap<DatabaseModel.BroadcastedSessionType, ApiModel.BroadcastSessionType>().ReverseMap();
 			CreateMap<BroadcastedSessionAddRequest, DatabaseModel.BroadcastedSession>();
 			CreateMap<BroadcastAddRequest, DatabaseModel.Broadcast>();
 			CreateMap<Race, ApiModel.BroadcastsInformation>()

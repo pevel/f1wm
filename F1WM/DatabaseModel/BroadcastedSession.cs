@@ -9,6 +9,6 @@ namespace F1WM.DatabaseModel
 		public int BroadcastedSessionNameId { get; set; }
 		public DateTime Start { get; set; }
 		public virtual IEnumerable<Broadcast> Broadcasts { get; set; }
-		public virtual BroadcastedSessionName Name { get; set; }
+		public virtual BroadcastedSessionType Type { get; set; }
 	}
 }

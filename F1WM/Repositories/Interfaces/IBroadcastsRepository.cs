@@ -12,7 +12,7 @@ namespace F1WM.Repositories
 		Task<ApiModel.Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
 		Task<IEnumerable<ApiModel.Broadcaster>> GetBroadcasters();
 		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
-		Task<IEnumerable<BroadcastSessionName>> GetSessionNames();
-		Task<BroadcastSessionName> AddSessionName(BroadcastSessionName name);
+		Task<IEnumerable<BroadcastSessionType>> GetSessionNames();
+		Task<BroadcastSessionType> AddSessionName(BroadcastSessionType name);
 	}
 }

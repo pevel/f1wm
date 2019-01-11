@@ -51,12 +51,12 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpGet("session-names")]
-		public async Task<IEnumerable<BroadcastSessionName>> GetSessionNames()
+		[HttpGet("types")]
+		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
 			try
 			{
-				return await service.GetSessionNames();
+				return await service.GetSessionTypes();
 			}
 			catch (Exception ex)
 			{
@@ -65,14 +65,14 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPost("session-names")]
+		[HttpPost("types")]
 		[Authorize]
-		[Produces("application/json", Type = typeof(BroadcastSessionName))]
-		public async Task<BroadcastSessionName> AddSessionName([FromBody]BroadcastSessionName name)
+		[Produces("application/json", Type = typeof(BroadcastSessionType))]
+		public async Task<BroadcastSessionType> AddSessionType([FromBody]BroadcastSessionType type)
 		{
 			try
 			{
-				return await service.AddSessionName(name);
+				return await service.AddSessionType(type);
 			}
 			catch (Exception ex)
 			{

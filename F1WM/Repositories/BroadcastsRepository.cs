@@ -44,18 +44,18 @@ namespace F1WM.Repositories
 			throw new NotImplementedException();
 		}
 
-		public async Task<IEnumerable<Api.BroadcastSessionName>> GetSessionNames()
+		public async Task<IEnumerable<Api.BroadcastSessionType>> GetSessionNames()
 		{
-			var dbNames = await context.BroadcastedSessionNames.ToListAsync();
-			return mapper.Map<IEnumerable<Api.BroadcastSessionName>>(dbNames);
+			var dbNames = await context.BroadcastedSessionTypes.ToListAsync();
+			return mapper.Map<IEnumerable<Api.BroadcastSessionType>>(dbNames);
 		}
 
-		public async Task<Api.BroadcastSessionName> AddSessionName(Api.BroadcastSessionName name)
+		public async Task<Api.BroadcastSessionType> AddSessionName(Api.BroadcastSessionType name)
 		{
-			var dbName = mapper.Map<Database.BroadcastedSessionName>(name);
-			context.BroadcastedSessionNames.Add(dbName);
+			var dbName = mapper.Map<Database.BroadcastedSessionType>(name);
+			context.BroadcastedSessionTypes.Add(dbName);
 			await context.SaveChangesAsync();
-			return mapper.Map<Api.BroadcastSessionName>(dbName);
+			return mapper.Map<Api.BroadcastSessionType>(dbName);
 		}
 
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
