@@ -4,6 +4,7 @@ using F1WM.ApiModel;
 using F1WM.Controllers;
 using F1WM.DatabaseModel;
 using F1WM.Services;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Moq;
@@ -40,8 +41,7 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.SignIn(login.Email, login.Password), Times.Once);
 			serviceMock.Verify(s => s.GenerateTokens(login.Email), Times.Once);
 			Assert.IsType<OkObjectResult>(result);
-			Assert.Equal(tokens.AccessToken, ((Tokens)((OkObjectResult)result).Value).AccessToken);
-			Assert.Equal(tokens.RefreshToken, ((Tokens)((OkObjectResult)result).Value).RefreshToken);
+			tokens.Should().BeEquivalentTo(((OkObjectResult)result).Value);
 		}
 
 		[Fact]
@@ -79,8 +79,7 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.SignUp(It.Is<F1WMUser>(u => isTheSameUser(u)), registerRequest.Password), Times.Once);
 			serviceMock.Verify(s => s.GenerateTokens(registerRequest.Email), Times.Once);
 			Assert.IsType<OkObjectResult>(result);
-			Assert.Equal(tokens.AccessToken, ((Tokens)((OkObjectResult)result).Value).AccessToken);
-			Assert.Equal(tokens.RefreshToken, ((Tokens)((OkObjectResult)result).Value).RefreshToken);
+			tokens.Should().BeEquivalentTo(((OkObjectResult)result).Value);
 		}
 
 		[Fact]
