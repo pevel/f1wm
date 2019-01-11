@@ -43,8 +43,8 @@ namespace F1WM.Services
 
 		public async Task<Tokens> GenerateTokens(string email)
 		{
-			var user = await repository.GetUserByEmail(email);
-			var refreshToken = GenerateRefreshToken(user);
+			var user = await repository.GetUserByEmail(email) ?? throw new ArgumentException("User was not found by email.", nameof(email));
+			var refreshToken = GenerateRefreshToken();
 			var dbRefreshToken = new RefreshToken()
 			{
 				Token = refreshToken,
@@ -110,7 +110,7 @@ namespace F1WM.Services
 			return new JwtSecurityTokenHandler().WriteToken(token);
 		}
 
-		private string GenerateRefreshToken(F1WMUser user)
+		private string GenerateRefreshToken()
 		{
 			var randomNumber = new byte[refreshTokenNumberSize];
 			RandomNumberGenerator.Create().GetBytes(randomNumber);
