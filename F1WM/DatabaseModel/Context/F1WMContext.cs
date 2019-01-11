@@ -1496,15 +1496,15 @@ namespace F1WM.DatabaseModel
 
 			modelBuilder.Entity<F1NewsCats>(entity =>
 			{
-				entity.HasKey(e => e.CatId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_cats");
 
-				entity.Property(e => e.CatId)
+				entity.Property(e => e.Id)
 					.HasColumnName("cat_id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.CatTitle)
+				entity.Property(e => e.Title)
 					.IsRequired()
 					.HasColumnName("cat_title")
 					.HasMaxLength(20)
@@ -1806,27 +1806,27 @@ namespace F1WM.DatabaseModel
 
 			modelBuilder.Entity<NewsTopic>(entity =>
 			{
-				entity.HasKey(e => e.TopicId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_topics");
 
-				entity.HasIndex(e => e.CatId)
+				entity.HasIndex(e => e.CategoryId)
 					.HasName("cat_id");
 
 				entity.HasIndex(e => e.Searches)
 					.HasName("searches");
 
-				entity.HasIndex(e => e.TopicTitle)
+				entity.HasIndex(e => e.Title)
 					.HasName("topic_title");
 
-				entity.HasIndex(e => new { e.CatId, e.TopicTitle })
+				entity.HasIndex(e => new { e.CategoryId, e.Title })
 					.HasName("cat+title");
 
-				entity.Property(e => e.TopicId)
+				entity.Property(e => e.Id)
 					.HasColumnName("topic_id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.CatId)
+				entity.Property(e => e.CategoryId)
 					.HasColumnName("cat_id")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
@@ -1836,11 +1836,11 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.TopicIcon)
+				entity.Property(e => e.Icon)
 					.HasColumnName("topic_icon")
 					.HasMaxLength(20);
 
-				entity.Property(e => e.TopicTitle)
+				entity.Property(e => e.Title)
 					.IsRequired()
 					.HasColumnName("topic_title")
 					.HasMaxLength(25);
