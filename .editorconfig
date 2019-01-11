@@ -6,7 +6,7 @@ end_of_line = lf
 insert_final_newline = true
 charset = utf-8
 
-# Tab indentation (no size specified)
+# Tab indentation
 [*.cs]
 indent_style = tab
 tab_width = 4

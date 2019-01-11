@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Repositories;
@@ -20,9 +21,11 @@ namespace F1WM.Services
 			return repository.AddBroadcaster(request);
 		}
 
-		public Task<IEnumerable<Broadcaster>> GetBroadcasters()
+		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
-			return repository.GetBroadcasters();
+			var broadcasters = await repository.GetBroadcasters();
+			broadcasters.ToList().ForEach(b => b.Broadcasts = null);
+			return broadcasters;
 		}
 
 		public Task<BroadcastsInformation> GetNextBroadcasts()

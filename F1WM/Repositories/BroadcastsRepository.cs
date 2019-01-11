@@ -40,9 +40,14 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<Api.Broadcaster>>(dbBroadcasters);
 		}
 
-		public Task<Api.BroadcastsInformation> GetBroadcastsAfter(DateTime now)
+		public async Task<Api.BroadcastsInformation> GetBroadcastsAfter(DateTime now)
 		{
-			throw new NotImplementedException();
+			var dbRace = await context.Races
+				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
+				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Type)
+				.OrderBy(r => r.Date)
+				.FirstOrDefaultAsync(r => r.Date > now);
+			return mapper.Map<Api.BroadcastsInformation>(dbRace);
 		}
 
 		public async Task<IEnumerable<Api.BroadcastSessionType>> GetSessionNames()
