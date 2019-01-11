@@ -45,7 +45,7 @@ namespace F1WM.Repositories
 		public Task<bool> IsRefreshTokenValid(string refreshToken)
 		{
 			var now = time.Now.ToUniversalTime();
-			return context.RefreshTokens.AnyAsync(t => t.Token == refreshToken && t.IssuedAt < now && t.ExpiresAt < now);
+			return context.RefreshTokens.AnyAsync(t => t.Token == refreshToken && t.IssuedAt < now && t.ExpiresAt > now);
 		}
 	}
 }
