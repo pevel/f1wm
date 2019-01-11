@@ -23,5 +23,6 @@ namespace F1WM.DatabaseModel
 		public string Title { get; set; }
 		public string Subtitle { get; set; }
 		public string Text { get; set; }
-	}
+        public virtual F1NewsTopicmatch Topics { get; set; }
+    }
 }
