@@ -76,6 +76,7 @@ namespace F1WM.Repositories
 					};
 				}
 			}
+			await IncrementViews(dbNews);
 			return news;
 		}
 
@@ -83,6 +84,13 @@ namespace F1WM.Repositories
 		{
 			this.context = context;
 			this.mapper = mapper;
+		}
+
+		private async Task IncrementViews(News news)
+		{
+			news.Views++;
+			context.Update(news);
+			await context.SaveChangesAsync();
 		}
 	}
 }
