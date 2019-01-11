@@ -21,6 +21,7 @@ namespace F1WM.Repositories
 			await context.SaveChangesAsync();
 			var dbRace = await context.Races
 				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
+				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Type)
 				.SingleOrDefaultAsync(r => r.Id == request.RaceId);
 			return mapper.Map<Api.BroadcastsInformation>(dbRace);
 		}
@@ -50,9 +51,9 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<Api.BroadcastSessionType>>(dbNames);
 		}
 
-		public async Task<Api.BroadcastSessionType> AddSessionName(Api.BroadcastSessionType name)
+		public async Task<Api.BroadcastSessionType> AddSessionName(Api.BroadcastSessionTypeAddRequest request)
 		{
-			var dbName = mapper.Map<Database.BroadcastedSessionType>(name);
+			var dbName = mapper.Map<Database.BroadcastedSessionType>(request);
 			context.BroadcastedSessionTypes.Add(dbName);
 			await context.SaveChangesAsync();
 			return mapper.Map<Api.BroadcastSessionType>(dbName);

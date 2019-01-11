@@ -35,9 +35,9 @@ namespace F1WM.Services
 			return repository.GetSessionNames();
 		}
 
-		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionType name)
+		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request)
 		{
-			return repository.AddSessionName(name);
+			return repository.AddSessionName(request);
 		}
 
 		public BroadcastsService(IBroadcastsRepository repository, ITimeService time)

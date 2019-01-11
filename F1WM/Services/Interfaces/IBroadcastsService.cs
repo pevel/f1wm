@@ -11,6 +11,6 @@ namespace F1WM.Services
 		Task<BroadcastsInformation> AddBroadcast(BroadcastsAddRequest request);
 		Task<Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
 		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
-		Task<BroadcastSessionType> AddSessionType(BroadcastSessionType name);
+		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
 	}
 }

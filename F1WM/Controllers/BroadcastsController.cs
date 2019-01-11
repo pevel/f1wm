@@ -68,11 +68,11 @@ namespace F1WM.Controllers
 		[HttpPost("types")]
 		[Authorize]
 		[Produces("application/json", Type = typeof(BroadcastSessionType))]
-		public async Task<BroadcastSessionType> AddSessionType([FromBody]BroadcastSessionType type)
+		public async Task<BroadcastSessionType> AddSessionType([FromBody]BroadcastSessionTypeAddRequest request)
 		{
 			try
 			{
-				return await service.AddSessionType(type);
+				return await service.AddSessionType(request);
 			}
 			catch (Exception ex)
 			{
