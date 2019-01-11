@@ -56,7 +56,7 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<Api.BroadcastSessionType>>(dbNames);
 		}
 
-		public async Task<Api.BroadcastSessionType> AddSessionName(Api.BroadcastSessionTypeAddRequest request)
+		public async Task<Api.BroadcastSessionType> AddSessionType(Api.BroadcastSessionTypeAddRequest request)
 		{
 			var dbName = mapper.Map<Database.BroadcastedSessionType>(request);
 			context.BroadcastedSessionTypes.Add(dbName);

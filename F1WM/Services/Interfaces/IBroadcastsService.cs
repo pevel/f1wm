@@ -8,7 +8,7 @@ namespace F1WM.Services
 	{
 		Task<BroadcastsInformation> GetNextBroadcasts();
 		Task<IEnumerable<Broadcaster>> GetBroadcasters();
-		Task<BroadcastsInformation> AddBroadcast(BroadcastsAddRequest request);
+		Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request);
 		Task<Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
 		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);

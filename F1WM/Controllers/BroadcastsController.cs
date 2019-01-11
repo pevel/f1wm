@@ -68,11 +68,12 @@ namespace F1WM.Controllers
 		[HttpPost("types")]
 		[Authorize]
 		[Produces("application/json", Type = typeof(BroadcastSessionType))]
-		public async Task<BroadcastSessionType> AddSessionType([FromBody]BroadcastSessionTypeAddRequest request)
+		public async Task<IActionResult> AddSessionType([FromBody]BroadcastSessionTypeAddRequest request)
 		{
 			try
 			{
-				return await service.AddSessionType(request);
+				var type = await service.AddSessionType(request);
+				return CreatedAtAction(nameof(GetSessionTypes), type);
 			}
 			catch (Exception ex)
 			{
@@ -112,7 +113,7 @@ namespace F1WM.Controllers
 		{
 			try
 			{
-				var broadcasts = await service.AddBroadcast(request);
+				var broadcasts = await service.AddBroadcasts(request);
 				if (broadcasts != null)
 				{
 					return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);

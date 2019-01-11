@@ -73,5 +73,71 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetSessionTypes(), Times.Once);
 			types.Should().BeEquivalentTo(result);
 		}
+
+		[Fact]
+		public async Task ShouldAddBroadcaster()
+		{
+			var request = fixture.Create<BroadcasterAddRequest>();
+			var broadcaster = fixture.Create<Broadcaster>();
+			serviceMock.Setup(s => s.AddBroadcaster(request)).ReturnsAsync(broadcaster);
+
+			var result = await controller.AddBroadcaster(request);
+
+			serviceMock.Verify(s => s.AddBroadcaster(request), Times.Once);
+			Assert.IsType<CreatedAtActionResult>(result);
+			broadcaster.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+		}
+
+		[Fact]
+		public async Task ShouldReturn422IfCouldNotAddBroadcaster()
+		{
+			var request = fixture.Create<BroadcasterAddRequest>();
+			serviceMock.Setup(s => s.AddBroadcaster(request)).ReturnsAsync((Broadcaster)null);
+
+			var result = await controller.AddBroadcaster(request);
+
+			serviceMock.Verify(s => s.AddBroadcaster(request), Times.Once);
+			Assert.IsType<UnprocessableEntityResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldAddBroadcastSessionType()
+		{
+			var request = fixture.Create<BroadcastSessionTypeAddRequest>();
+			var type = fixture.Create<BroadcastSessionType>();
+			serviceMock.Setup(s => s.AddSessionType(request)).ReturnsAsync(type);
+
+			var result = await controller.AddSessionType(request);
+
+			serviceMock.Verify(s => s.AddSessionType(request), Times.Once);
+			Assert.IsType<CreatedAtActionResult>(result);
+			type.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+		}
+
+		[Fact]
+		public async Task ShouldAddBroadcasts()
+		{
+			var request = fixture.Create<BroadcastsAddRequest>();
+			var broadcasts = fixture.Create<BroadcastsInformation>();
+			serviceMock.Setup(s => s.AddBroadcasts(request)).ReturnsAsync(broadcasts);
+
+			var result = await controller.AddBroadcasts(request);
+
+			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
+			Assert.IsType<CreatedAtActionResult>(result);
+			broadcasts.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+		}
+
+		[Fact]
+		public async Task ShouldReturn422IfCouldNotAddBroadcasts()
+		{
+			var request = fixture.Create<BroadcastsAddRequest>();;
+			serviceMock.Setup(s => s.AddBroadcasts(request)).ReturnsAsync((BroadcastsInformation)null);
+
+			var result = await controller.AddBroadcasts(request);
+
+			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
+			Assert.IsType<UnprocessableEntityResult>(result);
+		}
 	}
 }

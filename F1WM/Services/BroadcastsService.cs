@@ -11,7 +11,7 @@ namespace F1WM.Services
 		private readonly IBroadcastsRepository repository;
 		private readonly ITimeService time;
 
-		public Task<BroadcastsInformation> AddBroadcast(BroadcastsAddRequest request)
+		public Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request)
 		{
 			return repository.AddBroadcast(request);
 		}
@@ -40,7 +40,7 @@ namespace F1WM.Services
 
 		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request)
 		{
-			return repository.AddSessionName(request);
+			return repository.AddSessionType(request);
 		}
 
 		public BroadcastsService(IBroadcastsRepository repository, ITimeService time)
