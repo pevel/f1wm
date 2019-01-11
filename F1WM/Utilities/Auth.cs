@@ -20,7 +20,7 @@ namespace F1WM.Utilities
 
 		public static DateTime GetRefreshTokenExpiration(ITimeService time)
 		{
-			return time.Now.ToUniversalTime().AddDays(10);
+			return time.Now.ToUniversalTime().AddDays(14);
 		}
 
 		public static TokenValidationParameters GetTokenValidationParameters(IConfiguration configuration)
@@ -35,7 +35,7 @@ namespace F1WM.Utilities
 			};
 		}
 
-		public static TokenValidationParameters GetLooseValidationParameters(IConfiguration configuration)
+		public static TokenValidationParameters GetAccessTokenValidationParameters(IConfiguration configuration)
 		{
 			return new TokenValidationParameters
 			{

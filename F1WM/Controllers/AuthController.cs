@@ -81,19 +81,12 @@ namespace F1WM.Controllers
 		{
 			try
 			{
-				if (service.TryGetEmailFromTokens(tokens, out var email))
-				{
-					var accessToken = await service.GenerateAccessToken(email);
-					return Ok(new Tokens()
-					{
-						AccessToken = accessToken,
-						RefreshToken = tokens.RefreshToken
-					});
-				}
-				else
-				{
-					return Unauthorized();
-				}
+				var refreshedTokens = await service.RefreshAccessToken(tokens);
+				return Ok(refreshedTokens);
+			}
+			catch (UnauthorizedAccessException)
+			{
+				return Unauthorized();
 			}
 			catch (Exception ex)
 			{

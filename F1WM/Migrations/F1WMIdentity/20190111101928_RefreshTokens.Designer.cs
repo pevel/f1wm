@@ -3,14 +3,16 @@ using System;
 using F1WM.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace F1WM.Migrations.F1WMIdentity
 {
     [DbContext(typeof(F1WMIdentityContext))]
-    partial class F1WMIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20190111101928_RefreshTokens")]
+    partial class RefreshTokens
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

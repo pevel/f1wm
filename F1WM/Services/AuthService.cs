@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -22,6 +23,7 @@ namespace F1WM.Services
 		private readonly IConfiguration configuration;
 		private readonly IGuidService guid;
 		private readonly ITimeService time;
+		private const int refreshTokenNumberSize = 64;
 
 		public AuthService(
 			IAuthRepository repository,
@@ -39,19 +41,22 @@ namespace F1WM.Services
 			this.userManager = userManager;
 		}
 
-		public async Task<string> GenerateAccessToken(string email)
-		{
-			var user = await repository.GetUserByEmail(email);
-			return GenerateToken(user, Auth.GetAccessTokenExpiration(configuration, time));
-		}
-
 		public async Task<Tokens> GenerateTokens(string email)
 		{
 			var user = await repository.GetUserByEmail(email);
+			var refreshToken = GenerateRefreshToken(user);
+			var dbRefreshToken = new RefreshToken()
+			{
+				Token = refreshToken,
+				IssuedAt = time.Now.ToUniversalTime(),
+				ExpiresAt = Auth.GetRefreshTokenExpiration(time),
+				UserId = user.Id
+			};
+			await repository.AddRefreshToken(dbRefreshToken);
 			return new Tokens()
 			{
-				AccessToken = GenerateToken(user, Auth.GetAccessTokenExpiration(configuration, time)),
-				RefreshToken = GenerateToken(user, Auth.GetRefreshTokenExpiration(time))
+				AccessToken = GenerateAccessToken(user),
+				RefreshToken = refreshToken
 			};
 		}
 
@@ -65,33 +70,27 @@ namespace F1WM.Services
 			return userManager.CreateAsync(user, password);
 		}
 
-		public bool TryGetEmailFromTokens(Tokens tokens, out string email)
+		public async Task<Tokens> RefreshAccessToken(Tokens tokens)
 		{
-			var accessValidation = Auth.GetLooseValidationParameters(configuration);
-			var refreshValidation = Auth.GetTokenValidationParameters(configuration);
-			var handler = new JwtSecurityTokenHandler();
-			email = null;
-			try
+			var accessTokenValidation = Auth.GetAccessTokenValidationParameters(configuration);
+			var principal = new JwtSecurityTokenHandler().ValidateToken(tokens.AccessToken, accessTokenValidation, out var accessToken);
+			if (await repository.IsRefreshTokenValid(tokens.RefreshToken) && accessToken != null)
 			{
-				handler.ValidateToken(tokens.RefreshToken, refreshValidation, out var refreshToken);
-				var principal = handler.ValidateToken(tokens.AccessToken, accessValidation, out var accessToken);
-				if (refreshToken != null && accessToken != null)
+				var email = principal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
+				var user = await repository.GetUserByEmail(email);
+				return new Tokens()
 				{
-					email = principal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
-					return true;
-				}
-				else
-				{
-					return false;
-				}
+					RefreshToken = tokens.RefreshToken,
+					AccessToken = GenerateAccessToken(user)
+				};
 			}
-			catch
+			else
 			{
-				return false;
+				throw new UnauthorizedAccessException();
 			}
 		}
 
-		private string GenerateToken(F1WMUser user, DateTime expiresAt)
+		private string GenerateAccessToken(F1WMUser user)
 		{
 			var claims = new List<Claim>()
 			{
@@ -104,11 +103,18 @@ namespace F1WM.Services
 			var token = new JwtSecurityToken(
 				issuer: configuration[Configuration.JwtIssuerKey],
 				claims: claims,
-				expires: expiresAt,
+				expires: Auth.GetAccessTokenExpiration(configuration, time),
 				audience: configuration[Configuration.JwtAudienceKey],
 				signingCredentials: credentials
 			);
 			return new JwtSecurityTokenHandler().WriteToken(token);
+		}
+
+		private string GenerateRefreshToken(F1WMUser user)
+		{
+			var randomNumber = new byte[refreshTokenNumberSize];
+			RandomNumberGenerator.Create().GetBytes(randomNumber);
+			return Convert.ToBase64String(randomNumber);
 		}
 	}
 }

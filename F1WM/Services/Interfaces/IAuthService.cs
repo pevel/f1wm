@@ -9,8 +9,7 @@ namespace F1WM.Services
 	{
 		Task<IdentityResult> SignUp(F1WMUser user, string password);
 		Task<SignInResult> SignIn(string email, string password);
-		bool TryGetEmailFromTokens(Tokens tokens, out string email);
-		Task<string> GenerateAccessToken(string email);
 		Task<Tokens> GenerateTokens(string email);
+		Task<Tokens> RefreshAccessToken(Tokens tokens);
 	}
 }
