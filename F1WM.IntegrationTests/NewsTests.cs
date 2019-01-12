@@ -153,7 +153,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task ShouldIncrementNews()
+		public async Task ShouldIncrementViews()
 		{
 			var id = 30676;
 			var response = await client.PostAsync($"{baseAddress}/news/{id}/views/increment", new StringContent(""));
