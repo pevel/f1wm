@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Controllers;
@@ -149,6 +150,14 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(news.ShortText));
 				Assert.False(string.IsNullOrWhiteSpace(news.Title));
 			});
+		}
+
+		[Fact]
+		public async Task ShouldIncrementViews()
+		{
+			var id = 30676;
+			var response = await client.PostAsync($"{baseAddress}/news/{id}/views/increment", new StringContent(""));
+			response.EnsureSuccessStatusCode();
 		}
 	}
 }

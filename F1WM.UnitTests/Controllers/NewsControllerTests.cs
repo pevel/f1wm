@@ -79,5 +79,29 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetImportantNews(), Times.Once);
 			Assert.Empty(result);
 		}
-	}
+
+        [Fact]
+        public async Task ShouldReturn404IfNoNewsToIncrement()
+        {
+            var id = 44;
+
+            var result = await controller.IncremetViews(id);
+
+            serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
+            Assert.IsType<NotFoundResult>(result);
+        }
+
+        [Fact]
+        public async Task ShouldReturn200IfViewsIncremented()
+        {
+            var id = 44000;
+
+            serviceMock.Setup(s => s.IncrementViews(id)).ReturnsAsync(true);
+
+            var result = await controller.IncremetViews(id);
+
+            serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
+            Assert.IsType<OkResult>(result);
+        }
+    }
 }

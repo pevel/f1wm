@@ -63,6 +63,27 @@ namespace F1WM.Controllers
 			}
 		}
 
+		[HttpPost("{id}/views/increment")]
+		public async Task<IActionResult> IncremetViews(int id)
+		{
+			try
+			{
+				if (await service.IncrementViews(id))
+				{
+					return Ok();
+				}
+				else
+				{
+					return NotFound();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 		public NewsController(INewsService service, ILoggingService logger)
 		{
 			this.service = service;
