@@ -27,5 +27,6 @@ namespace F1WM.DatabaseModel
 		public virtual FastestLap FastestLap { get; set; }
 		public virtual RaceNews RaceNews { get; set; }
 		public virtual IEnumerable<Qualifying> Qualifying { get; set; }
+		public virtual IEnumerable<BroadcastedSession> BroadcastedSessions { get; set; }
 	}
 }
