@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -14,7 +15,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.TranslatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 			CreateMap<Race, LastRaceSummary>()
 				.ForMember(api => api.TranslatedName, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()))
-				.ForMember(api => api.FastestLapResult, o => o.MapFrom(db => db.FastestLap));
+				.ForMember(api => api.FastestLapResult, o => o.MapFrom(db => db.FastestLaps.FirstOrDefault()));
 		}
 	}
 }

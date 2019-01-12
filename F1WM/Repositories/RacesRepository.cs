@@ -33,11 +33,11 @@ namespace F1WM.Repositories
 			var dbLastRace = await context.Races
 				.OrderByDescending(r => r.Date)
 				.Include(r => r.Track)
-				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Driver)
-				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.Country)
 				.Include(r => r.RaceNews)
 				.FirstOrDefaultAsync(r => r.Date < beforeDate);
+
+			await IncludeFastestLap(beforeDate);
 			var apiLastRace = mapper.Map<LastRaceSummary>(dbLastRace);
 			await IncludePolePositionResult(dbLastRace, apiLastRace);
 			return apiLastRace;
@@ -47,6 +47,17 @@ namespace F1WM.Repositories
 		{
 			this.context = context;
 			this.mapper = mapper;
+		}
+
+		private async Task IncludeFastestLap(DateTime beforeDate)
+		{
+			var dbFastestLap = await context.FastestLaps
+				.Include(f => f.Entry).ThenInclude(f => f.Race)
+				.Include(f => f.Entry).ThenInclude(e => e.Car)
+				.Include(f => f.Entry).ThenInclude(e => e.Driver)
+				.OrderByDescending(r => r.Entry.Race.Date)
+				.Where(r => r.Entry.Race.Date < beforeDate)
+				.FirstOrDefaultAsync();
 		}
 
 		private async Task IncludeLastWinnerResult(Race dbNextRace, NextRaceSummary apiNextRace)
