@@ -9,5 +9,6 @@ namespace F1WM.Repositories
 		Task<IEnumerable<NewsSummary>> GetNews(ICollection<uint> ids);
 		Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null);
 		Task<NewsDetails> GetNewsDetails(int id);
+		Task<bool> IncrementViews(int id);
 	}
 }
