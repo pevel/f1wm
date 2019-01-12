@@ -70,13 +70,12 @@ namespace F1WM.Repositories
 					news.ResultLink = new ResultLink()
 					{
 						Type = Constants.ResultTypeToLinkType[link.ResultType],
-							RaceId = (int?)(await context.Races
-								.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number)) ?
+						RaceId = (int?)(await context.Races
+								.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number))?
 							.Id
 					};
 				}
 			}
-			await IncrementViews(dbNews);
 			return news;
 		}
 
@@ -86,11 +85,19 @@ namespace F1WM.Repositories
 			this.mapper = mapper;
 		}
 
-		private async Task IncrementViews(News news)
+		public async Task<bool> IncrementViews(int id)
 		{
-			news.Views++;
-			context.Update(news);
+			await SetDbEncoding();
+			var dbNews = await context.News
+				.Where(n => n.Id == id)
+				.FirstOrDefaultAsync();
+
+			if (dbNews == null) return false;
+
+			dbNews.Views++;
+			context.Update(dbNews);
 			await context.SaveChangesAsync();
+			return true;
 		}
 	}
 }
