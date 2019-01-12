@@ -72,21 +72,28 @@ namespace F1WM.Services
 
 		public async Task<Tokens> RefreshAccessToken(Tokens tokens)
 		{
-			var accessTokenValidation = Auth.GetAccessTokenValidationParameters(configuration);
-			var principal = new JwtSecurityTokenHandler().ValidateToken(tokens.AccessToken, accessTokenValidation, out var accessToken);
-			if (await repository.IsRefreshTokenValid(tokens.RefreshToken) && accessToken != null)
+			try
 			{
-				var email = principal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
-				var user = await repository.GetUserByEmail(email);
-				return new Tokens()
+				var accessTokenValidation = Auth.GetAccessTokenValidationParameters(configuration);
+				var principal = new JwtSecurityTokenHandler().ValidateToken(tokens.AccessToken, accessTokenValidation, out var accessToken);
+				if (await repository.IsRefreshTokenValid(tokens.RefreshToken) && accessToken != null)
 				{
-					RefreshToken = tokens.RefreshToken,
-					AccessToken = GenerateAccessToken(user)
-				};
+					var email = principal.Claims.Single(c => c.Type == JwtRegisteredClaimNames.Sub).Value;
+					var user = await repository.GetUserByEmail(email);
+					return new Tokens()
+					{
+						RefreshToken = tokens.RefreshToken,
+						AccessToken = GenerateAccessToken(user)
+					};
+				}
+				else
+				{
+					throw new UnauthorizedAccessException("Failed to authorize.");
+				}
 			}
-			else
+			catch (Exception ex)
 			{
-				throw new UnauthorizedAccessException();
+				throw new UnauthorizedAccessException("Failed to authorize.", ex);
 			}
 		}
 
