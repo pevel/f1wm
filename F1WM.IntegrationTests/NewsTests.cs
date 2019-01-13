@@ -134,7 +134,76 @@ namespace F1WM.IntegrationTests
 			});
 		}
 
-		[Fact]
+        [Fact]
+        public async Task GetNewsTagsTest()
+        {
+            var response = await client.GetAsync($"{baseAddress}/news/tags");
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var tagsList = JsonConvert.DeserializeObject<IEnumerable<NewsTag>>(responseContent);
+            Assert.NotNull(tagsList);
+            Assert.All(tagsList, tag =>
+            {
+                Assert.NotEqual((uint)0, tag.Id);
+                Assert.NotEqual((uint)0, tag.CategoryId);
+                Assert.False(string.IsNullOrWhiteSpace(tag.Title));
+            });
+        }
+
+        [Fact]
+        public async Task GetNewsTypesTest()
+        {
+            var response = await client.GetAsync($"{baseAddress}/news/types");
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var typesList = JsonConvert.DeserializeObject<IEnumerable<NewsType>>(responseContent);
+            Assert.NotNull(typesList);
+            Assert.All(typesList, type =>
+            {
+                Assert.NotEqual((uint)0, type.Id);
+                Assert.False(string.IsNullOrWhiteSpace(type.Title));
+                Assert.False(string.IsNullOrWhiteSpace(type.AlternativeTitle));
+            });
+        }
+
+        [Fact]
+        public async Task GetNewsCategotiesTest()
+        {
+            var response = await client.GetAsync($"{baseAddress}/news/categories");
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var categoriesList = JsonConvert.DeserializeObject<IEnumerable<NewsCategory>>(responseContent);
+            Assert.NotNull(categoriesList);
+            Assert.All(categoriesList, category =>
+            {
+                Assert.NotEqual((uint)0, category.Id);
+                Assert.False(string.IsNullOrWhiteSpace(category.Title));
+            });
+        }
+
+        [Fact]
+        public async Task GetNewsTagsByCategoryIdTest()
+        {
+            var id = 2;
+
+            var response = await client.GetAsync($"{baseAddress}/news/tags?categoryId={id}");
+            response.EnsureSuccessStatusCode();
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var tagsList = JsonConvert.DeserializeObject<IEnumerable<NewsTag>>(responseContent);
+            Assert.NotNull(tagsList);
+            Assert.All(tagsList, tag =>
+            {
+                Assert.NotEqual((uint)0, tag.Id);
+                Assert.False(string.IsNullOrWhiteSpace(tag.Title));
+                Assert.Equal((uint)id, tag.CategoryId);
+            });
+        }
+
+        [Fact]
 		public async Task GetImportantNewsTest()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/important");

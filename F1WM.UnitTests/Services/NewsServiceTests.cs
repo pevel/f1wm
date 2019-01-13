@@ -68,12 +68,12 @@ namespace F1WM.UnitTests.Services
         }
 
         [Fact]
-        public async Task ShouldGetNewsTagsByCategory()
+        public async Task ShouldGetNewsTagsByCategoryId()
         {
             var id = 1;
-            await service.GetNewsTagsByCategory(id);
+            await service.GetNewsTagsByCategoryId(id);
 
-            newsRepositoryMock.Verify(r => r.GetNewsTagsByCategory(id), Times.Once);
+            newsRepositoryMock.Verify(r => r.GetNewsTagsByCategoryId(id), Times.Once);
         }
 
         [Fact]
@@ -85,21 +85,25 @@ namespace F1WM.UnitTests.Services
         }
 
         [Fact]
-        public async Task ShouldGetNewsByTag()
+        public async Task ShouldGetNewsByTagId()
         {
             var id = 1;
-            await service.GetNewsByTag(id);
+            var page = 1;
+            var countPerPage = 20;
+            await service.GetNewsByTagId(id, page, countPerPage);
 
-            newsRepositoryMock.Verify(r => r.GetNewsByTag(id), Times.Once);
+            newsRepositoryMock.Verify(r => r.GetNewsByTagId(id, page, countPerPage), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldGetNewsByType()
+        public async Task ShouldGetNewsByTypeId()
         {
             var id = 1;
-            await service.GetNewsByType(id);
+            var page = 1;
+            var countPerPage = 20;
+            await service.GetNewsByTypeId(id, page, countPerPage);
 
-            newsRepositoryMock.Verify(r => r.GetNewsByType(id), Times.Once);
+            newsRepositoryMock.Verify(r => r.GetNewsByTypeId(id, page, countPerPage), Times.Once);
         }
 
         [Fact]

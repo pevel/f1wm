@@ -105,66 +105,66 @@ namespace F1WM.UnitTests.Controllers
         }
 
         [Fact]
-        public async Task ShouldReturnNewsTagsByCategory()
+        public async Task ShouldReturnNewsTagsByCategoryId()
         {
-            var id = 1;
+            var categoryId = 40;
 
-            await controller.GetTagsbyCategory(id);
+            await controller.GetTags(categoryId);
 
-            serviceMock.Verify(s => s.GetNewsTagsByCategory(id), Times.Once);
+            serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldReturnNewsByType()
+        public async Task ShouldReturnNewsByTypeId()
         {
-            var id = 0;
+            var typeId = 1;
 
-            await controller.GetByType(id);
+            await controller.GetMany(null, null, typeId);
 
-            serviceMock.Verify(s => s.GetNewsByType(id), Times.Once);
+            serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldReturnNewsByTag()
+        public async Task ShouldReturnNewsByTagId()
         {
-            var id = 0;
+            var tagId = 4;
 
-            await controller.GetByTag(id);
+            await controller.GetMany(null, tagId);
 
-            serviceMock.Verify(s => s.GetNewsByTag(id), Times.Once);
+            serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
         }
 
         [Fact]
-        public async Task ShouldReturn404IfNewsByTagNotFound()
+        public async Task ShouldReturn404IfNewsByTagIdNotFound()
         {
-            var id = 0;
+            var tagId = 1;
 
-            var result = await controller.GetByTag(id);
+            var result = await controller.GetMany(null, tagId);
 
-            serviceMock.Verify(s => s.GetNewsByTag(id), Times.Once);
-            Assert.IsType<NotFoundResult>(result);
+            serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
+            Assert.Empty(result);
         }
 
         [Fact]
-        public async Task ShouldReturn404IfNewsByTypeNotFound()
+        public async Task ShouldReturn404IfNewsByTypeIdNotFound()
         {
-            var id = 0;
+            var typeId = 2;
 
-            var result = await controller.GetByType(id);
+            var result = await controller.GetMany(null, null, typeId);
 
-            serviceMock.Verify(s => s.GetNewsByType(id), Times.Once);
-            Assert.IsType<NotFoundResult>(result);
+            serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
+            Assert.Empty(result);
         }
 
         [Fact]
         public async Task ShouldReturn404IfTagByCategoryNotFound()
         {
-            var id = 0;
+            var categoryId = 10;
 
-            var result = await controller.GetTagsbyCategory(id);
+            var result = await controller.GetTags(categoryId);
 
-            serviceMock.Verify(s => s.GetNewsTagsByCategory(id), Times.Once);
-            Assert.IsType<NotFoundResult>(result);
+            serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
+            Assert.Empty(result);
         }
     }
 }
