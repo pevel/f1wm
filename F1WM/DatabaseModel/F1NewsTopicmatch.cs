@@ -9,5 +9,6 @@ namespace F1WM.DatabaseModel
 		public uint NewsId { get; set; }
 		public uint TopicId { get; set; }
 		public DateTime NewsDate { get; set; }
-	}
+        public virtual News News { get; set; }
+    }
 }
