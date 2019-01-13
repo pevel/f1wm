@@ -24,7 +24,7 @@ namespace F1WM.DatabaseModel
 		public virtual Country Country { get; set; }
 		public virtual IEnumerable<Grid> Grids { get; set; }
 		public virtual IEnumerable<Result> Results { get; set; }
-		public virtual FastestLap FastestLap { get; set; }
+		public virtual IEnumerable<FastestLap> FastestLaps { get; set; }
 		public virtual RaceNews RaceNews { get; set; }
 		public virtual IEnumerable<Qualifying> Qualifying { get; set; }
 		public virtual IEnumerable<BroadcastedSession> BroadcastedSessions { get; set; }

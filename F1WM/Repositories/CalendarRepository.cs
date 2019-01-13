@@ -19,9 +19,6 @@ namespace F1WM.Repositories
 		{
 			await SetDbEncoding();
 			var dbRace = await context.Races
-				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Car)
-				.Include(r => r.FastestLap).ThenInclude(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Where(r => r.FastestLap.Frlpos == "1")
 				.Include(r => r.Track)
 				.Include(r => r.Country)
 				.OrderBy(r => r.Date)
@@ -33,6 +30,7 @@ namespace F1WM.Repositories
 			var race = mapper.Map<List<Race>, List<CalendarRace>>(dbRace);
 			await IncludeLastPolePositionResult(year, race);
 			await IncludeLastRaceResult(year, race);
+			await IncludeFastestLaps(year, race);
 			var result = new Calendar();
 			await GetSeasonId(year, result);
 			result.Races = race;
@@ -74,6 +72,21 @@ namespace F1WM.Repositories
 				calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults.FirstOrDefault(r => r.RaceId == calendarRace.Id));
 			}
 
+		}
+
+		private async Task IncludeFastestLaps(int year, List<CalendarRace> calendar)
+		{
+			var dbFastestLaps = await context.FastestLaps
+				.Include(f=>f.Entry).ThenInclude(f=>f.Race)
+				.Include(f => f.Entry).ThenInclude(e => e.Car)
+				.Include(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
+				.Where(r => r.Frlpos == "1" && r.Entry.Race.Date.Year == year)
+				.ToListAsync();
+
+			foreach (CalendarRace calendarRace in calendar)
+			{
+				calendarRace.FastestLapResult = mapper.Map<FastestLapResultSummary>(dbFastestLaps.FirstOrDefault(r => r.RaceId == calendarRace.Id));
+			}
 		}
 
 		private async Task GetSeasonId(int year, Calendar calendar)
