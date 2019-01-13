@@ -37,7 +37,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
-		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
+		public virtual DbSet<F1NewsCategory> F1NewsCategories { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
 		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
@@ -45,7 +45,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<RaceNews> RaceNews { get; set; }
 		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
 		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
-		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
+		public virtual DbSet<F1NewsTypes> NewsTypes { get; set; }
 		public virtual DbSet<OtherSession> OtherSessions { get; set; }
 		public virtual DbSet<Qualifying> Qualifying { get; set; }
 		public virtual DbSet<F1quotes> F1quotes { get; set; }
@@ -1494,7 +1494,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1NewsCats>(entity =>
+			modelBuilder.Entity<F1NewsCategory>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
@@ -1848,18 +1848,18 @@ namespace F1WM.DatabaseModel
 
 			modelBuilder.Entity<F1NewsTypes>(entity =>
 			{
-				entity.HasKey(e => e.TypeId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_types");
 
-				entity.Property(e => e.TypeId).HasColumnName("type_id");
+				entity.Property(e => e.Id).HasColumnName("type_id");
 
-				entity.Property(e => e.TypeTitle)
+				entity.Property(e => e.Title)
 					.IsRequired()
 					.HasColumnName("type_title")
 					.HasMaxLength(45);
 
-				entity.Property(e => e.TypeTitle2)
+				entity.Property(e => e.AlternativeTitle)
 					.IsRequired()
 					.HasColumnName("type_title2")
 					.HasMaxLength(14);
