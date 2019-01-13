@@ -80,91 +80,91 @@ namespace F1WM.UnitTests.Controllers
 			Assert.Empty(result);
 		}
 
-        [Fact]
-        public async Task ShouldReturnNewsTypes()
-        {
-            await controller.GetTypes();
+		[Fact]
+		public async Task ShouldReturnNewsTypes()
+		{
+			await controller.GetTypes();
 
-            serviceMock.Verify(s => s.GetNewsTypes(), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsTypes(), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturnNewsTags()
-        {
-            await controller.GetTags();
+		[Fact]
+		public async Task ShouldReturnNewsTags()
+		{
+			await controller.GetTags();
 
-            serviceMock.Verify(s => s.GetNewsTags(), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsTags(), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturnNewsCategories()
-        {
-            await controller.GetCategories();
+		[Fact]
+		public async Task ShouldReturnNewsCategories()
+		{
+			await controller.GetCategories();
 
-            serviceMock.Verify(s => s.GetNewsCategories(), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsCategories(), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturnNewsTagsByCategoryId()
-        {
-            var categoryId = 40;
+		[Fact]
+		public async Task ShouldReturnNewsTagsByCategoryId()
+		{
+			var categoryId = 40;
 
-            await controller.GetTags(categoryId);
+			await controller.GetTags(categoryId);
 
-            serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturnNewsByTypeId()
-        {
-            var typeId = 1;
+		[Fact]
+		public async Task ShouldReturnNewsByTypeId()
+		{
+			var typeId = 1;
 
-            await controller.GetMany(null, null, typeId);
+			await controller.GetMany(null, null, typeId);
 
-            serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturnNewsByTagId()
-        {
-            var tagId = 4;
+		[Fact]
+		public async Task ShouldReturnNewsByTagId()
+		{
+			var tagId = 4;
 
-            await controller.GetMany(null, tagId);
+			await controller.GetMany(null, tagId);
 
-            serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
-        }
+			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
+		}
 
-        [Fact]
-        public async Task ShouldReturn404IfNewsByTagIdNotFound()
-        {
-            var tagId = 1;
+		[Fact]
+		public async Task ShouldReturn404IfNewsByTagIdNotFound()
+		{
+			var tagId = 1;
 
-            var result = await controller.GetMany(null, tagId);
+			var result = await controller.GetMany(null, tagId);
 
-            serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
-            Assert.Empty(result);
-        }
+			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
+			Assert.Empty(result);
+		}
 
-        [Fact]
-        public async Task ShouldReturn404IfNewsByTypeIdNotFound()
-        {
-            var typeId = 2;
+		[Fact]
+		public async Task ShouldReturn404IfNewsByTypeIdNotFound()
+		{
+			var typeId = 2;
 
-            var result = await controller.GetMany(null, null, typeId);
+			var result = await controller.GetMany(null, null, typeId);
 
-            serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
-            Assert.Empty(result);
-        }
+			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
+			Assert.Empty(result);
+		}
 
-        [Fact]
-        public async Task ShouldReturn404IfTagByCategoryNotFound()
-        {
-            var categoryId = 10;
+		[Fact]
+		public async Task ShouldReturn404IfTagByCategoryNotFound()
+		{
+			var categoryId = 10;
 
-            var result = await controller.GetTags(categoryId);
+			var result = await controller.GetTags(categoryId);
 
-            serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
-            Assert.Empty(result);
-        }
-    }
+			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
+			Assert.Empty(result);
+		}
+	}
 }

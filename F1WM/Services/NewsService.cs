@@ -35,45 +35,45 @@ namespace F1WM.Services
 			return news;
 		}
 
-        public async Task<IEnumerable<NewsSummary>> GetNewsByTagId(int? id, int page, int countPerPage)
-        {
-            var news = await newsRepository.GetNewsByTagId(id, page, countPerPage);
-            return news.Select(n => n.ResolveTopicIcon());
-        }
+		public async Task<IEnumerable<NewsSummary>> GetNewsByTagId(int? id, int page, int countPerPage)
+		{
+			var news = await newsRepository.GetNewsByTagId(id, page, countPerPage);
+			return news.Select(n => n.ResolveTopicIcon());
+		}
 
-        public async Task<IEnumerable<NewsSummary>> GetNewsByTypeId(int? id, int page, int countPerPage)
-        {
-            var news = await newsRepository.GetNewsByTypeId(id, page, countPerPage);
-            return news.Select(n => n.ResolveTopicIcon());
-        }
+		public async Task<IEnumerable<NewsSummary>> GetNewsByTypeId(int? id, int page, int countPerPage)
+		{
+			var news = await newsRepository.GetNewsByTypeId(id, page, countPerPage);
+			return news.Select(n => n.ResolveTopicIcon());
+		}
 
-        public async Task<IEnumerable<NewsType>> GetNewsTypes()
-        {
-            return await newsRepository.GetNewsTypes();
-        }
+		public async Task<IEnumerable<NewsType>> GetNewsTypes()
+		{
+			return await newsRepository.GetNewsTypes();
+		}
 
-        public async Task<IEnumerable<NewsTag>> GetNewsTags()
-        {
-            return await newsRepository.GetNewsTags();
-        }
+		public async Task<IEnumerable<NewsTag>> GetNewsTags()
+		{
+			return await newsRepository.GetNewsTags();
+		}
 
-        public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? id)
-        {
-            return await newsRepository.GetNewsTagsByCategoryId(id);
-        }
-        
-        public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
-        {
-            return await newsRepository.GetNewsCategories();
-        }
+		public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? id)
+		{
+			return await newsRepository.GetNewsTagsByCategoryId(id);
+		}
 
-        public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
+		public async Task<IEnumerable<ApiModel.NewsCategory>> GetNewsCategories()
+		{
+			return await newsRepository.GetNewsCategories();
+		}
+
+		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
 			var configText = await configTextRepository.GetConfigText(ConfigTextName.ImportantNews);
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
-				using(StringReader reader = new StringReader(configText.Value))
+				using (StringReader reader = new StringReader(configText.Value))
 				{
 					string line;
 					while ((line = reader.ReadLine()) != null)
