@@ -37,7 +37,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
-		public virtual DbSet<F1NewsCategory> F1NewsCategories { get; set; }
+		public virtual DbSet<NewsCategory> NewsCategories { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
 		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
@@ -1494,7 +1494,7 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1NewsCategory>(entity =>
+			modelBuilder.Entity<NewsCategory>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
