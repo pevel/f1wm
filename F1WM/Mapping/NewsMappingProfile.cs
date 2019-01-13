@@ -9,8 +9,8 @@ namespace F1WM.Mapping
 	{
 		public NewsMappingProfile()
 		{
-            CreateMap<News, NewsSummary>();
+			CreateMap<News, NewsSummary>();
 			CreateMap<News, NewsDetails>();
-        }
+		}
 	}
 }
