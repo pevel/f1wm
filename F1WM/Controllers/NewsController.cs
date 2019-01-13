@@ -14,18 +14,31 @@ namespace F1WM.Controllers
 	public class NewsController : ControllerBase
 	{
 		private const int defaultLatestNewsCount = 20;
+        private const int defaultPage = 1;
+        private const int defaultCountPerPage = 20;
 
-		private readonly INewsService service;
+        private readonly INewsService service;
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		public async Task<IEnumerable<NewsSummary>> GetMany(
-			[FromQuery(Name = "firstId")] int? firstId = null, [FromQuery(Name = "count")] int count = defaultLatestNewsCount)
+        public async Task<IEnumerable<NewsSummary>> GetMany(
+			[FromQuery(Name = "firstId")] int? firstId = null, 
+            [FromQuery(Name = "tagId")] int? tagId = null, 
+            [FromQuery(Name = "typeId")] int? typeId = null, 
+            [FromQuery(Name = "page")] int page = defaultPage, 
+            [FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage, 
+            [FromQuery(Name = "count")] int count = defaultLatestNewsCount)
 		{
 			try
 			{
-				return await service.GetLatestNews(count, firstId);
-			}
+                if (tagId != null)
+                    return await service.GetNewsByTagId(tagId, page, countPerPage);
+                else if (typeId != null)
+                    return await service.GetNewsByTypeId(typeId, page, countPerPage);
+                else
+                    return await service.GetLatestNews(count, firstId);
+
+            }
 			catch (Exception ex)
 			{
 				logger.LogError(ex);
@@ -49,40 +62,7 @@ namespace F1WM.Controllers
 			}
 		}
 
-        [HttpGet("tag/{id}")]
-        [Produces("application/json", Type = typeof(NewsSummary))]
-        public async Task<IActionResult> GetByTag(int id)
-        {
-            try
-            {
-                var news = await service.GetNewsByTag(id);
-                return (news.Any() ? (IActionResult)Ok(news) : (IActionResult)NotFound());
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex);
-                throw ex;
-            }
-        }
-
-        [HttpGet("type/{id}")]
-        [Produces("application/json", Type = typeof(NewsSummary))]
-        public async Task<IActionResult> GetByType(int id)
-        {
-            try
-            {
-                var news = await service.GetNewsByType(id);
-                return (news.Any() ? (IActionResult)Ok(news) : (IActionResult)NotFound());
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex);
-                throw ex;
-            }
-        }
-
         [HttpGet("types")]
-        [Produces("application/json", Type = typeof(NewsType))]
         public async Task<IEnumerable<NewsType>> GetTypes()
         {
             try
@@ -97,28 +77,15 @@ namespace F1WM.Controllers
         }
 
         [HttpGet("tags")]
-        [Produces("application/json", Type = typeof(NewsTag))]
-        public async Task<IEnumerable<NewsTag>> GetTags()
+        public async Task<IEnumerable<NewsTag>> GetTags([FromQuery(Name = "categoryId")] int? id = null)
         {
             try
             {
-                return await service.GetNewsTags();
-            }
-            catch (Exception ex)
-            {
-                logger.LogError(ex);
-                throw ex;
-            }
-        }
+                if (id != null)
+                    return await service.GetNewsTagsByCategoryId(id);
+                else
+                    return await service.GetNewsTags();
 
-        [HttpGet("tags/category/{id}")]
-        [Produces("application/json", Type = typeof(NewsTag))]
-        public async Task<IActionResult> GetTagsbyCategory(int id)
-        {
-            try
-            {
-                var tags = await service.GetNewsTagsByCategory(id);
-                return (tags.Any() ? (IActionResult)Ok(tags) : (IActionResult)NotFound());
             }
             catch (Exception ex)
             {
@@ -128,7 +95,6 @@ namespace F1WM.Controllers
         }
 
         [HttpGet("categories")]
-        [Produces("application/json", Type = typeof(NewsCategory))]
         public async Task<IEnumerable<NewsCategory>> GetCategories()
         {
             try
