@@ -35,40 +35,36 @@ namespace F1WM.Services
 			return news;
 		}
 
-        public async Task<IEnumerable<NewsSummary>> GetNewsByTag(int id)
+        public async Task<IEnumerable<NewsSummary>> GetNewsByTagId(int? id, int page, int countPerPage)
         {
-            var news = await newsRepository.GetNewsByTag(id);
+            var news = await newsRepository.GetNewsByTagId(id, page, countPerPage);
             return news.Select(n => n.ResolveTopicIcon());
         }
 
-        public async Task<IEnumerable<NewsSummary>> GetNewsByType(int id)
+        public async Task<IEnumerable<NewsSummary>> GetNewsByTypeId(int? id, int page, int countPerPage)
         {
-            var news = await newsRepository.GetNewsByType(id);
+            var news = await newsRepository.GetNewsByTypeId(id, page, countPerPage);
             return news.Select(n => n.ResolveTopicIcon());
         }
 
         public async Task<IEnumerable<NewsType>> GetNewsTypes()
         {
-            var types = await newsRepository.GetNewsTypes();
-            return types;
+            return await newsRepository.GetNewsTypes();
         }
 
         public async Task<IEnumerable<NewsTag>> GetNewsTags()
         {
-            var types = await newsRepository.GetNewsTags();
-            return types;
+            return await newsRepository.GetNewsTags();
         }
 
-        public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategory(int id)
+        public async Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? id)
         {
-            var types = await newsRepository.GetNewsTagsByCategory(id);
-            return types;
+            return await newsRepository.GetNewsTagsByCategoryId(id);
         }
         
         public async Task<IEnumerable<NewsCategory>> GetNewsCategories()
         {
-            var types = await newsRepository.GetNewsCategories();
-            return types;
+            return await newsRepository.GetNewsCategories();
         }
 
         public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()

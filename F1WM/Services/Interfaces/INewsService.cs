@@ -8,11 +8,11 @@ namespace F1WM.Services
 	{
 		Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId);
 		Task<NewsDetails> GetNewsDetails(int id);
-        Task<IEnumerable<NewsSummary>> GetNewsByTag(int id);
-        Task<IEnumerable<NewsSummary>> GetNewsByType(int id);
+        Task<IEnumerable<NewsSummary>> GetNewsByTagId(int? id, int page,int countPerPage);
+        Task<IEnumerable<NewsSummary>> GetNewsByTypeId(int? id, int page, int countPerPage);
         Task<IEnumerable<NewsType>> GetNewsTypes();
         Task<IEnumerable<NewsTag>> GetNewsTags();
-        Task<IEnumerable<NewsTag>> GetNewsTagsByCategory(int id);    
+        Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? id);    
         Task<IEnumerable<NewsCategory>> GetNewsCategories();
         Task<IEnumerable<ImportantNewsSummary>> GetImportantNews();
 	}
