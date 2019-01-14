@@ -18,22 +18,22 @@ namespace F1WM.Repositories
 		public async Task<Calendar> GetCalendar(int year)
 		{
 			await SetDbEncoding();
-			var dbRace = await context.Races
+			var dbRaces = await context.Races
 				.Include(r => r.Track)
 				.Include(r => r.Country)
 				.OrderBy(r => r.Date)
 				.Where(r => r.Date.Year == year)
 				.ToListAsync();
 
-			if (dbRace.Count() == 0)return null;
+			if (dbRaces.Count() == 0)return null;
 
-			var race = mapper.Map<List<Race>, List<CalendarRace>>(dbRace);
-			await IncludeLastPolePositionResult(year, race);
-			await IncludeLastRaceResult(year, race);
-			await IncludeFastestLaps(year, race);
+			var races = mapper.Map<List<Race>, List<CalendarRace>>(dbRaces);
+			await IncludeLastPolePositionResult(year, races);
+			await IncludeLastRaceResult(year, races);
+			await IncludeFastestLaps(year, races);
 			var result = new Calendar();
 			await GetSeasonId(year, result);
-			result.Races = race;
+			result.Races = races;
 			CalculateLap(result);
 			return result;
 		}
@@ -77,10 +77,10 @@ namespace F1WM.Repositories
 		private async Task IncludeFastestLaps(int year, List<CalendarRace> calendar)
 		{
 			var dbFastestLaps = await context.FastestLaps
-				.Include(f=>f.Entry).ThenInclude(f=>f.Race)
+				.Include(f => f.Entry).ThenInclude(e => e.Race)
 				.Include(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Where(r => r.Frlpos == "1" && r.Entry.Race.Date.Year == year)
+				.Where(f => f.Frlpos == "1" && f.Entry.Race.Date.Year == year)
 				.ToListAsync();
 
 			foreach (CalendarRace calendarRace in calendar)

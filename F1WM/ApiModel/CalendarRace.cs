@@ -21,6 +21,7 @@ namespace F1WM.ApiModel
 		public TrackSummary Track { get; set; }
 		public int Id { get; set; }
 		public int TrackId { get; set; }
+		public int TrackVersion { get; set; }
 		public virtual Country Country { get; set; }
 	}
 }

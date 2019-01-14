@@ -2169,7 +2169,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Trackver)
+				entity.Property(e => e.TrackVersion)
 					.HasColumnName("trackver");
 
 				entity.Property(e => e.Weather)
