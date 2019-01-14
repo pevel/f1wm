@@ -64,6 +64,14 @@ namespace F1WM.Mapping
 			CreateMap<DatabaseModel.OtherResult, OtherAdditionalPoints>()
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Reason, o => o.MapFrom(db => db.AdditionalPointsReason.Description));
+			CreateMap<DatabaseModel.Qualifying, FastestQualifyingLapResultSummary>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.Time, o => o.MapFrom(db => db.GetFastestQualifyingLapTime()));
+			CreateMap<Result, AverageSpeedResult>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.AverageSpeed, o => o.MapFrom(db => db.CalculateAverageSpeed()));
 		}
 	}
 }

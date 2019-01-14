@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
@@ -41,5 +42,12 @@ public static class QualifyingExtensions
 			FinishedLaps = dbResult.Session3Laps,
 			Time = dbResult.Session3Time
 		};
+	}
+
+	public static TimeSpan GetFastestQualifyingLapTime(this Qualifying dbResult)
+	{
+		return (new[] { dbResult.Session1Time, dbResult.Session2Time, dbResult.Session3Time })
+			.Where(t => t != TimeSpan.Zero)
+			.Min();
 	}
 }

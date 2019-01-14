@@ -1068,6 +1068,10 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'")
 					.HasTimeConversions();
+				
+				entity.HasOne(e => e.Race)
+					.WithMany(r => r.FastestLaps)
+					.HasForeignKey(f => f.RaceId);
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>
