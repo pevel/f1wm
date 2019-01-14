@@ -5,12 +5,14 @@ using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System;
 using AutoMapper;
+using System.Linq.Expressions;
 
 namespace F1WM.Repositories
 {
 	public class TracksRepository : RepositoryBase, ITracksRepository
 	{
 		private readonly IMapper mapper;
+		private readonly Expression<Func<Qualifying, bool>> hasFastestLap = q => q.Session1Position == 1 || q.Session2Position == 1 || q.Session3Position == 1 || (q.Session1Position == 0 && q.PositionOrStatus == "1");
 
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)
 		{
@@ -18,13 +20,12 @@ namespace F1WM.Repositories
 				.Include(q => q.Race)
 				.Include(q => q.Entry).ThenInclude(e => e.Driver)
 				.Include(q => q.Entry).ThenInclude(e => e.Car)
-				.Where(q => q.Session1Position == 1 || q.Session2Position == 1 || q.Session3Position == 1)
+				.Where(hasFastestLap)
 				.Where(q => q.Race.Date.Year < beforeYear)
 				.Where(q => q.Race.TrackId == trackId && q.Race.TrackVersion == trackVersion)
-				.OrderBy(q => (new [] { q.Session1Time, q.Session2Time, q.Session3Time }).Min())
-				.Select(q => new { Qualifying = q, Time = (new [] { q.Session1Time, q.Session2Time, q.Session3Time }).Min() })
+				.Select(q => new { Qualifying = q, Time = (new [] { q.Session1Time, q.Session2Time, q.Session3Time }).Where(t => t != TimeSpan.Zero).Min() })
 				.OrderBy(g => g.Time)
-				.FirstOrDefaultAsync(q => q.Time != TimeSpan.Zero))
+				.FirstOrDefaultAsync())
 				?.Qualifying;
 			var dbBestAverageSpeedResult = await context.Results
 				.Include(r => r.Race).ThenInclude(r => r.Track)
