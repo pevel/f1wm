@@ -44,6 +44,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(calendarRace.Track);
 				Assert.NotEqual(0, calendarRace.Id);
 				Assert.NotEqual(0, calendarRace.TrackId);
+				Assert.NotEqual(0, calendarRace.TrackVersion);
 				Assert.NotNull(calendarRace.Country);
 			});
 		}
