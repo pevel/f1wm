@@ -25,7 +25,7 @@ public static class ResultExtensions
 	{
 		if (dbResult?.Race?.Distance != null)
 		{
-			return dbResult.Race.Distance / (double)dbResult.Time.Hours;
+			return dbResult.Race.Distance / dbResult.Time.TotalHours;
 		}
 		else
 		{
