@@ -6,6 +6,7 @@ using System.Linq;
 using System;
 using AutoMapper;
 using System.Linq.Expressions;
+using F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Repositories
 {
@@ -16,7 +17,7 @@ namespace F1WM.Repositories
 
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)
 		{
-			var dbFastestQualifyingLap = (await context.Qualifying
+			var dbFastestQualifyingLapInNewFormat = (await context.Qualifying
 				.Include(q => q.Race)
 				.Include(q => q.Entry).ThenInclude(e => e.Driver)
 				.Include(q => q.Entry).ThenInclude(e => e.Car)
@@ -27,6 +28,16 @@ namespace F1WM.Repositories
 				.OrderBy(g => g.Time)
 				.FirstOrDefaultAsync())
 				?.Qualifying;
+			var dbFastestQualifyingLapInOldFormat = await context.Grids
+				.Include(g => g.Race)
+				.Include(g => g.Entry).ThenInclude(e => e.Driver)
+				.Include(g => g.Entry).ThenInclude(e => e.Car)
+				.Where(g => g.RaceId < ResultsConstants.SearchInGridBeforeRaceId)
+				.Where(g => g.Race.Date.Year < beforeYear)
+				.Where(g => g.Race.TrackId == trackId && g.Race.TrackVersion == trackVersion)
+				.Where(g => g.Time != TimeSpan.Zero)
+				.OrderBy(g => g.Time)
+				.FirstOrDefaultAsync();
 			var dbBestAverageSpeedResult = await context.Results
 				.Include(r => r.Race).ThenInclude(r => r.Track)
 				.Include(f => f.Entry).ThenInclude(e => e.Driver)
@@ -45,7 +56,7 @@ namespace F1WM.Repositories
 				.Where(f => f.Frlpos == "1")
 				.OrderBy(f => f.Time)
 				.FirstOrDefaultAsync();
-			if (dbFastestQualifyingLap == null && dbBestAverageSpeedResult == null && dbFastestLap == null)
+			if (dbFastestQualifyingLapInNewFormat == null && dbBestAverageSpeedResult == null && dbFastestLap == null)
 			{
 				return null;
 			}
@@ -56,7 +67,7 @@ namespace F1WM.Repositories
 					TrackId = trackId,
 					TrackVersion = trackVersion,
 					BeforeYear = beforeYear,
-					FastestQualifyingLapResult = mapper.Map<FastestQualifyingLapResultSummary>(dbFastestQualifyingLap),
+					FastestQualifyingLapResult = GetFastestQualifyingLap(dbFastestQualifyingLapInNewFormat, dbFastestQualifyingLapInOldFormat),
 					FastestRaceLapResult = mapper.Map<FastestLapResultSummary>(dbFastestLap),
 					BestAverageSpeedResult = mapper.Map<AverageSpeedResult>(dbBestAverageSpeedResult)
 				};
@@ -67,6 +78,18 @@ namespace F1WM.Repositories
 		{
 			this.mapper = mapper;
 			this.context = context;
+		}
+
+		private FastestQualifyingLapResultSummary GetFastestQualifyingLap(Qualifying newFormat, Grid oldFormat)
+		{
+			if (oldFormat?.Time < newFormat.GetFastestQualifyingLapTime())
+			{
+				return mapper.Map<FastestQualifyingLapResultSummary>(oldFormat);
+			}
+			else
+			{
+				return mapper.Map<FastestQualifyingLapResultSummary>(newFormat);
+			}
 		}
 	}
 }

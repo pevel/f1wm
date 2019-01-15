@@ -46,8 +46,15 @@ public static class QualifyingExtensions
 
 	public static TimeSpan GetFastestQualifyingLapTime(this Qualifying dbResult)
 	{
-		return (new[] { dbResult.Session1Time, dbResult.Session2Time, dbResult.Session3Time })
-			.Where(t => t != TimeSpan.Zero)
-			.Min();
+		if (dbResult != null)
+		{
+			return (new[] { dbResult.Session1Time, dbResult.Session2Time, dbResult.Session3Time })
+				.Where(t => t != TimeSpan.Zero)
+				.Min();
+		}
+		else
+		{
+			return TimeSpan.MaxValue;
+		}
 	}
 }

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.DatabaseModel.Constants;
 using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,8 +14,6 @@ namespace F1WM.Repositories
 	public class ResultsRepository : RepositoryBase, IResultsRepository
 	{
 		private readonly IMapper mapper;
-
-		private const int searchInGridBeforeRaceId = 598;
 
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
@@ -41,7 +40,7 @@ namespace F1WM.Repositories
 		{
 			await SetDbEncoding();
 			var model = new QualifyingResult() { RaceId = raceId };
-			if (raceId >= searchInGridBeforeRaceId)
+			if (raceId >= ResultsConstants.SearchInGridBeforeRaceId)
 			{
 				var dbResults = context.Qualifying
 					.Where(q => q.RaceId == raceId)
@@ -91,7 +90,7 @@ namespace F1WM.Repositories
 			model.Series = mapper.Map<SeriesSummary>(dbResults.FirstOrDefault()?.Entry?.Series);
 			model.Results = mapper.Map<IEnumerable<OtherResultPosition>>(dbResults)
 				.OrderBy(r => r.FinishPosition)
-				.Where(r => r.Status != OtherResultStatus.Other);
+				.Where(r => r.Status != ApiModel.OtherResultStatus.Other);
 			if (model.Results.Any())
 			{
 				model.FastestLapResult = mapper.Map<OtherFastestLapResultSummary>(dbResults.SingleOrDefault(r => r.Status.IsFastestLapStatus()));
