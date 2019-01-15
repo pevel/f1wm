@@ -115,7 +115,7 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<RaceResultPosition>>(dbResults.Select(r =>
 			{
 				r.FillFinishPositionInfo();
-				r.Entry.Grid.FillStartPositionInfo();
+				r.Entry?.Grid?.FillStartPositionInfo();
 				return r;
 			}).OrderBy(r => r.FinishPosition == null).ThenBy(r => r.FinishPosition));
 		}
