@@ -11,7 +11,7 @@ namespace F1WM.IntegrationTests
 	public class CommentsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetSingleCommentTest()
+		public async Task ShouldGetSingleComment()
 		{
 			var id = 42;
 
@@ -27,7 +27,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetManyCommentsTest()
+		public async Task ShouldGetManyComments()
 		{
 			var newsId = 43;
 

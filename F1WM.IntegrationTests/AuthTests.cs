@@ -16,7 +16,7 @@ namespace F1WM.IntegrationTests
 	public class AuthTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task LoginTest()
+		public async Task ShouldLogin()
 		{
 			var request = new ObjectContent(
 				typeof(Login),
@@ -27,7 +27,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task RegisterTest()
+		public async Task ShouldRegister()
 		{
 			var request = new ObjectContent(
 				typeof(RegisterRequest),
@@ -38,7 +38,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task RefreshAccessTokenTest()
+		public async Task ShouldRefreshAccessToken()
 		{
 			var request = new ObjectContent(
 				typeof(Tokens),

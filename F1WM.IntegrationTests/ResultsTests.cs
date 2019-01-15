@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class ResultsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetRaceResultTest()
+		public async Task ShouldGetRaceResult()
 		{
 			var raceId = 1032;
 			var response = await client.GetAsync($"{baseAddress}/results/race/{raceId}");
@@ -58,7 +58,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetBasicQualifyingResultTest()
+		public async Task ShouldGetBasicQualifyingResult()
 		{
 			var raceId = 1;
 			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
@@ -95,7 +95,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetCombined12QualifyingResultTest()
+		public async Task ShouldGetCombined12QualifyingResult()
 		{
 			var raceId = 700;
 			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
@@ -128,7 +128,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetCombinedSummed12QualifyingResultTest()
+		public async Task ShouldGetCombinedSummed12QualifyingResult()
 		{
 			var raceId = 733;
 			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
@@ -163,7 +163,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetCombined123QualifyingResultTest()
+		public async Task ShouldGetCombined123QualifyingResult()
 		{
 			var raceId = 1044;
 			var response = await client.GetAsync($"{baseAddress}/results/qualifying/{raceId}");
@@ -198,7 +198,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetPracticeSessionResultTest()
+		public async Task ShouldGetPracticeSessionResult()
 		{
 			var raceId = 1044;
 			var session = "t1";
@@ -234,7 +234,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetOtherResultTest()
+		public async Task ShouldGetOtherResult()
 		{
 			var eventId = 3234;
 			var response = await client.GetAsync($"{baseAddress}/results/other/{eventId}");

@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class CalendarTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetCalendarTest()
+		public async Task ShouldGetCalendar()
 		{
 			var nowAtRequestTime = DateTime.Now;
 			var response = await client.GetAsync($"{baseAddress}/Calendar?year=2016");
