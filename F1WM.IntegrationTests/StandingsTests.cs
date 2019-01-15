@@ -9,7 +9,7 @@ namespace F1WM.IntegrationTests
 	public class StandingsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetConstructorsStandingsTest()
+		public async Task ShouldGetConstructorsStandings()
 		{
 			int count = 5;
 			var response = await client.GetAsync($"{baseAddress}/standings/constructors?count={count}");
@@ -28,7 +28,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetDriversStandingsTest()
+		public async Task ShouldGetDriversStandings()
 		{
 			int count = 4;
 			var response = await client.GetAsync($"{baseAddress}/standings/drivers?count={count}");

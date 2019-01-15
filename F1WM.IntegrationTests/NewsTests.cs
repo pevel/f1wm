@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class NewsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetSingleNewsTest()
+		public async Task ShouldGetSingleNews()
 		{
 			var id = 42000;
 
@@ -30,7 +30,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithPracticeResultLinkTest()
+		public async Task ShouldGetSingleNewsWithPracticeResultLink()
 		{
 			var id = 42422;
 
@@ -52,7 +52,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithRaceResultLinkTest()
+		public async Task ShouldGetSingleNewsWithRaceResultLink()
 		{
 			var id = 2468;
 
@@ -73,7 +73,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithQualifyingResultLinkTest()
+		public async Task ShouldGetSingleNewsWithQualifyingResultLink()
 		{
 			var id = 2464;
 
@@ -94,7 +94,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithOtherResultLinkTest()
+		public async Task ShouldGetSingleNewsWithOtherResultLink()
 		{
 			var id = 1010;
 
@@ -115,7 +115,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetManyNewsTest()
+		public async Task ShouldGetManyNews()
 		{
 			var firstId = 42001;
 			var count = 5;
@@ -136,7 +136,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetImportantNewsTest()
+		public async Task ShouldGetImportantNews()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/important");
 			response.EnsureSuccessStatusCode();

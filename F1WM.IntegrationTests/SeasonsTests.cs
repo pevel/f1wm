@@ -8,7 +8,7 @@ namespace F1WM.IntegrationTests
 	public class SeasonsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetSeasonRulesTest()
+		public async Task ShouldGetSeasonRules()
 		{
 			var response = await client.GetAsync($"{baseAddress}/Seasons/rules?year=2016");
 			response.EnsureSuccessStatusCode();
@@ -21,7 +21,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSeasonRulesWithNoYearSpecifiedTest()
+		public async Task ShouldGetSeasonRulesWithNoYearSpecified()
 		{
 			var response = await client.GetAsync($"{baseAddress}/Seasons/rules");
 			response.EnsureSuccessStatusCode();

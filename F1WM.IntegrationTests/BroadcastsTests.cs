@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class BroadcastsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetBroadcastersTest()
+		public async Task ShouldGetBroadcasters()
 		{
 			var response = await client.GetAsync($"{baseAddress}/broadcasts/broadcasters");
 			response.EnsureSuccessStatusCode();
@@ -30,7 +30,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetBroadcastSessionTypesTest()
+		public async Task ShouldGetBroadcastSessionTypes()
 		{
 			var response = await client.GetAsync($"{baseAddress}/broadcasts/types");
 			response.EnsureSuccessStatusCode();
@@ -46,7 +46,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNextBroadcastsTest()
+		public async Task ShouldGetNextBroadcasts()
 		{
 			var nowAtRequestTime = DateTime.Now;
 			var response = await client.GetAsync($"{baseAddress}/broadcasts/next");
@@ -79,21 +79,21 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task AddBroadcasterTest()
+		public async Task ShouldNotAddBroadcaster()
 		{
 			var response = await client.PostAsync($"{baseAddress}/broadcasts/broadcasters", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
 		[Fact]
-		public async Task AddBroadcastSessionTypeTest()
+		public async Task ShouldNotAddBroadcastSessionType()
 		{
 			var response = await client.PostAsync($"{baseAddress}/broadcasts/types", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
 		[Fact]
-		public async Task AddBroadcastsTest()
+		public async Task ShouldNotAddBroadcasts()
 		{
 			var response = await client.PostAsync($"{baseAddress}/broadcasts", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);

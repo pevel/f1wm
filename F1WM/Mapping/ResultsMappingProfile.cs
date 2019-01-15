@@ -20,7 +20,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
-				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.Entry.Grid.StartStatus.GetStartStatus()))
+				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.Entry.GetStartStatus()))
 				.ForMember(api => api.StartPosition, o => o.MapFrom(db => db.Entry.Grid.StartPosition))
 				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres.Name));
 			CreateMap<Result, WinnerRaceResultSummary>()
@@ -28,7 +28,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
-				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.Entry.Grid.StartStatus.GetStartStatus()));
+				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.Entry.GetStartStatus()));
 			CreateMap<FastestLap, FastestLapResultSummary>()
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver));
@@ -64,6 +64,17 @@ namespace F1WM.Mapping
 			CreateMap<DatabaseModel.OtherResult, OtherAdditionalPoints>()
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Reason, o => o.MapFrom(db => db.AdditionalPointsReason.Description));
+			CreateMap<DatabaseModel.Qualifying, FastestQualifyingLapResultSummary>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.Time, o => o.MapFrom(db => db.GetFastestQualifyingLapTime()));
+			CreateMap<Grid, FastestQualifyingLapResultSummary>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car));
+			CreateMap<Result, AverageSpeedResult>()
+				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
+				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
+				.ForMember(api => api.AverageSpeed, o => o.MapFrom(db => db.CalculateAverageSpeed()));
 		}
 	}
 }
