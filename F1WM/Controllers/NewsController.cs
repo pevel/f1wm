@@ -13,7 +13,6 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class NewsController : ControllerBase
 	{
-		private const int defaultLatestNewsCount = 20;
 		private const int defaultPage = 1;
 		private const int defaultCountPerPage = 20;
 
@@ -21,13 +20,12 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		public async Task<IEnumerable<NewsSummary>> GetMany(
+		public async Task<NewsSummaryPaged> GetMany(
 			[FromQuery(Name = "firstId")] int? firstId = null,
 			[FromQuery(Name = "tagId")] int? tagId = null,
 			[FromQuery(Name = "typeId")] int? typeId = null,
 			[FromQuery(Name = "page")] int page = defaultPage,
-			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage,
-			[FromQuery(Name = "count")] int count = defaultLatestNewsCount)
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			try
 			{
@@ -36,7 +34,7 @@ namespace F1WM.Controllers
 				else if (typeId != null)
 					return await service.GetNewsByTypeId(typeId, page, countPerPage);
 				else
-					return await service.GetLatestNews(count, firstId);
+					return await service.GetLatestNews(firstId, page, countPerPage);
 
 			}
 			catch (Exception ex)

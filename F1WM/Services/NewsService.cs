@@ -18,10 +18,9 @@ namespace F1WM.Services
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
 
-		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId)
+		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			var news = await newsRepository.GetLatestNews(count, firstId);
-			return news.Select(n => n.ResolveTopicIcon());
+			return await newsRepository.GetLatestNews(firstId, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -35,19 +34,17 @@ namespace F1WM.Services
 			return news;
 		}
 
-		public async Task<IEnumerable<NewsSummary>> GetNewsByTagId(int? id, int page, int countPerPage)
+		public async Task<NewsSummaryPaged> GetNewsByTagId(int? id, int page, int countPerPage)
 		{
-			var news = await newsRepository.GetNewsByTagId(id, page, countPerPage);
-			return news.Select(n => n.ResolveTopicIcon());
+			return await newsRepository.GetNewsByTagId(id, page, countPerPage);
 		}
 
-		public async Task<IEnumerable<NewsSummary>> GetNewsByTypeId(int? id, int page, int countPerPage)
+		public async Task<NewsSummaryPaged> GetNewsByTypeId(int? id, int page, int countPerPage)
 		{
-			var news = await newsRepository.GetNewsByTypeId(id, page, countPerPage);
-			return news.Select(n => n.ResolveTopicIcon());
+			return await newsRepository.GetNewsByTypeId(id, page, countPerPage);
 		}
 
-		public async Task<IEnumerable<NewsType>> GetNewsTypes()
+		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
 		{
 			return await newsRepository.GetNewsTypes();
 		}
