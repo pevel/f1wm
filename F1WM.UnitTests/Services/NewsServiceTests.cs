@@ -46,9 +46,9 @@ namespace F1WM.UnitTests.Services
 			var count = 21;
 			var firstId = 43;
 
-			await service.GetLatestNews(count, firstId);
+			await service.GetLatestNews(firstId, 1, count);
 
-			newsRepositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetLatestNews(firstId, 1, count), Times.Once);
 		}
 
 		[Fact]

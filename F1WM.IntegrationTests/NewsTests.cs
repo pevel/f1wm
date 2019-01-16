@@ -119,11 +119,12 @@ namespace F1WM.IntegrationTests
 			var firstId = 42001;
 			var count = 5;
 
-			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&count={count}");
+			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var newsList = JsonConvert.DeserializeObject<IEnumerable<NewsSummary>>(responseContent);
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			var newsList = result.Result;
 			Assert.NotNull(newsList);
 			Assert.Equal(firstId, newsList.First().Id);
 			Assert.Equal(count, newsList.Count());
@@ -169,7 +170,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNewsCategotiesTest()
+		public async Task GetNewsCategoriesTest()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/categories");
 			response.EnsureSuccessStatusCode();
@@ -201,6 +202,20 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
 				Assert.Equal((uint)id, tag.CategoryId);
 			});
+		}
+
+		[Fact]
+		public async Task GetProperNewsCountByTypeIdTest()
+		{
+			var typeId = 1;
+			var count = 7;
+
+			var response = await client.GetAsync($"{baseAddress}/news?typeId={typeId}&countPerPage={count}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.Equal(result.Result.Count(), count);
 		}
 
 		[Fact]

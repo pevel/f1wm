@@ -27,7 +27,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			await controller.GetMany(null);
 
-			serviceMock.Verify(s => s.GetLatestNews(20, null), Times.Once);
+			serviceMock.Verify(s => s.GetLatestNews(null, 1, 20), Times.Once);
 		}
 
 		[Fact]
@@ -37,7 +37,7 @@ namespace F1WM.UnitTests.Controllers
 
 			await controller.GetMany(firstId);
 
-			serviceMock.Verify(s => s.GetLatestNews(20, firstId), Times.Once);
+			serviceMock.Verify(s => s.GetLatestNews(firstId, 1, 20), Times.Once);
 		}
 
 		[Fact]
@@ -135,29 +135,29 @@ namespace F1WM.UnitTests.Controllers
 		}
 
 		[Fact]
-		public async Task ShouldReturn404IfNewsByTagIdNotFound()
+		public async Task ShouldReturnEmptyListOfNewsByTagId()
 		{
 			var tagId = 1;
 
 			var result = await controller.GetMany(null, tagId);
 
 			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
-			Assert.Empty(result);
+			Assert.Null(result);
 		}
 
 		[Fact]
-		public async Task ShouldReturn404IfNewsByTypeIdNotFound()
+		public async Task ShouldReturnEmptyListOfNewsByTypeId()
 		{
-			var typeId = 2;
+			var typeId = 1;
 
 			var result = await controller.GetMany(null, null, typeId);
 
 			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
-			Assert.Empty(result);
+			Assert.Null(result);
 		}
 
 		[Fact]
-		public async Task ShouldReturn404IfTagByCategoryNotFound()
+		public async Task ShouldReturnEmptyListOfTagsByCategoryId()
 		{
 			var categoryId = 10;
 
