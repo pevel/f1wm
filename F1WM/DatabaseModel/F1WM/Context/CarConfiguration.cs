@@ -52,6 +52,11 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("litera")
 				.HasColumnType("char(1)");
+			
+			builder.HasOne(e => e.Constructor)
+				.WithMany(c => c.Cars)
+				.HasForeignKey(e => e.ContstructorId)
+				.HasPrincipalKey(c => c.Id);
 		}
 	}
 }

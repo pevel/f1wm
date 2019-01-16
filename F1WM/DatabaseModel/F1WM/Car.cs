@@ -12,5 +12,6 @@ namespace F1WM.DatabaseModel
 		public uint? Launch2newsid { get; set; }
 		public string Litera { get; set; }
 		public uint Albumid { get; set; }
+		public Constructor Constructor { get; set; }
 	}
 }
