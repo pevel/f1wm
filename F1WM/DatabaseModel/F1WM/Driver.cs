@@ -28,7 +28,8 @@ namespace F1WM.DatabaseModel
 		public string Litera { get; set; }
 		public ushort Debiut { get; set; }
 		public string Career { get; set; }
-		public virtual IEnumerable<DriverStandingsPosition> Positions { get; set; }
+		public virtual IEnumerable<DriverStandingsPosition> StandingsPositions { get; set; }
 		public virtual Country Nationality { get; set; }
+		public virtual IEnumerable<Entry> Entries { get; set; }
 	}
 }

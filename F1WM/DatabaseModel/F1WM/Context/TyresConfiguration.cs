@@ -28,7 +28,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("char(3)")
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Nat)
+			builder.Property(e => e.NationalityKey)
 				.IsRequired()
 				.HasColumnName("nat")
 				.HasColumnType("char(3)")
@@ -43,6 +43,11 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("tyres")
 				.HasMaxLength(64)
 				.HasDefaultValueSql("''");
+
+			builder.HasOne(e => e.Nationality)
+				.WithMany()
+				.HasPrincipalKey(n => n.Key)
+				.HasForeignKey(e => e.NationalityKey);
 		}
 	}
 }

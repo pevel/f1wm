@@ -35,5 +35,6 @@ namespace F1WM.DatabaseModel
 		public uint? K1p { get; set; }
 		public uint? GalleryNewsId { get; set; }
 		public uint? ManeuversNewsId { get; set; }
+		public virtual Race Race { get; set; }
 	}
 }

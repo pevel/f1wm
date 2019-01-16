@@ -56,6 +56,16 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("zgloszenieid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasOne(e => e.AdditionalPointsReason)
+				.WithMany()
+				.HasPrincipalKey(a => a.Id)
+				.HasForeignKey(e => e.OtherAdditionalPointsReasonId);
+
+			builder.HasOne(e => e.Event)
+				.WithMany(e => e.Results)
+				.HasForeignKey(r => r.EventId)
+				.HasPrincipalKey(e => e.Id);
 		}
 	}
 }

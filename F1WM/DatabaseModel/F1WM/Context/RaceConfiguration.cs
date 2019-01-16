@@ -94,6 +94,11 @@ namespace F1WM.DatabaseModel.Context
 				.WithMany()
 				.HasPrincipalKey(c => c.Key)
 				.HasForeignKey(e => e.CountryKey);
+
+			builder.HasOne(e => e.RaceNews)
+				.WithOne(n => n.Race)
+				.HasForeignKey<RaceNews>(n => n.RaceId)
+				.HasPrincipalKey<Race>(e => e.Id);
 		}
 	}
 }

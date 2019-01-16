@@ -8,7 +8,7 @@ namespace F1WM.DatabaseModel
 		public uint Id { get; set; }
 		public string Ascid { get; set; }
 		public string ShortName { get; set; }
-		public string Country { get; set; }
+		public string NationalityKey { get; set; }
 		public string Name { get; set; }
 		public string City { get; set; }
 		public ushort? Longeststraight { get; set; }
@@ -32,5 +32,6 @@ namespace F1WM.DatabaseModel
 		public uint? Newstopicid { get; set; }
 		public string LapDriver { get; set; }
 		public string LapDescr { get; set; }
+		public virtual Country Nationality { get; set; }
 	}
 }

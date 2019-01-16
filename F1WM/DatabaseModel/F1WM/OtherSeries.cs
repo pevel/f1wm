@@ -21,5 +21,6 @@ namespace F1WM.DatabaseModel
 		public string Punkty2 { get; set; }
 		public byte Dzielonejazdy { get; set; }
 		public byte Klasy { get; set; }
+		public virtual IEnumerable<Event> Events { get; set; }
 	}
 }

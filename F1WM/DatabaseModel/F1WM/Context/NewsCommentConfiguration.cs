@@ -9,10 +9,6 @@ namespace F1WM.DatabaseModel.Context
 		{
 			builder.HasKey(e => e.Id);
 
-			builder.HasOne(e => e.Text)
-				.WithOne(e => e.Comment)
-				.HasForeignKey(typeof(NewsCommentText));
-
 			builder.ToTable("f1_news_coms");
 
 			builder.HasIndex(e => e.UnixTime)
@@ -56,6 +52,11 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.PosterName)
 				.HasColumnName("poster_name")
 				.HasMaxLength(25);
+
+			builder.HasOne(e => e.Text)
+				.WithOne(t => t.Comment)
+				.HasForeignKey<NewsCommentText>(e => e.CommentId)
+				.HasPrincipalKey<NewsComment>(e => e.Id);
 		}
 	}
 }

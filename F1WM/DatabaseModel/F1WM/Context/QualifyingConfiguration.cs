@@ -79,6 +79,16 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("raceid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasOne(e => e.Race)
+				.WithMany(r => r.Qualifying)
+				.HasForeignKey(e => e.RaceId)
+				.HasPrincipalKey(r => r.Id);
+			
+			builder.HasOne(e => e.Entry)
+				.WithOne(e => e.Qualifying)
+				.HasForeignKey<Qualifying>(e => e.EntryId)
+				.HasPrincipalKey<Entry>(e => e.Id);
 		}
 	}
 }

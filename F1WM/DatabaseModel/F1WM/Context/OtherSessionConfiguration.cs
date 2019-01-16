@@ -50,6 +50,11 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("time")
 				.HasColumnType("double")
 				.HasTimeConversions();
+
+			builder.HasOne(e => e.Race)
+				.WithMany()
+				.HasForeignKey(e => e.RaceId)
+				.HasPrincipalKey(r => r.Id);
 		}
 	}
 }

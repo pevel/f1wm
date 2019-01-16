@@ -19,6 +19,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Text)
 				.HasColumnName("comm_text")
 				.HasColumnType("text");
+			
+			builder.HasOne(e => e.Comment)
+				.WithOne(c => c.Text)
+				.HasForeignKey<NewsCommentText>(e => e.CommentId);
 		}
 	}
 }

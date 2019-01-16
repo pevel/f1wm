@@ -91,6 +91,26 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("tyresid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
+			
+			builder.HasOne(e => e.Driver)
+				.WithMany(d => d.Entries)
+				.HasForeignKey(e => e.DriverId)
+				.HasPrincipalKey(d => d.Id);
+
+			builder.HasOne(e => e.Race)
+				.WithMany(r => r.Entries)
+				.HasForeignKey(e => e.RaceId)
+				.HasPrincipalKey(r => r.Id);
+
+			builder.HasOne(e => e.Car)
+				.WithMany(c => c.Entries)
+				.HasForeignKey(e => e.CarId)
+				.HasPrincipalKey(c => c.Id);
+
+			builder.HasOne(e => e.Tyres)
+				.WithMany(t => t.Entries)
+				.HasForeignKey(e => e.TyresId)
+				.HasPrincipalKey(t => t.Id);
 		}
 	}
 }

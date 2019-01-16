@@ -49,7 +49,13 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.HasOne(e => e.Race)
 				.WithMany(r => r.FastestLaps)
+				.HasPrincipalKey(e => e.Id)
 				.HasForeignKey(f => f.RaceId);
+
+			builder.HasOne(e => e.Entry)
+				.WithOne(e => e.FastestLap)
+				.HasForeignKey<FastestLap>(e => e.EntryId)
+				.HasPrincipalKey<Entry>(e => e.Id);
 		}
 	}
 }

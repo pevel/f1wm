@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel
 		public string Name { get; set; }
 		public string Dzien { get; set; }
 		public string TrackName { get; set; }
-		public string Kraj { get; set; }
+		public string NationalityKey { get; set; }
 		public ushort Laps { get; set; }
 		public uint TrackLength { get; set; }
 		public byte Type { get; set; }
@@ -23,5 +23,9 @@ namespace F1WM.DatabaseModel
 		public uint Startgrupy { get; set; }
 		public byte Typtoru { get; set; }
 		public string Rokmies { get; set; }
+		public virtual OtherSeries Series { get; set; }
+		public virtual News News { get; set; }
+		public virtual Country Nationality { get; set; }
+		public virtual IEnumerable<OtherResult> Results { get; set; }
 	}
 }

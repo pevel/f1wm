@@ -47,6 +47,16 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("double")
 				.HasDefaultValueSql("'0'")
 				.HasTimeConversions();
+
+			builder.HasOne(e => e.Race)
+				.WithMany(r => r.Grids)
+				.HasPrincipalKey(r => r.Id)
+				.HasForeignKey(e => e.RaceId);
+
+			builder.HasOne(e => e.Entry)
+				.WithOne(e => e.Grid)
+				.HasPrincipalKey<Entry>(e => e.Id)
+				.HasForeignKey<Grid>(e => e.EntryId);
 		}
 	}
 }

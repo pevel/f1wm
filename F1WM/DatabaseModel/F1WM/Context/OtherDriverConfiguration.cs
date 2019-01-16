@@ -55,6 +55,11 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Gender)
 				.HasColumnName("plec")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasOne(e => e.Nationality)
+				.WithMany()
+				.HasForeignKey(e => e.NationalityKey)
+				.HasPrincipalKey(n => n.Key);
 		}
 	}
 }

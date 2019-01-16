@@ -1,4 +1,6 @@
+//using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1WM.DatabaseModel.Context
@@ -51,7 +53,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("godzina")
 				.HasMaxLength(5);
 
-			builder.Property(e => e.Kraj)
+			builder.Property(e => e.NationalityKey)
 				.IsRequired()
 				.HasColumnName("kraj")
 				.HasMaxLength(3);
@@ -103,6 +105,21 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Typtoru)
 				.HasColumnName("typtoru")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasOne(e => e.News)
+				.WithOne(n => n.Event)
+				.HasPrincipalKey<News>(n => n.Id)
+				.HasForeignKey<Event>(e => e.NewsId);
+
+			builder.HasOne(e => e.Series)
+				.WithMany(s => s.Events)
+				.HasPrincipalKey(s => s.Id)
+				.HasForeignKey(e => e.OtherSeriesId);
+
+			builder.HasOne(e => e.Nationality)
+				.WithMany()
+				.HasForeignKey(e => e.NationalityKey)
+				.HasPrincipalKey(n => n.Key);
 		}
 	}
 }

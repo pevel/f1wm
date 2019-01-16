@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Country)
+			builder.Property(e => e.NationalityKey)
 				.IsRequired()
 				.HasColumnName("country")
 				.HasColumnType("char(3)")
@@ -154,6 +154,11 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("zipcode")
 				.HasMaxLength(8);
+
+			builder.HasOne(e => e.Nationality)
+				.WithMany()
+				.HasForeignKey(e => e.NationalityKey)
+				.HasPrincipalKey(n => n.Key);
 		}
 	}
 }
