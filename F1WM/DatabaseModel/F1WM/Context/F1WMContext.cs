@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -109,10 +110,7 @@ namespace F1WM.DatabaseModel
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<BroadcastedSessionType>()
-				.HasIndex(e => e.Name)
-				.IsUnique();
-
+			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(F1WMContext)));
 			modelBuilder.Entity<AjaxChatMessages>(entity =>
 			{
 				entity.ToTable("ajax_chat_messages");
@@ -243,112 +241,6 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<Constructor>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1carmakes");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Name)
-					.HasName("carmake");
-
-				entity.HasIndex(e => e.Letter)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("carmakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("carmake")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Letter)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.NationalityKey)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.IsRequired()
-					.HasDefaultValueSql("'0'");
-
-				entity.HasOne(e => e.Nationality)
-					.WithMany()
-					.HasPrincipalKey(n => n.Key)
-					.HasForeignKey(e => e.NationalityKey);
-			});
-
-			modelBuilder.Entity<Car>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1cars");
-
-				entity.HasIndex(e => e.Name)
-					.HasName("car");
-
-				entity.HasIndex(e => e.CarMakeId)
-					.HasName("carmakeid");
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("carid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Albumid)
-					.HasColumnName("albumid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("car")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.CarMakeId)
-					.HasColumnName("carmakeid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Launch1newsid)
-					.HasColumnName("launch1newsid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Launch2newsid)
-					.HasColumnName("launch2newsid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-			});
-
 			modelBuilder.Entity<F1carsspecs>(entity =>
 			{
 				entity.HasKey(e => e.Carid);
@@ -377,39 +269,6 @@ namespace F1WM.DatabaseModel
 					.IsRequired()
 					.HasColumnName("name")
 					.HasMaxLength(45);
-			});
-
-			modelBuilder.Entity<ConfigText>(entity =>
-			{
-				entity.ToTable("f1_config_text");
-
-				entity.HasIndex(e => e.Name)
-					.HasName("name");
-
-				entity.HasIndex(e => e.Section)
-					.HasName("section");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Description)
-					.IsRequired()
-					.HasColumnName("description")
-					.HasColumnType("text");
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("name")
-					.HasMaxLength(45);
-
-				entity.Property(e => e.Section)
-					.HasColumnName("section")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Value)
-					.HasColumnName("value")
-					.HasColumnType("text");
 			});
 
 			modelBuilder.Entity<F1ConfigVarchar>(entity =>
@@ -448,53 +307,6 @@ namespace F1WM.DatabaseModel
 					.IsRequired()
 					.HasColumnName("value")
 					.HasMaxLength(255);
-			});
-
-			modelBuilder.Entity<ConstructorStandingsPosition>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1constrcs");
-
-				entity.HasIndex(e => e.ConstructorId)
-					.HasName("carmakeid");
-
-				entity.HasIndex(e => e.EngineMakeId)
-					.HasName("enginemakeid");
-
-				entity.HasIndex(e => e.SeasonId)
-					.HasName("seasonid");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("constrcsid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.ConstructorId)
-					.HasColumnName("carmakeid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Position)
-					.HasColumnName("cspos")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.EngineMakeId)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.SeasonId)
-					.HasColumnName("seasonid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Points)
-					.HasColumnName("points")
-					.HasColumnType("double")
-					.HasDefaultValueSql("'0'");
-
-				entity.HasOne(e => e.Constructor)
-					.WithMany(e => e.Positions);
 			});
 
 			modelBuilder.Entity<F1constrcsLastpos>(entity =>
