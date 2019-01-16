@@ -24,7 +24,6 @@ namespace F1WM.DatabaseModel
 		public byte Typtoru { get; set; }
 		public string Rokmies { get; set; }
 		public virtual OtherSeries Series { get; set; }
-		public virtual News News { get; set; }
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<OtherResult> Results { get; set; }
 	}

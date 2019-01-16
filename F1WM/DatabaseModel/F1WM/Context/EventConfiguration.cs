@@ -106,11 +106,6 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("typtoru")
 				.HasDefaultValueSql("'0'");
 
-			builder.HasOne(e => e.News)
-				.WithOne(n => n.Event)
-				.HasPrincipalKey<News>(n => n.Id)
-				.HasForeignKey<Event>(e => e.NewsId);
-
 			builder.HasOne(e => e.Series)
 				.WithMany(s => s.Events)
 				.HasPrincipalKey(s => s.Id)
