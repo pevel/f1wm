@@ -49,7 +49,14 @@ namespace F1WM.DatabaseModel.Context
 				.HasDefaultValueSql("'0'");
 
 			builder.HasOne(e => e.Constructor)
-				.WithMany(e => e.Positions);
+				.WithMany(c => c.Positions)
+				.HasForeignKey(e => e.ConstructorId)
+				.HasPrincipalKey(c => c.Id);
+
+			builder.HasOne(e => e.Season)
+				.WithMany(s => s.ConstructorStandings)
+				.HasForeignKey(e => e.SeasonId)
+				.HasPrincipalKey(s => s.Id);
 		}
 	}
 }

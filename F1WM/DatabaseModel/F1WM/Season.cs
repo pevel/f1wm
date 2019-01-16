@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace F1WM.DatabaseModel
 {
 	public class Season
@@ -13,5 +15,7 @@ namespace F1WM.DatabaseModel
 		public string CarWeight { get; set; }
 		public string QualifyingRules { get; set; }
 		public uint Newstyres { get; set; }
+		public IEnumerable<DriverStandingsPosition> DriverStandings { get; set; }
+		public IEnumerable<ConstructorStandingsPosition> ConstructorStandings { get; set; }
 	}
 }

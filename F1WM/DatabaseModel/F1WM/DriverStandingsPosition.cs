@@ -11,5 +11,6 @@ namespace F1WM.DatabaseModel
 		public ushort Position { get; set; }
 		public double Points { get; set; }
 		public virtual Driver Driver { get; set; }
+		public virtual Season Season { get; set; }
 	}
 }
