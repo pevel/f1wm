@@ -1,0 +1,96 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace F1WM.DatabaseModel.Context
+{
+	public class EntryConfiguration : IEntityTypeConfiguration<Entry>
+	{
+		public void Configure(EntityTypeBuilder<Entry> builder)
+		{
+			builder.HasKey(e => e.Id);
+
+			builder.ToTable("f1entries");
+
+			builder.HasIndex(e => e.CarId)
+				.HasName("carid");
+
+			builder.HasIndex(e => e.CarMakeId)
+				.HasName("carmakeid");
+
+			builder.HasIndex(e => e.DriverId)
+				.HasName("driverid");
+
+			builder.HasIndex(e => e.EngineId)
+				.HasName("engineid");
+
+			builder.HasIndex(e => e.EngineMakeId)
+				.HasName("enginemakeid");
+
+			builder.HasIndex(e => e.RaceId)
+				.HasName("raceid");
+
+			builder.HasIndex(e => e.TeamId)
+				.HasName("teamid");
+
+			builder.HasIndex(e => e.TyresId)
+				.HasName("tyresid");
+
+			builder.Property(e => e.Id)
+				.HasColumnName("entryid")
+				.HasColumnType("mediumint unsigned");
+
+			builder.Property(e => e.CarId)
+				.HasColumnName("carid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.CarMakeId)
+				.HasColumnName("carmakeid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.DriverId)
+				.HasColumnName("driverid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.EngineId)
+				.HasColumnName("engineid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.EngineMakeId)
+				.HasColumnName("enginemakeid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.Number)
+				.HasColumnName("number")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.RaceId)
+				.HasColumnName("raceid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.TeamId)
+				.HasColumnName("teamid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.TeamNameId)
+				.HasColumnName("teamnameid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.ThirdDriver)
+				.HasColumnName("thirddriver")
+				.HasDefaultValueSql("'0'");
+
+			builder.Property(e => e.TyresId)
+				.HasColumnName("tyresid")
+				.HasColumnType("mediumint unsigned")
+				.HasDefaultValueSql("'0'");
+		}
+	}
+}

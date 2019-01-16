@@ -14,7 +14,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.Name)
 				.HasName("car");
 
-			builder.HasIndex(e => e.CarMakeId)
+			builder.HasIndex(e => e.ContstructorId)
 				.HasName("carmakeid");
 
 			builder.HasIndex(e => e.Litera)
@@ -35,7 +35,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.CarMakeId)
+			builder.Property(e => e.ContstructorId)
 				.HasColumnName("carmakeid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
