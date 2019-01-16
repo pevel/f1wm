@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
 	{
 		public uint Id { get; set; }
 		public DateTime Date { get; set; }
-		public byte Type { get; set; }
+		public byte TypeId { get; set; }
 		public int? NewsModified { get; set; }
 		public string PosterName { get; set; }
 		public uint TopicId { get; set; }
@@ -23,6 +23,6 @@ namespace F1WM.DatabaseModel
 		public string Title { get; set; }
 		public string Subtitle { get; set; }
 		public string Text { get; set; }
-        public virtual IEnumerable<F1NewsTopicmatch> Topics { get; set; }
-    }
+		public virtual IEnumerable<NewsTopicmatch> Topics { get; set; }
+	}
 }

@@ -43,9 +43,9 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
 		public virtual DbSet<RaceNews> RaceNews { get; set; }
-		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
+		public virtual DbSet<NewsTopicmatch> NewsTopicmatch { get; set; }
 		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
-		public virtual DbSet<F1NewsTypes> NewsTypes { get; set; }
+		public virtual DbSet<NewsType> NewsTypes { get; set; }
 		public virtual DbSet<OtherSession> OtherSessions { get; set; }
 		public virtual DbSet<Qualifying> Qualifying { get; set; }
 		public virtual DbSet<F1quotes> F1quotes { get; set; }
@@ -1416,10 +1416,10 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => new { e.Title, e.Subtitle })
 					.HasName("titles");
 
-				entity.HasIndex(e => new { e.Type, e.Date })
+				entity.HasIndex(e => new { e.TypeId, e.Date })
 					.HasName("news_type");
 
-				entity.HasIndex(e => new { e.Type, e.NewsHidden, e.Date })
+				entity.HasIndex(e => new { e.TypeId, e.NewsHidden, e.Date })
 					.HasName("type_hidden_date");
 
 				entity.Property(e => e.Id)
@@ -1471,7 +1471,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("news_title")
 					.HasMaxLength(80);
 
-				entity.Property(e => e.Type)
+				entity.Property(e => e.TypeId)
 					.HasColumnName("news_type");
 
 				entity.Property(e => e.Views)
@@ -1773,7 +1773,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned");
 			});
 
-			modelBuilder.Entity<F1NewsTopicmatch>(entity =>
+			modelBuilder.Entity<NewsTopicmatch>(entity =>
 			{
 				entity.HasKey(e => e.MatchId);
 
@@ -1846,7 +1846,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(25);
 			});
 
-			modelBuilder.Entity<F1NewsTypes>(entity =>
+			modelBuilder.Entity<NewsType>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
