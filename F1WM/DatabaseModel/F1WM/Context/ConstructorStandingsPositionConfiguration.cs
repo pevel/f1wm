@@ -20,6 +20,8 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.SeasonId)
 				.HasName("seasonid");
 
+			builder.HasIndex(e => e.Position);
+
 			builder.Property(e => e.Id)
 				.HasColumnName("constrcsid")
 				.HasColumnType("mediumint unsigned");

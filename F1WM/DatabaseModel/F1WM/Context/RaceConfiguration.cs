@@ -20,6 +20,8 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.Yearmonth)
 				.HasName("yearmonth");
 
+			builder.HasIndex(e => e.Date);
+
 			builder.Property(e => e.Id)
 				.HasColumnName("raceid")
 				.HasColumnType("mediumint unsigned");

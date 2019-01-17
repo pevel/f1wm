@@ -21,6 +21,8 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.RaceId)
 				.HasName("raceid");
 
+			builder.HasIndex(e => e.Time);
+
 			builder.Property(e => e.EntryId)
 				.HasColumnName("entryid")
 				.HasColumnType("mediumint unsigned")
