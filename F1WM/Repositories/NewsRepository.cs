@@ -22,11 +22,9 @@ namespace F1WM.Repositories
 
 		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			var skipRows = (page - 1) * countPerPage;
-			var result = new NewsSummaryPaged();
-
 			await SetDbEncoding();
 			IEnumerable<News> dbNews;
+
 			if (firstId != null)
 			{
 				dbNews = await context.News
@@ -47,19 +45,7 @@ namespace F1WM.Repositories
 					.ToListAsync();
 			}
 
-			result.CurrentPage = page;
-			result.RowCount = dbNews.Count();
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (int)System.Math.Ceiling(pageCount);
-
-			dbNews = dbNews.OrderByDescending(n => n.Date)
-					.Skip(skipRows)
-					.Take(countPerPage);
-
-			result.PageSize = dbNews.Count();
-			result.Result = mapper.Map<IEnumerable<NewsSummary>>(dbNews);
-
-			return result;
+			return GetPagedResult(dbNews, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -95,11 +81,9 @@ namespace F1WM.Repositories
 
 		public async Task<NewsSummaryPaged> GetNewsByTagId(int? tagId, int page, int countPerPage)
 		{
-			var skipRows = (page - 1) * countPerPage;
-			var result = new NewsSummaryPaged();
-
 			await SetDbEncoding();
 			IEnumerable<News> dbNews;
+
 			dbNews = await context.NewsTopicmatch
 					.Where(t => t.TopicId == tagId)
 					.Include(t => t.News)
@@ -108,46 +92,20 @@ namespace F1WM.Repositories
 					.Include(n => n.Topic)
 					.ToListAsync();
 
-			result.CurrentPage = page;
-			result.RowCount = dbNews.Count();
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (int)System.Math.Ceiling(pageCount);
-
-			dbNews = dbNews.OrderByDescending(n => n.Date)
-					.Skip(skipRows)
-					.Take(countPerPage);
-
-			result.PageSize = dbNews.Count();
-			result.Result = mapper.Map<IEnumerable<NewsSummary>>(dbNews);
-
-			return result;
+			return GetPagedResult(dbNews, page, countPerPage);
 		}
 
 		public async Task<NewsSummaryPaged> GetNewsByTypeId(int? typeId, int page, int countPerPage)
 		{
-			var skipRows = (page - 1) * countPerPage;
-			var result = new NewsSummaryPaged();
-
 			await SetDbEncoding();
 			IEnumerable<News> dbNews;
+
 			dbNews = await context.News
 				.Where(n => n.TypeId == typeId && !n.NewsHidden)
 				.Include(n => n.Topic)
 				.ToListAsync();
 
-			result.CurrentPage = page;
-			result.RowCount = dbNews.Count();
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (int)System.Math.Ceiling(pageCount);
-
-			dbNews = dbNews.OrderByDescending(n => n.Date)
-					.Skip(skipRows)
-					.Take(countPerPage);
-
-			result.PageSize = dbNews.Count();
-			result.Result = mapper.Map<IEnumerable<NewsSummary>>(dbNews);
-
-			return result;
+			return GetPagedResult(dbNews, page, countPerPage);
 		}
 
 		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
@@ -186,6 +144,28 @@ namespace F1WM.Repositories
 		{
 			this.context = context;
 			this.mapper = mapper;
+		}
+
+		private NewsSummaryPaged GetPagedResult(IEnumerable<News> dbNews, int page, int countPerPage)
+		{
+			var skipRows = (page - 1) * countPerPage;
+			NewsSummaryPaged result = new NewsSummaryPaged
+			{
+				CurrentPage = page,
+				RowCount = dbNews.Count()
+			};
+
+			var pageCount = (double)result.RowCount / countPerPage;
+			result.PageCount = (int)System.Math.Ceiling(pageCount);
+
+			dbNews = dbNews.OrderByDescending(n => n.Date)
+					.Skip(skipRows)
+					.Take(countPerPage);
+
+			result.PageSize = dbNews.Count();
+			result.Result = mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+
+			return result;
 		}
 	}
 }
