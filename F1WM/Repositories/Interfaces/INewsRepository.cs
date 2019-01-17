@@ -15,5 +15,6 @@ namespace F1WM.Repositories
 		Task<IEnumerable<NewsTag>> GetNewsTags();
 		Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? categoryId);
 		Task<IEnumerable<NewsCategory>> GetNewsCategories();
+		Task<bool> IncrementViews(int id);
 	}
 }

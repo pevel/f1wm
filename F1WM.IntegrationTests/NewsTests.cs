@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Controllers;
@@ -11,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class NewsTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetSingleNewsTest()
+		public async Task ShouldGetSingleNews()
 		{
 			var id = 42000;
 
@@ -29,7 +30,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithPracticeResultLinkTest()
+		public async Task ShouldGetSingleNewsWithPracticeResultLink()
 		{
 			var id = 42422;
 
@@ -51,7 +52,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithRaceResultLinkTest()
+		public async Task ShouldGetSingleNewsWithRaceResultLink()
 		{
 			var id = 2468;
 
@@ -72,7 +73,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithQualifyingResultLinkTest()
+		public async Task ShouldGetSingleNewsWithQualifyingResultLink()
 		{
 			var id = 2464;
 
@@ -93,7 +94,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetSingleNewsWithOtherResultLinkTest()
+		public async Task ShouldGetSingleNewsWithOtherResultLink()
 		{
 			var id = 1010;
 
@@ -114,7 +115,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetManyNewsTest()
+		public async Task ShouldGetManyNews()
 		{
 			var firstId = 42001;
 			var count = 5;
@@ -136,7 +137,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNewsTagsTest()
+		public async Task ShouldGetNewsTags()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/tags");
 			response.EnsureSuccessStatusCode();
@@ -153,7 +154,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNewsTypesTest()
+		public async Task ShouldGetNewsTypes()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/types");
 			response.EnsureSuccessStatusCode();
@@ -170,7 +171,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNewsCategoriesTest()
+		public async Task ShouldGetNewsCategories()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/categories");
 			response.EnsureSuccessStatusCode();
@@ -186,7 +187,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetNewsTagsByCategoryIdTest()
+		public async Task ShouldGetNewsTagsByCategoryId()
 		{
 			var id = 2;
 
@@ -205,7 +206,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetProperNewsCountByTypeIdTest()
+		public async Task ShouldGetProperNewsCountByTypeId()
 		{
 			var typeId = 1;
 			var count = 7;
@@ -219,7 +220,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetImportantNewsTest()
+		public async Task ShouldShouldGetImportantNews()
 		{
 			var response = await client.GetAsync($"{baseAddress}/news/important");
 			response.EnsureSuccessStatusCode();
@@ -233,6 +234,14 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(news.ShortText));
 				Assert.False(string.IsNullOrWhiteSpace(news.Title));
 			});
+		}
+
+		[Fact]
+		public async Task ShouldIncrementViews()
+		{
+			var id = 30676;
+			var response = await client.PostAsync($"{baseAddress}/news/{id}/views/increment", new StringContent(""));
+			response.EnsureSuccessStatusCode();
 		}
 	}
 }

@@ -6,6 +6,10 @@ namespace F1WM.DatabaseModel
 {
 	public class F1WMContext : DbContext
 	{
+		public virtual DbSet<Broadcast> Broadcasts { get; set; }
+		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
+		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
+		public virtual DbSet<BroadcastedSessionType> BroadcastedSessionTypes { get; set; }
 		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
@@ -105,6 +109,10 @@ namespace F1WM.DatabaseModel
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
+			modelBuilder.Entity<BroadcastedSessionType>()
+				.HasIndex(e => e.Name)
+				.IsUnique();
+
 			modelBuilder.Entity<AjaxChatMessages>(entity =>
 			{
 				entity.ToTable("ajax_chat_messages");
@@ -1060,6 +1068,10 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("double")
 					.HasDefaultValueSql("'0'")
 					.HasTimeConversions();
+				
+				entity.HasOne(e => e.Race)
+					.WithMany(r => r.FastestLaps)
+					.HasForeignKey(f => f.RaceId);
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>
@@ -2161,7 +2173,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Trackver)
+				entity.Property(e => e.TrackVersion)
 					.HasColumnName("trackver");
 
 				entity.Property(e => e.Weather)
@@ -2413,12 +2425,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("seasonid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Carweight)
+				entity.Property(e => e.CarWeight)
 					.IsRequired()
 					.HasColumnName("carweight")
 					.HasMaxLength(255);
 
-				entity.Property(e => e.Enginerules)
+				entity.Property(e => e.EngineRules)
 					.IsRequired()
 					.HasColumnName("enginerules")
 					.HasMaxLength(255);
@@ -2432,12 +2444,12 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Pointssystem)
+				entity.Property(e => e.PointsSystem)
 					.IsRequired()
 					.HasColumnName("pointssystem")
 					.HasMaxLength(255);
 
-				entity.Property(e => e.Qualrules)
+				entity.Property(e => e.QualifyingRules)
 					.IsRequired()
 					.HasColumnName("qualrules")
 					.HasColumnType("text");

@@ -146,6 +146,21 @@ namespace F1WM.Repositories
 			this.mapper = mapper;
 		}
 
+		public async Task<bool> IncrementViews(int id)
+		{
+			await SetDbEncoding();
+			var dbNews = await context.News
+				.Where(n => n.Id == id)
+				.FirstOrDefaultAsync();
+
+			if (dbNews == null) return false;
+
+			dbNews.Views++;
+			context.Update(dbNews);
+			await context.SaveChangesAsync();
+			return true;
+		}
+
 		private NewsSummaryPaged GetPagedResult(IEnumerable<News> dbNews, int page, int countPerPage)
 		{
 			var skipRows = (page - 1) * countPerPage;

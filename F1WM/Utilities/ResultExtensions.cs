@@ -20,4 +20,16 @@ public static class ResultExtensions
 		}
 		return dbResult;
 	}
+
+	public static double CalculateAverageSpeed(this Result dbResult)
+	{
+		if (dbResult?.Race?.Distance != null)
+		{
+			return dbResult.Race.Distance / dbResult.Time.TotalHours;
+		}
+		else
+		{
+			throw new ArgumentException("Cannot calculate average speed.", nameof(dbResult));
+		}
+	}
 }

@@ -15,5 +15,6 @@ namespace F1WM.Services
 		Task<IEnumerable<NewsTag>> GetNewsTagsByCategoryId(int? id);
 		Task<IEnumerable<NewsCategory>> GetNewsCategories();
 		Task<IEnumerable<ImportantNewsSummary>> GetImportantNews();
+		Task<bool> IncrementViews(int id);
 	}
 }

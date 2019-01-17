@@ -1,10 +1,9 @@
 using System;
 using F1WM.Services;
-using F1WM.Utilities;
 using Microsoft.Extensions.DependencyInjection;
 using Narochno.BBCode;
 
-namespace F1WM
+namespace F1WM.Startups
 {
 	public static class ServicesStartup
 	{
@@ -21,7 +20,13 @@ namespace F1WM
 				.AddTransient<ITimeService, TimeService>()
 				.AddTransient<ICalendarService, CalendarService>()
 				.AddTransient<IResultsService, ResultsService>()
-				.AddTransient<ITimeService, TimeService>();
+				.AddTransient<IAuthService, AuthService>()
+				.AddTransient<ITimeService, TimeService>()
+				.AddTransient<IVersioningService, VersioningService>()
+				.AddTransient<IBroadcastsService, BroadcastsService>()
+				.AddTransient<IGuidService, GuidService>()
+				.AddTransient<ISeasonsService, SeasonsService>()
+				.AddTransient<ITracksService, TracksService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

@@ -1,54 +1,58 @@
 using System;
+using System.IdentityModel.Tokens.Jwt;
+using F1WM.DatabaseModel;
 using F1WM.Services;
+using F1WM.Startups;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NJsonSchema;
-using NSwag;
 using NSwag.AspNetCore;
-using NSwag.SwaggerGeneration.AspNetCore;
 
 namespace F1WM
 {
 	public class Startup
 	{
-		private const string corsPolicy = "DefaultPolicy";
+		private readonly IConfiguration configuration;
+		private readonly IHostingEnvironment environment;
 		private LoggingService logger;
 
-		public Startup(IConfiguration configuration)
+		public Startup(IConfiguration configuration, IHostingEnvironment environment)
 		{
-			Configuration = configuration;
+			this.configuration = configuration;
+			this.environment = environment;
 			logger = new LoggingService(configuration);
 		}
-
-		public IConfiguration Configuration { get; }
 
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
 			try
 			{
+				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+				services
+					.AddLogging()
+					.AddSwagger()
+					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
+					.AddMemoryCache()
+					.ConfigureRepositories(configuration)
+					.ConfigureLogicServices()
+					.AddIdentity<F1WMUser, IdentityRole>()
+					.AddEntityFrameworkStores<F1WMIdentityContext>()
+					.AddDefaultTokenProviders();
+				services
+					.AddCustomAuth(environment, configuration);
 				services
 					.AddMvcCore()
 					.AddApiExplorer()
 					.AddAuthorization()
 					.AddDataAnnotations()
 					.AddFormatterMappings()
-					.AddCors(o => o.AddPolicy(corsPolicy, GetCorsPolicyBuilder()))
+					.AddCustomCors()
 					.AddJsonFormatters()
 					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
-				services
-					.AddLogging()
-					.AddSwagger()
-					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
-					.AddMemoryCache()
-					.ConfigureRepositories(Configuration)
-					.ConfigureLogicServices();
 			}
 			catch (Exception ex)
 			{
@@ -72,11 +76,11 @@ namespace F1WM
 					configurationBuilder.AddUserSecrets<Startup>();
 				}
 				configurationBuilder.AddEnvironmentVariables();
-
 				application
-					.UseForwardedHeaders(GetForwardedHeadersOptions())
-					.UseCors(corsPolicy)
-					.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()))
+					.UseCustomForwardedHeaders()
+					.UseCors(Configuration.CorsPolicy)
+					.UseCustomSwaggerUi(environment)
+					.UseAuthentication()
 					.UseMvc();
 			}
 			catch (Exception ex)
@@ -84,39 +88,6 @@ namespace F1WM
 				logger.LogError(ex);
 				throw ex;
 			}
-		}
-
-		private Action<CorsPolicyBuilder> GetCorsPolicyBuilder()
-		{
-			return builder =>
-			{
-				builder
-					.AllowAnyOrigin()
-					.AllowAnyMethod()
-					.AllowAnyHeader()
-					.AllowCredentials();
-			};
-		}
-
-		private ForwardedHeadersOptions GetForwardedHeadersOptions()
-		{
-			return new ForwardedHeadersOptions
-			{
-				ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-			};
-		}
-
-		private Action<SwaggerUi3Settings<AspNetCoreToSwaggerGeneratorSettings>> GetSwaggerUiSettings(bool httpsEnabled)
-		{
-			return settings =>
-			{
-				if (httpsEnabled)
-				{
-					settings.PostProcess = (document) => document.Schemes = new [] { SwaggerSchema.Https };
-				}
-				settings.GeneratorSettings.Title = "F1WM web API";
-				settings.GeneratorSettings.DefaultPropertyNameHandling = PropertyNameHandling.CamelCase;
-			};
 		}
 	}
 }

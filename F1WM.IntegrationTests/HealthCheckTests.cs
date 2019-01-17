@@ -8,7 +8,7 @@ namespace F1WM.IntegrationTests
 	public class HealthCheckTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task HealthCheckTest()
+		public async Task ShouldGetHealthCheck()
 		{
 			var expectedDatabaseStatus = "OK";
 

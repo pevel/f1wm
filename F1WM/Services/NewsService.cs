@@ -87,6 +87,12 @@ namespace F1WM.Services
 			return new List<ImportantNewsSummary>();
 		}
 
+		public async Task<bool> IncrementViews(int id)
+		{
+			var success = await newsRepository.IncrementViews(id);
+			return success;
+		}
+
 		public NewsService(INewsRepository newsRepository, IConfigTextRepository configTextRepository, IBBCodeParser bbCodeParser)
 		{
 			this.newsRepository = newsRepository;

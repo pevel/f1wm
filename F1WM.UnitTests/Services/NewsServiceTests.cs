@@ -123,5 +123,16 @@ namespace F1WM.UnitTests.Services
 
 			newsRepositoryMock.Verify(r => r.GetNews(It.Is<ICollection<uint>>(ids => ids.All(i => newsIds.Contains(i)))), Times.Once);
 		}
+
+		[Fact]
+		public async Task ShouldIncrementViews()
+		{
+			var id = 44000;
+			newsRepositoryMock.Setup(r => r.IncrementViews(id)).ReturnsAsync(true);
+
+			await service.IncrementViews(id);
+
+			newsRepositoryMock.Verify(r => r.IncrementViews(id), Times.Once);
+		}
 	}
 }

@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 	public class RacesTests : IntegrationTestBase
 	{
 		[Fact]
-		public async Task GetNextRaceTest()
+		public async Task ShouldGetNextRace()
 		{
 			var nowAtRequestTime = DateTime.Now;
 			var response = await client.GetAsync($"{baseAddress}/races/next");
@@ -43,7 +43,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task GetLastRaceTest()
+		public async Task ShouldGetLastRace()
 		{
 			var nowAtRequestTime = DateTime.Now;
 			var response = await client.GetAsync($"{baseAddress}/races/last");

@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class Season
@@ -11,10 +8,10 @@ namespace F1WM.DatabaseModel
 		public byte Lastrace { get; set; }
 		public string Reviewnews { get; set; }
 		public string Reviewarts { get; set; }
-		public string Pointssystem { get; set; }
-		public string Enginerules { get; set; }
-		public string Carweight { get; set; }
-		public string Qualrules { get; set; }
+		public string PointsSystem { get; set; }
+		public string EngineRules { get; set; }
+		public string CarWeight { get; set; }
+		public string QualifyingRules { get; set; }
 		public uint Newstyres { get; set; }
 	}
 }

@@ -50,22 +50,23 @@ namespace F1WM.Utilities
 		{
 			if (!string.IsNullOrEmpty(line) && line.StartsWith("^"))
 			{
+				var preparedLine = line;
 				if (line.StartsWith("^rezultat,"))
 				{
-					line = line.Replace("rezultat,", "");
+					preparedLine = line.Replace("rezultat,", "");
 				}
-				resultLink = new ResultLink()
+				if (int.TryParse(preparedLine.Replace("^", ""), out int eventId))
 				{
-					Type = ResultLinkType.Other,
-					EventId = Int32.Parse(line.Replace("^", ""))
-				};
-				return true;
+					resultLink = new ResultLink()
+					{
+						Type = ResultLinkType.Other,
+						EventId = eventId
+					};
+					return true;
+				}
 			}
-			else
-			{
-				resultLink = null;
-				return false;
-			}
+			resultLink = null;
+			return false;
 		}
 
 		private static bool TryGetPracticeResultLink(this string line, out ResultLink resultLink)
@@ -79,8 +80,8 @@ namespace F1WM.Utilities
 					resultLink = new ResultLink()
 					{
 						Type = ResultLinkType.Practice,
-						RaceId = Int32.Parse(match.Groups[1].Value),
-						Session = match.Groups[2].Value
+							RaceId = Int32.Parse(match.Groups[1].Value),
+							Session = match.Groups[2].Value
 					};
 					return true;
 				}
