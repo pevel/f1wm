@@ -13,5 +13,6 @@ namespace F1WM.DatabaseModel
 		public string Letter { get; set; }
 		public virtual IEnumerable<ConstructorStandingsPosition> Positions { get; set; }
 		public virtual Country Nationality { get; set; }
+		public virtual IEnumerable<Car> Cars { get; set; }
 	}
 }

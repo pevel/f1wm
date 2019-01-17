@@ -243,6 +243,9 @@ namespace F1WM.IntegrationTests
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<OtherResult>(responseContent);
 			Assert.NotNull(result);
+			Assert.NotNull(result.Series);
+			Assert.NotEqual(0, result.Series.Id);
+			Assert.False(string.IsNullOrWhiteSpace(result.Series.Name));
 			Assert.Equal(eventId, result.EventId);
 			Assert.False(string.IsNullOrWhiteSpace(result.EventName));
 			Assert.NotNull(result.Results);

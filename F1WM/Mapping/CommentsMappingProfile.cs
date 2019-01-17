@@ -10,7 +10,7 @@ namespace F1WM.Mapping
 		public CommentsMappingProfile()
 		{
 			CreateMap<NewsComment, Comment>()
-				.ForMember(api => api.Text, o => o.MapFrom(db => db.Text.CommText));
+				.ForMember(api => api.Text, o => o.MapFrom(db => db.Text.Text));
 		}
 	}
 }

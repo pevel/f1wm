@@ -12,5 +12,6 @@ namespace F1WM.DatabaseModel
 		public ushort Position { get; set; }
 		public double Points { get; set; }
 		public virtual Constructor Constructor { get; set; }
+		public virtual Season Season { get; set; }
 	}
 }
