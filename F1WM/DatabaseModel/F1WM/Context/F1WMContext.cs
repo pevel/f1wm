@@ -42,15 +42,15 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
-		public virtual DbSet<F1NewsCats> F1NewsCats { get; set; }
+		public virtual DbSet<NewsCategory> NewsCategories { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
 		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
 		public virtual DbSet<RaceNews> RaceNews { get; set; }
-		public virtual DbSet<F1NewsTopicmatch> F1NewsTopicmatch { get; set; }
-		public virtual DbSet<NewsTopic> NewsTopics { get; set; }
-		public virtual DbSet<F1NewsTypes> F1NewsTypes { get; set; }
+		public virtual DbSet<NewsTagMatch> NewsTagMatch { get; set; }
+		public virtual DbSet<NewsTag> NewsTopics { get; set; }
+		public virtual DbSet<NewsType> NewsTypes { get; set; }
 		public virtual DbSet<OtherSession> OtherSessions { get; set; }
 		public virtual DbSet<Qualifying> Qualifying { get; set; }
 		public virtual DbSet<F1quotes> F1quotes { get; set; }
@@ -812,17 +812,17 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<F1NewsCats>(entity =>
+			modelBuilder.Entity<NewsCategory>(entity =>
 			{
-				entity.HasKey(e => e.CatId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_cats");
 
-				entity.Property(e => e.CatId)
+				entity.Property(e => e.Id)
 					.HasColumnName("cat_id")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.CatTitle)
+				entity.Property(e => e.Title)
 					.IsRequired()
 					.HasColumnName("cat_title")
 					.HasMaxLength(20)
@@ -889,19 +889,19 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("''");
 			});
 
-			modelBuilder.Entity<F1NewsTopicmatch>(entity =>
+			modelBuilder.Entity<NewsTagMatch>(entity =>
 			{
-				entity.HasKey(e => e.MatchId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_topicmatch");
 
 				entity.HasIndex(e => e.NewsId)
 					.HasName("news_id");
 
-				entity.HasIndex(e => new { e.TopicId, e.NewsDate })
+				entity.HasIndex(e => new { e.TagId, e.NewsDate })
 					.HasName("topic_id");
 
-				entity.Property(e => e.MatchId)
+				entity.Property(e => e.Id)
 					.HasColumnName("match_id")
 					.HasColumnType("mediumint unsigned");
 
@@ -914,26 +914,26 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.TopicId)
+				entity.Property(e => e.TagId)
 					.HasColumnName("topic_id")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1NewsTypes>(entity =>
+			modelBuilder.Entity<NewsType>(entity =>
 			{
-				entity.HasKey(e => e.TypeId);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1_news_types");
 
-				entity.Property(e => e.TypeId).HasColumnName("type_id");
+				entity.Property(e => e.Id).HasColumnName("type_id");
 
-				entity.Property(e => e.TypeTitle)
+				entity.Property(e => e.Title)
 					.IsRequired()
 					.HasColumnName("type_title")
 					.HasMaxLength(45);
 
-				entity.Property(e => e.TypeTitle2)
+				entity.Property(e => e.AlternativeTitle)
 					.IsRequired()
 					.HasColumnName("type_title2")
 					.HasMaxLength(14);
