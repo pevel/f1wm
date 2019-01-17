@@ -120,11 +120,14 @@ namespace F1WM.IntegrationTests
 			var firstId = 42001;
 			var count = 5;
 
-			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&count={count}");
+			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var newsList = JsonConvert.DeserializeObject<IEnumerable<NewsSummary>>(responseContent);
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.NotNull(result);
+			Assert.Equal(count, result.PageSize);
+			var newsList = result.Result;
 			Assert.NotNull(newsList);
 			Assert.Equal(firstId, newsList.First().Id);
 			Assert.Equal(count, newsList.Count());
@@ -158,6 +161,144 @@ namespace F1WM.IntegrationTests
 			var id = 30676;
 			var response = await client.PostAsync($"{baseAddress}/news/{id}/views/increment", new StringContent(""));
 			response.EnsureSuccessStatusCode();
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTags()
+		{
+			var response = await client.GetAsync($"{baseAddress}/news/tags");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var tagsList = JsonConvert.DeserializeObject<IEnumerable<NewsTag>>(responseContent);
+			Assert.NotNull(tagsList);
+			Assert.All(tagsList, tag =>
+			{
+				Assert.NotEqual((uint)0, tag.Id);
+				Assert.NotEqual((uint)0, tag.CategoryId);
+				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTypes()
+		{
+			var response = await client.GetAsync($"{baseAddress}/news/types");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var typesList = JsonConvert.DeserializeObject<IEnumerable<NewsType>>(responseContent);
+			Assert.NotNull(typesList);
+			Assert.All(typesList, type =>
+			{
+				Assert.NotEqual((uint)0, type.Id);
+				Assert.False(string.IsNullOrWhiteSpace(type.Title));
+				Assert.False(string.IsNullOrWhiteSpace(type.AlternativeTitle));
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsCategories()
+		{
+			var response = await client.GetAsync($"{baseAddress}/news/categories");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var categoriesList = JsonConvert.DeserializeObject<IEnumerable<NewsCategory>>(responseContent);
+			Assert.NotNull(categoriesList);
+			Assert.All(categoriesList, category =>
+			{
+				Assert.NotEqual((uint)0, category.Id);
+				Assert.False(string.IsNullOrWhiteSpace(category.Title));
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTagsByCategoryId()
+		{
+			var id = 2;
+
+			var response = await client.GetAsync($"{baseAddress}/news/tags?categoryId={id}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var tagsList = JsonConvert.DeserializeObject<IEnumerable<NewsTag>>(responseContent);
+			Assert.NotNull(tagsList);
+			Assert.All(tagsList, tag =>
+			{
+				Assert.NotEqual((uint)0, tag.Id);
+				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
+				Assert.Equal((uint)id, tag.CategoryId);
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsByTypeId()
+		{
+			var typeId = 2;
+
+			var response = await client.GetAsync($"{baseAddress}/news?typeId={typeId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.NotNull(result);
+			var newsList = result.Result;
+			Assert.NotNull(newsList);
+			Assert.All(newsList, news =>
+			{
+				Assert.NotNull(news.Title);
+				Assert.NotNull(news.Subtitle);
+				Assert.Equal(typeId, news.TypeId);
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsByTagId()
+		{
+			var tagId = 1;
+
+			var response = await client.GetAsync($"{baseAddress}/news?tagId={tagId}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.NotNull(result);
+			var newsList = result.Result;
+			Assert.NotNull(newsList);
+			Assert.All(newsList, news =>
+			{
+				Assert.NotNull(news.Title);
+				Assert.NotNull(news.Subtitle);			
+			});
+		}
+
+		[Fact]
+		public async Task ShouldGetProperNewsCountByTypeId()
+		{
+			var typeId = 1;
+			var count = 7;
+
+			var response = await client.GetAsync($"{baseAddress}/news?typeId={typeId}&countPerPage={count}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.Equal(result.Result.Count(), count);
+		}
+
+		[Fact]
+		public async Task ShouldGetProperNewsCountByTagId()
+		{
+			var tagId = 2;
+			var count = 7;
+
+			var response = await client.GetAsync($"{baseAddress}/news?tagId={tagId}&countPerPage={count}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			Assert.Equal(result.Result.Count(), count);
 		}
 	}
 }
