@@ -3,31 +3,31 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1WM.DatabaseModel.Context
 {
-	public class NewsTopicConfiguration : IEntityTypeConfiguration<NewsTopic>
+	public class NewsTagConfiguration : IEntityTypeConfiguration<NewsTag>
 	{
-		public void Configure(EntityTypeBuilder<NewsTopic> builder)
+		public void Configure(EntityTypeBuilder<NewsTag> builder)
 		{
-			builder.HasKey(e => e.TopicId);
+			builder.HasKey(e => e.Id);
 
 			builder.ToTable("f1_news_topics");
 
-			builder.HasIndex(e => e.CatId)
+			builder.HasIndex(e => e.CategoryId)
 				.HasName("cat_id");
 
 			builder.HasIndex(e => e.Searches)
 				.HasName("searches");
 
-			builder.HasIndex(e => e.TopicTitle)
+			builder.HasIndex(e => e.Title)
 				.HasName("topic_title");
 
-			builder.HasIndex(e => new { e.CatId, e.TopicTitle })
+			builder.HasIndex(e => new { e.CategoryId, e.Title })
 				.HasName("cat+title");
 
-			builder.Property(e => e.TopicId)
+			builder.Property(e => e.Id)
 				.HasColumnName("topic_id")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.CatId)
+			builder.Property(e => e.CategoryId)
 				.HasColumnName("cat_id")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
@@ -37,11 +37,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.TopicIcon)
-				.HasColumnName("topic_icon")
-				.HasMaxLength(20);
-
-			builder.Property(e => e.TopicTitle)
+			builder.Property(e => e.Title)
 				.IsRequired()
 				.HasColumnName("topic_title")
 				.HasMaxLength(25);
