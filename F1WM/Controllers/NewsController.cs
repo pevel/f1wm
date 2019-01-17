@@ -13,18 +13,29 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class NewsController : ControllerBase
 	{
-		private const int defaultLatestNewsCount = 20;
+		private const int defaultPage = 1;
+		private const int defaultCountPerPage = 20;
 
 		private readonly INewsService service;
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		public async Task<IEnumerable<NewsSummary>> GetMany(
-			[FromQuery(Name = "firstId")] int? firstId = null, [FromQuery(Name = "count")] int count = defaultLatestNewsCount)
+		public async Task<NewsSummaryPaged> GetMany(
+					[FromQuery(Name = "firstId")] int? firstId = null,
+					[FromQuery(Name = "tagId")] int? tagId = null,
+					[FromQuery(Name = "typeId")] int? typeId = null,
+					[FromQuery(Name = "page")] int page = defaultPage,
+					[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			try
 			{
-				return await service.GetLatestNews(count, firstId);
+				if (tagId != null)
+					return await service.GetNewsByTagId(tagId, page, countPerPage);
+				else if (typeId != null)
+					return await service.GetNewsByTypeId(typeId, page, countPerPage);
+				else
+					return await service.GetLatestNews(firstId, page, countPerPage);
+
 			}
 			catch (Exception ex)
 			{
@@ -32,6 +43,7 @@ namespace F1WM.Controllers
 				throw ex;
 			}
 		}
+
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(NewsDetails))]
@@ -41,6 +53,52 @@ namespace F1WM.Controllers
 			{
 				var news = await service.GetNewsDetails(id);
 				return (news != null ? (IActionResult)Ok(news) : (IActionResult)NotFound());
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpGet("types")]
+		public async Task<IEnumerable<NewsType>> GetTypes()
+		{
+			try
+			{
+				return await service.GetNewsTypes();
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpGet("tags")]
+		public async Task<IEnumerable<NewsTag>> GetTags([FromQuery(Name = "categoryId")] int? id = null)
+		{
+			try
+			{
+				if (id != null)
+					return await service.GetNewsTagsByCategoryId(id);
+				else
+					return await service.GetNewsTags();
+
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
+		[HttpGet("categories")]
+		public async Task<IEnumerable<NewsCategory>> GetCategories()
+		{
+			try
+			{
+				return await service.GetNewsCategories();
 			}
 			catch (Exception ex)
 			{

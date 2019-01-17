@@ -20,32 +20,30 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
 		}
 
-		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId = null)
+		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
 			await SetDbEncoding();
-			IEnumerable<News> dbNews;
+			IQueryable<News> dbNews;
+
 			if (firstId != null)
 			{
-				dbNews = await context.News
+				dbNews = context.News
 					.Join(context.News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
 					.Where(n => n.n1.Date >= n.n2.Date)
 					.Select(n => n.n2)
-					.Include(n => n.Topic)
+					.Include(n => n.Tag)
 					.Where(n => !n.NewsHidden)
-					.OrderByDescending(n => n.Date)
-					.Take(count)
-					.ToListAsync();
+					.OrderByDescending(n => n.Date);
 			}
 			else
 			{
-				dbNews = await context.News
+				dbNews = context.News
 					.Where(n => !n.NewsHidden)
-					.Include(n => n.Topic)
-					.OrderByDescending(n => n.Date)
-					.Take(count)
-					.ToListAsync();
+					.Include(n => n.Tag)
+					.OrderByDescending(n => n.Date);
 			}
-			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+
+			return GetPagedResult(dbNews, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -79,6 +77,65 @@ namespace F1WM.Repositories
 			return news;
 		}
 
+		public async Task<NewsSummaryPaged> GetNewsByTagId(int? tagId, int page, int countPerPage)
+		{
+			await SetDbEncoding();
+			IQueryable<News> dbNews;
+
+			dbNews = context.NewsTagMatch
+					.Where(t => t.TagId == tagId)
+					.Include(t => t.News)
+					.Select(t => t.News)
+					.Where(n => !n.NewsHidden)
+					.Include(n => n.Tag);
+
+			return GetPagedResult(dbNews, page, countPerPage);
+		}
+
+		public async Task<NewsSummaryPaged> GetNewsByTypeId(int? typeId, int page, int countPerPage)
+		{
+			await SetDbEncoding();
+			IQueryable<News> dbNews;
+
+			dbNews = context.News
+				.Where(n => n.TypeId == typeId && !n.NewsHidden)
+				.Include(n => n.Tag);
+
+			return GetPagedResult(dbNews, page, countPerPage);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
+		{
+			await SetDbEncoding();
+			IEnumerable<DatabaseModel.NewsType> dbNewsTypes;
+			dbNewsTypes = await context.NewsTypes.ToListAsync();
+			return mapper.Map<IEnumerable<ApiModel.NewsType>>(dbNewsTypes);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTags()
+		{
+			await SetDbEncoding();
+			IEnumerable<DatabaseModel.NewsTag> dbNewsTags;
+			dbNewsTags = await context.NewsTopics.ToListAsync();
+			return mapper.Map<IEnumerable<ApiModel.NewsTag>>(dbNewsTags);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int? categoryId)
+		{
+			await SetDbEncoding();
+			IEnumerable<DatabaseModel.NewsTag> dbNewsTags;
+			dbNewsTags = await context.NewsTopics.Where(nt => nt.CategoryId == categoryId).ToListAsync();
+			return mapper.Map<IEnumerable<ApiModel.NewsTag>>(dbNewsTags);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsCategory>> GetNewsCategories()
+		{
+			await SetDbEncoding();
+			IEnumerable<DatabaseModel.NewsCategory> dbCategories;
+			dbCategories = await context.NewsCategories.ToListAsync();
+			return mapper.Map<IEnumerable<ApiModel.NewsCategory>>(dbCategories);
+		}
+
 		public NewsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
@@ -98,6 +155,28 @@ namespace F1WM.Repositories
 			context.Update(dbNews);
 			await context.SaveChangesAsync();
 			return true;
+		}
+
+		private NewsSummaryPaged GetPagedResult(IQueryable<News> dbNews, int page, int countPerPage)
+		{
+			var skipRows = (page - 1) * countPerPage;
+			NewsSummaryPaged result = new NewsSummaryPaged
+			{
+				CurrentPage = page,
+				RowCount = dbNews.Count()
+			};
+
+			var pageCount = (double)result.RowCount / countPerPage;
+			result.PageCount = (int)System.Math.Ceiling(pageCount);
+
+			dbNews = dbNews.OrderByDescending(n => n.Date)
+					.Skip(skipRows)
+					.Take(countPerPage);
+
+			result.PageSize = dbNews.Count();
+			result.Result = mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+
+			return result;
 		}
 	}
 }

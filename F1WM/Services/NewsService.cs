@@ -18,10 +18,9 @@ namespace F1WM.Services
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
 
-		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId)
+		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			var news = await newsRepository.GetLatestNews(count, firstId);
-			return news.Select(n => n.ResolveTopicIcon());
+			return await newsRepository.GetLatestNews(firstId, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -41,7 +40,7 @@ namespace F1WM.Services
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
-				using(StringReader reader = new StringReader(configText.Value))
+				using (StringReader reader = new StringReader(configText.Value))
 				{
 					string line;
 					while ((line = reader.ReadLine()) != null)
@@ -56,6 +55,36 @@ namespace F1WM.Services
 				return summaries;
 			}
 			return new List<ImportantNewsSummary>();
+		}
+
+		public async Task<NewsSummaryPaged> GetNewsByTagId(int? id, int page, int countPerPage)
+		{
+			return await newsRepository.GetNewsByTagId(id, page, countPerPage);
+		}
+
+		public async Task<NewsSummaryPaged> GetNewsByTypeId(int? id, int page, int countPerPage)
+		{
+			return await newsRepository.GetNewsByTypeId(id, page, countPerPage);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
+		{
+			return await newsRepository.GetNewsTypes();
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTags()
+		{
+			return await newsRepository.GetNewsTags();
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int? id)
+		{
+			return await newsRepository.GetNewsTagsByCategoryId(id);
+		}
+
+		public async Task<IEnumerable<ApiModel.NewsCategory>> GetNewsCategories()
+		{
+			return await newsRepository.GetNewsCategories();
 		}
 
 		public async Task<bool> IncrementViews(int id)
