@@ -73,26 +73,30 @@ namespace F1WM.UnitTests.Services
 		[Fact]
 		public async Task ShouldGetNewsCategories()
 		{
-			await service.GetNewsCategories();
+			await service.GetNewsTagCategories();
 
-			newsRepositoryMock.Verify(r => r.GetNewsCategories(), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetNewsTagCategories(), Times.Once);
 		}
 
 		[Fact]
 		public async Task ShouldGetNewsTagsByCategoryId()
 		{
 			var id = 1;
-			await service.GetNewsTagsByCategoryId(id);
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsTagsByCategoryId(id, page, countPerPage);
 
-			newsRepositoryMock.Verify(r => r.GetNewsTagsByCategoryId(id), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetNewsTagsByCategoryId(id, page, countPerPage), Times.Once);
 		}
 
 		[Fact]
 		public async Task ShouldGetNewsTags()
 		{
-			await service.GetNewsTags();
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsTags(page, countPerPage);
 
-			newsRepositoryMock.Verify(r => r.GetNewsTags(), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetNewsTags(page, countPerPage), Times.Once);
 		}
 
 		[Fact]

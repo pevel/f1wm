@@ -26,7 +26,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnLast20NewsByDefault()
 		{
-			await controller.GetMany(null);
+			await controller.GetManyNews(null);
 
 			serviceMock.Verify(s => s.GetLatestNews(null, 1, 20), Times.Once);
 		}
@@ -36,7 +36,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var count = 5;
 
-			await controller.GetMany(null, null, null, 1, count);
+			await controller.GetManyNews(null, null, null, 1, count);
 
 			serviceMock.Verify(s => s.GetLatestNews(null, 1, count), Times.Once);
 		}
@@ -46,7 +46,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var page = 2;
 
-			await controller.GetMany(null, null, null, page);
+			await controller.GetManyNews(null, null, null, page);
 
 			serviceMock.Verify(s => s.GetLatestNews(null, page, 20), Times.Once);
 		}
@@ -56,7 +56,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var firstId = 42;
 
-			await controller.GetMany(firstId);
+			await controller.GetManyNews(firstId);
 
 			serviceMock.Verify(s => s.GetLatestNews(firstId, 1, 20), Times.Once);
 		}
@@ -101,29 +101,29 @@ namespace F1WM.UnitTests.Controllers
 			Assert.Empty(result);
 		}
 
-        [Fact]
-        public async Task ShouldReturn404IfNoNewsToIncrement()
-        {
-            var id = 44;
+		[Fact]
+		public async Task ShouldReturn404IfNoNewsToIncrement()
+		{
+			var id = 44;
 
-            var result = await controller.IncremetViews(id);
+			var result = await controller.IncremetViews(id);
 
-            serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
-            Assert.IsType<NotFoundResult>(result);
-        }
+			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
+			Assert.IsType<NotFoundResult>(result);
+		}
 
-        [Fact]
-        public async Task ShouldReturn200IfViewsIncremented()
-        {
-            var id = 44000;
+		[Fact]
+		public async Task ShouldReturn200IfViewsIncremented()
+		{
+			var id = 44000;
 
-            serviceMock.Setup(s => s.IncrementViews(id)).ReturnsAsync(true);
+			serviceMock.Setup(s => s.IncrementViews(id)).ReturnsAsync(true);
 
-            var result = await controller.IncremetViews(id);
+			var result = await controller.IncremetViews(id);
 
-            serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
-            Assert.IsType<OkResult>(result);
-        }
+			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
+			Assert.IsType<OkResult>(result);
+		}
 
 		[Fact]
 		public async Task ShouldReturnNewsTypes()
@@ -138,15 +138,15 @@ namespace F1WM.UnitTests.Controllers
 		{
 			await controller.GetTags();
 
-			serviceMock.Verify(s => s.GetNewsTags(), Times.Once);
+			serviceMock.Verify(s => s.GetNewsTags(1, 20), Times.Once);
 		}
 
 		[Fact]
 		public async Task ShouldReturnNewsCategories()
 		{
-			await controller.GetCategories();
+			await controller.GetTagCategories();
 
-			serviceMock.Verify(s => s.GetNewsCategories(), Times.Once);
+			serviceMock.Verify(s => s.GetNewsTagCategories(), Times.Once);
 		}
 
 		[Fact]
@@ -156,7 +156,7 @@ namespace F1WM.UnitTests.Controllers
 
 			await controller.GetTags(categoryId);
 
-			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
+			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId, 1, 20), Times.Once);
 		}
 
 		[Fact]
@@ -164,7 +164,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var typeId = 1;
 
-			await controller.GetMany(null, null, typeId);
+			await controller.GetManyNews(null, null, typeId);
 
 			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
 		}
@@ -174,7 +174,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var tagId = 4;
 
-			await controller.GetMany(null, tagId);
+			await controller.GetManyNews(null, tagId);
 
 			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
 		}
@@ -195,7 +195,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Setup(s => s.GetNewsByTagId(tagId, 1, 20)).ReturnsAsync(emptyResponse);
 
-			var result = await controller.GetMany(null, tagId);
+			var result = await controller.GetManyNews(null, tagId);
 
 			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
 			Assert.Empty(result.Result);
@@ -217,7 +217,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Setup(s => s.GetNewsByTypeId(typeId, 1, 20)).ReturnsAsync(emptyResponse);
 
-			var result = await controller.GetMany(null, null, typeId);
+			var result = await controller.GetManyNews(null, null, typeId);
 
 			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
 			Assert.Empty(result.Result);
@@ -227,11 +227,22 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnEmptyListOfTagsByCategoryId()
 		{
 			var categoryId = 10;
+			IEnumerable<NewsTag> emptyResult = Enumerable.Empty<NewsTag>();
+			NewsTagsPaged emptyResponse = new NewsTagsPaged
+			{
+				CurrentPage = 1,
+				PageCount = 0,
+				PageSize = 0,
+				RowCount = 0,
+				Result = emptyResult
+			};
+
+			serviceMock.Setup(s => s.GetNewsTagsByCategoryId(categoryId, 1, 20)).ReturnsAsync(emptyResponse);
 
 			var result = await controller.GetTags(categoryId);
 
-			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId), Times.Once);
-			Assert.Empty(result);
+			serviceMock.Verify(s => s.GetNewsTagsByCategoryId(categoryId, 1, 20), Times.Once);
+			Assert.Empty(result.Result);
 		}
 
 	}
