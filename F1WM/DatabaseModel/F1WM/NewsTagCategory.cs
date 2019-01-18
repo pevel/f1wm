@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-	public class NewsCategory
+	public class NewsTagCategory
 	{
 		public uint Id { get; set; }
 		public string Title { get; set; }

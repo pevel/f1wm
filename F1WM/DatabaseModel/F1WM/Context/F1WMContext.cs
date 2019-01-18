@@ -42,14 +42,14 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
-		public virtual DbSet<NewsCategory> NewsCategories { get; set; }
+		public virtual DbSet<NewsTagCategory> NewsCategories { get; set; }
 		public virtual DbSet<NewsComment> NewsComments { get; set; }
 		public virtual DbSet<NewsCommentText> NewsCommentTexts { get; set; }
 		public virtual DbSet<F1Newseditorcats> F1Newseditorcats { get; set; }
 		public virtual DbSet<F1Newseditordata> F1Newseditordata { get; set; }
 		public virtual DbSet<RaceNews> RaceNews { get; set; }
-		public virtual DbSet<NewsTagMatch> NewsTagMatch { get; set; }
-		public virtual DbSet<NewsTag> NewsTopics { get; set; }
+		public virtual DbSet<NewsTagMatch> NewsTagMatches { get; set; }
+		public virtual DbSet<NewsTag> NewsTags { get; set; }
 		public virtual DbSet<NewsType> NewsTypes { get; set; }
 		public virtual DbSet<OtherSession> OtherSessions { get; set; }
 		public virtual DbSet<Qualifying> Qualifying { get; set; }
@@ -812,7 +812,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<NewsCategory>(entity =>
+			modelBuilder.Entity<NewsTagCategory>(entity =>
 			{
 				entity.HasKey(e => e.Id);
 
