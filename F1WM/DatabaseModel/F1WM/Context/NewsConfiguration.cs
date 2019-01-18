@@ -98,7 +98,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("poster_name")
 				.HasMaxLength(30);
 
-			builder.Property(e => e.TagId)
+			builder.Property(e => e.MainTagId)
 				.HasColumnName("topic_id")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");

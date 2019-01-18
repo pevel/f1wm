@@ -10,8 +10,8 @@ namespace F1WM.DatabaseModel
 		public byte TypeId { get; set; }
 		public int? NewsModified { get; set; }
 		public string PosterName { get; set; }
-		public uint TagId { get; set; }
-		public NewsTag Tag { get; set; }
+		public uint MainTagId { get; set; }
+		public NewsTag MainTag { get; set; }
 		public string Redirect { get; set; }
 		public bool NewsHidden { get; set; }
 		public ushort CommentCount { get; set; }
