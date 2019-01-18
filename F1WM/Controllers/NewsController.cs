@@ -20,7 +20,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		public async Task<NewsSummaryPaged> GetMany(
+		public async Task<NewsSummaryPaged> GetManyNews(
 					[FromQuery(Name = "firstId")] int? firstId = null,
 					[FromQuery(Name = "tagId")] int? tagId = null,
 					[FromQuery(Name = "typeId")] int? typeId = null,
@@ -30,9 +30,9 @@ namespace F1WM.Controllers
 			try
 			{
 				if (tagId != null)
-					return await service.GetNewsByTagId(tagId, page, countPerPage);
+					return await service.GetNewsByTagId((int)tagId, page, countPerPage);
 				else if (typeId != null)
-					return await service.GetNewsByTypeId(typeId, page, countPerPage);
+					return await service.GetNewsByTypeId((int)typeId, page, countPerPage);
 				else
 					return await service.GetLatestNews(firstId, page, countPerPage);
 
@@ -76,14 +76,17 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("tags")]
-		public async Task<IEnumerable<NewsTag>> GetTags([FromQuery(Name = "categoryId")] int? id = null)
+		public async Task<NewsTagsPaged> GetTags(
+			[FromQuery(Name = "categoryId")] int? id = null,
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			try
 			{
 				if (id != null)
-					return await service.GetNewsTagsByCategoryId(id);
+					return await service.GetNewsTagsByCategoryId((int)id, page, countPerPage);
 				else
-					return await service.GetNewsTags();
+					return await service.GetNewsTags(page, countPerPage);
 
 			}
 			catch (Exception ex)
@@ -94,11 +97,11 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("categories")]
-		public async Task<IEnumerable<NewsCategory>> GetCategories()
+		public async Task<IEnumerable<NewsTagCategory>> GetTagCategories()
 		{
 			try
 			{
-				return await service.GetNewsCategories();
+				return await service.GetNewsTagCategories();
 			}
 			catch (Exception ex)
 			{
