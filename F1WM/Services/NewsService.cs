@@ -18,9 +18,9 @@ namespace F1WM.Services
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
 
-		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
+		public Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			return await newsRepository.GetLatestNews(firstId, page, countPerPage);
+			return newsRepository.GetLatestNews(firstId, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -57,34 +57,34 @@ namespace F1WM.Services
 			return new List<ImportantNewsSummary>();
 		}
 
-		public async Task<NewsSummaryPaged> GetNewsByTagId(int? id, int page, int countPerPage)
+		public Task<NewsSummaryPaged> GetNewsByTagId(int id, int page, int countPerPage)
 		{
-			return await newsRepository.GetNewsByTagId(id, page, countPerPage);
+			return newsRepository.GetNewsByTagId(id, page, countPerPage);
 		}
 
-		public async Task<NewsSummaryPaged> GetNewsByTypeId(int? id, int page, int countPerPage)
+		public Task<NewsSummaryPaged> GetNewsByTypeId(int id, int page, int countPerPage)
 		{
-			return await newsRepository.GetNewsByTypeId(id, page, countPerPage);
+			return newsRepository.GetNewsByTypeId(id, page, countPerPage);
 		}
 
-		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
+		public Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
 		{
-			return await newsRepository.GetNewsTypes();
+			return newsRepository.GetNewsTypes();
 		}
 
-		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTags()
+		public Task<NewsTagsPaged> GetNewsTags(int page, int countPerPage)
 		{
-			return await newsRepository.GetNewsTags();
+			return newsRepository.GetNewsTags(page, countPerPage);
 		}
 
-		public async Task<IEnumerable<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int? id)
+		public Task<NewsTagsPaged> GetNewsTagsByCategoryId(int id, int page, int countPerPage)
 		{
-			return await newsRepository.GetNewsTagsByCategoryId(id);
+			return newsRepository.GetNewsTagsByCategoryId(id, page, countPerPage);
 		}
 
-		public async Task<IEnumerable<ApiModel.NewsCategory>> GetNewsCategories()
+		public Task<IEnumerable<ApiModel.NewsTagCategory>> GetNewsTagCategories()
 		{
-			return await newsRepository.GetNewsCategories();
+			return newsRepository.GetNewsTagCategories();
 		}
 
 		public async Task<bool> IncrementViews(int id)
