@@ -264,6 +264,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(r.Car);
 				Assert.NotEqual(0, r.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(r.Car.Name));
+				Assert.False(string.IsNullOrWhiteSpace(r.TeamName));
 				Assert.NotNull(r.Driver);
 				Assert.NotEqual(0, r.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(r.Driver.FirstName));
