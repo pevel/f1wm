@@ -10,5 +10,6 @@ namespace F1WM.DatabaseModel
 		public uint TagId { get; set; }
 		public DateTime NewsDate { get; set; }
 		public virtual News News { get; set; }
+		public virtual NewsTag Tag { get; set; }
 	}
 }
