@@ -46,9 +46,68 @@ namespace F1WM.UnitTests.Services
 			var count = 21;
 			var firstId = 43;
 
-			await service.GetLatestNews(count, firstId);
+			await service.GetLatestNews(firstId, 1, count);
 
-			newsRepositoryMock.Verify(r => r.GetLatestNews(count, firstId), Times.Once);
+			newsRepositoryMock.Verify(r => r.GetLatestNews(firstId, 1, count), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTypes()
+		{
+			await service.GetNewsTypes();
+
+			newsRepositoryMock.Verify(r => r.GetNewsTypes(), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsByTypeId()
+		{
+			var id = 2;
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsByTypeId(id, page, countPerPage);
+
+			newsRepositoryMock.Verify(r => r.GetNewsByTypeId(id, page, countPerPage), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsCategories()
+		{
+			await service.GetNewsTagCategories();
+
+			newsRepositoryMock.Verify(r => r.GetNewsTagCategories(), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTagsByCategoryId()
+		{
+			var id = 1;
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsTagsByCategoryId(id, page, countPerPage);
+
+			newsRepositoryMock.Verify(r => r.GetNewsTagsByCategoryId(id, page, countPerPage), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsTags()
+		{
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsTags(page, countPerPage);
+
+			newsRepositoryMock.Verify(r => r.GetNewsTags(page, countPerPage), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNewsByTagId()
+		{
+			var id = 1;
+			var page = 1;
+			var countPerPage = 20;
+			await service.GetNewsByTagId(id, page, countPerPage);
+
+			newsRepositoryMock.Verify(r => r.GetNewsByTagId(id, page, countPerPage), Times.Once);
 		}
 
 		[Fact]

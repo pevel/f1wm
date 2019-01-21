@@ -18,10 +18,9 @@ namespace F1WM.Services
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
 
-		public async Task<IEnumerable<NewsSummary>> GetLatestNews(int count, int? firstId)
+		public Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			var news = await newsRepository.GetLatestNews(count, firstId);
-			return news.Select(n => n.ResolveTopicIcon());
+			return newsRepository.GetLatestNews(firstId, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -41,7 +40,7 @@ namespace F1WM.Services
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
-				using(StringReader reader = new StringReader(configText.Value))
+				using (StringReader reader = new StringReader(configText.Value))
 				{
 					string line;
 					while ((line = reader.ReadLine()) != null)
@@ -56,6 +55,36 @@ namespace F1WM.Services
 				return summaries;
 			}
 			return new List<ImportantNewsSummary>();
+		}
+
+		public Task<NewsSummaryPaged> GetNewsByTagId(int id, int page, int countPerPage)
+		{
+			return newsRepository.GetNewsByTagId(id, page, countPerPage);
+		}
+
+		public Task<NewsSummaryPaged> GetNewsByTypeId(int id, int page, int countPerPage)
+		{
+			return newsRepository.GetNewsByTypeId(id, page, countPerPage);
+		}
+
+		public Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
+		{
+			return newsRepository.GetNewsTypes();
+		}
+
+		public Task<NewsTagsPaged> GetNewsTags(int page, int countPerPage)
+		{
+			return newsRepository.GetNewsTags(page, countPerPage);
+		}
+
+		public Task<NewsTagsPaged> GetNewsTagsByCategoryId(int id, int page, int countPerPage)
+		{
+			return newsRepository.GetNewsTagsByCategoryId(id, page, countPerPage);
+		}
+
+		public Task<IEnumerable<ApiModel.NewsTagCategory>> GetNewsTagCategories()
+		{
+			return newsRepository.GetNewsTagCategories();
 		}
 
 		public async Task<bool> IncrementViews(int id)

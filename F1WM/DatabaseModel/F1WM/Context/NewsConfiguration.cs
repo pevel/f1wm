@@ -26,10 +26,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => new { e.Title, e.Subtitle })
 				.HasName("titles");
 
-			builder.HasIndex(e => new { e.Type, e.Date })
+			builder.HasIndex(e => new { e.TypeId, e.Date })
 				.HasName("news_type");
 
-			builder.HasIndex(e => new { e.Type, e.NewsHidden, e.Date })
+			builder.HasIndex(e => new { e.TypeId, e.NewsHidden, e.Date })
 				.HasName("type_hidden_date");
 
 			builder.Property(e => e.Id)
@@ -81,7 +81,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("news_title")
 				.HasMaxLength(80);
 
-			builder.Property(e => e.Type)
+			builder.Property(e => e.TypeId)
 				.HasColumnName("news_type");
 
 			builder.Property(e => e.Views)
@@ -98,7 +98,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("poster_name")
 				.HasMaxLength(30);
 
-			builder.Property(e => e.TopicId)
+			builder.Property(e => e.MainTagId)
 				.HasColumnName("topic_id")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
