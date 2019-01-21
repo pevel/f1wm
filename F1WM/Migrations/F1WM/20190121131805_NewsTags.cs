@@ -6,10 +6,6 @@ namespace F1WM.Migrations.F1WM
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropColumn(
-                name: "topic_icon",
-                table: "f1_news_topics");
-
             migrationBuilder.AddForeignKey(
                 name: "FK_f1_news_topicmatch_f1_news_news_id",
                 table: "f1_news_topicmatch",
@@ -36,12 +32,6 @@ namespace F1WM.Migrations.F1WM
             migrationBuilder.DropForeignKey(
                 name: "FK_f1_news_topicmatch_f1_news_topics_topic_id",
                 table: "f1_news_topicmatch");
-
-            migrationBuilder.AddColumn<string>(
-                name: "topic_icon",
-                table: "f1_news_topics",
-                maxLength: 20,
-                nullable: true);
         }
     }
 }
