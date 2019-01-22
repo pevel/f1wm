@@ -16,8 +16,8 @@ namespace F1WM.Repositories
 		public async Task<IEnumerable<NewsSummary>> GetNews(ICollection<uint> ids)
 		{
 			await SetDbEncoding();
-			var dbNews = await context.News.Where(n => ids.Contains(n.Id)).ToListAsync();
-			return mapper.Map<IEnumerable<NewsSummary>>(dbNews);
+			var dbNews = context.News.Where(n => ids.Contains(n.Id));
+			return await mapper.ProjectTo<NewsSummary>(dbNews).ToListAsync();
 		}
 
 		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
