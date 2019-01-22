@@ -3,18 +3,20 @@ using System;
 using F1WM.DatabaseModel;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace F1WM.Migrations.F1WM
 {
     [DbContext(typeof(F1WMContext))]
-    partial class F1WMContextModelSnapshot : ModelSnapshot
+    [Migration("20190117173049_IndexesForSorting")]
+    partial class IndexesForSorting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.0-rtm-35687")
+                .HasAnnotation("ProductVersion", "2.2.1-servicing-10028")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("F1WM.DatabaseModel.AjaxChatMessages", b =>

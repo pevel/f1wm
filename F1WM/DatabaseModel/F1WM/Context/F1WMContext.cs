@@ -812,23 +812,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<NewsTagCategory>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1_news_cats");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("cat_id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Title)
-					.IsRequired()
-					.HasColumnName("cat_title")
-					.HasMaxLength(20)
-					.HasDefaultValueSql("''");
-			});
-
 			modelBuilder.Entity<F1Newseditorcats>(entity =>
 			{
 				entity.HasKey(e => e.Catid);
@@ -887,56 +870,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("url")
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<NewsTagMatch>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1_news_topicmatch");
-
-				entity.HasIndex(e => e.NewsId)
-					.HasName("news_id");
-
-				entity.HasIndex(e => new { e.TagId, e.NewsDate })
-					.HasName("topic_id");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("match_id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.NewsDate)
-					.HasColumnName("news_date")
-					.HasColumnType("datetime");
-
-				entity.Property(e => e.NewsId)
-					.HasColumnName("news_id")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.TagId)
-					.HasColumnName("topic_id")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<NewsType>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1_news_types");
-
-				entity.Property(e => e.Id).HasColumnName("type_id");
-
-				entity.Property(e => e.Title)
-					.IsRequired()
-					.HasColumnName("type_title")
-					.HasMaxLength(45);
-
-				entity.Property(e => e.AlternativeTitle)
-					.IsRequired()
-					.HasColumnName("type_title2")
-					.HasMaxLength(14);
 			});
 
 			modelBuilder.Entity<F1quotes>(entity =>
