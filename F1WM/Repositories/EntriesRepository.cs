@@ -15,10 +15,8 @@ namespace F1WM.Repositories
 		{
 			var apiEntries = new RaceEntriesInformation() { RaceId = raceId };
 			var dbEntries = context.Entries
-				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Include(e => e.Car).ThenInclude(c => c.Constructor)
 				.Where(e => e.RaceId == raceId)
-				.OrderBy(e => e.IsThirdDriver).OrderBy(e => e.Number);
+				.OrderBy(e => e.IsThirdDriver).ThenBy(e => e.Number);
 			apiEntries.Entries = await mapper.ProjectTo<RaceEntry>(dbEntries).ToListAsync();
 			return apiEntries;
 		}

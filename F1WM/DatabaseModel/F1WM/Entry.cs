@@ -25,5 +25,7 @@ namespace F1WM.DatabaseModel
 		public virtual Car Car { get; set; }
 		public virtual Tyres Tyres { get; set; }
 		public virtual Qualifying Qualifying { get; set; }
+		public virtual Engine Engine { get; set; }
+		public virtual Team Team { get; set; }
 	}
 }

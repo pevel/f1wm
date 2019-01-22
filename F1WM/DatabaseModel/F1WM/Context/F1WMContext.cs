@@ -29,7 +29,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
 		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
-		public virtual DbSet<F1engines> F1engines { get; set; }
+		public virtual DbSet<Engine> F1engines { get; set; }
 		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<FastestLap> FastestLaps { get; set; }
@@ -61,7 +61,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
 		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
-		public virtual DbSet<F1teams> F1teams { get; set; }
+		public virtual DbSet<Team> F1teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
 		public virtual DbSet<Tyres> Tyres { get; set; }
@@ -502,37 +502,37 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("'0'");
 			});
 
-			modelBuilder.Entity<F1engines>(entity =>
+			modelBuilder.Entity<Engine>(entity =>
 			{
-				entity.HasKey(e => e.Engineid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1engines");
 
-				entity.HasIndex(e => e.Engine)
+				entity.HasIndex(e => e.Name)
 					.HasName("engine");
 
-				entity.HasIndex(e => e.Enginemakeid)
+				entity.HasIndex(e => e.EngineMakeId)
 					.HasName("enginemakeid");
 
-				entity.HasIndex(e => e.Litera)
+				entity.HasIndex(e => e.Letter)
 					.HasName("litera");
 
-				entity.Property(e => e.Engineid)
+				entity.Property(e => e.Id)
 					.HasColumnName("engineid")
 					.HasColumnType("mediumint unsigned");
 
-				entity.Property(e => e.Engine)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("engine")
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.Enginemakeid)
+				entity.Property(e => e.EngineMakeId)
 					.HasColumnName("enginemakeid")
 					.HasColumnType("mediumint unsigned")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Litera)
+				entity.Property(e => e.Letter)
 					.IsRequired()
 					.HasColumnName("litera")
 					.HasColumnType("char(1)");
@@ -1186,9 +1186,9 @@ namespace F1WM.DatabaseModel
 					.HasDefaultValueSql("''");
 			});
 
-			modelBuilder.Entity<F1teams>(entity =>
+			modelBuilder.Entity<Team>(entity =>
 			{
-				entity.HasKey(e => e.Teamid);
+				entity.HasKey(e => e.Id);
 
 				entity.ToTable("f1teams");
 
@@ -1202,10 +1202,10 @@ namespace F1WM.DatabaseModel
 				entity.HasIndex(e => e.Status)
 					.HasName("status");
 
-				entity.HasIndex(e => e.Team)
+				entity.HasIndex(e => e.Name)
 					.HasName("team");
 
-				entity.Property(e => e.Teamid)
+				entity.Property(e => e.Id)
 					.HasColumnName("teamid")
 					.HasColumnType("mediumint unsigned");
 
@@ -1338,7 +1338,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
 
-				entity.Property(e => e.Team)
+				entity.Property(e => e.Name)
 					.IsRequired()
 					.HasColumnName("team")
 					.HasMaxLength(64)

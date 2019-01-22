@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
-	public class F1teams
+	public class Team
 	{
-		public uint Teamid { get; set; }
+		public uint Id { get; set; }
 		public string Ascid { get; set; }
-		public string Team { get; set; }
+		public string Name { get; set; }
 		public string Nat { get; set; }
 		public string Base { get; set; }
 		public string Founder { get; set; }
