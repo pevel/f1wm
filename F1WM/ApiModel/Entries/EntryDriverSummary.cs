@@ -6,6 +6,5 @@ namespace F1WM.ApiModel
 	{
 		public ushort DebutYear { get; set; }
 		public DateTime Birthday { get; set; }
-		public bool IsThirdDriver { get; set; }
 	}
 }

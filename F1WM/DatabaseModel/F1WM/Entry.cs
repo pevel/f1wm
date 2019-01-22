@@ -16,7 +16,7 @@ namespace F1WM.DatabaseModel
 		public uint EngineId { get; set; }
 		public uint EngineMakeId { get; set; }
 		public uint TyresId { get; set; }
-		public bool? IsThirdDriver { get; set; }
+		public bool IsThirdDriver { get; set; }
 		public virtual Driver Driver { get; set; }
 		public virtual Grid Grid { get; set; }
 		public virtual Result Result { get; set; }
