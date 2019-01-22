@@ -88,6 +88,11 @@ namespace F1WM.Utilities
 			return $"/img/tory/{id}_m2.png";
 		}
 
+		public static string GetGenericIconPath(this string id)
+		{
+			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
+		}
+
 		public static string GetGrandPrixName(this string genitive)
 		{
 			return $"Grand Prix {genitive}";

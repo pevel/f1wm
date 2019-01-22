@@ -14,7 +14,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetSingleNews()
 		{
-			var id = 42000;
+			uint id = 42000;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -32,7 +32,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetSingleNewsWithPracticeResultLink()
 		{
-			var id = 42422;
+			uint id = 42422;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -54,7 +54,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetSingleNewsWithRaceResultLink()
 		{
-			var id = 2468;
+			uint id = 2468;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -75,7 +75,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetSingleNewsWithQualifyingResultLink()
 		{
-			var id = 2464;
+			uint id = 2464;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -96,7 +96,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetSingleNewsWithOtherResultLink()
 		{
-			var id = 1010;
+			uint id = 1010;
 
 			var response = await client.GetAsync($"{baseAddress}/news/{id}");
 			response.EnsureSuccessStatusCode();
@@ -117,7 +117,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetManyNews()
 		{
-			var firstId = 42001;
+			uint firstId = 42001;
 			var count = 5;
 
 			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&countPerPage={count}");
@@ -138,6 +138,9 @@ namespace F1WM.IntegrationTests
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 
@@ -275,6 +278,9 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
 				Assert.Equal(typeId, news.TypeId);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 
@@ -301,6 +307,9 @@ namespace F1WM.IntegrationTests
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 	}

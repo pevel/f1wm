@@ -5,6 +5,7 @@ namespace F1WM.ApiModel
 		public int CommentCount { get; set; }
 		public bool IsHighlighted { get; set; }
 		public byte TypeId { get; set; }
-		public int MainTagId { get; set; }
+		public uint MainTagId { get; set; }
+		public string MainTagIcon { get; set; }
 	}
 }

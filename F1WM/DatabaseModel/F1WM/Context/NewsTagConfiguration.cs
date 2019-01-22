@@ -41,6 +41,10 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("topic_title")
 				.HasMaxLength(25);
+			
+			builder.Property(e => e.Icon)
+				.HasColumnName("topic_icon")
+				.HasMaxLength(20);
 		}
 	}
 }
