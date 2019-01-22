@@ -2,7 +2,7 @@ using Newtonsoft.Json;
 
 namespace F1WM.ApiModel
 {
-	public class EngineSummary
+	public class TeamSummary
 	{
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public int? Id { get; set; }

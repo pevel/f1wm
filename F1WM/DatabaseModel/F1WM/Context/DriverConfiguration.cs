@@ -72,7 +72,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Debiut)
+			builder.Property(e => e.DebutYear)
 				.HasColumnName("debiut")
 				.HasDefaultValueSql("'0'");
 
@@ -156,6 +156,9 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("weight")
 				.HasMaxLength(4)
 				.HasDefaultValueSql("'-'");
+
+			builder.Property(e => e.Birthday)
+				.HasColumnName("birth");
 
 			builder.HasOne(e => e.Nationality)
 				.WithMany()

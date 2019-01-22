@@ -4,7 +4,8 @@ namespace F1WM.ApiModel
 {
 	public class EntryDriverSummary : DriverSummary
 	{
-		public int DebutYear { get; set; }
+		public ushort DebutYear { get; set; }
 		public DateTime Birthday { get; set; }
+		public bool IsThirdDriver { get; set; }
 	}
 }
