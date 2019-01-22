@@ -6,5 +6,6 @@ namespace F1WM.ApiModel
 		public bool IsHighlighted { get; set; }
 		public byte TypeId { get; set; }
 		public uint MainTagId { get; set; }
+		public string MainTagIcon { get; set; }
 	}
 }

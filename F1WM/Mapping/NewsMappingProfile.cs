@@ -2,6 +2,7 @@ using System;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 
 namespace F1WM.Mapping
 {
@@ -9,7 +10,8 @@ namespace F1WM.Mapping
 	{
 		public NewsMappingProfile()
 		{
-			CreateMap<News, NewsSummary>();
+			CreateMap<News, NewsSummary>()
+				.ForMember(api => api.MainTagIcon, o => o.MapFrom(db => db.MainTag.Icon.GetGenericIconPath()));
 			CreateMap<News, NewsDetails>();
 		}
 	}

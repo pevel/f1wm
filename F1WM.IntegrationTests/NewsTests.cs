@@ -138,6 +138,9 @@ namespace F1WM.IntegrationTests
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 
@@ -275,6 +278,9 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
 				Assert.Equal(typeId, news.TypeId);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 
@@ -301,6 +307,9 @@ namespace F1WM.IntegrationTests
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
+				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
+				Assert.True(0 <= news.CommentCount);
+				Assert.NotEqual((uint)0, news.Id);
 			});
 		}
 	}

@@ -49,10 +49,8 @@ namespace F1WM.Repositories
 		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
 			await SetDbEncoding();
-			var dbNews = await context.News
-				.Where(n => n.Id == id && !n.NewsHidden)
-				.FirstOrDefaultAsync();
-			var news = mapper.Map<NewsDetails>(dbNews);
+			var dbNews = context.News.Where(n => n.Id == id && !n.NewsHidden);
+			var news = await mapper.ProjectTo<NewsDetails>(dbNews).FirstOrDefaultAsync();
 			if (news != null)
 			{
 				news.PreviousNewsId = (int?)(await context.News
@@ -105,8 +103,8 @@ namespace F1WM.Repositories
 		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
 		{
 			await SetDbEncoding();
-			var dbNewsTypes = await context.NewsTypes.ToListAsync();
-			return mapper.Map<IEnumerable<ApiModel.NewsType>>(dbNewsTypes);
+			var dbNewsTypes = context.NewsTypes;
+			return await mapper.ProjectTo<ApiModel.NewsType>(dbNewsTypes).ToListAsync();
 		}
 
 		public async Task<NewsTagsPaged> GetNewsTags(int page, int countPerPage)
@@ -126,8 +124,8 @@ namespace F1WM.Repositories
 		public async Task<IEnumerable<ApiModel.NewsTagCategory>> GetNewsTagCategories()
 		{
 			await SetDbEncoding();
-			var dbCategories = await context.NewsCategories.ToListAsync();
-			return mapper.Map<IEnumerable<ApiModel.NewsTagCategory>>(dbCategories);
+			var dbCategories = context.NewsCategories;
+			return await mapper.ProjectTo<ApiModel.NewsTagCategory>(dbCategories).ToListAsync();
 		}
 
 		public NewsRepository(F1WMContext context, IMapper mapper)
@@ -163,10 +161,11 @@ namespace F1WM.Repositories
 			var pageCount = (double)result.RowCount / countPerPage;
 			result.PageCount = (int)System.Math.Ceiling(pageCount);
 
-			var apiNews = mapper.Map<IEnumerable<NewsSummary>>(await dbNews.OrderByDescending(n => n.Date)
+			var apiNews = await mapper.ProjectTo<NewsSummary>(
+				dbNews.OrderByDescending(n => n.Date)
 					.Skip(skipRows)
-					.Take(countPerPage)
-					.ToListAsync());
+					.Take(countPerPage))
+				.ToListAsync();
 
 			result.PageSize = apiNews.Count();
 			result.Result = apiNews;
@@ -186,10 +185,11 @@ namespace F1WM.Repositories
 			var pageCount = (double)result.RowCount / countPerPage;
 			result.PageCount = (int)System.Math.Ceiling(pageCount);
 
-			var apiTags = mapper.Map<IEnumerable<ApiModel.NewsTag>>(await dbNewsTags
+			var apiTags = await mapper.ProjectTo<ApiModel.NewsTag>(
+				dbNewsTags
 					.Skip(skipRows)
-					.Take(countPerPage)
-					.ToListAsync());
+					.Take(countPerPage))
+				.ToListAsync();
 
 			result.PageSize = apiTags.Count();
 			result.Result = apiTags;

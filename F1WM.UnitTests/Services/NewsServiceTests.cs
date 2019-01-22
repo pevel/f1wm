@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DatabaseModel.Constants;
@@ -15,12 +16,14 @@ namespace F1WM.UnitTests.Services
 	public class NewsServiceTests
 	{
 		private NewsService service;
-		private Mock<INewsRepository> newsRepositoryMock;
+		private Fixture fixture;
+ 		private Mock<INewsRepository> newsRepositoryMock;
 		private Mock<IConfigTextRepository> configTextRepositoryMock;
 		private Mock<IBBCodeParser> parserMock;
 
 		public NewsServiceTests()
 		{
+			fixture = new Fixture();
 			newsRepositoryMock = new Mock<INewsRepository>();
 			configTextRepositoryMock = new Mock<IConfigTextRepository>();
 			parserMock = new Mock<IBBCodeParser>();
@@ -45,6 +48,8 @@ namespace F1WM.UnitTests.Services
 		{
 			var count = 21;
 			var firstId = 43;
+			var news = fixture.Create<NewsSummaryPaged>();
+			newsRepositoryMock.Setup(r => r.GetLatestNews(firstId, 1, count)).ReturnsAsync(news);
 
 			await service.GetLatestNews(firstId, 1, count);
 

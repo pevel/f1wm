@@ -9,5 +9,6 @@ namespace F1WM.DatabaseModel
 		public string Title { get; set; }
 		public uint CategoryId { get; set; }
 		public uint Searches { get; set; }
+		public string Icon { get; set; }
 	}
 }
