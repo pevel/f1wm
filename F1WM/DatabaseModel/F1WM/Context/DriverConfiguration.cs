@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1drivers");
 
-			builder.HasIndex(e => e.Ascid)
+			builder.HasIndex(e => e.Key)
 				.HasName("ascid")
 				.IsUnique();
 
@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("artid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Ascid)
+			builder.Property(e => e.Key)
 				.IsRequired()
 				.HasColumnName("ascid")
 				.HasMaxLength(4)

@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	public class Team
 	{
 		public uint Id { get; set; }
-		public string Ascid { get; set; }
+		public string Key { get; set; }
 		public string Name { get; set; }
 		public string Nat { get; set; }
 		public string Base { get; set; }

@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	public class Driver
 	{
 		public uint Id { get; set; }
-		public string Ascid { get; set; }
+		public string Key { get; set; }
 		public string Surname { get; set; }
 		public string FirstName { get; set; }
 		public string Initial { get; set; }

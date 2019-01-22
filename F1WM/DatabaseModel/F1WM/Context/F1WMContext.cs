@@ -11,7 +11,6 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
 		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual DbSet<BroadcastedSessionType> BroadcastedSessionTypes { get; set; }
-		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
 		public virtual DbSet<F1Arts> F1Arts { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
@@ -29,7 +28,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
 		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
-		public virtual DbSet<Engine> F1engines { get; set; }
+		public virtual DbSet<Engine> Engines { get; set; }
 		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<FastestLap> FastestLaps { get; set; }
@@ -61,7 +60,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
 		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
-		public virtual DbSet<Team> F1teams { get; set; }
+		public virtual DbSet<Team> Teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
 		public virtual DbSet<Tyres> Tyres { get; set; }
@@ -96,14 +95,6 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<SympollAuth> SympollAuth { get; set; }
 		public virtual DbSet<SympollList> SympollList { get; set; }
 
-		// Unable to generate entity type for table 'ajax_chat_bans'. Please see the warning messages.
-		// Unable to generate entity type for table 'ajax_chat_invitations'. Please see the warning messages.
-		// Unable to generate entity type for table 'ajax_chat_online'. Please see the warning messages.
-		// Unable to generate entity type for table 'stat_dni'. Please see the warning messages.
-		// Unable to generate entity type for table 'stat_mies'. Please see the warning messages.
-		// Unable to generate entity type for table 'sympoll_data'. Please see the warning messages.
-		// Unable to generate entity type for table 'sympoll_iplog'. Please see the warning messages.
-
 		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options) { }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -111,44 +102,6 @@ namespace F1WM.DatabaseModel
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(F1WMContext)));
-			modelBuilder.Entity<AjaxChatMessages>(entity =>
-			{
-				entity.ToTable("ajax_chat_messages");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.Channel)
-					.HasColumnName("channel")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.DateTime)
-					.HasColumnName("dateTime")
-					.HasColumnType("datetime");
-
-				entity.Property(e => e.Ip)
-					.IsRequired()
-					.HasColumnName("ip")
-					.HasMaxLength(16);
-
-				entity.Property(e => e.Text)
-					.HasColumnName("text")
-					.HasColumnType("text");
-
-				entity.Property(e => e.UserId)
-					.HasColumnName("userID")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.UserName)
-					.IsRequired()
-					.HasColumnName("userName")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.UserRole)
-					.HasColumnName("userRole")
-					.HasColumnType("int(1)");
-			});
 
 			modelBuilder.Entity<F1Arts>(entity =>
 			{
@@ -500,42 +453,6 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Status)
 					.HasColumnName("status")
 					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<Engine>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1engines");
-
-				entity.HasIndex(e => e.Name)
-					.HasName("engine");
-
-				entity.HasIndex(e => e.EngineMakeId)
-					.HasName("enginemakeid");
-
-				entity.HasIndex(e => e.Letter)
-					.HasName("litera");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("engineid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("engine")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.EngineMakeId)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Letter)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
 			});
 
 			modelBuilder.Entity<F1enginesspecs>(entity =>
@@ -1184,170 +1101,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("teamname")
 					.HasMaxLength(64)
 					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<Team>(entity =>
-			{
-				entity.HasKey(e => e.Id);
-
-				entity.ToTable("f1teams");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.HasIndex(e => e.Name)
-					.HasName("team");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("teamid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Artid)
-					.HasColumnName("artid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Base)
-					.IsRequired()
-					.HasColumnName("base")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Basedonteam)
-					.IsRequired()
-					.HasColumnName("basedonteam")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Carmakeid)
-					.HasColumnName("carmakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Curboss)
-					.IsRequired()
-					.HasColumnName("curboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curbosspic)
-					.IsRequired()
-					.HasColumnName("curbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curengboss)
-					.IsRequired()
-					.HasColumnName("curengboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curengbosspic)
-					.IsRequired()
-					.HasColumnName("curengbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curtechdir)
-					.IsRequired()
-					.HasColumnName("curtechdir")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curtechdirpic)
-					.IsRequired()
-					.HasColumnName("curtechdirpic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Firstboss)
-					.IsRequired()
-					.HasColumnName("firstboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Firstbosspic)
-					.IsRequired()
-					.HasColumnName("firstbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Founder)
-					.IsRequired()
-					.HasColumnName("founder")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Founderpic)
-					.IsRequired()
-					.HasColumnName("founderpic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.Nat)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Newstopicid)
-					.HasColumnName("newstopicid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Otherboss)
-					.IsRequired()
-					.HasColumnName("otherboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Otherbossocc)
-					.IsRequired()
-					.HasColumnName("otherbossocc")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Otherbosspic)
-					.IsRequired()
-					.HasColumnName("otherbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Secondfactory)
-					.IsRequired()
-					.HasColumnName("secondfactory")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("team")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Teamshort)
-					.IsRequired()
-					.HasColumnName("teamshort")
-					.HasMaxLength(10);
 			});
 
 			modelBuilder.Entity<F1Texts>(entity =>

@@ -11,7 +11,10 @@ namespace F1WM.Mapping
 		public EntriesMappingProfile()
 		{
 			CreateMap<Entry, RaceEntry>();
-			CreateMap<Driver, EntryDriverSummary>();
+			CreateMap<Driver, EntryDriverSummary>()
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetDriverPicturePath()));
+			CreateMap<Team, TeamSummary>()
+				.ForMember(api => api.Logo, o => o.MapFrom(db => db.Key.GetTeamLogoPath()));
 		}
 	}
 }
