@@ -1180,6 +1180,80 @@ namespace F1WM.Migrations.F1WM
                     b.ToTable("f1_log_zmian");
                 });
 
+            modelBuilder.Entity("F1WM.DatabaseModel.F1NewsCats", b =>
+                {
+                    b.Property<uint>("CatId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("cat_id")
+                        .HasColumnType("mediumint unsigned");
+
+                    b.Property<string>("CatTitle")
+                        .IsRequired()
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("cat_title")
+                        .HasDefaultValueSql("''")
+                        .HasMaxLength(20);
+
+                    b.HasKey("CatId");
+
+                    b.ToTable("f1_news_cats");
+                });
+
+            modelBuilder.Entity("F1WM.DatabaseModel.F1NewsTopicmatch", b =>
+                {
+                    b.Property<uint>("MatchId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("match_id")
+                        .HasColumnType("mediumint unsigned");
+
+                    b.Property<DateTime>("NewsDate")
+                        .HasColumnName("news_date")
+                        .HasColumnType("datetime");
+
+                    b.Property<uint>("NewsId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("news_id")
+                        .HasColumnType("mediumint unsigned")
+                        .HasDefaultValueSql("'0'");
+
+                    b.Property<uint>("TopicId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("topic_id")
+                        .HasColumnType("mediumint unsigned")
+                        .HasDefaultValueSql("'0'");
+
+                    b.HasKey("MatchId");
+
+                    b.HasIndex("NewsId")
+                        .HasName("news_id");
+
+                    b.HasIndex("TopicId", "NewsDate")
+                        .HasName("topic_id");
+
+                    b.ToTable("f1_news_topicmatch");
+                });
+
+            modelBuilder.Entity("F1WM.DatabaseModel.F1NewsTypes", b =>
+                {
+                    b.Property<ushort>("TypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnName("type_id");
+
+                    b.Property<string>("TypeTitle")
+                        .IsRequired()
+                        .HasColumnName("type_title")
+                        .HasMaxLength(45);
+
+                    b.Property<string>("TypeTitle2")
+                        .IsRequired()
+                        .HasColumnName("type_title2")
+                        .HasMaxLength(14);
+
+                    b.HasKey("TypeId");
+
+                    b.ToTable("f1_news_types");
+                });
+
             modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditorcats", b =>
                 {
                     b.Property<uint>("Catid")
@@ -3565,12 +3639,6 @@ namespace F1WM.Migrations.F1WM
                     b.Property<bool>("IsHighlighted")
                         .HasColumnName("news_highlight");
 
-                    b.Property<uint>("MainTagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("topic_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
                     b.Property<uint>("NewsDateym")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("news_dateym")
@@ -3612,7 +3680,12 @@ namespace F1WM.Migrations.F1WM
                         .HasColumnName("news_title")
                         .HasMaxLength(80);
 
-                    b.Property<byte>("TypeId")
+                    b.Property<uint>("TopicId")
+                        .HasColumnName("topic_id")
+                        .HasColumnType("mediumint unsigned")
+                        .HasDefaultValueSql("'0'");
+
+                    b.Property<byte>("Type")
                         .HasColumnName("news_type");
 
                     b.Property<uint>("Views")
@@ -3626,13 +3699,13 @@ namespace F1WM.Migrations.F1WM
                     b.HasIndex("Date")
                         .HasName("news_date");
 
-                    b.HasIndex("MainTagId");
-
                     b.HasIndex("NewsDateym")
                         .HasName("news_dateym");
 
                     b.HasIndex("PosterName")
                         .HasName("poster_name");
+
+                    b.HasIndex("TopicId");
 
                     b.HasIndex("NewsHidden", "Date")
                         .HasName("hidden_date");
@@ -3640,10 +3713,10 @@ namespace F1WM.Migrations.F1WM
                     b.HasIndex("Title", "Subtitle")
                         .HasName("titles");
 
-                    b.HasIndex("TypeId", "Date")
+                    b.HasIndex("Type", "Date")
                         .HasName("news_type");
 
-                    b.HasIndex("TypeId", "NewsHidden", "Date")
+                    b.HasIndex("Type", "NewsHidden", "Date")
                         .HasName("type_hidden_date");
 
                     b.ToTable("f1_news");
@@ -3721,14 +3794,14 @@ namespace F1WM.Migrations.F1WM
                     b.ToTable("f1_news_comstext");
                 });
 
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTag", b =>
+            modelBuilder.Entity("F1WM.DatabaseModel.NewsTopic", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<uint>("TopicId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("topic_id")
                         .HasColumnType("mediumint unsigned");
 
-                    b.Property<uint>("CategoryId")
+                    b.Property<uint>("CatId")
                         .ValueGeneratedOnAdd()
                         .HasColumnName("cat_id")
                         .HasColumnType("mediumint unsigned")
@@ -3740,100 +3813,30 @@ namespace F1WM.Migrations.F1WM
                         .HasColumnType("mediumint unsigned")
                         .HasDefaultValueSql("'0'");
 
-                    b.Property<string>("Title")
+                    b.Property<string>("TopicIcon")
+                        .HasColumnName("topic_icon")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("TopicTitle")
                         .IsRequired()
                         .HasColumnName("topic_title")
                         .HasMaxLength(25);
 
-                    b.HasKey("Id");
+                    b.HasKey("TopicId");
 
-                    b.HasIndex("CategoryId")
+                    b.HasIndex("CatId")
                         .HasName("cat_id");
 
                     b.HasIndex("Searches")
                         .HasName("searches");
 
-                    b.HasIndex("Title")
+                    b.HasIndex("TopicTitle")
                         .HasName("topic_title");
 
-                    b.HasIndex("CategoryId", "Title")
+                    b.HasIndex("CatId", "TopicTitle")
                         .HasName("cat+title");
 
                     b.ToTable("f1_news_topics");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagCategory", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cat_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cat_title")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1_news_cats");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("match_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<DateTime>("NewsDate")
-                        .HasColumnName("news_date")
-                        .HasColumnType("datetime");
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("topic_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId")
-                        .HasName("news_id");
-
-                    b.HasIndex("TagId", "NewsDate")
-                        .HasName("topic_id");
-
-                    b.ToTable("f1_news_topicmatch");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsType", b =>
-                {
-                    b.Property<ushort>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("type_id");
-
-                    b.Property<string>("AlternativeTitle")
-                        .IsRequired()
-                        .HasColumnName("type_title2")
-                        .HasMaxLength(14);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("type_title")
-                        .HasMaxLength(45);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1_news_types");
                 });
 
             modelBuilder.Entity("F1WM.DatabaseModel.OtherAdditionalPointsReason", b =>
@@ -5286,9 +5289,9 @@ namespace F1WM.Migrations.F1WM
 
             modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
                 {
-                    b.HasOne("F1WM.DatabaseModel.NewsTag", "MainTag")
+                    b.HasOne("F1WM.DatabaseModel.NewsTopic", "Topic")
                         .WithMany()
-                        .HasForeignKey("MainTagId")
+                        .HasForeignKey("TopicId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -5297,19 +5300,6 @@ namespace F1WM.Migrations.F1WM
                     b.HasOne("F1WM.DatabaseModel.NewsComment", "Comment")
                         .WithOne("Text")
                         .HasForeignKey("F1WM.DatabaseModel.NewsCommentText", "CommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.News", "News")
-                        .WithMany("Tags")
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.NewsTag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
