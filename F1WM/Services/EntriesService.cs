@@ -10,7 +10,7 @@ namespace F1WM.Services
 
 		public Task<RaceEntriesInformation> GetRaceEntries(int raceId)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetRaceEntries(raceId);
 		}
 
 		public EntriesService(IEntriesRepository repository)

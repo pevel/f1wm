@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
@@ -9,9 +11,15 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public Task<RaceEntriesInformation> GetRaceEntries(int raceId)
+		public async Task<RaceEntriesInformation> GetRaceEntries(int raceId)
 		{
-			throw new System.NotImplementedException();
+			var apiEntries = new RaceEntriesInformation() { RaceId = raceId };
+			var dbEntries = context.Entries
+				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
+				.Include(e => e.Car).ThenInclude(c => c.Constructor)
+				.Where(e => e.RaceId == raceId);
+			apiEntries.Entries = await mapper.ProjectTo<RaceEntry>(dbEntries).ToListAsync();
+			return apiEntries;
 		}
 
 		public EntriesRepository(F1WMContext context, IMapper mapper)
