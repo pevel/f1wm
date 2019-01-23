@@ -8,6 +8,6 @@ namespace F1WM.Services
 {
 	public interface IDriversService
 	{
-		Task<DriversList> GetDrivers(string letter);
+		Task<Drivers> GetDrivers(string letter);
 	}
 }

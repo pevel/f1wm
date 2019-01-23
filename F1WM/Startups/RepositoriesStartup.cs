@@ -30,7 +30,7 @@ namespace F1WM.Startups
 				.AddTransient<IAuthRepository, AuthRepository>()
 				.AddTransient<ISeasonsRepository, SeasonsRepository>()
 				.AddTransient<ITracksRepository, TracksRepository>()
-				.AddTransient<IDriversRepository, DriversRepository>();
+				.AddTransient<IDriversRepository, DriversRepository>()
 				.AddTransient<IEntriesRepository, EntriesRepository>();
 		}
 
