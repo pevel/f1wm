@@ -11,9 +11,8 @@ namespace F1WM.Services
 	{
 		private readonly IDriversRepository repository;
 	
-		public async Task<Drivers> GetDrivers(string letter)
+		public async Task<DriversList> GetDrivers(string letter)
 		{
-			if (letter.Length != 1) return null;
 			var drivers = await repository.GetDrivers(letter);
 			return drivers;
 		}
@@ -24,4 +23,4 @@ namespace F1WM.Services
 		}
 	}
 }
-
+}

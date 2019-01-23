@@ -15,7 +15,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		[Produces("application/json", Type = typeof(Drivers))]
+		[Produces("application/json", Type = typeof(DriversList))]
 		public async Task<IActionResult> GetDrivers([FromQuery(Name = "letter")] string letter)
 		{
 			try

@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace F1WM.ApiModel
 {
-	public class Drivers
+	public class DriversList
 	{
-		public IEnumerable<DriverSummary> DriversList { get; set; }
+		public IEnumerable<DriverSummary> Drivers { get; set; }
 	}
 }
