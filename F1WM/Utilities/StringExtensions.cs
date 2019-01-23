@@ -93,6 +93,16 @@ namespace F1WM.Utilities
 			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
 		}
 
+		public static string GetDriverPicturePath(this string id)
+		{
+			return $"/img/ikony/1_{id}.gif";
+		}
+
+		public static string GetTeamLogoPath(this string id)
+		{
+			return $"/img/ikony/2_{id}.gif";
+		}
+
 		public static string GetGrandPrixName(this string genitive)
 		{
 			return $"Grand Prix {genitive}";

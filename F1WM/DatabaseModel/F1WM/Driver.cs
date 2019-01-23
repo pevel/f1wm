@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	public class Driver
 	{
 		public uint Id { get; set; }
-		public string Ascid { get; set; }
+		public string Key { get; set; }
 		public string Surname { get; set; }
 		public string FirstName { get; set; }
 		public string Initial { get; set; }
@@ -26,8 +26,9 @@ namespace F1WM.DatabaseModel
 		public ushort Birthmd { get; set; }
 		public ushort Deathmd { get; set; }
 		public string Litera { get; set; }
-		public ushort Debiut { get; set; }
+		public ushort DebutYear { get; set; }
 		public string Career { get; set; }
+		public DateTime Birthday { get; set; }
 		public virtual IEnumerable<DriverStandingsPosition> StandingsPositions { get; set; }
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
