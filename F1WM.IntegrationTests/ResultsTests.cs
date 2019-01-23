@@ -28,7 +28,7 @@ namespace F1WM.IntegrationTests
 			Assert.NotEqual(0, raceResult.FastestLap.Car.Id);
 			Assert.False(string.IsNullOrWhiteSpace(raceResult.FastestLap.Car.Name));
 			Assert.NotNull(raceResult.FastestLap.Driver);
-			Assert.NotEqual(0, raceResult.FastestLap.Driver.Id);
+			Assert.NotEqual((uint)0, raceResult.FastestLap.Driver.Id);
 			Assert.Null(raceResult.FastestLap.Driver.Nationality);
 			Assert.False(string.IsNullOrWhiteSpace(raceResult.FastestLap.Driver.FirstName));
 			Assert.False(string.IsNullOrWhiteSpace(raceResult.FastestLap.Driver.Surname));
@@ -41,7 +41,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -77,7 +77,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -114,7 +114,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -147,7 +147,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -182,7 +182,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -218,7 +218,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(result.Driver.Surname));
 				Assert.Null(result.Driver.Nationality);
@@ -266,7 +266,7 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(r.Car.Name));
 				Assert.False(string.IsNullOrWhiteSpace(r.TeamName));
 				Assert.NotNull(r.Driver);
-				Assert.NotEqual(0, r.Driver.Id);
+				Assert.NotEqual((uint)0, r.Driver.Id);
 				Assert.False(string.IsNullOrWhiteSpace(r.Driver.FirstName));
 				Assert.False(string.IsNullOrWhiteSpace(r.Driver.Surname));
 				Assert.NotNull(r.Driver.Nationality);

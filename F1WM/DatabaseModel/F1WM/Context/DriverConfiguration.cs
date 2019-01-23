@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1drivers");
 
-			builder.HasIndex(e => e.Ascid)
+			builder.HasIndex(e => e.Key)
 				.HasName("ascid")
 				.IsUnique();
 
@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("artid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Ascid)
+			builder.Property(e => e.Key)
 				.IsRequired()
 				.HasColumnName("ascid")
 				.HasMaxLength(4)
@@ -72,7 +72,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Debiut)
+			builder.Property(e => e.DebutYear)
 				.HasColumnName("debiut")
 				.HasDefaultValueSql("'0'");
 
@@ -156,6 +156,9 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("weight")
 				.HasMaxLength(4)
 				.HasDefaultValueSql("'-'");
+
+			builder.Property(e => e.Birthday)
+				.HasColumnName("birth");
 
 			builder.HasOne(e => e.Nationality)
 				.WithMany()

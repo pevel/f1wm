@@ -26,6 +26,7 @@ namespace F1WM.Startups
 				.AddTransient<IBroadcastsService, BroadcastsService>()
 				.AddTransient<IGuidService, GuidService>()
 				.AddTransient<ISeasonsService, SeasonsService>()
+				.AddTransient<IEntriesService, EntriesService>()
 				.AddTransient<ITracksService, TracksService>();
 		}
 
