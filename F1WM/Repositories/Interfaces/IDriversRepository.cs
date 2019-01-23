@@ -8,6 +8,6 @@ namespace F1WM.Repositories
 {
 	public interface IDriversRepository
 	{
-		Task<DriversList> GetDrivers(string letter);
+		Task<Drivers> GetDrivers(string letter);
 	}
 }
