@@ -14,11 +14,20 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		public async Task<RaceEntriesInformation> GetRaceEntries([FromQuery(Name = "raceId")] int raceId)
+		[Produces("application/json", Type = typeof(RaceEntriesInformation))]
+		public async Task<IActionResult> GetRaceEntries([FromQuery(Name = "raceId")] int raceId)
 		{
 			try
 			{
-				return await service.GetRaceEntries(raceId);
+				var entries = await service.GetRaceEntries(raceId);
+				if (entries != null)
+				{
+					return Ok(entries);
+				}
+				else
+				{
+					return NotFound();
+				}
 			}
 			catch (Exception ex)
 			{

@@ -18,7 +18,7 @@ namespace F1WM.Repositories
 				.Where(e => e.RaceId == raceId)
 				.OrderBy(e => e.IsThirdDriver).ThenBy(e => e.Number);
 			apiEntries.Entries = await mapper.ProjectTo<RaceEntry>(dbEntries).ToListAsync();
-			return apiEntries;
+			return apiEntries.Entries.Any() ? apiEntries : null;
 		}
 
 		public EntriesRepository(F1WMContext context, IMapper mapper)
