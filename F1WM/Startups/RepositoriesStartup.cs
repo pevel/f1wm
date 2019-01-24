@@ -29,6 +29,7 @@ namespace F1WM.Startups
 				.AddTransient<IBroadcastsRepository, BroadcastRepository>()
 				.AddTransient<IAuthRepository, AuthRepository>()
 				.AddTransient<ISeasonsRepository, SeasonsRepository>()
+				.AddTransient<IGridsRepository, GridsRepository>()
 				.AddTransient<ITracksRepository, TracksRepository>()
 				.AddTransient<IDriversRepository, DriversRepository>()
 				.AddTransient<IEntriesRepository, EntriesRepository>();

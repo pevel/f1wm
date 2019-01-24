@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using Newtonsoft.Json;
@@ -43,6 +44,11 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(entry.Engine);
 				Assert.NotEqual(0, entry.Engine.Id);
 				Assert.False(string.IsNullOrWhiteSpace(entry.Engine.Name));
+			});
+			result.Entries.Aggregate((previous, current) =>
+			{
+				Assert.True(previous.Number < current.Number || (!previous.IsThirdDriver && current.IsThirdDriver), "Entries are not sorted properly");
+				return current;
 			});
 		}
 	}

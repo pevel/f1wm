@@ -84,8 +84,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasDefaultValueSql("'0'");
 
 			builder.Property(e => e.IsThirdDriver)
-				.HasColumnName("thirddriver")
-				.HasDefaultValueSql("'0'");
+				.HasColumnName("thirddriver");
 
 			builder.Property(e => e.TyresId)
 				.HasColumnName("tyresid")
