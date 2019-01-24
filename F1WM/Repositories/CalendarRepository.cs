@@ -17,7 +17,6 @@ namespace F1WM.Repositories
 
 		public async Task<Calendar> GetCalendar(int year)
 		{
-			await SetDbEncoding();
 			var dbRaces = await context.Races
 				.Include(r => r.Track)
 				.Include(r => r.Country)

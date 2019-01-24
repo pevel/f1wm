@@ -13,8 +13,6 @@ namespace F1WM.Repositories
 
 		public async Task<Drivers> GetDrivers(char letter)
 		{
-			await SetDbEncoding();
-
 			Drivers result = new Drivers();
 
 			result.DriversList = await mapper.ProjectTo<DriverSummary>(

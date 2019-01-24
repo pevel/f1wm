@@ -15,14 +15,12 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<NewsSummary>> GetNews(ICollection<uint> ids)
 		{
-			await SetDbEncoding();
 			var dbNews = context.News.Where(n => ids.Contains(n.Id));
 			return await mapper.ProjectTo<NewsSummary>(dbNews).ToListAsync();
 		}
 
 		public async Task<NewsSummaryPaged> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
-			await SetDbEncoding();
 			IQueryable<News> dbNews;
 
 			if (firstId != null)
@@ -48,7 +46,6 @@ namespace F1WM.Repositories
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			await SetDbEncoding();
 			var dbNews = context.News.Where(n => n.Id == id && !n.NewsHidden);
 			var news = await mapper.ProjectTo<NewsDetails>(dbNews).FirstOrDefaultAsync();
 			if (news != null)
@@ -77,8 +74,6 @@ namespace F1WM.Repositories
 
 		public async Task<NewsSummaryPaged> GetNewsByTagId(int tagId, int page, int countPerPage)
 		{
-			await SetDbEncoding();
-
 			var dbNews = context.NewsTagMatches
 					.Where(t => t.TagId == tagId)
 					.Include(t => t.News)
@@ -91,8 +86,6 @@ namespace F1WM.Repositories
 
 		public async Task<NewsSummaryPaged> GetNewsByTypeId(int typeId, int page, int countPerPage)
 		{
-			await SetDbEncoding();
-
 			var dbNews = context.News
 				.Where(n => n.TypeId == typeId && !n.NewsHidden)
 				.Include(n => n.MainTag);
@@ -102,28 +95,24 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
 		{
-			await SetDbEncoding();
 			var dbNewsTypes = context.NewsTypes;
 			return await mapper.ProjectTo<ApiModel.NewsType>(dbNewsTypes).ToListAsync();
 		}
 
 		public async Task<NewsTagsPaged> GetNewsTags(int page, int countPerPage)
 		{
-			await SetDbEncoding();
 			var dbNewsTags = context.NewsTags;
 			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
 		}
 
 		public async Task<NewsTagsPaged> GetNewsTagsByCategoryId(int categoryId, int page, int countPerPage)
 		{
-			await SetDbEncoding();
 			var dbNewsTags = context.NewsTags.Where(nt => nt.CategoryId == categoryId);
 			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
 		}
 
 		public async Task<IEnumerable<ApiModel.NewsTagCategory>> GetNewsTagCategories()
 		{
-			await SetDbEncoding();
 			var dbCategories = context.NewsCategories;
 			return await mapper.ProjectTo<ApiModel.NewsTagCategory>(dbCategories).ToListAsync();
 		}
@@ -136,7 +125,6 @@ namespace F1WM.Repositories
 
 		public async Task<bool> IncrementViews(int id)
 		{
-			await SetDbEncoding();
 			var dbNews = await context.News
 				.Where(n => n.Id == id)
 				.FirstOrDefaultAsync();
