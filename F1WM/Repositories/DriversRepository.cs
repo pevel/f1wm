@@ -23,7 +23,6 @@ namespace F1WM.Repositories
 					.OrderBy(d => d.Surname))
 				.ToListAsync();
 
-
 			return (result.DriversList.Any()) ? result : null;
 		}
 

@@ -13,7 +13,6 @@ namespace F1WM.UnitTests.Controllers
 		private DriversController controller;
 		private Mock<IDriversService> serviceMock;
 		private Mock<ILoggingService> loggerMock;
-		private readonly char letter = 'r';
 
 		public DriversControllerTests()
 		{
@@ -25,6 +24,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnDrivers()
 		{
+			var letter = 'r';
 			serviceMock.Setup(s => s.GetDrivers(letter)).ReturnsAsync(new Drivers());
 
 			var result = await controller.GetDrivers(letter);
@@ -36,12 +36,23 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturn404IfDriversNotFound()
 		{
+			var letter = 'r';
 			serviceMock.Setup(s => s.GetDrivers(letter)).ReturnsAsync((Drivers)null);
 
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn400IfDriverSurnameLetterNotProvided()
+		{
+			var letter = '\0';
+			var result = await controller.GetDrivers(letter);
+
+			serviceMock.Verify(s => s.GetDrivers(letter), Times.Never);
+			Assert.IsType<BadRequestResult>(result);
 		}
 	}
 }
