@@ -1,8 +1,6 @@
-using System;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
-using F1WM.Utilities;
 
 namespace F1WM.Mapping
 {
@@ -10,7 +8,8 @@ namespace F1WM.Mapping
 	{
 		public DriversMappingProfile()
 		{
-			CreateMap<Driver, DriverDetails>();
+			CreateMap<Driver, DriverDetails>()
+				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
 		}
 	}
 }

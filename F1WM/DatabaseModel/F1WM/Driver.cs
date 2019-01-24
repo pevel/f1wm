@@ -32,5 +32,6 @@ namespace F1WM.DatabaseModel
 		public virtual IEnumerable<DriverStandingsPosition> StandingsPositions { get; set; }
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
+		public virtual Link Link { get; set; }
 	}
 }

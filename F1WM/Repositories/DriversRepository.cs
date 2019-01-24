@@ -27,6 +27,7 @@ namespace F1WM.Repositories
 		public async Task<DriverDetails> GetDriver(int id, int atYear)
 		{
 			var dbDrivers = context.Drivers
+				.Include(d => d.Link)
 				.Where(d => d.Id == id);
 			var dbLastEntry = await context.Entries
 				.Include(e => e.Race)
