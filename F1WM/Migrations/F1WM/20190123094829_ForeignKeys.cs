@@ -8,14 +8,6 @@ namespace F1WM.Migrations.F1WM
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<bool>(
-                name: "thirddriver",
-                table: "f1entries",
-                nullable: false,
-                oldClrType: typeof(bool),
-                oldNullable: true,
-                oldDefaultValueSql: "'0'");
-
             migrationBuilder.AlterColumn<int>(
                 name: "comm_count",
                 table: "f1_news",
@@ -74,13 +66,6 @@ namespace F1WM.Migrations.F1WM
             migrationBuilder.DropForeignKey(
                 name: "FK_f1entries_f1teams_teamid",
                 table: "f1entries");
-
-            migrationBuilder.AlterColumn<bool>(
-                name: "thirddriver",
-                table: "f1entries",
-                nullable: true,
-                defaultValueSql: "0",
-                oldClrType: typeof(bool));
 
             migrationBuilder.AlterColumn<ushort>(
                 name: "comm_count",
