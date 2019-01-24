@@ -24,9 +24,21 @@ namespace F1WM.Repositories
 			return (result.DriversList.Any()) ? result : null;
 		}
 
-		public Task<DriverDetails> GetDriver(int id)
+		public async Task<DriverDetails> GetDriver(int id, int atYear)
 		{
-			throw new System.NotImplementedException();
+			var dbDrivers = context.Drivers
+				.Where(d => d.Id == id);
+			var dbLastEntry = await context.Entries
+				.Include(e => e.Race)
+				.Include(e => e.Car)
+				.Include(e => e.Team)
+				.OrderByDescending(e => e.Race.Date)
+				.FirstOrDefaultAsync(e => e.DriverId == id && e.Race.Date.Year <= atYear);
+			var apiDriver = await mapper.ProjectTo<DriverDetails>(dbDrivers).FirstOrDefaultAsync();
+			apiDriver.Number = dbLastEntry.Number;
+			apiDriver.CurrentCar = mapper.Map<CarSummary>(dbLastEntry.Car);
+			apiDriver.CurrentTeam = mapper.Map<TeamSummary>(dbLastEntry.Team);
+			return apiDriver;
 		}
 
 		public DriversRepository(F1WMContext context, IMapper mapper)

@@ -12,8 +12,8 @@ namespace F1WM.ApiModel
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string DeathPlace { get; set; }
 		public string Website { get; set; }
-		public int Height { get; set; }
-		public int Weight { get; set; }
+		public string Height { get; set; }
+		public string Weight { get; set; }
 		public string MaritalStatus { get; set; }
 		public string Kids { get; set; }
 		public int TotalPoints { get; set; }

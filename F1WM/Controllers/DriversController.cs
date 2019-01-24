@@ -39,11 +39,11 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(DriverDetails))]
-		public async Task<IActionResult> GetDriver(int id)
+		public async Task<IActionResult> GetDriver(int id, [FromQuery]int? atYear)
 		{
 			try
 			{
-				var driver = await service.GetDriver(id);
+				var driver = await service.GetDriver(id, atYear);
 				if (driver != null)
 				{
 					return Ok(driver);

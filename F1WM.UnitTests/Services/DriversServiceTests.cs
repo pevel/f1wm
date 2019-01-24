@@ -10,11 +10,13 @@ namespace F1WM.UnitTests.Services
 	{
 		private DriversService service;
 		private Mock<IDriversRepository> driversRepositoryMock;
+		private Mock<ITimeService> timeServiceMock;
 
 		public DriversServiceTests()
 		{
 			driversRepositoryMock = new Mock<IDriversRepository>();
-			service = new DriversService(driversRepositoryMock.Object);
+			timeServiceMock = new Mock<ITimeService>();
+			service = new DriversService(driversRepositoryMock.Object, timeServiceMock.Object);
 		}
 
 		[Fact]
