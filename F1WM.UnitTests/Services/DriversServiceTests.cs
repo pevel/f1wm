@@ -1,9 +1,6 @@
 using F1WM.Repositories;
 using F1WM.Services;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -23,7 +20,7 @@ namespace F1WM.UnitTests.Services
 		[Fact]
 		public async Task ShouldGetDrivers()
 		{
-			var letter = "r";
+			char letter = 'r';
 
 			await service.GetDrivers(letter);
 

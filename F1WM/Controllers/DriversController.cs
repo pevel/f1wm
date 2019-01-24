@@ -2,8 +2,6 @@ using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace F1WM.Controllers
@@ -16,10 +14,12 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		[Produces("application/json", Type = typeof(Drivers))]
-		public async Task<IActionResult> GetDrivers([FromQuery(Name = "letter")] string letter)
+		public async Task<IActionResult> GetDrivers([FromQuery(Name = "letter")] char letter)
 		{
 			try
 			{
+				if (letter == '\0') return BadRequest();
+
 				var drivers = await service.GetDrivers(letter);
 				if (drivers != null)
 				{

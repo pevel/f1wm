@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Controllers;
@@ -14,7 +13,7 @@ namespace F1WM.UnitTests.Controllers
 		private DriversController controller;
 		private Mock<IDriversService> serviceMock;
 		private Mock<ILoggingService> loggerMock;
-		private readonly string letter = "r";
+		private readonly char letter = 'r';
 
 		public DriversControllerTests()
 		{
@@ -35,7 +34,7 @@ namespace F1WM.UnitTests.Controllers
 		}
 
 		[Fact]
-		public async Task ShouldReturn404IfSeasonRulesNotFound()
+		public async Task ShouldReturn404IfDriversNotFound()
 		{
 			serviceMock.Setup(s => s.GetDrivers(letter)).ReturnsAsync((Drivers)null);
 
