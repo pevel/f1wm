@@ -18,6 +18,7 @@ namespace F1WM.Repositories
 			var apiGrid = new GridInformation() { RaceId = raceId };
 			var dbGrid = await context.Grids
 				.Where(g => g.RaceId == raceId)
+				.Include(g => g.Race)
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.Include(g => g.Entry).ThenInclude(e => e.Car)
 				.ToListAsync();
@@ -25,9 +26,10 @@ namespace F1WM.Repositories
 			{
 				apiGrid.GridPositions = mapper.Map<IEnumerable<GridPosition>>(dbGrid
 					.Select(g => g.FillStartPositionInfo())
-					.Where(g => g.StartPosition != null)
-					.OrderBy(g => g.StartPosition)
+					.OrderBy(g => g.StartPosition == null)
+					.ThenBy(g => g.StartPosition)
 				);
+				apiGrid.GridTypeId = dbGrid.First().Race.Gridtype;
 				return apiGrid;
 			}
 			else

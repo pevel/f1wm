@@ -20,9 +20,9 @@ namespace F1WM.IntegrationTests
 			var result = JsonConvert.DeserializeObject<GridInformation>(responseContent);
 			Assert.NotNull(result);
 			Assert.Equal(raceId, result.RaceId);
+			Assert.InRange(result.GridTypeId, 1, 13);
 			Assert.All(result.GridPositions, position =>
 			{
-				Assert.True(TimeSpan.Zero < position.Time);
 				Assert.NotEqual(0, position.StartPosition);
 				Assert.NotNull(position.Car);
 				Assert.NotEqual(0, position.Car.Id);
@@ -36,7 +36,7 @@ namespace F1WM.IntegrationTests
 			});
 			result.GridPositions.Aggregate((previous, current) =>
 			{
-				Assert.True(previous.StartPosition < current.StartPosition, "Grid positions are not sorted properly");
+				Assert.True(previous.StartPosition < current.StartPosition || previous.StartPosition == null || current.StartPosition == null, "Grid positions are not sorted properly");
 				return current;
 			});
 		}
