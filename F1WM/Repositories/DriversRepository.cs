@@ -26,6 +26,11 @@ namespace F1WM.Repositories
 			return (result.DriversList.Any()) ? result : null;
 		}
 
+		public Task<DriverDetails> GetDriver(int id)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public DriversRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;

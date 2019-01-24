@@ -37,6 +37,29 @@ namespace F1WM.Controllers
 			}
 		}
 
+		[HttpGet("{id}")]
+		[Produces("application/json", Type = typeof(DriverDetails))]
+		public async Task<IActionResult> GetDriver(int id)
+		{
+			try
+			{
+				var driver = await service.GetDriver(id);
+				if (driver != null)
+				{
+					return Ok(driver);
+				}
+				else
+				{
+					return NotFound();
+				}
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 		public DriversController(IDriversService service, ILoggingService logger)
 		{
 			this.service = service;

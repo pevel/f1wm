@@ -8,10 +8,14 @@ namespace F1WM.Services
 	{
 		private readonly IDriversRepository repository;
 
-		public async Task<Drivers> GetDrivers(char letter)
+		public Task<Drivers> GetDrivers(char letter)
 		{
-			var drivers = await repository.GetDrivers(letter);
-			return drivers;
+			return repository.GetDrivers(letter);
+		}
+
+		public Task<DriverDetails> GetDriver(int id)
+		{
+			return repository.GetDriver(id);
 		}
 
 		public DriversService(IDriversRepository repository)
