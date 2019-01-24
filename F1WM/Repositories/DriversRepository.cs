@@ -39,6 +39,12 @@ namespace F1WM.Repositories
 			apiDriver.Number = dbLastEntry.Number;
 			apiDriver.CurrentCar = mapper.Map<CarSummary>(dbLastEntry.Car);
 			apiDriver.CurrentTeam = mapper.Map<TeamSummary>(dbLastEntry.Team);
+			apiDriver.WorldChampionAtYears = await context.DriverStandingsPositions
+				.Include(s => s.Season)
+				.Where(s => s.DriverId == id && s.Season.Year <= atYear && s.Position == 1)
+				.Select(s => s.Season.Year)
+				.ToListAsync();
+			apiDriver.WorldChampionAtYears = apiDriver.WorldChampionAtYears.Any() ? apiDriver.WorldChampionAtYears : null;
 			return apiDriver;
 		}
 

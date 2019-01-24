@@ -11,6 +11,11 @@ namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
+		public static string IgnoreEmpty(this string text)
+		{
+			return text == "-" ? null : text;
+		}
+
 		public static bool TryParseResultRedirect(this string text, out ResultRedirectLink link)
 		{
 			if (!string.IsNullOrWhiteSpace(text))

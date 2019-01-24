@@ -25,8 +25,9 @@ namespace F1WM.ApiModel
 		public int PolePositions { get; set; }
 		public int FastestLaps { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public IEnumerable<int> WorldChampionAtYears { get; set; }
+		public IEnumerable<ushort> WorldChampionAtYears { get; set; }
 		public DriverDetailsRaceSummary FirstStartAt { get; set; }
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public DriverDetailsRaceSummary FirstWinAt { get; set; }
 		public IEnumerable<DriverCareerYear> Career { get; set; }
 	}
