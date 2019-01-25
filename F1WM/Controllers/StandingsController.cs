@@ -17,9 +17,9 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("constructors")]
-		[Produces("application/json", Type = typeof(ConstructorsStandings))]
-		public async Task<IActionResult> GetConstructorsStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
+		public async Task<ActionResult<ConstructorsStandings>> GetConstructorsStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
 		{
 			try
 			{
@@ -34,9 +34,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("drivers")]
-		[Produces("application/json", Type = typeof(DriversStandings))]
-		public async Task<IActionResult> GetDriversStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
+		public async Task<ActionResult<DriversStandings>> GetDriversStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
 		{
 			try
 			{

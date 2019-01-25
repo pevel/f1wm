@@ -11,26 +11,27 @@ namespace F1WM.DatabaseModel
 		public string FirstName { get; set; }
 		public string Initial { get; set; }
 		public string NationalityKey { get; set; }
-		public string Birthplc { get; set; }
-		public string Resides { get; set; }
-		public string Status { get; set; }
+		public string BirthPlace { get; set; }
+		public string Residence { get; set; }
+		public string MaritalStatus { get; set; }
 		public string Kids { get; set; }
 		public string Height { get; set; }
 		public string Weight { get; set; }
-		public string Titles { get; set; }
+		public string ChampionAtSeries { get; set; }
 		public string Testdriver { get; set; }
 		public uint? Artid { get; set; }
 		public ushort Group { get; set; }
 		public string Teamascid { get; set; }
-		public string Deathplc { get; set; }
+		public string DeathPlace { get; set; }
 		public ushort Birthmd { get; set; }
 		public ushort Deathmd { get; set; }
 		public string Litera { get; set; }
 		public ushort DebutYear { get; set; }
-		public string Career { get; set; }
+		public string CareerText { get; set; }
 		public DateTime Birthday { get; set; }
 		public virtual IEnumerable<DriverStandingsPosition> StandingsPositions { get; set; }
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
+		public virtual Link Link { get; set; }
 	}
 }

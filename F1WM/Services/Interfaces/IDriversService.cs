@@ -6,5 +6,6 @@ namespace F1WM.Services
 	public interface IDriversService
 	{
 		Task<Drivers> GetDrivers(char letter);
+		Task<DriverDetails> GetDriver(int id, int? atYear);
 	}
 }

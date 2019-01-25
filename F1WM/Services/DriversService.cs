@@ -6,16 +6,22 @@ namespace F1WM.Services
 {
 	public class DriversService : IDriversService
 	{
+		private readonly ITimeService time;
 		private readonly IDriversRepository repository;
 
-		public async Task<Drivers> GetDrivers(char letter)
+		public Task<Drivers> GetDrivers(char letter)
 		{
-			var drivers = await repository.GetDrivers(letter);
-			return drivers;
+			return repository.GetDrivers(letter);
 		}
 
-		public DriversService(IDriversRepository repository)
+		public Task<DriverDetails> GetDriver(int id, int? atYear)
 		{
+			return repository.GetDriver(id, atYear ?? time.Now.Year);
+		}
+
+		public DriversService(IDriversRepository repository, ITimeService time)
+		{
+			this.time = time;
 			this.repository = repository;
 		}
 	}

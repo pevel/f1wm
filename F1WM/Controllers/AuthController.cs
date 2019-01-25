@@ -16,8 +16,9 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpPost("login")]
-		[Produces("application/json", Type = typeof(Tokens))]
-		public async Task<IActionResult> Login([FromBody]Login login)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		public async Task<ActionResult<Tokens>> Login([FromBody]Login login)
 		{
 			try
 			{
@@ -40,8 +41,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpPost("register")]
-		[Produces("application/json", Type = typeof(Tokens))]
-		public async Task<IActionResult> Register([FromBody]RegisterRequest request)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(422)]
+		public async Task<ActionResult<Tokens>> Register([FromBody]RegisterRequest request)
 		{
 			try
 			{
@@ -76,8 +78,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpPost("refresh-token")]
-		[Produces("application/json", Type = typeof(Tokens))]
-		public async Task<IActionResult> RefreshAccessToken([FromBody]Tokens tokens)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		public async Task<ActionResult<Tokens>> RefreshAccessToken([FromBody]Tokens tokens)
 		{
 			try
 			{

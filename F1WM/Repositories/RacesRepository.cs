@@ -14,7 +14,6 @@ namespace F1WM.Repositories
 
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
 		{
-			await SetDbEncoding();
 			var dbNextRace = await context.Races
 				.OrderBy(r => r.Date)
 				.Include(r => r.Track)
@@ -29,7 +28,6 @@ namespace F1WM.Repositories
 
 		public async Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate)
 		{
-			await SetDbEncoding();
 			var dbLastRace = await context.Races
 				.OrderByDescending(r => r.Date)
 				.Include(r => r.Track)

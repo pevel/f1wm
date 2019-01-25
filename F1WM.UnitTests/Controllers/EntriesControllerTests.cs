@@ -35,8 +35,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetRaceEntries(raceId);
 
 			serviceMock.Verify(s => s.GetRaceEntries(raceId), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			Entries.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			Entries.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -48,7 +48,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetRaceEntries(raceId);
 
 			serviceMock.Verify(s => s.GetRaceEntries(raceId), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

@@ -15,7 +15,6 @@ namespace F1WM.Repositories
 
 		public async Task<Comment> GetComment(int id)
 		{
-			await SetDbEncoding();
 			var dbComment = await context.NewsComments
 				.Include(c => c.Text)
 				.FirstOrDefaultAsync(c => c.Id == id);
@@ -24,7 +23,6 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<Comment>> GetCommentsByNewsId(int newsId)
 		{
-			await SetDbEncoding();
 			var dbComments = await context.NewsComments
 				.Include(c => c.Text)
 				.Where(c => c.NewsId == newsId)

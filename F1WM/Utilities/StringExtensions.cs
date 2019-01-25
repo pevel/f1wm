@@ -1,39 +1,15 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Text.RegularExpressions;
 using F1WM.ApiModel;
-using F1WM.DatabaseModel;
 using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
-		public static bool TryParseResultRedirect(this string text, out ResultRedirectLink link)
+		public static string IgnoreEmpty(this string text)
 		{
-			if (!string.IsNullOrWhiteSpace(text))
-			{
-				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)(&dzial=([\d]+))*");
-				var match = regex.Match(text);
-				if (match.Groups.Count == 5)
-				{
-					if (!int.TryParse(match.Groups[4].Value, out int resultType))
-					{
-						resultType = (int)Database.ResultType.Race;
-					}
-					link = new ResultRedirectLink()
-					{
-						Year = int.Parse(match.Groups[1].Value),
-						Number = int.Parse(match.Groups[2].Value),
-						ResultType = (Database.ResultType)resultType
-					};
-					return true;
-				}
-			}
-			link = null;
-			return false;
+			return text == "-" ? null : text;
 		}
 
 		public static string ParseImageInformation(this string text)
@@ -56,7 +32,10 @@ namespace F1WM.Utilities
 				int id;
 				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id))
 				{
-					throw new ArgumentException("Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)", nameof(text));
+					throw new ArgumentException(
+						"Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)",
+						nameof(text)
+					);
 				}
 				return new ImportantNewsSummary()
 				{
@@ -106,6 +85,11 @@ namespace F1WM.Utilities
 		public static string GetGrandPrixName(this string genitive)
 		{
 			return $"Grand Prix {genitive}";
+		}
+
+		public static string GetCareerImagePath(this string text)
+		{
+			return text == null ? null : $"/kierowcy/kariera/{text}";
 		}
 
 		public static ResultStatus GetResultStatus(this string statusText)

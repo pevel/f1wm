@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -46,13 +47,14 @@ namespace F1WM.Controllers
 
 
 		[HttpGet("{id}")]
-		[Produces("application/json", Type = typeof(NewsDetails))]
-		public async Task<IActionResult> GetSingle(int id)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<NewsDetails>> GetSingle(int id)
 		{
 			try
 			{
 				var news = await service.GetNewsDetails(id);
-				return (news != null ? (IActionResult)Ok(news) : (IActionResult)NotFound());
+				return this.NotFoundResultIfNull(news);
 			}
 			catch (Exception ex)
 			{
@@ -125,13 +127,15 @@ namespace F1WM.Controllers
 		}
 
 		[HttpPost("{id}/views/increment")]
-		public async Task<IActionResult> IncremetViews(int id)
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult> IncrementViews(int id)
 		{
 			try
 			{
 				if (await service.IncrementViews(id))
 				{
-					return Ok();
+					return NoContent();
 				}
 				else
 				{

@@ -36,8 +36,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, null);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, null), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			records.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			records.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -52,8 +52,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, year);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, year), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			records.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			records.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -66,7 +66,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, null);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, null), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

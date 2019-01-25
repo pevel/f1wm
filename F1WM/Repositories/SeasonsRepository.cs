@@ -15,7 +15,7 @@ namespace F1WM.Repositories
 
 		public async Task<SeasonRules> GetSeasonRules(int year)
 		{
-			await SetDbEncoding();
+			
 			var seasonRules = await context.Seasons
 				.SingleOrDefaultAsync(s => s.Year == year);
 

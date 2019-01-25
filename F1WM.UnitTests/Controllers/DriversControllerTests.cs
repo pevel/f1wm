@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.Controllers;
 using F1WM.Services;
@@ -11,6 +12,7 @@ namespace F1WM.UnitTests.Controllers
 	public class DriversControllerTests
 	{
 		private DriversController controller;
+		private Fixture fixture;
 		private Mock<IDriversService> serviceMock;
 		private Mock<ILoggingService> loggerMock;
 
@@ -18,6 +20,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			serviceMock = new Mock<IDriversService>();
 			loggerMock = new Mock<ILoggingService>();
+			fixture = new Fixture();
 			controller = new DriversController(serviceMock.Object, loggerMock.Object);
 		}
 
@@ -30,7 +33,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -42,7 +45,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -52,7 +55,32 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Never);
-			Assert.IsType<BadRequestResult>(result);
+			Assert.IsType<BadRequestResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnSingleDriver()
+		{
+			var driverId = 1;
+			var driver = fixture.Create<DriverDetails>();
+			serviceMock.Setup(s => s.GetDriver(driverId, null)).ReturnsAsync(driver);
+
+			var result = await controller.GetDriver(driverId, null);
+
+			serviceMock.Verify(s => s.GetDriver(driverId, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfDriverNotFound()
+		{
+			var driverId = 2;
+			serviceMock.Setup(s => s.GetDriver(driverId, null)).ReturnsAsync((DriverDetails)null);
+
+			var result = await controller.GetDriver(driverId, null);
+
+			serviceMock.Verify(s => s.GetDriver(driverId, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

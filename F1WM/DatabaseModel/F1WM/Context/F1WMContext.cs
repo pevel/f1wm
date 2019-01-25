@@ -37,7 +37,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Hideusercoms> F1Hideusercoms { get; set; }
 		public virtual DbSet<F1lapsled> F1lapsled { get; set; }
 		public virtual DbSet<F1Ligna> F1Ligna { get; set; }
-		public virtual DbSet<F1Linki> F1Linki { get; set; }
+		public virtual DbSet<Link> Links { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
@@ -580,90 +580,6 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.LSezon)
 					.HasColumnName("l_sezon")
 					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1Linki>(entity =>
-			{
-				entity.HasKey(e => e.LId);
-
-				entity.ToTable("f1_linki");
-
-				entity.HasIndex(e => e.LCatgrp)
-					.HasName("l_catgrp");
-
-				entity.HasIndex(e => e.LCatstr)
-					.HasName("l_catstr");
-
-				entity.HasIndex(e => e.LData)
-					.HasName("l_data");
-
-				entity.HasIndex(e => e.LNazwa)
-					.HasName("l_nazwa");
-
-				entity.HasIndex(e => e.LOcena)
-					.HasName("l_ocena");
-
-				entity.HasIndex(e => e.LOdslony)
-					.HasName("l_odslony");
-
-				entity.Property(e => e.LId)
-					.HasColumnName("l_id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.LBanurl)
-					.HasColumnName("l_banurl")
-					.HasMaxLength(128);
-
-				entity.Property(e => e.LCatgrp)
-					.HasColumnName("l_catgrp")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LCatstr)
-					.HasColumnName("l_catstr")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.LData)
-					.HasColumnName("l_data")
-					.HasColumnType("datetime")
-					.HasDefaultValueSql("'0000-00-00 00:00:00'");
-
-				entity.Property(e => e.LJezyki)
-					.HasColumnName("l_jezyki")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.LNazwa)
-					.IsRequired()
-					.HasColumnName("l_nazwa")
-					.HasMaxLength(255)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.LOcena)
-					.HasColumnName("l_ocena")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LOdslony)
-					.HasColumnName("l_odslony")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LOpis)
-					.HasColumnName("l_opis")
-					.HasMaxLength(255);
-
-				entity.Property(e => e.LRotator)
-					.HasColumnName("l_rotator")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LStatus)
-					.HasColumnName("l_status")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LUrl)
-					.IsRequired()
-					.HasColumnName("l_url")
-					.HasMaxLength(128)
-					.HasDefaultValueSql("''");
 			});
 
 			modelBuilder.Entity<F1LogZmian>(entity =>

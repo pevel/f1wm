@@ -31,7 +31,7 @@ namespace F1WM.UnitTests.Controllers
             var result = await controller.GetSeasonRules(year);
 
             serviceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
-            Assert.IsType<OkObjectResult>(result);
+            var okResult = Assert.IsType<OkObjectResult>(result.Result);
         }
 
         [Fact]
@@ -42,7 +42,7 @@ namespace F1WM.UnitTests.Controllers
             var result = await controller.GetSeasonRules(year);
 
             serviceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
-            Assert.IsType<NotFoundResult>(result);
+            Assert.IsType<NotFoundResult>(result.Result);
         }
     }
 }

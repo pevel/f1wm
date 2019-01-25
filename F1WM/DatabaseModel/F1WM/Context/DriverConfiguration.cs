@@ -51,13 +51,13 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("birthmd")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Birthplc)
+			builder.Property(e => e.BirthPlace)
 				.IsRequired()
 				.HasColumnName("birthplc")
 				.HasMaxLength(64)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Career)
+			builder.Property(e => e.CareerText)
 				.IsRequired()
 				.HasColumnName("career")
 				.HasColumnType("text");
@@ -66,7 +66,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("deathmd")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Deathplc)
+			builder.Property(e => e.DeathPlace)
 				.IsRequired()
 				.HasColumnName("deathplc")
 				.HasMaxLength(64)
@@ -115,13 +115,13 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("char(3)")
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Resides)
+			builder.Property(e => e.Residence)
 				.IsRequired()
 				.HasColumnName("resides")
 				.HasMaxLength(64)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Status)
+			builder.Property(e => e.MaritalStatus)
 				.IsRequired()
 				.HasColumnName("status")
 				.HasMaxLength(64)
@@ -145,7 +145,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(255)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Titles)
+			builder.Property(e => e.ChampionAtSeries)
 				.IsRequired()
 				.HasColumnName("titles")
 				.HasMaxLength(255)
@@ -164,6 +164,12 @@ namespace F1WM.DatabaseModel.Context
 				.WithMany()
 				.HasPrincipalKey(n => n.Key)
 				.HasForeignKey(e => e.NationalityKey);
+
+			builder.HasOne(e => e.Link)
+				.WithMany()
+				.IsRequired(false)
+				.HasForeignKey(e => e.Key)
+				.HasPrincipalKey(l => l.CategoryKey);
 		}
 	}
 }
