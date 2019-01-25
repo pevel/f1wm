@@ -12,6 +12,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
+		[ProducesResponseType(200)]
 		public ApiVersion GetVersion()
 		{
 			try

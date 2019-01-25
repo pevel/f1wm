@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
+		[ProducesResponseType(200)]
 		public async Task<NewsSummaryPaged> GetManyNews(
 					[FromQuery(Name = "firstId")] int? firstId = null,
 					[FromQuery(Name = "tagId")] int? tagId = null,
@@ -47,12 +49,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(NewsDetails))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetSingle(int id)
 		{
 			try
 			{
 				var news = await service.GetNewsDetails(id);
-				return (news != null ? (IActionResult)Ok(news) : (IActionResult)NotFound());
+				return this.NotFoundResultIfNull(news);
 			}
 			catch (Exception ex)
 			{
@@ -62,6 +66,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("types")]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<NewsType>> GetTypes()
 		{
 			try
@@ -76,6 +81,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("tags")]
+		[ProducesResponseType(200)]
 		public async Task<NewsTagsPaged> GetTags(
 			[FromQuery(Name = "categoryId")] int? id = null,
 			[FromQuery(Name = "page")] int page = defaultPage,
@@ -97,6 +103,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("categories")]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<NewsTagCategory>> GetTagCategories()
 		{
 			try
@@ -111,6 +118,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("important")]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
 			try
@@ -125,13 +133,15 @@ namespace F1WM.Controllers
 		}
 
 		[HttpPost("{id}/views/increment")]
-		public async Task<IActionResult> IncremetViews(int id)
+		[ProducesResponseType(204)]
+		[ProducesResponseType(404)]
+		public async Task<IActionResult> IncrementViews(int id)
 		{
 			try
 			{
 				if (await service.IncrementViews(id))
 				{
-					return Ok();
+					return NoContent();
 				}
 				else
 				{

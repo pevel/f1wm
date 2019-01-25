@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -14,19 +15,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("rules")]
 		[Produces("application/json", Type = typeof(SeasonRules))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetSeasonRules([FromQuery(Name = "year")] int? year)
 		{
 			try
 			{
 				var seasonRules = await service.GetSeasonRules(year);
-				if (seasonRules != null)
-				{
-					return Ok(seasonRules);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(seasonRules);
 			}
 			catch (Exception ex)
 			{

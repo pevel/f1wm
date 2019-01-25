@@ -106,23 +106,23 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var id = 44;
 
-			var result = await controller.IncremetViews(id);
+			var result = await controller.IncrementViews(id);
 
 			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
 		}
 
 		[Fact]
-		public async Task ShouldReturn200IfViewsIncremented()
+		public async Task ShouldReturn204IfViewsIncremented()
 		{
 			var id = 44000;
 
 			serviceMock.Setup(s => s.IncrementViews(id)).ReturnsAsync(true);
 
-			var result = await controller.IncremetViews(id);
+			var result = await controller.IncrementViews(id);
 
 			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
-			Assert.IsType<OkResult>(result);
+			Assert.IsType<NoContentResult>(result);
 		}
 
 		[Fact]

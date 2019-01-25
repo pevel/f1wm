@@ -1,8 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -15,19 +15,14 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		[Produces("application/json", Type = typeof(RaceEntriesInformation))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetRaceEntries([FromQuery(Name = "raceId")] int raceId)
 		{
 			try
 			{
 				var entries = await service.GetRaceEntries(raceId);
-				if (entries != null)
-				{
-					return Ok(entries);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(entries);
 			}
 			catch (Exception ex)
 			{

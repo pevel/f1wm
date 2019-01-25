@@ -1,5 +1,6 @@
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -14,6 +15,8 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		[Produces("application/json", Type = typeof(Drivers))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetDrivers([FromQuery(Name = "letter")] char letter)
 		{
 			try
@@ -21,14 +24,7 @@ namespace F1WM.Controllers
 				if (letter == '\0') return BadRequest();
 
 				var drivers = await service.GetDrivers(letter);
-				if (drivers != null)
-				{
-					return Ok(drivers);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(drivers);
 			}
 			catch (Exception ex)
 			{
@@ -39,19 +35,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(DriverDetails))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetDriver(int id, [FromQuery]int? atYear)
 		{
 			try
 			{
 				var driver = await service.GetDriver(id, atYear);
-				if (driver != null)
-				{
-					return Ok(driver);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(driver);
 			}
 			catch (Exception ex)
 			{
@@ -67,4 +58,3 @@ namespace F1WM.Controllers
 		}
 	}
 }
-

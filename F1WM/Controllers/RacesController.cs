@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -14,19 +15,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("next")]
 		[Produces("application/json", Type = typeof(NextRaceSummary))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetNextRace()
 		{
 			try
 			{
 				var nextRace = await service.GetNextRace();
-				if (nextRace != null)
-				{
-					return Ok(nextRace);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(nextRace);
 			}
 			catch (Exception ex)
 			{
@@ -37,19 +33,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("last")]
 		[Produces("application/json", Type = typeof(LastRaceSummary))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetLastRace()
 		{
 			try
 			{
 				var lastRace = await service.GetLastRace();
-				if (lastRace != null)
-				{
-					return Ok(lastRace);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(lastRace);
 			}
 			catch (Exception ex)
 			{

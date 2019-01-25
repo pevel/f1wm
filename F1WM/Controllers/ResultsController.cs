@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -14,19 +15,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("race/{raceId}")]
 		[Produces("application/json", Type = typeof(RaceResult))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetRaceResult(int raceId)
 		{
 			try
 			{
 				var raceResult = await service.GetRaceResult(raceId);
-				if (raceResult != null)
-				{
-					return Ok(raceResult);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(raceResult);
 			}
 			catch (Exception ex)
 			{
@@ -37,19 +33,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("qualifying/{raceId}")]
 		[Produces("application/json", Type = typeof(QualifyingResult))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetQualifyingResult(int raceId)
 		{
 			try
 			{
 				var qualifyingResult = await service.GetQualifyingResult(raceId);
-				if (qualifyingResult != null)
-				{
-					return Ok(qualifyingResult);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(qualifyingResult);
 			}
 			catch (Exception ex)
 			{
@@ -60,19 +51,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("practice/{raceId}/sessions/{session}")]
 		[Produces("application/json", Type = typeof(PracticeSessionResult))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			try
 			{
 				var result = await service.GetPracticeSessionResult(raceId, session);
-				if (result != null)
-				{
-					return Ok(result);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(result);
 			}
 			catch (Exception ex)
 			{
@@ -83,19 +69,14 @@ namespace F1WM.Controllers
 
 		[HttpGet("other/{eventId}")]
 		[Produces("application/json", Type = typeof(OtherResult))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetOtherResult(int eventId)
 		{
 			try
 			{
 				var result = await service.GetOtherResult(eventId);
-				if (result != null)
-				{
-					return Ok(result);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return this.NotFoundResultIfNull(result);
 			}
 			catch (Exception ex)
 			{

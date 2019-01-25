@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -14,6 +15,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<Comment>> GetMany([FromQuery(Name = "newsId")] int newsId)
 		{
 			try
@@ -29,28 +31,20 @@ namespace F1WM.Controllers
 
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(Comment))]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<IActionResult> GetSingle(int id)
 		{
 			try
 			{
 				var comment = await service.GetComment(id);
-				IActionResult result;
-				if (comment != null)
-				{
-					result = Ok(comment);
-				}
-				else
-				{
-					result = NotFound();
-				}
-				return result;
+				return this.NotFoundResultIfNull(comment);
 			}
 			catch (Exception ex)
 			{
 				logger.LogError(ex);
 				throw ex;
 			}
-
 		}
 
 		public CommentsController(ICommentsService service, ILoggingService logger)
