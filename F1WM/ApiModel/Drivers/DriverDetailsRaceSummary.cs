@@ -1,8 +1,11 @@
+using System;
+
 namespace F1WM.ApiModel
 {
 	public class DriverDetailsRaceSummary
 	{
-		public int Id { get; set; }
+		public uint RaceId { get; set; }
 		public string Name { get; set; }
+		public DateTime Date { get; set; }
 	}
 }

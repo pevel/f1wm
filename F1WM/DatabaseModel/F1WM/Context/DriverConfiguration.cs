@@ -145,7 +145,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(255)
 				.HasDefaultValueSql("'-'");
 
-			builder.Property(e => e.Titles)
+			builder.Property(e => e.ChampionAtSeries)
 				.IsRequired()
 				.HasColumnName("titles")
 				.HasMaxLength(255)

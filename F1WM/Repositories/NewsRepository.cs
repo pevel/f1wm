@@ -58,7 +58,7 @@ namespace F1WM.Repositories
 					.Where(n => n.Date > news.Date && !n.NewsHidden)
 					.OrderBy(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;
-				if (news.Redirect != null && news.Redirect.TryParseResultRedirect(out ResultRedirectLink link))
+				if (news.Redirect != null && news.TryParseResultRedirect(out ResultRedirectLink link))
 				{
 					news.ResultLink = new ResultLink()
 					{

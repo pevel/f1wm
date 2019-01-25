@@ -16,19 +16,16 @@ namespace F1WM.ApiModel
 		public string Weight { get; set; }
 		public string MaritalStatus { get; set; }
 		public string Kids { get; set; }
-		public int TotalPoints { get; set; }
 		public int Number { get; set; }
-		public TeamSummary CurrentTeam { get; set; }
-		public CarSummary CurrentCar { get; set; }
-		public int Starts { get; set; }
-		public int Wins { get; set; }
-		public int PolePositions { get; set; }
-		public int FastestLaps { get; set; }
+		public TeamSummary Team { get; set; }
+		public CarSummary Car { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public IEnumerable<ushort> WorldChampionAtYears { get; set; }
+		public IEnumerable<ushort> F1ChampionAtYears { get; set; }
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public IEnumerable<string> ChampionAtSeries { get; set; }
 		public DriverDetailsRaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public DriverDetailsRaceSummary FirstWinAt { get; set; }
-		public IEnumerable<DriverCareerYear> Career { get; set; }
+		public IEnumerable<DriverCareerYear> CareerYears { get; set; }
 	}
 }

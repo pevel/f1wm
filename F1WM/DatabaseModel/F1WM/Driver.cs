@@ -17,7 +17,7 @@ namespace F1WM.DatabaseModel
 		public string Kids { get; set; }
 		public string Height { get; set; }
 		public string Weight { get; set; }
-		public string Titles { get; set; }
+		public string ChampionAtSeries { get; set; }
 		public string Testdriver { get; set; }
 		public uint? Artid { get; set; }
 		public ushort Group { get; set; }
