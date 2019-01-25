@@ -14,10 +14,12 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("{trackId}/versions/{trackVersion}/records")]
-		[Produces("application/json", Type = typeof(TrackRecordsInformation))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetTrackRecords(int trackId, int trackVersion, [FromQuery]int? beforeYear)
+		public async Task<ActionResult<TrackRecordsInformation>> GetTrackRecords(
+			[FromRoute]int trackId,
+			[FromRoute]int trackVersion,
+			[FromQuery]int? beforeYear)
 		{
 			try
 			{

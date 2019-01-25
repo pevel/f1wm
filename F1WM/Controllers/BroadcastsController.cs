@@ -16,10 +16,7 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
-		[Produces("application/json", Type = typeof(BroadcastsInformation))]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetNextBroadcasts()
+		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts()
 		{
 			try
 			{
@@ -34,7 +31,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("broadcasters")]
-		[ProducesResponseType(200)]
 		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
 			try
@@ -49,7 +45,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("types")]
-		[ProducesResponseType(200)]
 		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
 			try
@@ -65,10 +60,10 @@ namespace F1WM.Controllers
 
 		[HttpPost("types")]
 		[Authorize]
-		[Produces("application/json", Type = typeof(BroadcastSessionType))]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
-		public async Task<IActionResult> AddSessionType([FromBody]BroadcastSessionTypeAddRequest request)
+		public async Task<ActionResult<BroadcastSessionType>> AddSessionType(
+			[FromBody]BroadcastSessionTypeAddRequest request)
 		{
 			try
 			{
@@ -84,11 +79,11 @@ namespace F1WM.Controllers
 
 		[HttpPost("broadcasters")]
 		[Authorize]
-		[Produces("application/json", Type = typeof(Broadcaster))]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(422)]
-		public async Task<IActionResult> AddBroadcaster([FromBody]BroadcasterAddRequest request)
+		public async Task<ActionResult<Broadcaster>> AddBroadcaster(
+			[FromBody]BroadcasterAddRequest request)
 		{
 			try
 			{
@@ -111,11 +106,11 @@ namespace F1WM.Controllers
 
 		[HttpPost]
 		[Authorize]
-		[Produces("application/json", Type = typeof(BroadcastsInformation))]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(422)]
-		public async Task<IActionResult> AddBroadcasts([FromBody]BroadcastsAddRequest request)
+		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
+			[FromBody]BroadcastsAddRequest request)
 		{
 			try
 			{

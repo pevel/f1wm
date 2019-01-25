@@ -14,10 +14,9 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("race/{raceId}")]
-		[Produces("application/json", Type = typeof(RaceResult))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetRaceResult(int raceId)
+		public async Task<ActionResult<RaceResult>> GetRaceResult(int raceId)
 		{
 			try
 			{
@@ -32,10 +31,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("qualifying/{raceId}")]
-		[Produces("application/json", Type = typeof(QualifyingResult))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetQualifyingResult(int raceId)
+		public async Task<ActionResult<QualifyingResult>> GetQualifyingResult(int raceId)
 		{
 			try
 			{
@@ -50,10 +48,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("practice/{raceId}/sessions/{session}")]
-		[Produces("application/json", Type = typeof(PracticeSessionResult))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetPracticeSessionResult(int raceId, string session)
+		public async Task<ActionResult<PracticeSessionResult>> GetPracticeSessionResult(int raceId, string session)
 		{
 			try
 			{
@@ -68,10 +65,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("other/{eventId}")]
-		[Produces("application/json", Type = typeof(OtherResult))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetOtherResult(int eventId)
+		public async Task<ActionResult<OtherResult>> GetOtherResult(int eventId)
 		{
 			try
 			{

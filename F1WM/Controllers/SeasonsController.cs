@@ -14,10 +14,10 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("rules")]
-		[Produces("application/json", Type = typeof(SeasonRules))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetSeasonRules([FromQuery(Name = "year")] int? year)
+		public async Task<ActionResult<SeasonRules>> GetSeasonRules(
+			[FromQuery(Name = "year")] int? year)
 		{
 			try
 			{

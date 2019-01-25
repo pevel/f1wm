@@ -14,10 +14,10 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		[Produces("application/json", Type = typeof(GridInformation))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetGrid([FromQuery(Name = "raceId")] int raceId)
+		public async Task<ActionResult<GridInformation>> GetGrid(
+			[FromQuery(Name = "raceId")] int raceId)
 		{
 			try
 			{

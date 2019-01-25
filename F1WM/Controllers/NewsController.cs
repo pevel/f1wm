@@ -21,7 +21,6 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		[ProducesResponseType(200)]
 		public async Task<NewsSummaryPaged> GetManyNews(
 					[FromQuery(Name = "firstId")] int? firstId = null,
 					[FromQuery(Name = "tagId")] int? tagId = null,
@@ -48,10 +47,9 @@ namespace F1WM.Controllers
 
 
 		[HttpGet("{id}")]
-		[Produces("application/json", Type = typeof(NewsDetails))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetSingle(int id)
+		public async Task<ActionResult<NewsDetails>> GetSingle(int id)
 		{
 			try
 			{
@@ -66,7 +64,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("types")]
-		[ProducesResponseType(200)]
 		public async Task<IEnumerable<NewsType>> GetTypes()
 		{
 			try
@@ -81,7 +78,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("tags")]
-		[ProducesResponseType(200)]
 		public async Task<NewsTagsPaged> GetTags(
 			[FromQuery(Name = "categoryId")] int? id = null,
 			[FromQuery(Name = "page")] int page = defaultPage,
@@ -103,7 +99,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("categories")]
-		[ProducesResponseType(200)]
 		public async Task<IEnumerable<NewsTagCategory>> GetTagCategories()
 		{
 			try
@@ -118,7 +113,6 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("important")]
-		[ProducesResponseType(200)]
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
 			try
@@ -135,7 +129,7 @@ namespace F1WM.Controllers
 		[HttpPost("{id}/views/increment")]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> IncrementViews(int id)
+		public async Task<ActionResult> IncrementViews(int id)
 		{
 			try
 			{

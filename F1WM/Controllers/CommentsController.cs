@@ -15,8 +15,8 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		[ProducesResponseType(200)]
-		public async Task<IEnumerable<Comment>> GetMany([FromQuery(Name = "newsId")] int newsId)
+		public async Task<IEnumerable<Comment>> GetMany(
+			[FromQuery(Name = "newsId")] int newsId)
 		{
 			try
 			{
@@ -30,10 +30,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		[Produces("application/json", Type = typeof(Comment))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetSingle(int id)
+		public async Task<ActionResult<Comment>> GetSingle(int id)
 		{
 			try
 			{

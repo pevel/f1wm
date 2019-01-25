@@ -14,10 +14,10 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet]
-		[Produces("application/json", Type = typeof(Drivers))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetDrivers([FromQuery(Name = "letter")] char letter)
+		public async Task<ActionResult<Drivers>> GetDrivers(
+			[FromQuery(Name = "letter")]char letter)
 		{
 			try
 			{
@@ -34,10 +34,11 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("{id}")]
-		[Produces("application/json", Type = typeof(DriverDetails))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetDriver(int id, [FromQuery]int? atYear)
+		public async Task<ActionResult<DriverDetails>> GetDriver(
+			[FromRoute]int id,
+			[FromQuery]int? atYear)
 		{
 			try
 			{

@@ -14,10 +14,9 @@ namespace F1WM.Controllers
 		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
-		[Produces("application/json", Type = typeof(NextRaceSummary))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetNextRace()
+		public async Task<ActionResult<NextRaceSummary>> GetNextRace()
 		{
 			try
 			{
@@ -32,10 +31,9 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("last")]
-		[Produces("application/json", Type = typeof(LastRaceSummary))]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<IActionResult> GetLastRace()
+		public async Task<ActionResult<LastRaceSummary>> GetLastRace()
 		{
 			try
 			{
