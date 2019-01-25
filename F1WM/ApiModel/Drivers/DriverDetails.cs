@@ -6,6 +6,7 @@ namespace F1WM.ApiModel
 {
 	public class DriverDetails : DriverSummary
 	{
+		public string Picture { get; set; }
 		public DateTime Birthday { get; set; }
 		public string BirthPlace { get; set; }
 		public string Residence { get; set; }
