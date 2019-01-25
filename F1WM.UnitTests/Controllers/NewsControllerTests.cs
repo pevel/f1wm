@@ -79,7 +79,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]

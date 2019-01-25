@@ -30,11 +30,11 @@ namespace F1WM.Repositories
 			await IncludeLastPolePositionResult(year, races);
 			await IncludeLastRaceResult(year, races);
 			await IncludeFastestLaps(year, races);
-			var result = new Calendar();
-			await GetSeasonId(year, result);
-			result.Races = races;
-			CalculateLap(result);
-			return result;
+			var apiCalendar = new Calendar();
+			await GetSeasonId(year, apiCalendar);
+			apiCalendar.Races = races;
+			CalculateLap(apiCalendar);
+			return apiCalendar;
 		}
 
 		public CalendarRepository(F1WMContext context, IMapper mapper)

@@ -35,8 +35,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetGrid(raceId);
 
 			serviceMock.Verify(s => s.GetGrid(raceId), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			Grids.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			Grids.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -48,7 +48,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetGrid(raceId);
 
 			serviceMock.Verify(s => s.GetGrid(raceId), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

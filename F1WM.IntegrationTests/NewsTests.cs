@@ -125,7 +125,7 @@ namespace F1WM.IntegrationTests
 
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
-			Assert.NotNull(result);
+			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
@@ -178,7 +178,7 @@ namespace F1WM.IntegrationTests
 
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<NewsTagsPaged>(responseContent);
-			Assert.NotNull(result);
+			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
@@ -238,7 +238,7 @@ namespace F1WM.IntegrationTests
 
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<NewsTagsPaged>(responseContent);
-			Assert.NotNull(result);
+			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
@@ -265,7 +265,7 @@ namespace F1WM.IntegrationTests
 
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
-			Assert.NotNull(result);
+			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
 			Assert.Equal(result.Result.Count(), count);
@@ -295,7 +295,7 @@ namespace F1WM.IntegrationTests
 
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
-			Assert.NotNull(result);
+			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
 			Assert.Equal(result.Result.Count(), count);

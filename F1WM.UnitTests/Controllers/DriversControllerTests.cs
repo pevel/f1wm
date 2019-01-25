@@ -33,7 +33,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -45,7 +45,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -55,7 +55,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDrivers(letter);
 
 			serviceMock.Verify(s => s.GetDrivers(letter), Times.Never);
-			Assert.IsType<BadRequestResult>(result);
+			Assert.IsType<BadRequestResult>(result.Result);
 		}
 
 		[Fact]
@@ -68,7 +68,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDriver(driverId, null);
 
 			serviceMock.Verify(s => s.GetDriver(driverId, null), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -80,7 +80,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetDriver(driverId, null);
 
 			serviceMock.Verify(s => s.GetDriver(driverId, null), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

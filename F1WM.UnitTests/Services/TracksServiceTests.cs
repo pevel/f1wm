@@ -35,10 +35,10 @@ namespace F1WM.UnitTests.Services
 			timeServiceMock.SetupGet(t => t.Now).Returns(new DateTime(year, 6, 6));
 			repositoryMock.Setup(r => r.GetTrackRecords(trackId, trackVersion, year)).ReturnsAsync(records);
 
-			var result = await service.GetTrackRecords(trackId, trackVersion, null);
+			var actual = await service.GetTrackRecords(trackId, trackVersion, null);
 
 			repositoryMock.Verify(r => r.GetTrackRecords(trackId, trackVersion, year), Times.Once);
-			records.Should().BeEquivalentTo(result);
+			actual.Should().BeEquivalentTo(records);
 		}
 
 		[Fact]
@@ -50,10 +50,10 @@ namespace F1WM.UnitTests.Services
 			var records = fixture.Create<TrackRecordsInformation>();
 			repositoryMock.Setup(r => r.GetTrackRecords(trackId, trackVersion, year)).ReturnsAsync(records);
 
-			var result = await service.GetTrackRecords(trackId, trackVersion, year);
+			var actual = await service.GetTrackRecords(trackId, trackVersion, year);
 
 			repositoryMock.Verify(r => r.GetTrackRecords(trackId, trackVersion, year), Times.Once);
-			records.Should().BeEquivalentTo(result);
+			actual.Should().BeEquivalentTo(records);
 		}
 	}
 }

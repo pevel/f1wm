@@ -30,10 +30,10 @@ namespace F1WM.UnitTests.Services
 			var entries = fixture.Create<RaceEntriesInformation>();
 			repositoryMock.Setup(r => r.GetRaceEntries(raceId)).ReturnsAsync(entries);
 
-			var result = await service.GetRaceEntries(raceId);
+			var actual = await service.GetRaceEntries(raceId);
 
 			repositoryMock.Verify(r => r.GetRaceEntries(raceId), Times.Once);
-			entries.Should().BeEquivalentTo(result);
+			actual.Should().BeEquivalentTo(entries);
 		}
 	}
 }

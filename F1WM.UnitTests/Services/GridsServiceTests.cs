@@ -27,13 +27,13 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetGrid()
 		{
 			var raceId = 8000;
-			var Grids = fixture.Create<GridInformation>();
-			repositoryMock.Setup(r => r.GetGrid(raceId)).ReturnsAsync(Grids);
+			var grid = fixture.Create<GridInformation>();
+			repositoryMock.Setup(r => r.GetGrid(raceId)).ReturnsAsync(grid);
 
-			var result = await service.GetGrid(raceId);
+			var actual = await service.GetGrid(raceId);
 
 			repositoryMock.Verify(r => r.GetGrid(raceId), Times.Once);
-			Grids.Should().BeEquivalentTo(result);
+			actual.Should().BeEquivalentTo(grid);
 		}
 	}
 }
