@@ -71,14 +71,14 @@ namespace F1WM.Repositories
 
 		private async Task IncludeRacesInfo(int id, int atYear, DriverDetails apiDriver)
 		{
-			apiDriver.FirstStartAt = await mapper.ProjectTo<DriverDetailsRaceSummary>(context.Grids
+			apiDriver.FirstStartAt = await mapper.ProjectTo<RaceSummary>(context.Grids
 					.Include(g => g.Entry)
 					.Include(g => g.Race)
 					.Where(g => g.Entry.DriverId == id && g.Race.Date.Year <= atYear)
 					.OrderBy(g => g.Race.Date)
 					.Select(g => g.Race))
 				.FirstOrDefaultAsync();
-			apiDriver.FirstWinAt = await mapper.ProjectTo<DriverDetailsRaceSummary>(context.Entries
+			apiDriver.FirstWinAt = await mapper.ProjectTo<RaceSummary>(context.Entries
 					.Include(e => e.Race)
 					.Include(e => e.Result)
 					.Where(e => e.Result.PositionOrStatus == "1")

@@ -23,7 +23,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.ChampionAtSeries, o => o.MapFrom(db => db.GetSeriesChampionInfo()))
 				.ForMember(api => api.CareerYears, o => o.MapFrom(db => db.ParseCareerInfo()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
-			CreateMap<Race, DriverDetailsRaceSummary>()
+			CreateMap<Race, RaceSummary>()
 				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
 				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 		}
