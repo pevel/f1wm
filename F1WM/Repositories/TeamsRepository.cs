@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
@@ -9,9 +11,11 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public Task<TeamDetails> GetTeam(int id)
+		public async Task<TeamDetails> GetTeam(int id)
 		{
-			throw new System.NotImplementedException();
+			return await mapper.ProjectTo<TeamDetails>(context.Teams
+					.Where(t => t.Id == id))
+				.FirstOrDefaultAsync();
 		}
 
 		public TeamsRepository(F1WMContext context, IMapper mapper)

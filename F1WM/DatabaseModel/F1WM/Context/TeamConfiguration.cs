@@ -15,7 +15,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasName("ascid")
 				.IsUnique();
 
-			builder.HasIndex(e => e.Litera)
+			builder.HasIndex(e => e.Letter)
 				.HasName("litera");
 
 			builder.HasIndex(e => e.Status)
@@ -38,7 +38,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("char(3)")
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Base)
+			builder.Property(e => e.Headquarters)
 				.IsRequired()
 				.HasColumnName("base")
 				.HasMaxLength(45)
@@ -54,7 +54,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("carmakeid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Curboss)
+			builder.Property(e => e.TeamPrincipal)
 				.IsRequired()
 				.HasColumnName("curboss")
 				.HasMaxLength(45)
@@ -78,7 +78,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Curtechdir)
+			builder.Property(e => e.TechnicalDirector)
 				.IsRequired()
 				.HasColumnName("curtechdir")
 				.HasMaxLength(45)
@@ -114,18 +114,18 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Litera)
+			builder.Property(e => e.Letter)
 				.IsRequired()
 				.HasColumnName("litera")
 				.HasColumnType("char(1)");
 
-			builder.Property(e => e.Nat)
+			builder.Property(e => e.NationalityKey)
 				.IsRequired()
 				.HasColumnName("nat")
 				.HasColumnType("char(3)")
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Newstopicid)
+			builder.Property(e => e.NewsTopicId)
 				.HasColumnName("newstopicid")
 				.HasColumnType("mediumint unsigned");
 
@@ -167,6 +167,17 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("teamshort")
 				.HasMaxLength(10);
+
+			builder.HasOne(e => e.Country)
+				.WithMany()
+				.HasForeignKey(e => e.NationalityKey)
+				.HasPrincipalKey(n => n.Key);
+			
+			builder.HasOne(e => e.Link)
+				.WithMany()
+				.IsRequired(false)
+				.HasForeignKey(e => e.Key)
+				.HasPrincipalKey(l => l.CategoryKey);
 		}
 	}
 }
