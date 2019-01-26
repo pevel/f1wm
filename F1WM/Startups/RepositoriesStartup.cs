@@ -32,6 +32,7 @@ namespace F1WM.Startups
 				.AddTransient<IGridsRepository, GridsRepository>()
 				.AddTransient<ITracksRepository, TracksRepository>()
 				.AddTransient<IDriversRepository, DriversRepository>()
+				.AddTransient<ITeamsRepository, TeamsRepository>()
 				.AddTransient<IEntriesRepository, EntriesRepository>();
 		}
 

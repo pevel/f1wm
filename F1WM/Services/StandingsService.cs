@@ -9,16 +9,14 @@ namespace F1WM.Services
 	{
 		private readonly IStandingsRepository repository;
 
-		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId)
+		public Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId)
 		{
-			var model = await repository.GetConstructorsStandings(count, seasonId);
-			return model;
+			return repository.GetConstructorsStandings(count, seasonId);
 		}
 
-		public async Task<DriversStandings> GetDriversStandings(int count, int? seasonId)
+		public Task<DriversStandings> GetDriversStandings(int count, int? seasonId)
 		{
-			var model = await repository.GetDriversStandings(count, seasonId);
-			return model;
+			return repository.GetDriversStandings(count, seasonId);
 		}
 
 		public StandingsService(IStandingsRepository repository)

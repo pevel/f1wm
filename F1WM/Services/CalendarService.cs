@@ -10,10 +10,10 @@ namespace F1WM.Services
 	{
 		private readonly ICalendarRepository repository;
 		private readonly ITimeService timeService;
-		public async Task<Calendar> GetCalendar(int? year)
+
+		public Task<Calendar> GetCalendar(int? year)
 		{
-			var news = await repository.GetCalendar(year.HasValue ? year.Value : timeService.Now.Year);
-			return news;
+			return repository.GetCalendar(year.HasValue ? year.Value : timeService.Now.Year);
 		}
 
 		public CalendarService(ICalendarRepository repository, ITimeService timeService)
