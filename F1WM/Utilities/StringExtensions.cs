@@ -9,7 +9,7 @@ namespace F1WM.Utilities
 	{
 		public static string IgnoreEmpty(this string text)
 		{
-			return text == "-" ? null : text;
+			return text == "-" || string.IsNullOrWhiteSpace(text) ? null : text;
 		}
 
 		public static string ParseImageInformation(this string text)
@@ -90,6 +90,11 @@ namespace F1WM.Utilities
 		public static string GetCareerImagePath(this string text)
 		{
 			return text == null ? null : $"/kierowcy/kariera/{text}";
+		}
+
+		public static string GetTeamImagePath(this string text)
+		{
+			return text == null || string.IsNullOrWhiteSpace(text) ? null : $"/img/zespoly/{text}";
 		}
 
 		public static ResultStatus GetResultStatus(this string statusText)

@@ -60,19 +60,19 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Curbosspic)
+			builder.Property(e => e.TeamPrincipalPicture)
 				.IsRequired()
 				.HasColumnName("curbosspic")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Curengboss)
+			builder.Property(e => e.EngineeringDirector)
 				.IsRequired()
 				.HasColumnName("curengboss")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Curengbosspic)
+			builder.Property(e => e.EngineeringDirectorPicture)
 				.IsRequired()
 				.HasColumnName("curengbosspic")
 				.HasMaxLength(45)
@@ -84,19 +84,19 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Curtechdirpic)
+			builder.Property(e => e.TechnicalDirectorPicture)
 				.IsRequired()
 				.HasColumnName("curtechdirpic")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Firstboss)
+			builder.Property(e => e.FirstTeamPrincipal)
 				.IsRequired()
 				.HasColumnName("firstboss")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Firstbosspic)
+			builder.Property(e => e.FirstTeamPrincipalPicture)
 				.IsRequired()
 				.HasColumnName("firstbosspic")
 				.HasMaxLength(45)
@@ -108,7 +108,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Founderpic)
+			builder.Property(e => e.FounderPicture)
 				.IsRequired()
 				.HasColumnName("founderpic")
 				.HasMaxLength(45)
@@ -129,19 +129,19 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("newstopicid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Otherboss)
+			builder.Property(e => e.OtherDirector)
 				.IsRequired()
 				.HasColumnName("otherboss")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Otherbossocc)
+			builder.Property(e => e.OtherDirectorOccupancy)
 				.IsRequired()
 				.HasColumnName("otherbossocc")
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Otherbosspic)
+			builder.Property(e => e.OtherDirectorPicture)
 				.IsRequired()
 				.HasColumnName("otherbosspic")
 				.HasMaxLength(45)
@@ -175,7 +175,6 @@ namespace F1WM.DatabaseModel.Context
 			
 			builder.HasOne(e => e.Link)
 				.WithMany()
-				.IsRequired(false)
 				.HasForeignKey(e => e.Key)
 				.HasPrincipalKey(l => l.CategoryKey);
 		}

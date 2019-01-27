@@ -7,9 +7,7 @@ namespace F1WM.ApiModel
 	{
 		public string Headquarters { get; set; }
 		public string Website { get; set; }
-		public string Founder { get; set; }
-		public string TeamPrincipal { get; set; }
-		public string TechnicalDirector { get; set; }
+		public Management Management { get; set; }
 		public IEnumerable<DriverSummary> TestDrivers { get; set; }
 		public RaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]

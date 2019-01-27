@@ -20,8 +20,8 @@ namespace F1WM.DatabaseModel
 		public string ChampionAtSeries { get; set; }
 		public string Testdriver { get; set; }
 		public uint? Artid { get; set; }
-		public ushort Group { get; set; }
-		public string Teamascid { get; set; }
+		public DriverGroup Group { get; set; }
+		public string TeamKey { get; set; }
 		public string DeathPlace { get; set; }
 		public ushort Birthmd { get; set; }
 		public ushort Deathmd { get; set; }
@@ -33,5 +33,6 @@ namespace F1WM.DatabaseModel
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
 		public virtual Link Link { get; set; }
+		public virtual Team Team { get; set; }
 	}
 }

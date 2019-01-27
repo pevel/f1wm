@@ -13,6 +13,7 @@ namespace F1WM.Mapping
 		public TeamsMappingProfile()
 		{
 			CreateMap<Team, TeamDetails>()
+				.ForMember(api => api.Management, o => o.MapFrom(db => db.GetManagementInfo()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
 		}
 	}

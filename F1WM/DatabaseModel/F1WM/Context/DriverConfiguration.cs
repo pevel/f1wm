@@ -27,7 +27,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.Surname)
 				.HasName("surname");
 
-			builder.HasIndex(e => e.Teamascid)
+			builder.HasIndex(e => e.TeamKey)
 				.HasName("teamascid");
 
 			builder.HasIndex(e => new { e.Group, e.Surname })
@@ -133,7 +133,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Teamascid)
+			builder.Property(e => e.TeamKey)
 				.IsRequired()
 				.HasColumnName("teamascid")
 				.HasColumnType("char(3)")
@@ -170,6 +170,11 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired(false)
 				.HasForeignKey(e => e.Key)
 				.HasPrincipalKey(l => l.CategoryKey);
+
+			builder.HasOne(e => e.Team)
+				.WithMany()
+				.HasForeignKey(e => e.TeamKey)
+				.HasPrincipalKey(t => t.Key);
 		}
 	}
 }
