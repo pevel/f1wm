@@ -45,7 +45,7 @@ namespace F1WM.IntegrationTests
 			}
 		}
 
-		private static void CheckMethod(MethodInfo testMethod)
+		private void CheckMethod(MethodInfo testMethod)
 		{
 			if (testMethod == null)
 			{
@@ -53,7 +53,7 @@ namespace F1WM.IntegrationTests
 			}
 		}
 
-		private static Type GetTestDataType(MethodInfo testMethod)
+		private Type GetTestDataType(MethodInfo testMethod)
 		{
 			var testDataTypes = testMethod.GetParameters()
 				.Select(p => p.ParameterType)
