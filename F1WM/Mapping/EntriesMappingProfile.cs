@@ -12,7 +12,7 @@ namespace F1WM.Mapping
 		{
 			CreateMap<Entry, RaceEntry>();
 			CreateMap<Driver, EntryDriverSummary>()
-				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetDriverPicturePath()));
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetSmallDriverPicturePath()));
 		}
 	}
 }

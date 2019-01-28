@@ -15,7 +15,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.StartStatus, o => o.MapFrom(db => db.StartStatus.GetStartStatus()));
 			CreateMap<Driver, GridDriverSummary>()
-				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetDriverPicturePath()));
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetSmallDriverPicturePath()));
 		}
 	}
 }

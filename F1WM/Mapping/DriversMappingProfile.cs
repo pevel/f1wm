@@ -13,7 +13,7 @@ namespace F1WM.Mapping
 		public DriversMappingProfile()
 		{
 			CreateMap<Driver, DriverDetails>()
-				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetDriverPicturePath()))
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetMainDriverPicturePath()))
 				.ForMember(api => api.Residence, o => o.MapFrom(db => db.Residence.IgnoreEmpty()))
 				.ForMember(api => api.Height, o => o.MapFrom(db => db.Height.IgnoreEmpty()))
 				.ForMember(api => api.Weight, o => o.MapFrom(db => db.Weight.IgnoreEmpty()))

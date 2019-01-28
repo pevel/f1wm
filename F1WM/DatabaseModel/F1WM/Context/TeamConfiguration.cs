@@ -172,11 +172,6 @@ namespace F1WM.DatabaseModel.Context
 				.WithMany()
 				.HasForeignKey(e => e.NationalityKey)
 				.HasPrincipalKey(n => n.Key);
-			
-			builder.HasOne(e => e.Link)
-				.WithMany()
-				.HasForeignKey(e => e.Key)
-				.HasPrincipalKey(l => l.CategoryKey);
 		}
 	}
 }

@@ -72,9 +72,14 @@ namespace F1WM.Utilities
 			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
 		}
 
-		public static string GetDriverPicturePath(this string id)
+		public static string GetSmallDriverPicturePath(this string id)
 		{
 			return $"/img/ikony/1_{id}.gif";
+		}
+
+		public static string GetMainDriverPicturePath(this string id)
+		{
+			return id == null ? null : $"/img/kierowcy/{id}.jpg";
 		}
 
 		public static string GetTeamLogoPath(this string id)
