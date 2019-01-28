@@ -34,10 +34,11 @@ public static class TeamExtensions
 				FullName = team.EngineeringDirector,
 				Picture = team.EngineeringDirectorPicture.GetTeamImagePath()
 			},
-			OtherDirector = team.OtherDirector.IgnoreEmpty() == null ? null : new PersonSummary()
+			OtherDirector = team.OtherDirector.IgnoreEmpty() == null ? null : new OtherPersonSummary()
 			{
 				FullName = team.OtherDirector,
-				Picture = team.OtherDirectorPicture.GetTeamImagePath()
+				Picture = team.OtherDirectorPicture.GetTeamImagePath(),
+				Occupation = team.OtherDirectorOccupation.Trim()
 			}
 		};
 	}

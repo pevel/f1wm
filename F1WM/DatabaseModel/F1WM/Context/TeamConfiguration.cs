@@ -135,7 +135,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.OtherDirectorOccupancy)
+			builder.Property(e => e.OtherDirectorOccupation)
 				.IsRequired()
 				.HasColumnName("otherbossocc")
 				.HasMaxLength(45)

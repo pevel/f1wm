@@ -12,6 +12,6 @@ namespace F1WM.ApiModel
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public PersonSummary EngineeringDirector { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public PersonSummary OtherDirector { get; set; }
+		public OtherPersonSummary OtherDirector { get; set; }
 	}
 }

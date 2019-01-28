@@ -27,7 +27,7 @@ namespace F1WM.DatabaseModel
 		public uint? Artid { get; set; }
 		public string OtherDirector { get; set; }
 		public string OtherDirectorPicture { get; set; }
-		public string OtherDirectorOccupancy { get; set; }
+		public string OtherDirectorOccupation { get; set; }
 		public uint? Carmakeid { get; set; }
 		public string Letter { get; set; }
 		public string Teamshort { get; set; }
