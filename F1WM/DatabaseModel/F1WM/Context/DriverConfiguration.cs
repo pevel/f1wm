@@ -174,7 +174,8 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasOne(e => e.Team)
 				.WithMany()
 				.HasForeignKey(e => e.TeamKey)
-				.HasPrincipalKey(t => t.Key);
+				.HasPrincipalKey(t => t.Key)
+				.IsRequired(false);
 		}
 	}
 }

@@ -79,7 +79,7 @@ namespace F1WM.Utilities
 
 		public static string GetTeamLogoPath(this string id)
 		{
-			return $"/img/ikony/2_{id}.gif";
+			return id == null ? null : $"/img/ikony/2_{id}.gif";
 		}
 
 		public static string GetGrandPrixName(this string genitive)
