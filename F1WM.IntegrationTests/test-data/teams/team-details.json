@@ -1,0 +1,147 @@
+[{
+    "teamId": 93,
+    "expected": {
+      "fullName": "Mercedes AMG Petronas Motorsport",
+      "headquarters": "Brackley (Wielka Brytania)",
+      "website": "www.mercedes-gp.com",
+      "management": {
+        "founder": null,
+        "teamPrincipal": {
+          "fullName": "Toto Wolff",
+          "picture": "/img/zespoly/wolff.jpg"
+        },
+        "firstTeamPrincipal": {
+          "fullName": "Alfred Neubauer (zmarł w sierpniu 1980 roku)",
+          "picture": "/img/zespoly/../zespoly/neubauer_alfred.jpg"
+        },
+        "technicalDirector": {
+          "fullName": "James Allison",
+          "picture": "/img/zespoly/allison.jpg"
+        },
+        "engineeringDirector": {
+          "fullName": "Andy Cowell",
+          "picture": "/img/zespoly/acow.jpg"
+        }
+      },
+      "testDrivers": [{
+          "id": 861,
+          "firstName": "Stoffel",
+          "surname": "Vandoorne",
+          "nationality": {
+            "name": "Belgia",
+            "flagIcon": "/img/flagi/bel2.gif"
+          }
+        },
+        {
+          "id": 871,
+          "firstName": "Esteban",
+          "surname": "Ocon",
+          "nationality": {
+            "name": "Francja",
+            "flagIcon": "/img/flagi/fra2.gif"
+          }
+        }
+      ],
+      "firstStartAt": {
+        "raceId": 36,
+        "name": "Grand Prix Francji",
+        "date": "1954-07-04T00:00:00"
+      },
+      "firstWinAt": {
+        "raceId": 36,
+        "name": "Grand Prix Francji",
+        "date": "1954-07-04T00:00:00"
+      },
+      "car": {
+        "id": 1093,
+        "name": "Mercedes W09 EQ Power+"
+      },
+      "country": {
+        "name": "Niemcy",
+        "flagIcon": "/img/flagi/ger2.gif"
+      },
+      "id": 93,
+      "name": "Mercedes"
+    }
+  },
+  {
+    "teamId": 1,
+    "expected": {
+      "fullName": "3-L Racing Team",
+      "headquarters": "",
+      "website": null,
+      "management": {
+        "founder": null,
+        "teamPrincipal": null,
+        "firstTeamPrincipal": null
+      },
+      "testDrivers": [],
+      "firstStartAt": {
+        "raceId": 25,
+        "name": "Grand Prix Indianapolis 500",
+        "date": "1953-05-30T00:00:00"
+      },
+      "car": {
+        "id": 26,
+        "name": "Kurtis Kraft 3000"
+      },
+      "country": {
+        "name": "USA",
+        "flagIcon": "/img/flagi/usa2.gif"
+      },
+      "id": 1,
+      "name": "3-L Racing Team"
+    }
+  },
+  {
+    "teamId": 161,
+    "expected": {
+      "fullName": "Scuderia Ferrari",
+      "headquarters": "Maranello (Włochy)",
+      "website": "www.ferrari.com",
+      "management": {
+        "founder": {
+          "fullName": "Enzo Ferrari (zmarł w sierpniu 1988 roku)",
+          "picture": "/img/zespoly/enzoferrari.jpg"
+        },
+        "teamPrincipal": {
+          "fullName": "Mattia Binotto",
+          "picture": "/img/zespoly/mbin.jpg"
+        },
+        "firstTeamPrincipal": {
+          "fullName": "Enzo Ferrari (zmarł w sierpniu 1988 roku)",
+          "picture": "/img/zespoly/enzoferrari.jpg"
+        }
+      },
+      "testDrivers": [{
+        "id": 868,
+        "firstName": "Pascal",
+        "surname": "Wehrlein",
+        "nationality": {
+          "name": "Niemcy",
+          "flagIcon": "/img/flagi/ger2.gif"
+        }
+      }],
+      "firstStartAt": {
+        "raceId": 2,
+        "name": "Grand Prix Monako",
+        "date": "1950-05-21T00:00:00"
+      },
+      "firstWinAt": {
+        "raceId": 12,
+        "name": "Grand Prix Wielkiej Brytanii",
+        "date": "1951-07-14T00:00:00"
+      },
+      "car": {
+        "id": 1094,
+        "name": "Ferrari SF71H"
+      },
+      "country": {
+        "name": "Włochy",
+        "flagIcon": "/img/flagi/ita2.gif"
+      },
+      "id": 161,
+      "name": "Ferrari"
+    }
+  }
+]
