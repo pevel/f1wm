@@ -5,6 +5,7 @@ namespace F1WM.ApiModel
 {
 	public class TeamDetails : TeamSummary
 	{
+		public string FullName { get; set; }
 		public string Headquarters { get; set; }
 		public string Website { get; set; }
 		public Management Management { get; set; }

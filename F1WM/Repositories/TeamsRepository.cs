@@ -13,10 +13,18 @@ namespace F1WM.Repositories
 
 		public async Task<TeamDetails> GetTeam(int id)
 		{
-			var dbTeam = await context.Teams.FirstOrDefaultAsync(t => t.Id == id);
+			var dbTeam = await context.Teams
+				.Include(t => t.Country)
+				.FirstOrDefaultAsync(t => t.Id == id);
 			var website = (await context.Links.SingleOrDefaultAsync(l => l.CategoryKey == dbTeam.Key))?.Url;
+			var fullName = await context.Entries
+				.Where(e => e.TeamId == id)
+				.OrderByDescending(e => e.Race.Date)
+				.Select(e => e.TeamName.FullName)
+				.FirstOrDefaultAsync();
 			var apiTeam = mapper.Map<TeamDetails>(dbTeam);
 			apiTeam.Website = website;
+			apiTeam.FullName = fullName;
 			await IncludeCar(id, apiTeam);
 			await IncludeTestDrivers(id, apiTeam);
 			await IncludeRacesInfo(id, apiTeam);
