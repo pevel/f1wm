@@ -27,9 +27,12 @@ namespace F1WM.Repositories
 		public async Task<DriverDetails> GetDriver(int id, int atYear)
 		{
 			var apiDriver = await mapper.ProjectTo<DriverDetails>(GetDriver(id)).FirstOrDefaultAsync();
-			await IncludeLastEntryInfo(id, atYear, apiDriver);
-			await IncludeF1ChampionshipInfo(id, atYear, apiDriver);
-			await IncludeRacesInfo(id, atYear, apiDriver);
+			if (apiDriver != null)
+			{
+				await IncludeLastEntryInfo(id, atYear, apiDriver);
+				await IncludeF1ChampionshipInfo(id, atYear, apiDriver);
+				await IncludeRacesInfo(id, atYear, apiDriver);
+			}
 			return apiDriver;
 		}
 
