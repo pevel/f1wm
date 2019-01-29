@@ -29,6 +29,7 @@ namespace F1WM.Startups
 				.AddTransient<IGridsService, GridsService>()
 				.AddTransient<ITracksService, TracksService>()
 				.AddTransient<IDriversService, DriversService>()
+				.AddTransient<ITeamsService, TeamsService>()
 				.AddTransient<IEntriesService, EntriesService>()
 				.AddTransient<IEnginesService, EnginesService>();
 		}

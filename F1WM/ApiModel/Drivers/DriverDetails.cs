@@ -24,9 +24,9 @@ namespace F1WM.ApiModel
 		public IEnumerable<ushort> F1ChampionAtYears { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public IEnumerable<string> ChampionAtSeries { get; set; }
-		public DriverDetailsRaceSummary FirstStartAt { get; set; }
+		public RaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public DriverDetailsRaceSummary FirstWinAt { get; set; }
+		public RaceSummary FirstWinAt { get; set; }
 		public IEnumerable<DriverCareerYear> CareerYears { get; set; }
 	}
 }

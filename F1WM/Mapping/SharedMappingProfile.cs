@@ -17,6 +17,11 @@ namespace F1WM.Mapping
 			CreateMap<Track, TrackSummary>()
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
 			CreateMap<Car, CarSummary>();
+			CreateMap<Race, RaceSummary>()
+				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
+				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
+			CreateMap<Team, TeamSummary>()
+				.ForMember(api => api.Logo, o => o.MapFrom(db => db.Key.IgnoreEmpty().GetTeamLogoPath()));
 		}
 	}
 }

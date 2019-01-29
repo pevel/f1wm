@@ -38,7 +38,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, entry.Tyres.Id);
 				Assert.False(string.IsNullOrWhiteSpace(entry.Tyres.Name));
 				Assert.NotNull(entry.Team);
-				Assert.NotEqual(0, entry.Team.Id);
+				Assert.NotEqual((uint)0, entry.Team.Id);
 				Assert.False(string.IsNullOrWhiteSpace(entry.Team.Name));
 				Assert.False(string.IsNullOrWhiteSpace(entry.Team.Logo));
 				Assert.NotNull(entry.Engine);

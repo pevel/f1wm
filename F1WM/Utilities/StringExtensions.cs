@@ -9,7 +9,7 @@ namespace F1WM.Utilities
 	{
 		public static string IgnoreEmpty(this string text)
 		{
-			return text == "-" ? null : text;
+			return text == "-" || string.IsNullOrWhiteSpace(text) ? null : text;
 		}
 
 		public static string ParseImageInformation(this string text)
@@ -72,14 +72,19 @@ namespace F1WM.Utilities
 			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
 		}
 
-		public static string GetDriverPicturePath(this string id)
+		public static string GetSmallDriverPicturePath(this string id)
 		{
 			return $"/img/ikony/1_{id}.gif";
 		}
 
+		public static string GetMainDriverPicturePath(this string id)
+		{
+			return id == null ? null : $"/img/kierowcy/{id}.jpg";
+		}
+
 		public static string GetTeamLogoPath(this string id)
 		{
-			return $"/img/ikony/2_{id}.gif";
+			return id == null ? null : $"/img/ikony/2_{id}.gif";
 		}
 
 		public static string GetGrandPrixName(this string genitive)
@@ -90,6 +95,11 @@ namespace F1WM.Utilities
 		public static string GetCareerImagePath(this string text)
 		{
 			return text == null ? null : $"/kierowcy/kariera/{text}";
+		}
+
+		public static string GetTeamImagePath(this string text)
+		{
+			return text == null || string.IsNullOrWhiteSpace(text) ? null : $"/img/zespoly/{text}";
 		}
 
 		public static ResultStatus GetResultStatus(this string statusText)

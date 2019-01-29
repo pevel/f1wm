@@ -13,7 +13,7 @@ namespace F1WM.Mapping
 		public DriversMappingProfile()
 		{
 			CreateMap<Driver, DriverDetails>()
-				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetDriverPicturePath()))
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.Key.GetMainDriverPicturePath()))
 				.ForMember(api => api.Residence, o => o.MapFrom(db => db.Residence.IgnoreEmpty()))
 				.ForMember(api => api.Height, o => o.MapFrom(db => db.Height.IgnoreEmpty()))
 				.ForMember(api => api.Weight, o => o.MapFrom(db => db.Weight.IgnoreEmpty()))
@@ -23,7 +23,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.ChampionAtSeries, o => o.MapFrom(db => db.GetSeriesChampionInfo()))
 				.ForMember(api => api.CareerYears, o => o.MapFrom(db => db.ParseCareerInfo()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
-			CreateMap<Race, DriverDetailsRaceSummary>()
+			CreateMap<Race, RaceSummary>()
 				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
 				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 		}

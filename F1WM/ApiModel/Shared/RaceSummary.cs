@@ -2,7 +2,7 @@ using System;
 
 namespace F1WM.ApiModel
 {
-	public class DriverDetailsRaceSummary
+	public class RaceSummary
 	{
 		public uint RaceId { get; set; }
 		public string Name { get; set; }

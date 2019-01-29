@@ -59,7 +59,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Rezerwacje> F1Rezerwacje { get; set; }
 		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
-		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
+		public virtual DbSet<TeamName> TeamNames { get; set; }
 		public virtual DbSet<Team> Teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
@@ -989,34 +989,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("s_time")
 					.HasColumnType("int(11)")
 					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1teamnames>(entity =>
-			{
-				entity.HasKey(e => e.Teamnameid);
-
-				entity.ToTable("f1teamnames");
-
-				entity.HasIndex(e => e.Teamid)
-					.HasName("teamid");
-
-				entity.HasIndex(e => e.Teamname)
-					.HasName("teamname");
-
-				entity.Property(e => e.Teamnameid)
-					.HasColumnName("teamnameid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Teamid)
-					.HasColumnName("teamid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Teamname)
-					.IsRequired()
-					.HasColumnName("teamname")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
 			});
 
 			modelBuilder.Entity<F1Texts>(entity =>

@@ -27,5 +27,6 @@ namespace F1WM.DatabaseModel
 		public virtual Qualifying Qualifying { get; set; }
 		public virtual Engine Engine { get; set; }
 		public virtual Team Team { get; set; }
+		public virtual TeamName TeamName { get; set; }
 	}
 }

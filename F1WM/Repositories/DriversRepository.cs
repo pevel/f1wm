@@ -27,9 +27,12 @@ namespace F1WM.Repositories
 		public async Task<DriverDetails> GetDriver(int id, int atYear)
 		{
 			var apiDriver = await mapper.ProjectTo<DriverDetails>(GetDriver(id)).FirstOrDefaultAsync();
-			await IncludeLastEntryInfo(id, atYear, apiDriver);
-			await IncludeF1ChampionshipInfo(id, atYear, apiDriver);
-			await IncludeRacesInfo(id, atYear, apiDriver);
+			if (apiDriver != null)
+			{
+				await IncludeLastEntryInfo(id, atYear, apiDriver);
+				await IncludeF1ChampionshipInfo(id, atYear, apiDriver);
+				await IncludeRacesInfo(id, atYear, apiDriver);
+			}
 			return apiDriver;
 		}
 
@@ -71,16 +74,12 @@ namespace F1WM.Repositories
 
 		private async Task IncludeRacesInfo(int id, int atYear, DriverDetails apiDriver)
 		{
-			apiDriver.FirstStartAt = await mapper.ProjectTo<DriverDetailsRaceSummary>(context.Grids
-					.Include(g => g.Entry)
-					.Include(g => g.Race)
+			apiDriver.FirstStartAt = await mapper.ProjectTo<RaceSummary>(context.Grids
 					.Where(g => g.Entry.DriverId == id && g.Race.Date.Year <= atYear)
 					.OrderBy(g => g.Race.Date)
 					.Select(g => g.Race))
 				.FirstOrDefaultAsync();
-			apiDriver.FirstWinAt = await mapper.ProjectTo<DriverDetailsRaceSummary>(context.Entries
-					.Include(e => e.Race)
-					.Include(e => e.Result)
+			apiDriver.FirstWinAt = await mapper.ProjectTo<RaceSummary>(context.Entries
 					.Where(e => e.Result.PositionOrStatus == "1")
 					.Where(e => e.DriverId == id && e.Race.Date.Year <= atYear)
 					.OrderBy(e => e.Race.Date)
