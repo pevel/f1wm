@@ -30,6 +30,25 @@ namespace F1WM.Controllers
 			}
 		}
 
+		[HttpGet]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<Teams>> GetTeams([FromQuery]char letter)
+		{
+			try
+			{
+				if (letter == '\0') return BadRequest();
+
+				var teams = await service.GetTeams(letter);
+				return this.NotFoundResultIfNull(teams);
+			}
+			catch (Exception ex)
+			{
+				logger.LogError(ex);
+				throw ex;
+			}
+		}
+
 		public TeamsController(ITeamsService service, ILoggingService logger)
 		{
 			this.service = service;

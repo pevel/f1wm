@@ -6,5 +6,6 @@ namespace F1WM.Repositories
 	public interface ITeamsRepository
 	{
 		Task<TeamDetails> GetTeam(int id);
+		Task<Teams> GetTeams(char letter);
 	}
 }
