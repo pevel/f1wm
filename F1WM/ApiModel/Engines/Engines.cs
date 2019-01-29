@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using F1WM.DatabaseModel;
 
-namespace F1WM.ApiModel.Engines
+namespace F1WM.ApiModel
 {
 	public class Engines
 	{
