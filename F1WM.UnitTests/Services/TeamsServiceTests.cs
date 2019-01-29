@@ -35,5 +35,18 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetTeam(teamId), Times.Once);
 			actual.Should().BeEquivalentTo(team);
 		}
+
+		[Fact]
+		public async Task ShouldGetTeams()
+		{
+			var letter = 'p';
+			var teams = fixture.Create<Teams>();
+			repositoryMock.Setup(r => r.GetTeams(letter)).ReturnsAsync(teams);
+
+			var actual = await service.GetTeams(letter);
+
+			repositoryMock.Verify(r => r.GetTeams(letter), Times.Once);
+			actual.Should().BeEquivalentTo(teams);
+		}
 	}
 }
