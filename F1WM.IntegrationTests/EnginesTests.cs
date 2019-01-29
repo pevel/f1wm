@@ -17,9 +17,7 @@ namespace F1WM.IntegrationTests
 			Assert.All(engines.EnginesList, engine =>
 			{
 				Assert.NotEqual(0, (int)engine.Id);
-				Assert.NotEqual(0, (int)engine.EngineMakeId);
 				Assert.False(string.IsNullOrWhiteSpace(engine.Name));
-				Assert.False(string.IsNullOrWhiteSpace(engine.Letter));
 			});
 		}
 	}

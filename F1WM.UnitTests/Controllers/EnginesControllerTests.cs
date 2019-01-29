@@ -12,7 +12,6 @@ namespace F1WM.UnitTests.Controllers
 	public class EnginesControllerTests
 	{
 		private EnginesController controller;
-		private Fixture fixture;
 		private Mock<IEnginesService> serviceMock;
 		private Mock<ILoggingService> loggerMock;
 
@@ -20,7 +19,6 @@ namespace F1WM.UnitTests.Controllers
 		{
 			serviceMock = new Mock<IEnginesService>();
 			loggerMock = new Mock<ILoggingService>();
-			fixture = new Fixture();
 			controller = new EnginesController(serviceMock.Object, loggerMock.Object);
 		}
 
@@ -46,6 +44,16 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetEngines(letter), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn400IfBadRequest()
+		{
+			char letter = '\0';
+
+			var result = await controller.GetEngines(letter);
+			
+			Assert.IsType<BadRequestResult>(result.Result);
 		}
 	}
 }

@@ -16,6 +16,7 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		[ProducesResponseType(200)]
+		[ProducesResponseType(400)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<Engines>> GetEngines(
 			[FromQuery(Name = "letter")] char letter)

@@ -5,6 +5,6 @@ namespace F1WM.ApiModel.Engines
 {
 	public class Engines
 	{
-		public IEnumerable<Engine> EnginesList { get; set; }
+		public IEnumerable<EngineSummary> EnginesList { get; set; }
 	}
 }
