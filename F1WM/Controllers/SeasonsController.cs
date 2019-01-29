@@ -1,5 +1,4 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
 using F1WM.Utilities;
@@ -11,7 +10,6 @@ namespace F1WM.Controllers
 	public class SeasonsController : ControllerBase
 	{
 		private readonly ISeasonsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("rules")]
 		[ProducesResponseType(200)]
@@ -19,22 +17,13 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<SeasonRules>> GetSeasonRules(
 			[FromQuery(Name = "year")] int? year)
 		{
-			try
-			{
-				var seasonRules = await service.GetSeasonRules(year);
-				return this.NotFoundResultIfNull(seasonRules);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var seasonRules = await service.GetSeasonRules(year);
+			return this.NotFoundResultIfNull(seasonRules);
 		}
 
-		public SeasonsController(ISeasonsService service, ILoggingService logger)
+		public SeasonsController(ISeasonsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

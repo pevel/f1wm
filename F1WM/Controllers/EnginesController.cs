@@ -12,7 +12,6 @@ namespace F1WM.Controllers
 	public class EnginesController : ControllerBase
 	{
 		private readonly IEnginesService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
@@ -21,24 +20,15 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<Engines>> GetEngines(
 			[FromQuery(Name = "letter")] char letter)
 		{
-			try
-			{
-				if (letter == '\0') return BadRequest();
+			if (letter == '\0') return BadRequest();
 
-				var engines = await service.GetEngines(letter);
-				return this.NotFoundResultIfNull(engines);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var engines = await service.GetEngines(letter);
+			return this.NotFoundResultIfNull(engines);
 		}
 
-		public EnginesController(IEnginesService service, ILoggingService logger)
+		public EnginesController(IEnginesService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

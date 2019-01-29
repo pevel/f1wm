@@ -8,12 +8,6 @@ namespace F1WM.IntegrationTests
 {
 	public class TeamsTests : IntegrationTestBase
 	{
-		public class TeamDetailsTestData
-		{
-			public int TeamId { get; set; }
-			public TeamDetails Expected { get; set; }
-		}
-
 		[Theory]
 		[JsonData("teams", "team-details.json")]
 		public async Task ShouldGetTeam(TeamDetailsTestData data)
@@ -25,6 +19,31 @@ namespace F1WM.IntegrationTests
 			var result = JsonConvert.DeserializeObject<TeamDetails>(responseContent);
 
 			result.Should().BeEquivalentTo(data.Expected);
+		}
+
+		[Theory]
+		[JsonData("teams", "teams.json")]
+		public async Task ShouldGetTeams(TeamsTestData data)
+		{
+			var response = await client.GetAsync($"{baseAddress}/Teams?letter={data.Letter}");
+			response.EnsureSuccessStatusCode();
+
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var result = JsonConvert.DeserializeObject<Teams>(responseContent);
+
+			result.Should().BeEquivalentTo(data.Expected);
+		}
+
+		public class TeamDetailsTestData
+		{
+			public int TeamId { get; set; }
+			public TeamDetails Expected { get; set; }
+		}
+
+		public class TeamsTestData
+		{
+			public char Letter { get; set; }
+			public Teams Expected { get; set; }
 		}
 	}
 }

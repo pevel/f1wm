@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -11,23 +10,14 @@ namespace F1WM.Controllers
 	public class ResultsController : ControllerBase
 	{
 		private readonly IResultsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("race/{raceId}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<RaceResult>> GetRaceResult(int raceId)
 		{
-			try
-			{
-				var raceResult = await service.GetRaceResult(raceId);
-				return this.NotFoundResultIfNull(raceResult);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var raceResult = await service.GetRaceResult(raceId);
+			return this.NotFoundResultIfNull(raceResult);
 		}
 
 		[HttpGet("qualifying/{raceId}")]
@@ -35,16 +25,8 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<QualifyingResult>> GetQualifyingResult(int raceId)
 		{
-			try
-			{
-				var qualifyingResult = await service.GetQualifyingResult(raceId);
-				return this.NotFoundResultIfNull(qualifyingResult);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var qualifyingResult = await service.GetQualifyingResult(raceId);
+			return this.NotFoundResultIfNull(qualifyingResult);
 		}
 
 		[HttpGet("practice/{raceId}/sessions/{session}")]
@@ -52,16 +34,8 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<PracticeSessionResult>> GetPracticeSessionResult(int raceId, string session)
 		{
-			try
-			{
-				var result = await service.GetPracticeSessionResult(raceId, session);
-				return this.NotFoundResultIfNull(result);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var result = await service.GetPracticeSessionResult(raceId, session);
+			return this.NotFoundResultIfNull(result);
 		}
 
 		[HttpGet("other/{eventId}")]
@@ -69,22 +43,13 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<OtherResult>> GetOtherResult(int eventId)
 		{
-			try
-			{
-				var result = await service.GetOtherResult(eventId);
-				return this.NotFoundResultIfNull(result);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var result = await service.GetOtherResult(eventId);
+			return this.NotFoundResultIfNull(result);
 		}
 
-		public ResultsController(IResultsService service, ILoggingService logger)
+		public ResultsController(IResultsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

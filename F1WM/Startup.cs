@@ -3,6 +3,7 @@ using System.IdentityModel.Tokens.Jwt;
 using F1WM.DatabaseModel;
 using F1WM.Services;
 using F1WM.Startups;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -78,6 +79,7 @@ namespace F1WM
 				}
 				configurationBuilder.AddEnvironmentVariables();
 				application
+					.UseMiddleware<ExceptionMiddleware>()
 					.UseCustomForwardedHeaders()
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)

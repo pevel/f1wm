@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -11,7 +10,6 @@ namespace F1WM.Controllers
 	public class TracksController : ControllerBase
 	{
 		private readonly ITracksService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("{trackId}/versions/{trackVersion}/records")]
 		[ProducesResponseType(200)]
@@ -21,22 +19,13 @@ namespace F1WM.Controllers
 			[FromRoute]int trackVersion,
 			[FromQuery]int? beforeYear)
 		{
-			try
-			{
-				var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
-				return this.NotFoundResultIfNull(records);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
+			return this.NotFoundResultIfNull(records);
 		}
 
-		public TracksController(ITracksService service, ILoggingService logger)
+		public TracksController(ITracksService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

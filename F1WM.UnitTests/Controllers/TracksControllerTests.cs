@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private TracksController controller;
 		private Fixture fixture;
 		private Mock<ITracksService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public TracksControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<ITracksService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new TracksController(serviceMock.Object, loggerMock.Object);
+			controller = new TracksController(serviceMock.Object);
 		}
 
 		[Fact]

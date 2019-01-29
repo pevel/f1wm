@@ -14,13 +14,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private NewsController controller;
 		private Mock<INewsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public NewsControllerTests()
 		{
 			serviceMock = new Mock<INewsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new NewsController(serviceMock.Object, loggerMock.Object);
+			controller = new NewsController(serviceMock.Object);
 		}
 
 		[Fact]

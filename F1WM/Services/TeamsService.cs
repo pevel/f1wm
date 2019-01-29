@@ -13,6 +13,11 @@ namespace F1WM.Services
 			return repository.GetTeam(id);
 		}
 
+		public Task<Teams> GetTeams(char letter)
+		{
+			return repository.GetTeams(letter);
+		}
+
 		public TeamsService(ITeamsRepository repository)
 		{
 			this.repository = repository;

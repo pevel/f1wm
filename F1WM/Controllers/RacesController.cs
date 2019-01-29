@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -11,23 +10,14 @@ namespace F1WM.Controllers
 	public class RacesController : ControllerBase
 	{
 		private readonly IRacesService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<NextRaceSummary>> GetNextRace()
 		{
-			try
-			{
-				var nextRace = await service.GetNextRace();
-				return this.NotFoundResultIfNull(nextRace);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var nextRace = await service.GetNextRace();
+			return this.NotFoundResultIfNull(nextRace);
 		}
 
 		[HttpGet("last")]
@@ -35,22 +25,13 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<LastRaceSummary>> GetLastRace()
 		{
-			try
-			{
-				var lastRace = await service.GetLastRace();
-				return this.NotFoundResultIfNull(lastRace);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var lastRace = await service.GetLastRace();
+			return this.NotFoundResultIfNull(lastRace);
 		}
 
-		public RacesController(IRacesService service, ILoggingService logger)
+		public RacesController(IRacesService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

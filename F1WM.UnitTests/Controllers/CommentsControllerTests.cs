@@ -11,13 +11,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private CommentsController controller;
 		private Mock<ICommentsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public CommentsControllerTests()
 		{
 			serviceMock = new Mock<ICommentsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new CommentsController(serviceMock.Object, loggerMock.Object);
+			controller = new CommentsController(serviceMock.Object);
 		}
 
 		[Fact]

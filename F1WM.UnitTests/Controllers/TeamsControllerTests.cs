@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private TeamsController controller;
 		private Fixture fixture;
 		private Mock<ITeamsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public TeamsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<ITeamsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new TeamsController(serviceMock.Object, loggerMock.Object);
+			controller = new TeamsController(serviceMock.Object);
 		}
 
 		[Fact]
@@ -49,6 +47,43 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetTeam(teamId), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTeams()
+		{
+			var letter = 'z';
+			var teams = fixture.Create<Teams>();
+			serviceMock.Setup(s => s.GetTeams(letter)).ReturnsAsync(teams);
+
+			var result = await controller.GetTeams(letter);
+
+			serviceMock.Verify(s => s.GetTeams(letter), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(teams);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfTeamsNotFound()
+		{
+			var letter = 'x';
+			serviceMock.Setup(s => s.GetTeams(letter)).ReturnsAsync((Teams)null);
+
+			var result = await controller.GetTeams(letter);
+
+			serviceMock.Verify(s => s.GetTeams(letter), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn400IfFirstTeamLetterNotProvided()
+		{
+			var letter = '\0';
+
+			var result = await controller.GetTeams(letter);
+
+			serviceMock.Verify(s => s.GetTeams(letter), Times.Never);
+			Assert.IsType<BadRequestResult>(result.Result);
 		}
 	}
 }

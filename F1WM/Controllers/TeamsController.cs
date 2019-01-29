@@ -2,7 +2,6 @@ using F1WM.ApiModel;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace F1WM.Controllers
@@ -11,29 +10,30 @@ namespace F1WM.Controllers
 	public class TeamsController : ControllerBase
 	{
 		private readonly ITeamsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("{id}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<TeamDetails>> GetTeam([FromRoute]int id)
 		{
-			try
-			{
-				var team = await service.GetTeam(id);
-				return this.NotFoundResultIfNull(team);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var team = await service.GetTeam(id);
+			return this.NotFoundResultIfNull(team);
 		}
 
-		public TeamsController(ITeamsService service, ILoggingService logger)
+		[HttpGet]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<Teams>> GetTeams([FromQuery]char letter)
+		{
+			if (letter == '\0') return BadRequest();
+
+			var teams = await service.GetTeams(letter);
+			return this.NotFoundResultIfNull(teams);
+		}
+
+		public TeamsController(ITeamsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

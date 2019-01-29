@@ -14,14 +14,12 @@ namespace F1WM.UnitTests.Controllers
 		private DriversController controller;
 		private Fixture fixture;
 		private Mock<IDriversService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public DriversControllerTests()
 		{
 			serviceMock = new Mock<IDriversService>();
-			loggerMock = new Mock<ILoggingService>();
 			fixture = new Fixture();
-			controller = new DriversController(serviceMock.Object, loggerMock.Object);
+			controller = new DriversController(serviceMock.Object);
 		}
 
 		[Fact]

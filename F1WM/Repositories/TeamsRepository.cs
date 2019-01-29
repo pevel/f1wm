@@ -18,15 +18,9 @@ namespace F1WM.Repositories
 				.FirstOrDefaultAsync(t => t.Id == id);
 			if (dbTeam != null)
 			{
-				var website = (await context.Links.SingleOrDefaultAsync(l => l.CategoryKey == dbTeam.Key))?.Url;
-				var fullName = await context.Entries
-					.Where(e => e.TeamId == id)
-					.OrderByDescending(e => e.Race.Date)
-					.Select(e => e.TeamName.FullName)
-					.FirstOrDefaultAsync();
 				var apiTeam = mapper.Map<TeamDetails>(dbTeam);
-				apiTeam.Website = website;
-				apiTeam.FullName = fullName;
+				await IncludeWebsite(dbTeam.Key, apiTeam);
+				await IncludeFullName(id, apiTeam);
 				await IncludeCar(id, apiTeam);
 				await IncludeTestDrivers(id, apiTeam);
 				await IncludeRacesInfo(id, apiTeam);
@@ -36,6 +30,16 @@ namespace F1WM.Repositories
 			{
 				return null;
 			}
+		}
+
+		public async Task<Teams> GetTeams(char letter)
+		{
+			var apiTeams = new Teams();
+			apiTeams.TeamsList = await mapper.ProjectTo<TeamSummary>(context.Teams
+					.Where(t => t.Letter == letter.ToString())
+					.OrderBy(t => t.Name))
+				.ToListAsync();
+			return apiTeams.TeamsList.Any() ? apiTeams : null;
 		}
 
 		public TeamsRepository(F1WMContext context, IMapper mapper)
@@ -72,6 +76,20 @@ namespace F1WM.Repositories
 					.Where(e => e.TeamId == id)
 					.OrderBy(e => e.Race.Date)
 					.Select(e => e.Race))
+				.FirstOrDefaultAsync();
+		}
+
+		private async Task IncludeWebsite(string teamKey, TeamDetails apiTeam)
+		{
+			apiTeam.Website = (await context.Links.SingleOrDefaultAsync(l => l.CategoryKey == teamKey))?.Url;
+		}
+
+		private async Task IncludeFullName(int id, TeamDetails apiTeam)
+		{
+			apiTeam.FullName = await context.Entries
+				.Where(e => e.TeamId == id)
+				.OrderByDescending(e => e.Race.Date)
+				.Select(e => e.TeamName.FullName)
 				.FirstOrDefaultAsync();
 		}
 	}

@@ -18,14 +18,12 @@ namespace F1WM.UnitTests.Controllers
 		private AuthController controller;
 		private Mock<IAuthService> serviceMock;
 		private Mock<IConfiguration> configurationMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public AuthControllerTests()
 		{
 			serviceMock = new Mock<IAuthService>();
 			configurationMock = new Mock<IConfiguration>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new AuthController(serviceMock.Object, configurationMock.Object, loggerMock.Object);
+			controller = new AuthController(serviceMock.Object, configurationMock.Object);
 		}
 
 		[Fact]
