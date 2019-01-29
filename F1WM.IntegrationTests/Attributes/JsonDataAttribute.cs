@@ -22,8 +22,8 @@ namespace F1WM.IntegrationTests
 			using (StreamReader file = File.OpenText(filePath))
 			{
 				JsonSerializer serializer = new JsonSerializer();
-				dynamic serialized = serializer.Deserialize(file, type);
-				foreach (var o in serialized)
+				dynamic deserialized = serializer.Deserialize(file, type);
+				foreach (var o in deserialized)
 				{
 					data.Add(new object[] { o });
 				}
