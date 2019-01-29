@@ -11,7 +11,7 @@ namespace F1WM.IntegrationTests
 		public class TeamDetailsTestData
 		{
 			public int TeamId { get; set; }
-			public TeamDetails expected { get; set; }
+			public TeamDetails Expected { get; set; }
 		}
 
 		[Theory]
@@ -24,7 +24,7 @@ namespace F1WM.IntegrationTests
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var result = JsonConvert.DeserializeObject<TeamDetails>(responseContent);
 
-			result.Should().BeEquivalentTo(data.expected);
+			result.Should().BeEquivalentTo(data.Expected);
 		}
 	}
 }
