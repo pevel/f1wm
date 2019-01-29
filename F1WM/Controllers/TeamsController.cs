@@ -10,7 +10,6 @@ namespace F1WM.Controllers
 	public class TeamsController : ControllerBase
 	{
 		private readonly ITeamsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("{id}")]
 		[ProducesResponseType(200)]

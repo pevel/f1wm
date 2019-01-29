@@ -10,7 +10,6 @@ namespace F1WM.Controllers
 	public class EntriesController : ControllerBase
 	{
 		private readonly IEntriesService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
