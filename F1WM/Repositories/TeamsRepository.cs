@@ -39,7 +39,7 @@ namespace F1WM.Repositories
 					.Where(t => t.Letter == letter.ToString())
 					.OrderBy(t => t.Name))
 				.ToListAsync();
-			return apiTeams;
+			return apiTeams.TeamsList.Any() ? apiTeams : null;
 		}
 
 		public TeamsRepository(F1WMContext context, IMapper mapper)
