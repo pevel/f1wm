@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -19,22 +18,13 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<RaceEntriesInformation>> GetRaceEntries(
 			[FromQuery(Name = "raceId")] int raceId)
 		{
-			try
-			{
-				var entries = await service.GetRaceEntries(raceId);
-				return this.NotFoundResultIfNull(entries);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var entries = await service.GetRaceEntries(raceId);
+			return this.NotFoundResultIfNull(entries);
 		}
 
-		public EntriesController(IEntriesService service, ILoggingService logger)
+		public EntriesController(IEntriesService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

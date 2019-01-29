@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -11,7 +10,6 @@ namespace F1WM.Controllers
 	public class GridsController : ControllerBase
 	{
 		private readonly IGridsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
@@ -19,22 +17,13 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<GridInformation>> GetGrid(
 			[FromQuery(Name = "raceId")] int raceId)
 		{
-			try
-			{
-				var grid = await service.GetGrid(raceId);
-				return this.NotFoundResultIfNull(grid);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var grid = await service.GetGrid(raceId);
+			return this.NotFoundResultIfNull(grid);
 		}
 
-		public GridsController(IGridsService service, ILoggingService logger)
+		public GridsController(IGridsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

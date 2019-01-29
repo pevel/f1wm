@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private TeamsController controller;
 		private Fixture fixture;
 		private Mock<ITeamsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public TeamsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<ITeamsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new TeamsController(serviceMock.Object, loggerMock.Object);
+			controller = new TeamsController(serviceMock.Object);
 		}
 
 		[Fact]

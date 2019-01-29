@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private GridsController controller;
 		private Fixture fixture;
 		private Mock<IGridsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public GridsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<IGridsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new GridsController(serviceMock.Object, loggerMock.Object);
+			controller = new GridsController(serviceMock.Object);
 		}
 
 		[Fact]

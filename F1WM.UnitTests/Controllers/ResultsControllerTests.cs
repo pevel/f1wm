@@ -12,13 +12,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private ResultsController controller;
 		private Mock<IResultsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public ResultsControllerTests()
 		{
 			serviceMock = new Mock<IResultsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new ResultsController(serviceMock.Object, loggerMock.Object);
+			controller = new ResultsController(serviceMock.Object);
 		}
 
 		[Fact]

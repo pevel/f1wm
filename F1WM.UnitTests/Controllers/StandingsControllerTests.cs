@@ -10,13 +10,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private StandingsController controller;
 		private Mock<IStandingsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public StandingsControllerTests()
 		{
 			serviceMock = new Mock<IStandingsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new StandingsController(serviceMock.Object, loggerMock.Object);
+			controller = new StandingsController(serviceMock.Object);
 		}
 
 		[Fact]

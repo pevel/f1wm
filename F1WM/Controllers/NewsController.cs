@@ -18,7 +18,6 @@ namespace F1WM.Controllers
 		private const int defaultCountPerPage = 20;
 
 		private readonly INewsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public async Task<NewsSummaryPaged> GetManyNews(
@@ -28,21 +27,12 @@ namespace F1WM.Controllers
 					[FromQuery(Name = "page")] int page = defaultPage,
 					[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
-			try
-			{
-				if (tagId != null)
-					return await service.GetNewsByTagId((int)tagId, page, countPerPage);
-				else if (typeId != null)
-					return await service.GetNewsByTypeId((int)typeId, page, countPerPage);
-				else
-					return await service.GetLatestNews(firstId, page, countPerPage);
-
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			if (tagId != null)
+				return await service.GetNewsByTagId((int)tagId, page, countPerPage);
+			else if (typeId != null)
+				return await service.GetNewsByTypeId((int)typeId, page, countPerPage);
+			else
+				return await service.GetLatestNews(firstId, page, countPerPage);
 		}
 
 
@@ -51,30 +41,14 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<NewsDetails>> GetSingle(int id)
 		{
-			try
-			{
-				var news = await service.GetNewsDetails(id);
-				return this.NotFoundResultIfNull(news);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var news = await service.GetNewsDetails(id);
+			return this.NotFoundResultIfNull(news);
 		}
 
 		[HttpGet("types")]
 		public async Task<IEnumerable<NewsType>> GetTypes()
 		{
-			try
-			{
-				return await service.GetNewsTypes();
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetNewsTypes();
 		}
 
 		[HttpGet("tags")]
@@ -83,47 +57,22 @@ namespace F1WM.Controllers
 			[FromQuery(Name = "page")] int page = defaultPage,
 			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
-			try
-			{
-				if (id != null)
-					return await service.GetNewsTagsByCategoryId((int)id, page, countPerPage);
-				else
-					return await service.GetNewsTags(page, countPerPage);
-
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			if (id != null)
+				return await service.GetNewsTagsByCategoryId((int)id, page, countPerPage);
+			else
+				return await service.GetNewsTags(page, countPerPage);
 		}
 
 		[HttpGet("categories")]
 		public async Task<IEnumerable<NewsTagCategory>> GetTagCategories()
 		{
-			try
-			{
-				return await service.GetNewsTagCategories();
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetNewsTagCategories();
 		}
 
 		[HttpGet("important")]
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
-			try
-			{
-				return await service.GetImportantNews();
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetImportantNews();
 		}
 
 		[HttpPost("{id}/views/increment")]
@@ -131,28 +80,12 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult> IncrementViews(int id)
 		{
-			try
-			{
-				if (await service.IncrementViews(id))
-				{
-					return NoContent();
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return (await service.IncrementViews(id)) ? (ActionResult)NoContent() : (ActionResult)NotFound();
 		}
 
-		public NewsController(INewsService service, ILoggingService logger)
+		public NewsController(INewsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

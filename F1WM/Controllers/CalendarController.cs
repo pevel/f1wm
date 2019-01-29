@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -11,7 +10,6 @@ namespace F1WM.Controllers
 	public class CalendarController : ControllerBase
 	{
 		private readonly ICalendarService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
@@ -19,22 +17,13 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<Calendar>> GetCalendar(
 			[FromQuery(Name = "year")] int? year)
 		{
-			try
-			{
-				var calendar = await service.GetCalendar(year);
-				return this.NotFoundResultIfNull(calendar);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var calendar = await service.GetCalendar(year);
+			return this.NotFoundResultIfNull(calendar);
 		}
 
-		public CalendarController(ICalendarService service, ILoggingService logger)
+		public CalendarController(ICalendarService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

@@ -13,13 +13,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private RacesController controller;
 		private Mock<IRacesService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public RacesControllerTests()
 		{
 			serviceMock = new Mock<IRacesService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new RacesController(serviceMock.Object, loggerMock.Object);
+			controller = new RacesController(serviceMock.Object);
 		}
 
 		[Fact]

@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private EntriesController controller;
 		private Fixture fixture;
 		private Mock<IEntriesService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public EntriesControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<IEntriesService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new EntriesController(serviceMock.Object, loggerMock.Object);
+			controller = new EntriesController(serviceMock.Object);
 		}
 
 		[Fact]

@@ -2,7 +2,6 @@ using F1WM.ApiModel;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Threading.Tasks;
 
 namespace F1WM.Controllers
@@ -11,7 +10,6 @@ namespace F1WM.Controllers
 	public class DriversController : ControllerBase
 	{
 		private readonly IDriversService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
@@ -19,18 +17,10 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<Drivers>> GetDrivers(
 			[FromQuery(Name = "letter")]char letter)
 		{
-			try
-			{
-				if (letter == '\0') return BadRequest();
+			if (letter == '\0') return BadRequest();
 
-				var drivers = await service.GetDrivers(letter);
-				return this.NotFoundResultIfNull(drivers);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var drivers = await service.GetDrivers(letter);
+			return this.NotFoundResultIfNull(drivers);
 		}
 
 		[HttpGet("{id}")]
@@ -40,22 +30,13 @@ namespace F1WM.Controllers
 			[FromRoute]int id,
 			[FromQuery]int? atYear)
 		{
-			try
-			{
-				var driver = await service.GetDriver(id, atYear);
-				return this.NotFoundResultIfNull(driver);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var driver = await service.GetDriver(id, atYear);
+			return this.NotFoundResultIfNull(driver);
 		}
 
-		public DriversController(IDriversService service, ILoggingService logger)
+		public DriversController(IDriversService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

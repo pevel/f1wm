@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -12,21 +11,12 @@ namespace F1WM.Controllers
 	public class CommentsController : ControllerBase
 	{
 		private readonly ICommentsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet]
 		public async Task<IEnumerable<Comment>> GetMany(
 			[FromQuery(Name = "newsId")] int newsId)
 		{
-			try
-			{
-				return await service.GetCommentsByNewsId(newsId);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetCommentsByNewsId(newsId);
 		}
 
 		[HttpGet("{id}")]
@@ -34,22 +24,13 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<Comment>> GetSingle(int id)
 		{
-			try
-			{
-				var comment = await service.GetComment(id);
-				return this.NotFoundResultIfNull(comment);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var comment = await service.GetComment(id);
+			return this.NotFoundResultIfNull(comment);
 		}
 
-		public CommentsController(ICommentsService service, ILoggingService logger)
+		public CommentsController(ICommentsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private BroadcastsController controller;
 		private Fixture fixture;
 		private Mock<IBroadcastsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public BroadcastsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<IBroadcastsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new BroadcastsController(serviceMock.Object, loggerMock.Object);
+			controller = new BroadcastsController(serviceMock.Object);
 		}
 
 		[Fact]
