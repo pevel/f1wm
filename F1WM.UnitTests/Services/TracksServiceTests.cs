@@ -55,5 +55,32 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetTrackRecords(trackId, trackVersion, year), Times.Once);
 			actual.Should().BeEquivalentTo(records);
 		}
+
+		[Fact]
+		public async Task ShouldGetTracks()
+		{
+			var page = 2;
+			var countPerPage = 21;
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			repositoryMock.Setup(r => r.GetTracks(page, countPerPage)).ReturnsAsync(tracks);
+
+			await service.GetTracks(page, countPerPage);
+
+			repositoryMock.Verify(r => r.GetTracks(page, countPerPage), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetTracksByStatusId()
+		{
+			byte statusId = 2;
+			var page = 1;
+			var countPerPage = 25;
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			repositoryMock.Setup(r => r.GetTracksByStatusId(statusId, page, countPerPage)).ReturnsAsync(tracks);
+
+			await service.GetTracksByStatusId(statusId, page, countPerPage);
+
+			repositoryMock.Verify(r => r.GetTracksByStatusId(statusId, page, countPerPage), Times.Once);
+		}
 	}
 }
