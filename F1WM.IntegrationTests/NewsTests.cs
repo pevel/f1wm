@@ -124,13 +124,13 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			var newsList = result.Result as List<NewsSummary>;
+			IEnumerable<NewsSummary> newsList = result.Result;
 			Assert.NotNull(newsList);
 			Assert.Equal(firstId, newsList.First().Id);
 			Assert.Equal(count, newsList.Count());
@@ -177,13 +177,13 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsTag> tagsList = (IEnumerable<NewsTag>)result.Result;
+			IEnumerable<NewsTag> tagsList = result.Result;
 			Assert.NotNull(tagsList);
 			Assert.Equal(count, tagsList.Count());
 			Assert.All(tagsList, tag =>
@@ -237,13 +237,13 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsTag> tagsList = (IEnumerable<NewsTag>)result.Result;
+			IEnumerable<NewsTag> tagsList = result.Result;
 			Assert.NotNull(tagsList);
 			Assert.Equal(count, tagsList.Count());
 			Assert.All(tagsList, tag =>
@@ -264,14 +264,14 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
 			Assert.Equal(result.Result.Count(), count);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsSummary> newsList = (IEnumerable<NewsSummary>)result.Result;
+			IEnumerable<NewsSummary> newsList = result.Result;
 			Assert.NotNull(newsList);
 			Assert.All(newsList, news =>
 			{
@@ -294,14 +294,14 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
 			Assert.Equal(result.Result.Count(), count);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsSummary> newsList = (IEnumerable<NewsSummary>)result.Result;
+			IEnumerable<NewsSummary> newsList = result.Result;
 			Assert.NotNull(newsList);
 			Assert.All(newsList, news =>
 			{

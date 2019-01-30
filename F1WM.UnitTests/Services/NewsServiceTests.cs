@@ -48,7 +48,7 @@ namespace F1WM.UnitTests.Services
 		{
 			var count = 21;
 			var firstId = 43;
-			var news = fixture.Create<PagedResult>();
+			var news = fixture.Create<PagedResult<NewsSummary>>();
 			newsRepositoryMock.Setup(r => r.GetLatestNews(firstId, 1, count)).ReturnsAsync(news);
 
 			await service.GetLatestNews(firstId, 1, count);

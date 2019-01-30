@@ -18,7 +18,7 @@ namespace F1WM.Services
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
 
-		public Task<PagedResult> GetLatestNews(int? firstId, int page, int countPerPage)
+		public Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, int page, int countPerPage)
 		{
 			return newsRepository.GetLatestNews(firstId, page, countPerPage);
 		}
@@ -57,12 +57,12 @@ namespace F1WM.Services
 			return new List<ImportantNewsSummary>();
 		}
 
-		public Task<PagedResult> GetNewsByTagId(int id, int page, int countPerPage)
+		public Task<PagedResult<NewsSummary>> GetNewsByTagId(int id, int page, int countPerPage)
 		{
 			return newsRepository.GetNewsByTagId(id, page, countPerPage);
 		}
 
-		public Task<PagedResult> GetNewsByTypeId(int id, int page, int countPerPage)
+		public Task<PagedResult<NewsSummary>> GetNewsByTypeId(int id, int page, int countPerPage)
 		{
 			return newsRepository.GetNewsByTypeId(id, page, countPerPage);
 		}
@@ -72,12 +72,12 @@ namespace F1WM.Services
 			return newsRepository.GetNewsTypes();
 		}
 
-		public Task<PagedResult> GetNewsTags(int page, int countPerPage)
+		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(int page, int countPerPage)
 		{
 			return newsRepository.GetNewsTags(page, countPerPage);
 		}
 
-		public Task<PagedResult> GetNewsTagsByCategoryId(int id, int page, int countPerPage)
+		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int id, int page, int countPerPage)
 		{
 			return newsRepository.GetNewsTagsByCategoryId(id, page, countPerPage);
 		}

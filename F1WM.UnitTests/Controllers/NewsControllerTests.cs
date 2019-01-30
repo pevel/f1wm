@@ -182,7 +182,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var tagId = 2;
 			IEnumerable<NewsSummary> emptyResult = Enumerable.Empty<NewsSummary>();
-			PagedResult emptyResponse = new PagedResult
+			PagedResult<NewsSummary> emptyResponse = new PagedResult<NewsSummary>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
@@ -204,7 +204,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var typeId = 1;
 			IEnumerable<NewsSummary> emptyResult = Enumerable.Empty<NewsSummary>();
-			PagedResult emptyResponse = new PagedResult
+			PagedResult<NewsSummary> emptyResponse = new PagedResult<NewsSummary>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
@@ -226,7 +226,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var categoryId = 10;
 			IEnumerable<NewsTag> emptyResult = Enumerable.Empty<NewsTag>();
-			PagedResult emptyResponse = new PagedResult
+			PagedResult<NewsTag> emptyResponse = new PagedResult<NewsTag>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
