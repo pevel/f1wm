@@ -29,7 +29,10 @@ namespace F1WM.Repositories
 			var apiEngine = await mapper.ProjectTo<EngineDetails>(context.Engines
 					.Where(e => e.Id == id))
 				.SingleOrDefaultAsync();
-			await IncludeRacesInfo(id, apiEngine);
+			if (apiEngine != null)
+			{
+				await IncludeRacesInfo(id, apiEngine);
+			}
 			return apiEngine;
 		}
 
