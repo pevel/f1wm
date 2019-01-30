@@ -1,4 +1,3 @@
-using System;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -11,6 +10,7 @@ namespace F1WM.Mapping
 		public EnginesMappingProfile()
 		{
 			CreateMap<Engine, EngineDetails>()
+				.ForMember(api => api.Picture, o => o.MapFrom(db => db.GetEnginePicturePath()))
 				.ForMember(api => api.Specifications, o => o.MapFrom(db => db.EngineSpecification.Parse()));
 		}
 	}

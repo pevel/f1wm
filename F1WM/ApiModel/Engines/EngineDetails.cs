@@ -5,7 +5,7 @@ namespace F1WM.ApiModel
 {
 	public class EngineDetails : EngineSummary
 	{
-		public string Logo { get; set; }
+		public string Picture { get; set; }
 		public RaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public RaceSummary FirstWinAt { get; set; }
