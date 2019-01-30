@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -12,6 +11,15 @@ namespace F1WM.Controllers
 	public class EnginesController : ControllerBase
 	{
 		private readonly IEnginesService service;
+
+		[HttpGet("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<EngineDetails>> GetEngine([FromRoute]int id)
+		{
+			var engine = await service.GetEngine(id);
+			return this.NotFoundResultIfNull(engine);
+		}
 
 		[HttpGet]
 		[ProducesResponseType(200)]

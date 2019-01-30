@@ -24,6 +24,13 @@ namespace F1WM.Repositories
 			return (result.EnginesList.Any()) ? result : null;
 		}
 
+		public Task<EngineDetails> GetEngine(int id)
+		{
+			return mapper.ProjectTo<EngineDetails>(context.Engines
+					.Where(e => e.Id == id))
+				.SingleOrDefaultAsync();
+		}
+
 		public EnginesRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
