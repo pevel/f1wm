@@ -18,12 +18,12 @@ namespace F1WM.Services
 			return repository.GetTrackRecords(trackId, trackVersion, beforeYear ?? now.Year);
 		}
 
-		public Task<PagedResult> GetTracks(int page, int countPerPage)
+		public Task<PagedResult<TrackSummary>> GetTracks(int page, int countPerPage)
 		{
 			return repository.GetTracks(page, countPerPage);
 		}
 
-		public Task<PagedResult> GetTracksByStatusId(byte statusId, int page, int countPerPage)
+		public Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, int page, int countPerPage)
 		{
 			return repository.GetTracksByStatusId(statusId, page, countPerPage);
 		}

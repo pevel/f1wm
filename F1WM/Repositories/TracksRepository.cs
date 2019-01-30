@@ -75,13 +75,13 @@ namespace F1WM.Repositories
 			}
 		}
 
-		public async Task<PagedResult> GetTracks(int page, int countPerPage)
+		public async Task<PagedResult<TrackSummary>> GetTracks(int page, int countPerPage)
 		{
 			var dbTracks = context.Tracks.Include(t => t.Country);
 			return await GetPagedTracksResult(dbTracks, page, countPerPage);
 		}
 
-		public async Task<PagedResult> GetTracksByStatusId(byte statusId, int page, int countPerPage)
+		public async Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, int page, int countPerPage)
 		{
 			var dbTracks = context.Tracks
 				.Where(t => t.StatusId == statusId)
@@ -108,10 +108,10 @@ namespace F1WM.Repositories
 			}
 		}
 
-		private async Task<PagedResult> GetPagedTracksResult(IQueryable<Track> dbTracks, int page, int countPerPage)
+		private async Task<PagedResult<TrackSummary>> GetPagedTracksResult(IQueryable<Track> dbTracks, int page, int countPerPage)
 		{
 			var skipRows = (page - 1) * countPerPage;
-			PagedResult result = new PagedResult
+			PagedResult<TrackSummary> result = new PagedResult<TrackSummary>
 			{
 				CurrentPage = page,
 				RowCount = dbTracks.Count()
