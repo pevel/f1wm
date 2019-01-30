@@ -1,0 +1,72 @@
+[
+  {
+    "engineId": 278,
+    "expected": {
+      "picture": "/img/silniki/278.jpg",
+      "firstStartAt": {
+        "raceId": 861,
+        "name": "Grand Prix Australii",
+        "date": "2012-03-18T00:00:00"
+      },
+      "firstWinAt": {
+        "raceId": 864,
+        "name": "Grand Prix Bahrajnu",
+        "date": "2012-04-22T00:00:00"
+      },
+      "specifications": {
+        "Pojemność": "2400 cm3",
+        "Maks. obroty": "18.000 (maksimum dopuszczane przez FIA)",
+        "Rozstaw cylindrów": "90 stopni",
+        "Zawory": "4 na cylinder, napędzane pneumatycznie",
+        "Waga": "95 kg (minimalny limit wagowy FIA)",
+        "ECU": " MES SECU"
+      },
+      "id": 278,
+      "name": "Renault RS27-2012 2.4 V8"
+    }
+  },
+  {
+    "engineId": 15,
+    "expected": {
+      "picture": "/img/silniki/15.jpg",
+      "firstStartAt": {
+        "raceId": 7,
+        "name": "Grand Prix Włoch",
+        "date": "1950-09-03T00:00:00"
+      },
+      "firstWinAt": {
+        "raceId": 12,
+        "name": "Grand Prix Wielkiej Brytanii",
+        "date": "1951-07-14T00:00:00"
+      },
+      "specifications": null,
+      "id": 15,
+      "name": "Ferrari 4.5 V12"
+    }
+  },
+  {
+    "engineId": 214,
+    "expected": {
+      "picture": "/img/silniki/214.jpg",
+      "firstStartAt": {
+        "raceId": 714,
+        "name": "Grand Prix Australii",
+        "date": "2004-03-07T00:00:00"
+      },
+      "specifications": {
+        "Bazowany na": "Cosworth CR-6",
+        "Pojemność": "2998 cm3",
+        "Rozstaw cylindrów": "90 stopni",
+        "Głowice cylindrów": "cztery zawory na cylinder, pneumatyczny system zaworów",
+        "Przepustnica": "elektryczno-hydrauliczna",
+        "Konstrukcja": "blok, głowice cylindrów i tłoki ze stopów aluminium",
+        "Wał korbowy": "stalowy",
+        "Elektronika": "Pi Research",
+        "Zapłon": "Cosworth Racing",
+        "Świece": "Champion"
+      },
+      "id": 214,
+      "name": "Ford Cosworth RS2 3.0 V10"
+    }
+  }
+]

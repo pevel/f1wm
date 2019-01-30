@@ -10,7 +10,7 @@ namespace F1WM.Utilities
 	{
 		public static Dictionary<string, string> Parse(this EngineSpecification specification)
 		{
-			if (!string.IsNullOrWhiteSpace(specification.Text))
+			if (specification != null && !string.IsNullOrWhiteSpace(specification.Text))
 			{
 				var keyValues = new Dictionary<string, string>();
 				using(var reader = new StringReader(specification.Text))
