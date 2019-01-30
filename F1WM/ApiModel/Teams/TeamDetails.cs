@@ -8,6 +8,7 @@ namespace F1WM.ApiModel
 		public string FullName { get; set; }
 		public string Headquarters { get; set; }
 		public string Website { get; set; }
+		public string HeadquartersPicture { get; set; }
 		public Management Management { get; set; }
 		public IEnumerable<DriverSummary> TestDrivers { get; set; }
 		public RaceSummary FirstStartAt { get; set; }
