@@ -10,6 +10,8 @@ namespace F1WM.Controllers
 	public class TracksController : ControllerBase
 	{
 		private readonly ITracksService service;
+		private const int defaultPage = 1;
+		private const int defaultCountPerPage = 25;
 
 		[HttpGet("{trackId}/versions/{trackVersion}/records")]
 		[ProducesResponseType(200)]
@@ -23,7 +25,23 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(records);
 		}
 
-		public TracksController(ITracksService service)
+		[HttpGet]
+		public async Task<PagedResult> GetTracks(
+			[FromQuery]byte? statusId, 
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
+		{
+			if (statusId != null)
+			{
+				return await service.GetTracksByStatusId((byte)statusId, page, countPerPage);
+			}
+			else
+			{
+				return await service.GetTracks(page, countPerPage);
+			}
+		}
+
+			public TracksController(ITracksService service)
 		{
 			this.service = service;
 		}

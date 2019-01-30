@@ -7,6 +7,7 @@ using System;
 using AutoMapper;
 using System.Linq.Expressions;
 using F1WM.DatabaseModel.Constants;
+using System.Collections.Generic;
 
 namespace F1WM.Repositories
 {
@@ -74,6 +75,21 @@ namespace F1WM.Repositories
 			}
 		}
 
+		public async Task<PagedResult> GetTracks(int page, int countPerPage)
+		{
+			var dbTracks = context.Tracks.Include(t => t.Country);
+			return await GetPagedTracksResult(dbTracks, page, countPerPage);
+		}
+
+		public async Task<PagedResult> GetTracksByStatusId(byte statusId, int page, int countPerPage)
+		{
+			var dbTracks = context.Tracks
+				.Where(t => t.StatusId == statusId)
+				.Include(t => t.Country);
+
+			return await GetPagedTracksResult(dbTracks, page, countPerPage);
+		}
+
 		public TracksRepository(F1WMContext context, IMapper mapper)
 		{
 			this.mapper = mapper;
@@ -90,6 +106,30 @@ namespace F1WM.Repositories
 			{
 				return mapper.Map<FastestQualifyingLapResultSummary>(newFormat);
 			}
+		}
+
+		private async Task<PagedResult> GetPagedTracksResult(IQueryable<Track> dbTracks, int page, int countPerPage)
+		{
+			var skipRows = (page - 1) * countPerPage;
+			PagedResult result = new PagedResult
+			{
+				CurrentPage = page,
+				RowCount = dbTracks.Count()
+			};
+
+			var pageCount = (double)result.RowCount / countPerPage;
+			result.PageCount = (int)Math.Ceiling(pageCount);
+
+			var apiTrack = await mapper.ProjectTo<TrackSummary>(
+				dbTracks
+					.Skip(skipRows)
+					.Take(countPerPage))
+				.ToListAsync();
+
+			result.PageSize = apiTrack.Count();
+			result.Result = apiTrack;
+
+			return result;
 		}
 	}
 }
