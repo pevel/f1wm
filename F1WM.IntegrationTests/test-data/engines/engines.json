@@ -1,0 +1,203 @@
+[
+  {
+    "letter": "a",
+    "expected": {
+      "enginesList": [
+        {
+          "id": 76,
+          "name": "A.T.S. 1.5 V8"
+        },
+        {
+          "id": 101,
+          "name": "A.T.S. 2.7 V8"
+        },
+        {
+          "id": 188,
+          "name": "Acer 3.0 V10"
+        },
+        {
+          "id": 72,
+          "name": "Alfa Romeo 1.5 L4"
+        },
+        {
+          "id": 1,
+          "name": "Alfa Romeo 1.5 L8C"
+        },
+        {
+          "id": 117,
+          "name": "Alfa Romeo 1.5 V8T"
+        },
+        {
+          "id": 111,
+          "name": "Alfa Romeo 3.0 B12"
+        },
+        {
+          "id": 113,
+          "name": "Alfa Romeo 3.0 V12"
+        },
+        {
+          "id": 108,
+          "name": "Alfa Romeo 3.0 V8"
+        },
+        {
+          "id": 5,
+          "name": "Alta 1.5 L4C"
+        },
+        {
+          "id": 18,
+          "name": "Alta 2.0 L4"
+        },
+        {
+          "id": 42,
+          "name": "Alta 2.5 L4"
+        },
+        {
+          "id": 171,
+          "name": "Arrows 3.0 V10"
+        },
+        {
+          "id": 184,
+          "name": "Asiatech 001 3.0 V10"
+        },
+        {
+          "id": 194,
+          "name": "Asiatech AT02 3.0 V10"
+        },
+        {
+          "id": 64,
+          "name": "Aston Martin 2.5 L6"
+        }
+      ]
+    }
+  },
+  {
+    "letter": "r",
+    "expected": {
+      "enginesList": [
+        {
+          "id": 112,
+          "name": "Renault 1.5 V6T"
+        },
+        {
+          "id": 154,
+          "name": "Renault 3.0 V10"
+        },
+        {
+          "id": 132,
+          "name": "Renault 3.5 V10"
+        },
+        {
+          "id": 283,
+          "name": "Renault Energy F1-2014 1.6T V6"
+        },
+        {
+          "id": 287,
+          "name": "Renault Energy F1-2015 1.6T V6"
+        },
+        {
+          "id": 291,
+          "name": "Renault R.E.16 1.6T V6"
+        },
+        {
+          "id": 295,
+          "name": "Renault R.E.17 1.6T V6"
+        },
+        {
+          "id": 300,
+          "name": "Renault R.E.18 1.6T V6"
+        },
+        {
+          "id": 182,
+          "name": "Renault RS21 3.0 V10"
+        },
+        {
+          "id": 193,
+          "name": "Renault RS22 3.0 V10"
+        },
+        {
+          "id": 199,
+          "name": "Renault RS23 3.0 V10"
+        },
+        {
+          "id": 209,
+          "name": "Renault RS24 3.0 V10"
+        },
+        {
+          "id": 216,
+          "name": "Renault RS24B 3.0 V10"
+        },
+        {
+          "id": 217,
+          "name": "Renault RS24D 3.0 V10"
+        },
+        {
+          "id": 220,
+          "name": "Renault RS25 3.0 V10"
+        },
+        {
+          "id": 227,
+          "name": "Renault RS26 2.4 V8"
+        },
+        {
+          "id": 234,
+          "name": "Renault RS26B 2.4 V8"
+        },
+        {
+          "id": 235,
+          "name": "Renault RS26C 2.4 V8"
+        },
+        {
+          "id": 236,
+          "name": "Renault RS26D 2.4 V8"
+        },
+        {
+          "id": 237,
+          "name": "Renault RS26E 2.4 V8"
+        },
+        {
+          "id": 258,
+          "name": "Renault RS27 2.4 V8"
+        },
+        {
+          "id": 263,
+          "name": "Renault RS27-2008 2.4 V8"
+        },
+        {
+          "id": 268,
+          "name": "Renault RS27-2009 2.4 V8"
+        },
+        {
+          "id": 270,
+          "name": "Renault RS27-2010 2.4 V8"
+        },
+        {
+          "id": 275,
+          "name": "Renault RS27-2011 2.4 V8"
+        },
+        {
+          "id": 278,
+          "name": "Renault RS27-2012 2.4 V8"
+        },
+        {
+          "id": 280,
+          "name": "Renault RS27-2013 2.4 V8"
+        },
+        {
+          "id": 86,
+          "name": "Repco 3.0 V8"
+        }
+      ]
+    }
+  },
+  {
+    "letter": "z",
+    "expected": {
+      "enginesList": [
+        {
+          "id": 123,
+          "name": "Zakspeed 1.5 L4T"
+        }
+      ]
+    }
+  }
+]

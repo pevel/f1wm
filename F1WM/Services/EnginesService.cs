@@ -13,6 +13,11 @@ namespace F1WM.Services
 			return repository.GetEngines(letter);
 		}
 
+		public Task<EngineDetails> GetEngine(int id)
+		{
+			return repository.GetEngine(id);
+		}
+
 		public EnginesService(IEnginesRepository repository)
 		{
 			this.repository = repository;

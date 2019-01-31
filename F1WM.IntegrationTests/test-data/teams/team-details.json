@@ -1,9 +1,11 @@
-[{
+[
+  {
     "teamId": 93,
     "expected": {
       "fullName": "Mercedes AMG Petronas Motorsport",
       "headquarters": "Brackley (Wielka Brytania)",
       "website": "www.mercedes-gp.com",
+      "headquartersPicture": "/img/zespoly/mer_base.jpg",
       "management": {
         "founder": null,
         "teamPrincipal": {
@@ -23,7 +25,8 @@
           "picture": "/img/zespoly/acow.jpg"
         }
       },
-      "testDrivers": [{
+      "testDrivers": [
+        {
           "id": 861,
           "firstName": "Stoffel",
           "surname": "Vandoorne",
@@ -61,7 +64,8 @@
         "flagIcon": "/img/flagi/ger2.gif"
       },
       "id": 93,
-      "name": "Mercedes"
+      "name": "Mercedes",
+      "logo": "/img/zespoly/mer_logo.gif"
     }
   },
   {
@@ -70,6 +74,7 @@
       "fullName": "3-L Racing Team",
       "headquarters": "",
       "website": null,
+      "headquartersPicture": "/img/zespoly/3lr_base.jpg",
       "management": {
         "founder": null,
         "teamPrincipal": null,
@@ -90,7 +95,8 @@
         "flagIcon": "/img/flagi/usa2.gif"
       },
       "id": 1,
-      "name": "3-L Racing Team"
+      "name": "3-L Racing Team",
+      "logo": "/img/zespoly/3lr_logo.gif"
     }
   },
   {
@@ -99,6 +105,7 @@
       "fullName": "Scuderia Ferrari",
       "headquarters": "Maranello (Włochy)",
       "website": "www.ferrari.com",
+      "headquartersPicture": "/img/zespoly/fer_base.jpg",
       "management": {
         "founder": {
           "fullName": "Enzo Ferrari (zmarł w sierpniu 1988 roku)",
@@ -113,15 +120,17 @@
           "picture": "/img/zespoly/enzoferrari.jpg"
         }
       },
-      "testDrivers": [{
-        "id": 868,
-        "firstName": "Pascal",
-        "surname": "Wehrlein",
-        "nationality": {
-          "name": "Niemcy",
-          "flagIcon": "/img/flagi/ger2.gif"
+      "testDrivers": [
+        {
+          "id": 868,
+          "firstName": "Pascal",
+          "surname": "Wehrlein",
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          }
         }
-      }],
+      ],
       "firstStartAt": {
         "raceId": 2,
         "name": "Grand Prix Monako",
@@ -141,7 +150,8 @@
         "flagIcon": "/img/flagi/ita2.gif"
       },
       "id": 161,
-      "name": "Ferrari"
+      "name": "Ferrari",
+      "logo": "/img/zespoly/fer_logo.gif"
     }
   }
 ]

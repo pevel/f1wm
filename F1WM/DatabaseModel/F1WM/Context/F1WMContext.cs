@@ -27,9 +27,9 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1driverpoints> F1driverpoints { get; set; }
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
-		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
+		public virtual DbSet<EngineMake> EngineMakes { get; set; }
 		public virtual DbSet<Engine> Engines { get; set; }
-		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
+		public virtual DbSet<EngineSpecification> EngineSpecifications { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<FastestLap> FastestLaps { get; set; }
 		public virtual DbSet<F1glossary> F1glossary { get; set; }
@@ -402,73 +402,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("id4")
 					.HasColumnType("char(4)")
 					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<F1enginemakes>(entity =>
-			{
-				entity.HasKey(e => e.Enginemakeid);
-
-				entity.ToTable("f1enginemakes");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Enginemake)
-					.HasName("enginemake");
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.Property(e => e.Enginemakeid)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Enginemake)
-					.IsRequired()
-					.HasColumnName("enginemake")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.Nat)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1enginesspecs>(entity =>
-			{
-				entity.HasKey(e => e.Engineid);
-
-				entity.ToTable("f1enginesspecs");
-
-				entity.Property(e => e.Engineid)
-					.HasColumnName("engineid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Enginespecs)
-					.HasColumnName("enginespecs")
-					.HasColumnType("text");
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>

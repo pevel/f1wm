@@ -102,6 +102,16 @@ namespace F1WM.Utilities
 			return text == null || string.IsNullOrWhiteSpace(text) ? null : $"/img/zespoly/{text}";
 		}
 
+		public static string GetLargeTeamLogoPath(this string id)
+		{
+			return id == null || string.IsNullOrWhiteSpace(id) ? null : $"/img/zespoly/{id}_logo.gif";
+		}
+
+		public static string GetTeamHeadquartersPicturePath(this string id)
+		{
+			return id == null || string.IsNullOrWhiteSpace(id) ? null : $"/img/zespoly/{id}_base.jpg";
+		}
+
 		public static ResultStatus GetResultStatus(this string statusText)
 		{
 			return Constants.TextToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
