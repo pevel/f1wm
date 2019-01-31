@@ -12,7 +12,8 @@ namespace F1WM.Mapping
 		{
 			CreateMap<News, NewsSummary>()
 				.ForMember(api => api.MainTagIcon, o => o.MapFrom(db => db.MainTag.Icon.GetGenericIconPath()));
-			CreateMap<News, NewsDetails>();
+			CreateMap<News, NewsDetails>()
+				.ForMember(api => api.Text, o => o.MapFrom(db => db.Article != null ? db.Article.Text : db.Text));
 		}
 	}
 }

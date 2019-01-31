@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
 		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual DbSet<BroadcastedSessionType> BroadcastedSessionTypes { get; set; }
-		public virtual DbSet<F1Arts> F1Arts { get; set; }
+		public virtual DbSet<Article> Articles { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<Car> Cars { get; set; }
@@ -102,60 +102,6 @@ namespace F1WM.DatabaseModel
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(F1WMContext)));
-
-			modelBuilder.Entity<F1Arts>(entity =>
-			{
-				entity.HasKey(e => e.Artid);
-
-				entity.ToTable("f1_arts");
-
-				entity.HasIndex(e => e.Arttitle)
-					.HasName("arttitle");
-
-				entity.HasIndex(e => e.Catid)
-					.HasName("catid");
-
-				entity.Property(e => e.Artid)
-					.HasColumnName("artid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Arthidden)
-					.HasColumnName("arthidden")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Artposter)
-					.IsRequired()
-					.HasColumnName("artposter")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.Artpreview)
-					.HasColumnName("artpreview")
-					.HasMaxLength(255);
-
-				entity.Property(e => e.Arttext)
-					.HasColumnName("arttext")
-					.HasColumnType("text");
-
-				entity.Property(e => e.Arttitle)
-					.IsRequired()
-					.HasColumnName("arttitle")
-					.HasMaxLength(80);
-
-				entity.Property(e => e.Artviews)
-					.HasColumnName("artviews")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Catid)
-					.HasColumnName("catid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Newsid)
-					.HasColumnName("newsid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-			});
 
 			modelBuilder.Entity<F1ArtsCats>(entity =>
 			{
