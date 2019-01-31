@@ -1,7 +1,5 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using FluentAssertions;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -12,26 +10,14 @@ namespace F1WM.IntegrationTests
 		[JsonData("engines", "engines.json")]
 		public async Task ShouldGetEngines(EnginesTestData data)
 		{
-			var response = await client.GetAsync($"{baseAddress}/Engines?letter={data.Letter}");
-			response.EnsureSuccessStatusCode();
-			
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var engines = JsonConvert.DeserializeObject<Engines>(responseContent);
-			
-			engines.Should().BeEquivalentTo(data.Expected);
+			await TestResponse<Engines>($"{baseAddress}/Engines?letter={data.Letter}", data.Expected);
 		}
 
 		[Theory]
 		[JsonData("engines", "engine-details.json")]
 		public async Task ShouldGetEngine(EngineDetailsTestData data)
 		{
-			var response = await client.GetAsync($"{baseAddress}/Engines/{data.EngineId}");
-			response.EnsureSuccessStatusCode();
-			
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var engines = JsonConvert.DeserializeObject<EngineDetails>(responseContent);
-			
-			engines.Should().BeEquivalentTo(data.Expected);
+			await TestResponse<EngineDetails>($"{baseAddress}/Engines/{data.EngineId}", data.Expected);
 		}
 
 		public class EnginesTestData

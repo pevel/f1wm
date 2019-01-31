@@ -46,7 +46,8 @@ namespace F1WM.Repositories
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
 		{
-			var dbNews = context.News.Where(n => n.Id == id && !n.NewsHidden);
+			var dbNews = context.News
+				.Where(n => n.Id == id && !n.NewsHidden);
 			var news = await mapper.ProjectTo<NewsDetails>(dbNews).FirstOrDefaultAsync();
 			if (news != null)
 			{

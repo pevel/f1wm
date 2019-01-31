@@ -24,5 +24,6 @@ namespace F1WM.DatabaseModel
 		public string Subtitle { get; set; }
 		public string Text { get; set; }
 		public virtual IEnumerable<NewsTagMatch> Tags { get; set; }
+		public virtual Article Article { get; set; }
 	}
 }

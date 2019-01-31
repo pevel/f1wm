@@ -11,107 +11,11 @@ namespace F1WM.IntegrationTests
 {
 	public class NewsTests : IntegrationTestBase
 	{
-		[Fact]
-		public async Task ShouldGetSingleNews()
+		[Theory]
+		[JsonData("news", "news-details.json")]
+		public async Task ShouldGetSingleNews(NewsDetailsTestData data)
 		{
-			uint id = 42000;
-
-			var response = await client.GetAsync($"{baseAddress}/news/{id}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
-			Assert.NotNull(news);
-			Assert.NotNull(news.Title);
-			Assert.NotNull(news.Text);
-			Assert.NotNull(news.Subtitle);
-			Assert.NotNull(news.PosterName);
-			Assert.Equal(id, news.Id);
-		}
-
-		[Fact]
-		public async Task ShouldGetSingleNewsWithPracticeResultLink()
-		{
-			uint id = 42422;
-
-			var response = await client.GetAsync($"{baseAddress}/news/{id}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
-			Assert.NotNull(news);
-			Assert.NotNull(news.Title);
-			Assert.NotNull(news.Text);
-			Assert.NotNull(news.Subtitle);
-			Assert.NotNull(news.PosterName);
-			Assert.NotNull(news.ResultLink);
-			Assert.Equal(ResultLinkType.Practice, news.ResultLink.Type);
-			Assert.NotEqual(0, news.ResultLink.RaceId);
-			Assert.False(string.IsNullOrWhiteSpace(news.ResultLink.Session));
-			Assert.Equal(id, news.Id);
-		}
-
-		[Fact]
-		public async Task ShouldGetSingleNewsWithRaceResultLink()
-		{
-			uint id = 2468;
-
-			var response = await client.GetAsync($"{baseAddress}/news/{id}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
-			Assert.NotNull(news);
-			Assert.NotNull(news.Title);
-			Assert.NotNull(news.Text);
-			Assert.NotNull(news.Subtitle);
-			Assert.NotNull(news.PosterName);
-			Assert.NotNull(news.ResultLink);
-			Assert.Equal(ResultLinkType.Race, news.ResultLink.Type);
-			Assert.NotEqual(0, news.ResultLink.RaceId);
-			Assert.Equal(id, news.Id);
-		}
-
-		[Fact]
-		public async Task ShouldGetSingleNewsWithQualifyingResultLink()
-		{
-			uint id = 2464;
-
-			var response = await client.GetAsync($"{baseAddress}/news/{id}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
-			Assert.NotNull(news);
-			Assert.NotNull(news.Title);
-			Assert.NotNull(news.Text);
-			Assert.NotNull(news.Subtitle);
-			Assert.NotNull(news.PosterName);
-			Assert.NotNull(news.ResultLink);
-			Assert.Equal(ResultLinkType.Qualifying, news.ResultLink.Type);
-			Assert.NotEqual(0, news.ResultLink.RaceId);
-			Assert.Equal(id, news.Id);
-		}
-
-		[Fact]
-		public async Task ShouldGetSingleNewsWithOtherResultLink()
-		{
-			uint id = 1010;
-
-			var response = await client.GetAsync($"{baseAddress}/news/{id}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var news = JsonConvert.DeserializeObject<NewsDetails>(responseContent);
-			Assert.NotNull(news);
-			Assert.NotNull(news.Title);
-			Assert.NotNull(news.Text);
-			Assert.NotNull(news.Subtitle);
-			Assert.NotNull(news.PosterName);
-			Assert.NotNull(news.ResultLink);
-			Assert.Equal(ResultLinkType.Other, news.ResultLink.Type);
-			Assert.NotEqual(0, news.ResultLink.EventId);
-			Assert.Equal(id, news.Id);
+			await TestResponse<NewsDetails>($"{baseAddress}/news/{data.NewsId}", data.Expected, data.Why);
 		}
 
 		[Fact]
@@ -311,6 +215,13 @@ namespace F1WM.IntegrationTests
 				Assert.True(0 <= news.CommentCount);
 				Assert.NotEqual((uint)0, news.Id);
 			});
+		}
+
+		public class NewsDetailsTestData
+		{
+			public int NewsId { get; set; }
+			public NewsDetails Expected { get; set; }
+			public string Why { get; set; }
 		}
 	}
 }
