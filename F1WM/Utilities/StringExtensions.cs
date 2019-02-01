@@ -114,21 +114,25 @@ namespace F1WM.Utilities
 
 		public static ResultStatus GetResultStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
 		}
 
 		public static StartStatus GetStartStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
 		}
 
 		public static QualifyStatus GetQualifyStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
 		}
 
 		public static OtherResultStatus GetOtherResultStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToOtherResultStatus.TryGetValue(statusText, out OtherResultStatus status) ? status : OtherResultStatus.Other;
 		}
 
