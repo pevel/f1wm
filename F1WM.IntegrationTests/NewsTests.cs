@@ -206,8 +206,8 @@ namespace F1WM.IntegrationTests
 		public class NewsSummaryTestData
 		{
 			public int FirstId { get; set; }
-			public int CountPerPage { get; set; }
-			public int Page { get; set; }
+			public uint CountPerPage { get; set; }
+			public uint Page { get; set; }
 			public NewsSummaryPaged Expected { get; set; }
 		}
 	}

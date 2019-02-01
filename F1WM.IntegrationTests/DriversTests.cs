@@ -31,7 +31,7 @@ namespace F1WM.IntegrationTests
 		public class DriverDetailsTestData
 		{
 			public int DriverId { get; set; }
-			public int AtYear { get; set; }
+			public uint AtYear { get; set; }
 			public DriverDetails Expected { get; set; }
 		}
 	}
