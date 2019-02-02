@@ -34,7 +34,7 @@ namespace F1WM.Utilities
 							{
 								line = Constants.TokenToParserMapping[token](line);
 							}
-							writer.WriteLine(line + "<br/>");
+							writer.Write(line + "<br/>");
 						}
 					}
 					news.Text = writer.ToString();
