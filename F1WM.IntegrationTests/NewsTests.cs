@@ -18,34 +18,13 @@ namespace F1WM.IntegrationTests
 			await TestResponse<NewsDetails>($"{baseAddress}/news/{data.NewsId}", data.Expected, data.Why);
 		}
 
-		[Fact]
-		public async Task ShouldGetManyNews()
+		[Theory]
+		[JsonData("news", "news-summary.json")]
+		public async Task ShouldGetManyNews(NewsSummaryTestData data)
 		{
-			uint firstId = 42001;
-			var count = 5;
-
-			var response = await client.GetAsync($"{baseAddress}/news?firstId={firstId}&countPerPage={count}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
-			Assert.NotNull(result.Result);
-			Assert.Equal(count, result.PageSize);
-			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal(1, result.CurrentPage);
-			Assert.True(result.PageCount > 0);
-			var newsList = result.Result;
-			Assert.NotNull(newsList);
-			Assert.Equal(firstId, newsList.First().Id);
-			Assert.Equal(count, newsList.Count());
-			Assert.All(newsList, news =>
-			{
-				Assert.NotNull(news.Title);
-				Assert.NotNull(news.Subtitle);
-				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
-				Assert.True(0 <= news.CommentCount);
-				Assert.NotEqual((uint)0, news.Id);
-			});
+			await TestResponse<NewsSummaryPaged>(
+				$"{baseAddress}/news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
+				data.Expected);
 		}
 
 		[Fact]
@@ -76,7 +55,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetNewsTags()
 		{
-			var count = 5;
+			uint count = 5;
 			var response = await client.GetAsync($"{baseAddress}/news/tags?countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
@@ -85,11 +64,11 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal(1, result.CurrentPage);
+			Assert.Equal((uint)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var tagsList = result.Result;
 			Assert.NotNull(tagsList);
-			Assert.Equal(count, tagsList.Count());
+			Assert.Equal(count, (uint)tagsList.Count());
 			Assert.All(tagsList, tag =>
 			{
 				Assert.NotEqual((uint)0, tag.Id);
@@ -135,7 +114,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsTagsByCategoryId()
 		{
 			var id = 2;
-			var count = 5;
+			uint count = 5;
 
 			var response = await client.GetAsync($"{baseAddress}/news/tags?categoryId={id}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
@@ -145,11 +124,11 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal(1, result.CurrentPage);
+			Assert.Equal((uint)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var tagsList = result.Result;
 			Assert.NotNull(tagsList);
-			Assert.Equal(count, tagsList.Count());
+			Assert.Equal(count, (uint)tagsList.Count());
 			Assert.All(tagsList, tag =>
 			{
 				Assert.NotEqual((uint)0, tag.Id);
@@ -162,7 +141,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsByTypeId()
 		{
 			var typeId = 5;
-			var count = 7;
+			uint count = 7;
 
 			var response = await client.GetAsync($"{baseAddress}/news?typeId={typeId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
@@ -172,8 +151,8 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
-			Assert.Equal(result.Result.Count(), count);
-			Assert.Equal(1, result.CurrentPage);
+			Assert.Equal(count, (uint)result.Result.Count());
+			Assert.Equal((uint)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var newsList = result.Result;
 			Assert.NotNull(newsList);
@@ -192,7 +171,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsByTagId()
 		{
 			var tagId = 2;
-			var count = 7;
+			uint count = 7;
 
 			var response = await client.GetAsync($"{baseAddress}/news?tagId={tagId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
@@ -202,8 +181,8 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
-			Assert.Equal(result.Result.Count(), count);
-			Assert.Equal(1, result.CurrentPage);
+			Assert.Equal(count, (uint)result.Result.Count());
+			Assert.Equal((uint)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var newsList = result.Result;
 			Assert.NotNull(newsList);
@@ -222,6 +201,14 @@ namespace F1WM.IntegrationTests
 			public int NewsId { get; set; }
 			public NewsDetails Expected { get; set; }
 			public string Why { get; set; }
+		}
+
+		public class NewsSummaryTestData
+		{
+			public int FirstId { get; set; }
+			public uint CountPerPage { get; set; }
+			public uint Page { get; set; }
+			public NewsSummaryPaged Expected { get; set; }
 		}
 	}
 }

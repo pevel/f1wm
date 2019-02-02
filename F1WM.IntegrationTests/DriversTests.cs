@@ -1,5 +1,4 @@
 using F1WM.ApiModel;
-using Newtonsoft.Json;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -7,46 +6,33 @@ namespace F1WM.IntegrationTests
 {
 	public class DriversTests : IntegrationTestBase
 	{
-		[Fact]
-		public async Task ShouldGetDrivers()
+		[Theory]
+		[JsonData("drivers", "drivers.json")]
+		public async Task ShouldGetDrivers(DriversTestData data)
 		{
-			var response = await client.GetAsync($"{baseAddress}/Drivers?letter=r");
-			response.EnsureSuccessStatusCode();
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var drivers = JsonConvert.DeserializeObject<Drivers>(responseContent);
-			Assert.All(drivers.DriversList, driver =>
-			{
-				Assert.NotEqual(0, (int)driver.Id);
-				Assert.False(string.IsNullOrWhiteSpace(driver.FirstName));
-				Assert.False(string.IsNullOrWhiteSpace(driver.Surname));
-				Assert.False(string.IsNullOrWhiteSpace(driver.Nationality.FlagIcon));
-				Assert.False(string.IsNullOrWhiteSpace(driver.Nationality.Name));
-			});
+			await TestResponse<Drivers>($"{baseAddress}/Drivers?letter={data.Letter}", data.Expected);
 		}
 
-		[Fact]
-		public async Task ShouldGetDriver()
+		[Theory]
+		[JsonData("drivers", "driver-details.json")]
+		public async Task ShouldGetDriver(DriverDetailsTestData data)
 		{
-			var driverId = 806;
-			var response = await client.GetAsync($"{baseAddress}/Drivers/{driverId}");
-			response.EnsureSuccessStatusCode();
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var driver = JsonConvert.DeserializeObject<DriverDetails>(responseContent);
-			Assert.NotEqual((uint)0, driver.Id);
-			Assert.NotNull(driver.Nationality);
-			Assert.False(string.IsNullOrWhiteSpace(driver.Nationality.FlagIcon));
-			Assert.False(string.IsNullOrWhiteSpace(driver.Nationality.Name));
-			Assert.NotEqual(0, driver.Number);
-			Assert.False(string.IsNullOrWhiteSpace(driver.Picture));
-			Assert.False(string.IsNullOrWhiteSpace(driver.Surname));
-			Assert.False(string.IsNullOrWhiteSpace(driver.FirstName));
-			Assert.NotNull(driver.Team);
-			Assert.NotEqual((uint)0, driver.Team.Id);
-			Assert.False(string.IsNullOrWhiteSpace(driver.Team.Logo));
-			Assert.False(string.IsNullOrWhiteSpace(driver.Team.Name));
-			Assert.NotNull(driver.Car);
-			Assert.NotEqual(0, driver.Car.Id);
-			Assert.False(string.IsNullOrWhiteSpace(driver.Car.Name));
+			await TestResponse<DriverDetails>(
+				$"{baseAddress}/Drivers/{data.DriverId}?atYear={data.AtYear}",
+				data.Expected);
+		}
+
+		public class DriversTestData
+		{
+			public char Letter { get; set; }
+			public Drivers Expected { get; set; }
+		}
+
+		public class DriverDetailsTestData
+		{
+			public int DriverId { get; set; }
+			public uint AtYear { get; set; }
+			public DriverDetails Expected { get; set; }
 		}
 	}
 }

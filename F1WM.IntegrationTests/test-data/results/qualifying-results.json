@@ -1,0 +1,1961 @@
+[
+  {
+    "raceId": 1,
+    "why": "basic format",
+    "expected": {
+      "raceId": 1,
+      "results": [
+        {
+          "finishPosition": 1,
+          "status": "Qualified",
+          "number": 2,
+          "driver": {
+            "id": 237,
+            "firstName": "Nino",
+            "surname": "Farina"
+          },
+          "car": {
+            "id": 1,
+            "name": "Alfa Romeo 158"
+          },
+          "session1": {
+            "finishPosition": 1,
+            "time": "00:01:50.8000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 2,
+          "status": "Qualified",
+          "number": 3,
+          "driver": {
+            "id": 234,
+            "firstName": "Luigi",
+            "surname": "Fagioli"
+          },
+          "car": {
+            "id": 1,
+            "name": "Alfa Romeo 158"
+          },
+          "session1": {
+            "finishPosition": 2,
+            "time": "00:01:51",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 3,
+          "status": "Qualified",
+          "number": 1,
+          "driver": {
+            "id": 236,
+            "firstName": "Juan Manuel",
+            "surname": "Fangio"
+          },
+          "car": {
+            "id": 1,
+            "name": "Alfa Romeo 158"
+          },
+          "session1": {
+            "finishPosition": 3,
+            "time": "00:01:51",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 4,
+          "status": "Qualified",
+          "number": 4,
+          "driver": {
+            "id": 547,
+            "firstName": "Reg",
+            "surname": "Parnell"
+          },
+          "car": {
+            "id": 1,
+            "name": "Alfa Romeo 158"
+          },
+          "session1": {
+            "finishPosition": 4,
+            "time": "00:01:52.2000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 5,
+          "status": "Qualified",
+          "number": 21,
+          "driver": {
+            "id": 75,
+            "firstName": "Prince",
+            "surname": "Bira"
+          },
+          "car": {
+            "id": 8,
+            "name": "Maserati 4CLT/50"
+          },
+          "session1": {
+            "finishPosition": 5,
+            "time": "00:01:52.6000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 6,
+          "status": "Qualified",
+          "number": 14,
+          "driver": {
+            "id": 293,
+            "firstName": "Yves",
+            "surname": "Giraud-Cabantous"
+          },
+          "car": {
+            "id": 6,
+            "name": "Talbot-Lago T26C-DA"
+          },
+          "session1": {
+            "finishPosition": 6,
+            "time": "00:01:53.4000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 7,
+          "status": "Qualified",
+          "number": 17,
+          "driver": {
+            "id": 469,
+            "firstName": "Eugene",
+            "surname": "Martin"
+          },
+          "car": {
+            "id": 6,
+            "name": "Talbot-Lago T26C-DA"
+          },
+          "session1": {
+            "finishPosition": 7,
+            "time": "00:01:55.4000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 8,
+          "status": "Qualified",
+          "number": 20,
+          "driver": {
+            "id": 192,
+            "firstName": "Emmanuel",
+            "surname": "de Graffenried"
+          },
+          "car": {
+            "id": 8,
+            "name": "Maserati 4CLT/50"
+          },
+          "session1": {
+            "finishPosition": 8,
+            "time": "00:01:55.8000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 9,
+          "status": "Qualified",
+          "number": 15,
+          "driver": {
+            "id": 618,
+            "firstName": "Louis",
+            "surname": "Rosier"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "session1": {
+            "finishPosition": 9,
+            "time": "00:01:56",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 10,
+          "status": "Qualified",
+          "number": 9,
+          "driver": {
+            "id": 756,
+            "firstName": "Peter",
+            "surname": "Walker"
+          },
+          "car": {
+            "id": 3,
+            "name": "ERA E"
+          },
+          "session1": {
+            "finishPosition": 10,
+            "time": "00:01:56.6000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 11,
+          "status": "Qualified",
+          "number": 19,
+          "driver": {
+            "id": 147,
+            "firstName": "Louis",
+            "surname": "Chiron"
+          },
+          "car": {
+            "id": 2,
+            "name": "Maserati 4CLT/48"
+          },
+          "session1": {
+            "finishPosition": 11,
+            "time": "00:01:56.6000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 12,
+          "status": "Qualified",
+          "number": 8,
+          "driver": {
+            "id": 376,
+            "firstName": "Leslie",
+            "surname": "Johnson"
+          },
+          "car": {
+            "id": 3,
+            "name": "ERA E"
+          },
+          "session1": {
+            "finishPosition": 12,
+            "time": "00:01:57.4000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 13,
+          "status": "Qualified",
+          "number": 12,
+          "driver": {
+            "id": 286,
+            "firstName": "Bob",
+            "surname": "Gerard"
+          },
+          "car": {
+            "id": 5,
+            "name": "ERA B"
+          },
+          "session1": {
+            "finishPosition": 13,
+            "time": "00:01:57.4000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 14,
+          "status": "Qualified",
+          "number": 16,
+          "driver": {
+            "id": 228,
+            "firstName": "Philippe",
+            "surname": "Etancelin"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "session1": {
+            "finishPosition": 14,
+            "time": "00:01:57.8000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 15,
+          "status": "Qualified",
+          "number": 11,
+          "driver": {
+            "id": 328,
+            "firstName": "Cuth",
+            "surname": "Harrison"
+          },
+          "car": {
+            "id": 5,
+            "name": "ERA B"
+          },
+          "session1": {
+            "finishPosition": 15,
+            "time": "00:01:58.4000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 16,
+          "status": "Qualified",
+          "number": 6,
+          "driver": {
+            "id": 324,
+            "firstName": "David",
+            "surname": "Hampshire"
+          },
+          "car": {
+            "id": 2,
+            "name": "Maserati 4CLT/48"
+          },
+          "session1": {
+            "finishPosition": 16,
+            "time": "00:02:01",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 17,
+          "status": "Qualified",
+          "number": 24,
+          "driver": {
+            "id": 171,
+            "firstName": "Geoff",
+            "surname": "Crossley"
+          },
+          "car": {
+            "id": 10,
+            "name": "Alta GP 2"
+          },
+          "session1": {
+            "finishPosition": 17,
+            "time": "00:02:02.6000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 18,
+          "status": "Qualified",
+          "number": 5,
+          "driver": {
+            "id": 511,
+            "firstName": "David",
+            "surname": "Murray"
+          },
+          "car": {
+            "id": 2,
+            "name": "Maserati 4CLT/48"
+          },
+          "session1": {
+            "finishPosition": 18,
+            "time": "00:02:05.6000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 19,
+          "status": "Qualified",
+          "number": 23,
+          "driver": {
+            "id": 388,
+            "firstName": "Joe",
+            "surname": "Kelly"
+          },
+          "car": {
+            "id": 9,
+            "name": "Alta GP"
+          },
+          "session1": {
+            "finishPosition": 19,
+            "time": "00:02:06.2000000",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 20,
+          "status": "Qualified",
+          "number": 10,
+          "driver": {
+            "id": 269,
+            "firstName": "Joe",
+            "surname": "Fry"
+          },
+          "car": {
+            "id": 4,
+            "name": "Maserati 4CL"
+          },
+          "session1": {
+            "finishPosition": 20,
+            "time": "00:02:07",
+            "finishedLaps": null
+          }
+        },
+        {
+          "finishPosition": 21,
+          "status": "Qualified",
+          "number": 18,
+          "driver": {
+            "id": 150,
+            "firstName": "Johnny",
+            "surname": "Claes"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "session1": {
+            "finishPosition": 21,
+            "time": "00:02:08.8000000",
+            "finishedLaps": null
+          }
+        }
+      ],
+      "format": "Basic"
+    }
+  },
+  {
+    "raceId": 700,
+    "why": "format with sessions 1&2 combined",
+    "expected": {
+      "raceId": 700,
+      "results": [
+        {
+          "finishPosition": 1,
+          "status": "Qualified",
+          "number": 2,
+          "driver": {
+            "id": 47,
+            "firstName": "Rubens",
+            "surname": "Barrichello"
+          },
+          "car": {
+            "id": 905,
+            "name": "Ferrari F2002"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 2,
+            "time": "00:01:23.2490000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:13.8070000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 2,
+          "status": "Qualified",
+          "number": 5,
+          "driver": {
+            "id": 161,
+            "firstName": "David",
+            "surname": "Coulthard"
+          },
+          "car": {
+            "id": 909,
+            "name": "McLaren MP4-17D"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 4,
+            "time": "00:01:24.6550000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:13.8180000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 3,
+          "status": "Qualified",
+          "number": 14,
+          "driver": {
+            "id": 763,
+            "firstName": "Mark",
+            "surname": "Webber"
+          },
+          "car": {
+            "id": 913,
+            "name": "Jaguar R4"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 1,
+            "time": "00:01:23.1110000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:13.8510000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 4,
+          "status": "Qualified",
+          "number": 6,
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 909,
+            "name": "McLaren MP4-17D"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 3,
+            "time": "00:01:24.6070000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:13.8660000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 5,
+          "status": "Qualified",
+          "number": 7,
+          "driver": {
+            "id": 730,
+            "firstName": "Jarno",
+            "surname": "Trulli"
+          },
+          "car": {
+            "id": 910,
+            "name": "Renault R23"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 12,
+            "time": "00:01:26.5570000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:13.9530000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 6,
+          "status": "Qualified",
+          "number": 4,
+          "driver": {
+            "id": 653,
+            "firstName": "Ralf",
+            "surname": "Schumacher"
+          },
+          "car": {
+            "id": 908,
+            "name": "Williams FW25"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 13,
+            "time": "00:01:26.7090000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.1240000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 7,
+          "status": "Qualified",
+          "number": 1,
+          "driver": {
+            "id": 652,
+            "firstName": "Michael",
+            "surname": "Schumacher"
+          },
+          "car": {
+            "id": 905,
+            "name": "Ferrari F2002"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 5,
+            "time": "00:01:25.5850000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.1300000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 8,
+          "status": "Qualified",
+          "number": 11,
+          "driver": {
+            "id": 244,
+            "firstName": "Giancarlo",
+            "surname": "Fisichella"
+          },
+          "car": {
+            "id": 912,
+            "name": "Jordan EJ13"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 14,
+            "time": "00:01:26.7260000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.1910000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 9,
+          "status": "Qualified",
+          "number": 3,
+          "driver": {
+            "id": 503,
+            "firstName": "Juan Pablo",
+            "surname": "Montoya"
+          },
+          "car": {
+            "id": 908,
+            "name": "Williams FW25"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 17,
+            "time": "00:01:27.9610000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.2230000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 10,
+          "status": "Qualified",
+          "number": 8,
+          "driver": {
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          },
+          "car": {
+            "id": 910,
+            "name": "Renault R23"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 9,
+            "time": "00:01:26.2030000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.3840000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 11,
+          "status": "Qualified",
+          "number": 17,
+          "driver": {
+            "id": 122,
+            "firstName": "Jenson",
+            "surname": "Button"
+          },
+          "car": {
+            "id": 914,
+            "name": "BAR 005"
+          },
+          "information": "",
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.5040000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 12,
+          "status": "Qualified",
+          "number": 9,
+          "driver": {
+            "id": 337,
+            "firstName": "Nick",
+            "surname": "Heidfeld"
+          },
+          "car": {
+            "id": 911,
+            "name": "Sauber C22"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 16,
+            "time": "00:01:27.1110000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.6310000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 13,
+          "status": "Qualified",
+          "number": 16,
+          "driver": {
+            "id": 746,
+            "firstName": "Jacques",
+            "surname": "Villeneuve"
+          },
+          "car": {
+            "id": 914,
+            "name": "BAR 005"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 7,
+            "time": "00:01:25.6720000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.6680000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 14,
+          "status": "Qualified",
+          "number": 10,
+          "driver": {
+            "id": 266,
+            "firstName": "Heinz-Harald",
+            "surname": "Frentzen"
+          },
+          "car": {
+            "id": 911,
+            "name": "Sauber C22"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 10,
+            "time": "00:01:26.3750000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.8390000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 15,
+          "status": "Qualified",
+          "number": 20,
+          "driver": {
+            "id": 543,
+            "firstName": "Olivier",
+            "surname": "Panis"
+          },
+          "car": {
+            "id": 916,
+            "name": "Toyota TF103"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 6,
+            "time": "00:01:25.6140000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:14.8390000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 16,
+          "status": "Qualified",
+          "number": 12,
+          "driver": {
+            "id": 240,
+            "firstName": "Ralph",
+            "surname": "Firman"
+          },
+          "car": {
+            "id": 912,
+            "name": "Jordan EJ13"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 18,
+            "time": "00:01:28.0830000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:15.2400000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 17,
+          "status": "Qualified",
+          "number": 15,
+          "driver": {
+            "id": 573,
+            "firstName": "Antonio",
+            "surname": "Pizzonia"
+          },
+          "car": {
+            "id": 913,
+            "name": "Jaguar R4"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 8,
+            "time": "00:01:25.7640000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:15.3170000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 18,
+          "status": "Qualified",
+          "number": 21,
+          "driver": {
+            "id": 173,
+            "firstName": "Cristiano",
+            "surname": "da Matta"
+          },
+          "car": {
+            "id": 916,
+            "name": "Toyota TF103"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 11,
+            "time": "00:01:26.5540000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:15.6410000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 19,
+          "status": "Qualified",
+          "number": 19,
+          "driver": {
+            "id": 744,
+            "firstName": "Jos",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 915,
+            "name": "Minardi PS03"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 15,
+            "time": "00:01:26.8860000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:16.5420000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 20,
+          "status": "Qualified",
+          "number": 18,
+          "driver": {
+            "id": 782,
+            "firstName": "Justin",
+            "surname": "Wilson"
+          },
+          "car": {
+            "id": 915,
+            "name": "Minardi PS03"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 19,
+            "time": "00:01:28.3170000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 0,
+            "time": "00:01:16.5860000",
+            "finishedLaps": 0
+          }
+        }
+      ],
+      "format": "Combined12"
+    }
+  },
+  {
+    "raceId": 733,
+    "why": "format with sessions 1&2 combined and summed",
+    "expected": {
+      "raceId": 733,
+      "results": [
+        {
+          "finishPosition": 1,
+          "status": "Qualified",
+          "number": 5,
+          "driver": {
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          },
+          "car": {
+            "id": 934,
+            "name": "Renault R25"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 1,
+            "time": "00:01:32.5820000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 1,
+            "time": "00:01:35.0900000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 2,
+          "status": "Qualified",
+          "number": 16,
+          "driver": {
+            "id": 730,
+            "firstName": "Jarno",
+            "surname": "Trulli"
+          },
+          "car": {
+            "id": 939,
+            "name": "Toyota TF105"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 2,
+            "time": "00:01:32.6720000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 2,
+            "time": "00:01:35.2530000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 3,
+          "status": "Qualified",
+          "number": 6,
+          "driver": {
+            "id": 244,
+            "firstName": "Giancarlo",
+            "surname": "Fisichella"
+          },
+          "car": {
+            "id": 934,
+            "name": "Renault R25"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 3,
+            "time": "00:01:32.7650000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 3,
+            "time": "00:01:35.6830000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 4,
+          "status": "Qualified",
+          "number": 7,
+          "driver": {
+            "id": 763,
+            "firstName": "Mark",
+            "surname": "Webber"
+          },
+          "car": {
+            "id": 935,
+            "name": "Williams FW27"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 6,
+            "time": "00:01:33.2040000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 4,
+            "time": "00:01:35.7000000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 5,
+          "status": "Qualified",
+          "number": 17,
+          "driver": {
+            "id": 653,
+            "firstName": "Ralf",
+            "surname": "Schumacher"
+          },
+          "car": {
+            "id": 939,
+            "name": "Toyota TF105"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 5,
+            "time": "00:01:33.1060000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 7,
+            "time": "00:01:35.9010000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 6,
+          "status": "Qualified",
+          "number": 9,
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 936,
+            "name": "McLaren MP4-20"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 4,
+            "time": "00:01:32.8390000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 10,
+            "time": "00:01:36.6440000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 7,
+          "status": "Qualified",
+          "number": 15,
+          "driver": {
+            "id": 396,
+            "firstName": "Christian",
+            "surname": "Klien"
+          },
+          "car": {
+            "id": 938,
+            "name": "Red Bull RB1"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 10,
+            "time": "00:01:33.7240000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 5,
+            "time": "00:01:35.8650000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 8,
+          "status": "Qualified",
+          "number": 14,
+          "driver": {
+            "id": 161,
+            "firstName": "David",
+            "surname": "Coulthard"
+          },
+          "car": {
+            "id": 938,
+            "name": "Red Bull RB1"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 11,
+            "time": "00:01:33.8090000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 6,
+            "time": "00:01:35.8910000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 9,
+          "status": "Qualified",
+          "number": 3,
+          "driver": {
+            "id": 122,
+            "firstName": "Jenson",
+            "surname": "Button"
+          },
+          "car": {
+            "id": 933,
+            "name": "BAR 007"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 9,
+            "time": "00:01:33.6160000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 8,
+            "time": "00:01:36.2160000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 10,
+          "status": "Qualified",
+          "number": 8,
+          "driver": {
+            "id": 337,
+            "firstName": "Nick",
+            "surname": "Heidfeld"
+          },
+          "car": {
+            "id": 935,
+            "name": "Williams FW27"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 8,
+            "time": "00:01:33.4640000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 9,
+            "time": "00:01:36.4530000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 11,
+          "status": "Qualified",
+          "number": 10,
+          "driver": {
+            "id": 503,
+            "firstName": "Juan Pablo",
+            "surname": "Montoya"
+          },
+          "car": {
+            "id": 936,
+            "name": "McLaren MP4-20"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 7,
+            "time": "00:01:33.3330000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 11,
+            "time": "00:01:36.7570000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 12,
+          "status": "Qualified",
+          "number": 2,
+          "driver": {
+            "id": 47,
+            "firstName": "Rubens",
+            "surname": "Barrichello"
+          },
+          "car": {
+            "id": 932,
+            "name": "Ferrari F2004M"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 14,
+            "time": "00:01:34.1620000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 13,
+            "time": "00:01:37.3400000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 13,
+          "status": "Qualified",
+          "number": 1,
+          "driver": {
+            "id": 652,
+            "firstName": "Michael",
+            "surname": "Schumacher"
+          },
+          "car": {
+            "id": 932,
+            "name": "Ferrari F2004M"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 12,
+            "time": "00:01:34.0720000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 14,
+            "time": "00:01:37.5610000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 14,
+          "status": "Qualified",
+          "number": 12,
+          "driver": {
+            "id": 472,
+            "firstName": "Felipe",
+            "surname": "Massa"
+          },
+          "car": {
+            "id": 937,
+            "name": "Sauber C24"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 13,
+            "time": "00:01:34.1510000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 15,
+            "time": "00:01:37.7330000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 15,
+          "status": "Qualified",
+          "number": 4,
+          "driver": {
+            "id": 180,
+            "firstName": "Anthony",
+            "surname": "Davidson"
+          },
+          "car": {
+            "id": 933,
+            "name": "BAR 007"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 15,
+            "time": "00:01:34.8660000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 12,
+            "time": "00:01:37.0240000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 16,
+          "status": "Qualified",
+          "number": 11,
+          "driver": {
+            "id": 746,
+            "firstName": "Jacques",
+            "surname": "Villeneuve"
+          },
+          "car": {
+            "id": 937,
+            "name": "Sauber C24"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 16,
+            "time": "00:01:34.8870000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 16,
+            "time": "00:01:38.1080000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 17,
+          "status": "Qualified",
+          "number": 19,
+          "driver": {
+            "id": 382,
+            "firstName": "Narain",
+            "surname": "Karthikeyan"
+          },
+          "car": {
+            "id": 940,
+            "name": "Jordan EJ15"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 17,
+            "time": "00:01:37.8060000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 17,
+            "time": "00:01:39.8500000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 18,
+          "status": "Qualified",
+          "number": 18,
+          "driver": {
+            "id": 500,
+            "firstName": "Tiago",
+            "surname": "Monteiro"
+          },
+          "car": {
+            "id": 940,
+            "name": "Jordan EJ15"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 18,
+            "time": "00:01:37.8560000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 18,
+            "time": "00:01:40.1060000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 19,
+          "status": "Qualified",
+          "number": 20,
+          "driver": {
+            "id": 268,
+            "firstName": "Patrick",
+            "surname": "Friesacher"
+          },
+          "car": {
+            "id": 928,
+            "name": "Minardi PS04B"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 19,
+            "time": "00:01:39.2680000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 19,
+            "time": "00:01:41.9180000",
+            "finishedLaps": 0
+          }
+        },
+        {
+          "finishPosition": 20,
+          "status": "Qualified",
+          "number": 21,
+          "driver": {
+            "id": 8,
+            "firstName": "Christijan",
+            "surname": "Albers"
+          },
+          "car": {
+            "id": 928,
+            "name": "Minardi PS04B"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 20,
+            "time": "00:01:40.4320000",
+            "finishedLaps": 0
+          },
+          "session2": {
+            "finishPosition": 20,
+            "time": "00:01:42.5690000",
+            "finishedLaps": 0
+          }
+        }
+      ],
+      "format": "CombinedSummed12"
+    }
+  },
+  {
+    "raceId": 1043,
+    "why": "format with sessions 1, 2 & 3 combined",
+    "expected": {
+      "raceId": 1043,
+      "results": [
+        {
+          "finishPosition": 1,
+          "status": "Qualified",
+          "number": 44,
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 4,
+            "time": "00:01:08.4640000",
+            "finishedLaps": 6
+          },
+          "session2": {
+            "finishPosition": 3,
+            "time": "00:01:07.7950000",
+            "finishedLaps": 5
+          },
+          "session3": {
+            "finishPosition": 1,
+            "time": "00:01:07.2810000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 2,
+          "status": "Qualified",
+          "number": 5,
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 3,
+            "time": "00:01:08.4520000",
+            "finishedLaps": 5
+          },
+          "session2": {
+            "finishPosition": 2,
+            "time": "00:01:07.7760000",
+            "finishedLaps": 6
+          },
+          "session3": {
+            "finishPosition": 2,
+            "time": "00:01:07.3740000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 3,
+          "status": "Qualified",
+          "number": 77,
+          "driver": {
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 6,
+            "time": "00:01:08.4920000",
+            "finishedLaps": 6
+          },
+          "session2": {
+            "finishPosition": 1,
+            "time": "00:01:07.7270000",
+            "finishedLaps": 5
+          },
+          "session3": {
+            "finishPosition": 3,
+            "time": "00:01:07.4410000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 4,
+          "status": "Qualified",
+          "number": 7,
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 2,
+            "time": "00:01:08.4520000",
+            "finishedLaps": 7
+          },
+          "session2": {
+            "finishPosition": 5,
+            "time": "00:01:08.0280000",
+            "finishedLaps": 4
+          },
+          "session3": {
+            "finishPosition": 4,
+            "time": "00:01:07.4560000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 5,
+          "status": "Qualified",
+          "number": 33,
+          "driver": {
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 1,
+            "time": "00:01:08.2050000",
+            "finishedLaps": 4
+          },
+          "session2": {
+            "finishPosition": 4,
+            "time": "00:01:08.0170000",
+            "finishedLaps": 6
+          },
+          "session3": {
+            "finishPosition": 5,
+            "time": "00:01:07.7780000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 6,
+          "status": "Qualified",
+          "number": 3,
+          "driver": {
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "information": "kara cofnięcia o 5 pozycji na starcie za wymianę turbosprężarki",
+          "session1": {
+            "finishPosition": 7,
+            "time": "00:01:08.5440000",
+            "finishedLaps": 4
+          },
+          "session2": {
+            "finishPosition": 6,
+            "time": "00:01:08.0550000",
+            "finishedLaps": 6
+          },
+          "session3": {
+            "finishPosition": 6,
+            "time": "00:01:07.7800000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 7,
+          "status": "Qualified",
+          "number": 9,
+          "driver": {
+            "id": 860,
+            "firstName": "Marcus",
+            "surname": "Ericsson"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 10,
+            "time": "00:01:08.7540000",
+            "finishedLaps": 8
+          },
+          "session2": {
+            "finishPosition": 9,
+            "time": "00:01:08.5790000",
+            "finishedLaps": 5
+          },
+          "session3": {
+            "finishPosition": 7,
+            "time": "00:01:08.2960000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 8,
+          "status": "Qualified",
+          "number": 16,
+          "driver": {
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 8,
+            "time": "00:01:08.6670000",
+            "finishedLaps": 7
+          },
+          "session2": {
+            "finishPosition": 8,
+            "time": "00:01:08.3350000",
+            "finishedLaps": 10
+          },
+          "session3": {
+            "finishPosition": 8,
+            "time": "00:01:08.4920000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 9,
+          "status": "Qualified",
+          "number": 8,
+          "driver": {
+            "id": 814,
+            "firstName": "Romain",
+            "surname": "Grosjean"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 9,
+            "time": "00:01:08.7350000",
+            "finishedLaps": 6
+          },
+          "session2": {
+            "finishPosition": 7,
+            "time": "00:01:08.2390000",
+            "finishedLaps": 5
+          },
+          "session3": {
+            "finishPosition": 9,
+            "time": "00:01:08.5170000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 10,
+          "status": "Qualified",
+          "number": 10,
+          "driver": {
+            "id": 880,
+            "firstName": "Pierre",
+            "surname": "Gasly"
+          },
+          "car": {
+            "id": 1092,
+            "name": "Toro Rosso STR13"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 12,
+            "time": "00:01:09.0460000",
+            "finishedLaps": 10
+          },
+          "session2": {
+            "finishPosition": 10,
+            "time": "00:01:08.6160000",
+            "finishedLaps": 8
+          },
+          "session3": {
+            "finishPosition": 10,
+            "time": "00:01:09.0290000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 11,
+          "status": "Qualified",
+          "number": 20,
+          "driver": {
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 5,
+            "time": "00:01:08.4740000",
+            "finishedLaps": 6
+          },
+          "session2": {
+            "finishPosition": 11,
+            "time": "00:01:08.6590000",
+            "finishedLaps": 6
+          }
+        },
+        {
+          "finishPosition": 12,
+          "status": "Qualified",
+          "number": 11,
+          "driver": {
+            "id": 836,
+            "firstName": "Sergio",
+            "surname": "Perez"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 13,
+            "time": "00:01:09.2170000",
+            "finishedLaps": 7
+          },
+          "session2": {
+            "finishPosition": 12,
+            "time": "00:01:08.7410000",
+            "finishedLaps": 8
+          }
+        },
+        {
+          "finishPosition": 13,
+          "status": "Qualified",
+          "number": 31,
+          "driver": {
+            "id": 871,
+            "firstName": "Esteban",
+            "surname": "Ocon"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "information": "kara cofnięcia o 5 pozycji na starcie za wymianę skrzyni biegów",
+          "session1": {
+            "finishPosition": 15,
+            "time": "00:01:09.2640000",
+            "finishedLaps": 9
+          },
+          "session2": {
+            "finishPosition": 13,
+            "time": "00:01:08.7700000",
+            "finishedLaps": 9
+          }
+        },
+        {
+          "finishPosition": 14,
+          "status": "Qualified",
+          "number": 27,
+          "driver": {
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 11,
+            "time": "00:01:09.0090000",
+            "finishedLaps": 6
+          },
+          "session2": {
+            "finishPosition": 14,
+            "time": "00:01:08.8340000",
+            "finishedLaps": 9
+          }
+        },
+        {
+          "finishPosition": 15,
+          "status": "Qualified",
+          "number": 35,
+          "driver": {
+            "id": 859,
+            "firstName": "Siergiej",
+            "surname": "Sirotkin"
+          },
+          "car": {
+            "id": 1088,
+            "name": "Williams FW41"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 14,
+            "time": "00:01:09.2590000",
+            "finishedLaps": 8
+          },
+          "session2": {
+            "finishPosition": 15,
+            "time": "00:01:10.3810000",
+            "finishedLaps": 3
+          }
+        },
+        {
+          "finishPosition": 16,
+          "status": "Qualified",
+          "number": 55,
+          "driver": {
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 16,
+            "time": "00:01:09.2690000",
+            "finishedLaps": 9
+          }
+        },
+        {
+          "finishPosition": 17,
+          "status": "Qualified",
+          "number": 28,
+          "driver": {
+            "id": 821,
+            "firstName": "Brendon",
+            "surname": "Hartley"
+          },
+          "car": {
+            "id": 1092,
+            "name": "Toro Rosso STR13"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 17,
+            "time": "00:01:09.2800000",
+            "finishedLaps": 10
+          }
+        },
+        {
+          "finishPosition": 18,
+          "status": "Qualified",
+          "number": 14,
+          "driver": {
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          },
+          "car": {
+            "id": 1095,
+            "name": "McLaren MCL33"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 18,
+            "time": "00:01:09.4020000",
+            "finishedLaps": 9
+          }
+        },
+        {
+          "finishPosition": 19,
+          "status": "Qualified",
+          "number": 18,
+          "driver": {
+            "id": 882,
+            "firstName": "Lance",
+            "surname": "Stroll"
+          },
+          "car": {
+            "id": 1088,
+            "name": "Williams FW41"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 19,
+            "time": "00:01:09.4410000",
+            "finishedLaps": 9
+          }
+        },
+        {
+          "finishPosition": 20,
+          "status": "Qualified",
+          "number": 2,
+          "driver": {
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          },
+          "car": {
+            "id": 1095,
+            "name": "McLaren MCL33"
+          },
+          "information": "",
+          "session1": {
+            "finishPosition": 20,
+            "time": "00:01:09.6010000",
+            "finishedLaps": 9
+          }
+        }
+      ],
+      "format": "Combined123"
+    }
+  }
+]

@@ -1,44 +1,23 @@
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
 {
 	public class GridsTests : IntegrationTestBase
 	{
-		[Fact]
-		public async Task ShouldGetRaceEntries()
+		[Theory]
+		[JsonData("grids", "grid.json")]
+		public async Task ShouldGetGrid(GridTestData data)
 		{
-			var raceId = 1044;
-			var response = await client.GetAsync($"{baseAddress}/Grids?raceId={raceId}");
-			response.EnsureSuccessStatusCode();
+			await TestResponse<GridInformation>($"{baseAddress}/Grids?raceId={data.RaceId}", data.Expected, data.Why);
+		}
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<GridInformation>(responseContent);
-			Assert.NotNull(result);
-			Assert.Equal(raceId, result.RaceId);
-			Assert.InRange(result.GridTypeId, 1, 13);
-			Assert.All(result.GridPositions, position =>
-			{
-				Assert.NotEqual(0, position.StartPosition);
-				Assert.NotNull(position.Car);
-				Assert.NotEqual(0, position.Car.Id);
-				Assert.False(string.IsNullOrWhiteSpace(position.Car.Name));
-				Assert.NotNull(position.Driver);
-				Assert.NotEqual((uint)0, position.Driver.Id);
-				Assert.False(string.IsNullOrWhiteSpace(position.Driver.FirstName));
-				Assert.False(string.IsNullOrWhiteSpace(position.Driver.Surname));
-				Assert.False(string.IsNullOrWhiteSpace(position.Driver.Picture));
-				Assert.Null(position.Driver.Nationality);
-			});
-			result.GridPositions.Aggregate((previous, current) =>
-			{
-				Assert.True(previous.StartPosition < current.StartPosition || previous.StartPosition == null || current.StartPosition == null, "Grid positions are not sorted properly");
-				return current;
-			});
+		public class GridTestData
+		{
+			public int RaceId { get; set; }
+			public string Why { get; set; }
+			public GridInformation Expected { get; set; }
 		}
 	}
 }

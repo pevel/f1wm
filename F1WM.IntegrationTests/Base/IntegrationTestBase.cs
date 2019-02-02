@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Xunit;
 
 namespace F1WM.IntegrationTests
 {
@@ -16,6 +17,7 @@ namespace F1WM.IntegrationTests
 
 		protected async Task TestResponse<T>(string url, T expected, string why = "")
 		{
+			Assert.NotNull(expected);
 			var response = await client.GetAsync(url);
 			response.EnsureSuccessStatusCode();
 			var responseContent = await response.Content.ReadAsStringAsync();

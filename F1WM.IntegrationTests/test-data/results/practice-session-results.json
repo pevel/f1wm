@@ -1,0 +1,662 @@
+[
+  {
+    "raceId": 1042,
+    "session": "t3",
+    "expected": {
+      "raceId": 1042,
+      "session": "t3",
+      "results": [
+        {
+          "driver": {
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "number": 33,
+          "finishPosition": 1,
+          "time": "00:01:16.2840000",
+          "finishedLaps": 9
+        },
+        {
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "number": 44,
+          "finishPosition": 2,
+          "time": "00:01:16.5380000",
+          "finishedLaps": 9
+        },
+        {
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "number": 5,
+          "finishPosition": 3,
+          "time": "00:01:16.5660000",
+          "finishedLaps": 11
+        },
+        {
+          "driver": {
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "number": 3,
+          "finishPosition": 4,
+          "time": "00:01:17.0280000",
+          "finishedLaps": 7
+        },
+        {
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "number": 7,
+          "finishPosition": 5,
+          "time": "00:01:17.0450000",
+          "finishedLaps": 16
+        },
+        {
+          "driver": {
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "number": 16,
+          "finishPosition": 6,
+          "time": "00:01:17.0590000",
+          "finishedLaps": 13
+        },
+        {
+          "driver": {
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "tyres": "Pirelli",
+          "number": 55,
+          "finishPosition": 7,
+          "time": "00:01:17.3360000",
+          "finishedLaps": 11
+        },
+        {
+          "driver": {
+            "id": 880,
+            "firstName": "Pierre",
+            "surname": "Gasly"
+          },
+          "car": {
+            "id": 1092,
+            "name": "Toro Rosso STR13"
+          },
+          "tyres": "Pirelli",
+          "number": 10,
+          "finishPosition": 8,
+          "time": "00:01:17.5250000",
+          "finishedLaps": 16
+        },
+        {
+          "driver": {
+            "id": 860,
+            "firstName": "Marcus",
+            "surname": "Ericsson"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "number": 9,
+          "finishPosition": 9,
+          "time": "00:01:17.5650000",
+          "finishedLaps": 14
+        },
+        {
+          "driver": {
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "tyres": "Pirelli",
+          "number": 27,
+          "finishPosition": 10,
+          "time": "00:01:17.6230000",
+          "finishedLaps": 10
+        },
+        {
+          "driver": {
+            "id": 871,
+            "firstName": "Esteban",
+            "surname": "Ocon"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "tyres": "Pirelli",
+          "number": 31,
+          "finishPosition": 11,
+          "time": "00:01:17.7310000",
+          "finishedLaps": 10
+        },
+        {
+          "driver": {
+            "id": 836,
+            "firstName": "Sergio",
+            "surname": "Perez"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "tyres": "Pirelli",
+          "number": 11,
+          "finishPosition": 12,
+          "time": "00:01:17.8190000",
+          "finishedLaps": 10
+        },
+        {
+          "driver": {
+            "id": 814,
+            "firstName": "Romain",
+            "surname": "Grosjean"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "number": 8,
+          "finishPosition": 13,
+          "time": "00:01:18.1450000",
+          "finishedLaps": 10
+        },
+        {
+          "driver": {
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          },
+          "car": {
+            "id": 1095,
+            "name": "McLaren MCL33"
+          },
+          "tyres": "Pirelli",
+          "number": 2,
+          "finishPosition": 14,
+          "time": "00:01:18.4450000",
+          "finishedLaps": 15
+        },
+        {
+          "driver": {
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          },
+          "car": {
+            "id": 1095,
+            "name": "McLaren MCL33"
+          },
+          "tyres": "Pirelli",
+          "number": 14,
+          "finishPosition": 15,
+          "time": "00:01:18.5480000",
+          "finishedLaps": 11
+        },
+        {
+          "driver": {
+            "id": 821,
+            "firstName": "Brendon",
+            "surname": "Hartley"
+          },
+          "car": {
+            "id": 1092,
+            "name": "Toro Rosso STR13"
+          },
+          "tyres": "Pirelli",
+          "number": 28,
+          "finishPosition": 16,
+          "time": "00:01:18.6370000",
+          "finishedLaps": 10
+        },
+        {
+          "driver": {
+            "id": 859,
+            "firstName": "Siergiej",
+            "surname": "Sirotkin"
+          },
+          "car": {
+            "id": 1088,
+            "name": "Williams FW41"
+          },
+          "tyres": "Pirelli",
+          "number": 35,
+          "finishPosition": 17,
+          "time": "00:01:18.6690000",
+          "finishedLaps": 9
+        },
+        {
+          "driver": {
+            "id": 882,
+            "firstName": "Lance",
+            "surname": "Stroll"
+          },
+          "car": {
+            "id": 1088,
+            "name": "Williams FW41"
+          },
+          "tyres": "Pirelli",
+          "number": 18,
+          "finishPosition": 18,
+          "time": "00:01:18.6980000",
+          "finishedLaps": 8
+        },
+        {
+          "driver": {
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "number": 77,
+          "finishPosition": 19,
+          "time": "00:01:18.8390000",
+          "finishedLaps": 5
+        },
+        {
+          "driver": {
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "number": 20,
+          "finishPosition": 20,
+          "time": "00:00:00",
+          "finishedLaps": 1
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 805,
+    "session": "t1",
+    "expected": {
+      "raceId": 805,
+      "session": "t1",
+      "results": [
+        {
+          "driver": {
+            "id": 616,
+            "firstName": "Nico",
+            "surname": "Rosberg"
+          },
+          "car": {
+            "id": 989,
+            "name": "Williams FW31"
+          },
+          "tyres": "Bridgestone",
+          "number": 16,
+          "finishPosition": 1,
+          "time": "00:01:36.2600000",
+          "finishedLaps": 27
+        },
+        {
+          "driver": {
+            "id": 801,
+            "firstName": "Kazuki",
+            "surname": "Nakajima"
+          },
+          "car": {
+            "id": 989,
+            "name": "Williams FW31"
+          },
+          "tyres": "Bridgestone",
+          "number": 17,
+          "finishPosition": 2,
+          "time": "00:01:36.3050000",
+          "finishedLaps": 25
+        },
+        {
+          "driver": {
+            "id": 122,
+            "firstName": "Jenson",
+            "surname": "Button"
+          },
+          "car": {
+            "id": 992,
+            "name": "Brawn BGP001"
+          },
+          "tyres": "Bridgestone",
+          "number": 22,
+          "finishPosition": 3,
+          "time": "00:01:36.4300000",
+          "finishedLaps": 20
+        },
+        {
+          "driver": {
+            "id": 47,
+            "firstName": "Rubens",
+            "surname": "Barrichello"
+          },
+          "car": {
+            "id": 992,
+            "name": "Brawn BGP001"
+          },
+          "tyres": "Bridgestone",
+          "number": 23,
+          "finishPosition": 4,
+          "time": "00:01:36.4870000",
+          "finishedLaps": 22
+        },
+        {
+          "driver": {
+            "id": 472,
+            "firstName": "Felipe",
+            "surname": "Massa"
+          },
+          "car": {
+            "id": 983,
+            "name": "Ferrari F60"
+          },
+          "tyres": "Bridgestone",
+          "number": 3,
+          "finishPosition": 5,
+          "time": "00:01:36.5610000",
+          "finishedLaps": 21
+        },
+        {
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 983,
+            "name": "Ferrari F60"
+          },
+          "tyres": "Bridgestone",
+          "number": 4,
+          "finishPosition": 6,
+          "time": "00:01:36.6460000",
+          "finishedLaps": 18
+        },
+        {
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 982,
+            "name": "McLaren MP4-24"
+          },
+          "tyres": "Bridgestone",
+          "number": 1,
+          "finishPosition": 7,
+          "time": "00:01:36.6990000",
+          "finishedLaps": 16
+        },
+        {
+          "driver": {
+            "id": 763,
+            "firstName": "Mark",
+            "surname": "Webber"
+          },
+          "car": {
+            "id": 987,
+            "name": "Red Bull RB5"
+          },
+          "tyres": "Bridgestone",
+          "number": 14,
+          "finishPosition": 8,
+          "time": "00:01:36.7030000",
+          "finishedLaps": 23
+        },
+        {
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 987,
+            "name": "Red Bull RB5"
+          },
+          "tyres": "Bridgestone",
+          "number": 15,
+          "finishPosition": 9,
+          "time": "00:01:36.7470000",
+          "finishedLaps": 25
+        },
+        {
+          "driver": {
+            "id": 295,
+            "firstName": "Timo",
+            "surname": "Glock"
+          },
+          "car": {
+            "id": 986,
+            "name": "Toyota TF109"
+          },
+          "tyres": "Bridgestone",
+          "number": 10,
+          "finishPosition": 10,
+          "time": "00:01:36.9800000",
+          "finishedLaps": 27
+        },
+        {
+          "driver": {
+            "id": 730,
+            "firstName": "Jarno",
+            "surname": "Trulli"
+          },
+          "car": {
+            "id": 986,
+            "name": "Toyota TF109"
+          },
+          "tyres": "Bridgestone",
+          "number": 9,
+          "finishPosition": 11,
+          "time": "00:01:36.9820000",
+          "finishedLaps": 26
+        },
+        {
+          "driver": {
+            "id": 244,
+            "firstName": "Giancarlo",
+            "surname": "Fisichella"
+          },
+          "car": {
+            "id": 991,
+            "name": "Force India VJM02"
+          },
+          "tyres": "Bridgestone",
+          "number": 21,
+          "finishPosition": 12,
+          "time": "00:01:37.0250000",
+          "finishedLaps": 20
+        },
+        {
+          "driver": {
+            "id": 403,
+            "firstName": "Robert",
+            "surname": "Kubica"
+          },
+          "car": {
+            "id": 984,
+            "name": "BMW Sauber F1.09"
+          },
+          "tyres": "Bridgestone",
+          "number": 5,
+          "finishPosition": 13,
+          "time": "00:01:37.0390000",
+          "finishedLaps": 18
+        },
+        {
+          "driver": {
+            "id": 803,
+            "firstName": "Nelson",
+            "surname": "Piquet Jr"
+          },
+          "car": {
+            "id": 985,
+            "name": "Renault R29"
+          },
+          "tyres": "Bridgestone",
+          "number": 8,
+          "finishPosition": 14,
+          "time": "00:01:37.1990000",
+          "finishedLaps": 20
+        },
+        {
+          "driver": {
+            "id": 697,
+            "firstName": "Adrian",
+            "surname": "Sutil"
+          },
+          "car": {
+            "id": 991,
+            "name": "Force India VJM02"
+          },
+          "tyres": "Bridgestone",
+          "number": 20,
+          "finishPosition": 15,
+          "time": "00:01:37.2410000",
+          "finishedLaps": 18
+        },
+        {
+          "driver": {
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          },
+          "car": {
+            "id": 985,
+            "name": "Renault R29"
+          },
+          "tyres": "Bridgestone",
+          "number": 7,
+          "finishPosition": 16,
+          "time": "00:01:37.3950000",
+          "finishedLaps": 12
+        },
+        {
+          "driver": {
+            "id": 816,
+            "firstName": "Sebastien",
+            "surname": "Buemi"
+          },
+          "car": {
+            "id": 988,
+            "name": "Toro Rosso STR4"
+          },
+          "tyres": "Bridgestone",
+          "number": 12,
+          "finishPosition": 17,
+          "time": "00:01:37.6340000",
+          "finishedLaps": 22
+        },
+        {
+          "driver": {
+            "id": 337,
+            "firstName": "Nick",
+            "surname": "Heidfeld"
+          },
+          "car": {
+            "id": 984,
+            "name": "BMW Sauber F1.09"
+          },
+          "tyres": "Bridgestone",
+          "number": 6,
+          "finishPosition": 18,
+          "time": "00:01:37.6400000",
+          "finishedLaps": 17
+        },
+        {
+          "driver": {
+            "id": 811,
+            "firstName": "Sebastien",
+            "surname": "Bourdais"
+          },
+          "car": {
+            "id": 988,
+            "name": "Toro Rosso STR4"
+          },
+          "tyres": "Bridgestone",
+          "number": 11,
+          "finishPosition": 19,
+          "time": "00:01:38.0220000",
+          "finishedLaps": 19
+        },
+        {
+          "driver": {
+            "id": 807,
+            "firstName": "Heikki",
+            "surname": "Kovalainen"
+          },
+          "car": {
+            "id": 982,
+            "name": "McLaren MP4-24"
+          },
+          "tyres": "Bridgestone",
+          "number": 2,
+          "finishPosition": 20,
+          "time": "00:01:38.4830000",
+          "finishedLaps": 7
+        }
+      ]
+    }
+  }
+]
