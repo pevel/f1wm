@@ -108,7 +108,7 @@ namespace F1WM.Repositories
 					.Where(f => f.RaceId == raceId)
 					.OrderBy(f => f.Time))
 				.ToListAsync();
-			return apiFastestLaps;
+			return apiFastestLaps.Results.Any() ? apiFastestLaps : null;
 		}
 	}
 }

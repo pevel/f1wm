@@ -1,8 +1,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.Controllers;
 using F1WM.Services;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -12,10 +14,12 @@ namespace F1WM.UnitTests.Controllers
 	public class RacesControllerTests
 	{
 		private RacesController controller;
+		private Fixture fixture;
 		private Mock<IRacesService> serviceMock;
 
 		public RacesControllerTests()
 		{
+			fixture = new Fixture();
 			serviceMock = new Mock<IRacesService>();
 			controller = new RacesController(serviceMock.Object);
 		}
@@ -61,6 +65,32 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetLastRace();
 
 			serviceMock.Verify(s => s.GetLastRace(), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnRaceFastestLaps()
+		{
+			var raceId = 256;
+			var fastestLaps = fixture.Create<RaceFastestLaps>();
+			serviceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetRaceFastestLaps(raceId);
+
+			serviceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfRaceFastestLapsNotFound()
+		{
+			var raceId = 512;
+			serviceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync((RaceFastestLaps)null);
+
+			var result = await controller.GetRaceFastestLaps(raceId);
+
+			serviceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
