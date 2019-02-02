@@ -9,6 +9,7 @@ public static class Constants
 {
 	public readonly static Dictionary<string, ResultStatus> TextToResultStatus = new Dictionary<string, ResultStatus>()
 	{
+		{ String.Empty, ResultStatus.Classified },
 		{ Database.ResultStatus.DidNotStart, ResultStatus.DidNotStart },
 		{ Database.ResultStatus.DidNotStartAgain, ResultStatus.DidNotStartAgain },
 		{ Database.ResultStatus.Disqualified, ResultStatus.Disqualified },
@@ -18,6 +19,7 @@ public static class Constants
 
 	public readonly static Dictionary<string, StartStatus> TextToStartStatus = new Dictionary<string, StartStatus>()
 	{
+		{ String.Empty, StartStatus.FromGrid },
 		{ Database.StartStatus.NotClassified, StartStatus.NotClassified },
 		{ Database.StartStatus.Excluded, StartStatus.Excluded },
 		{ Database.StartStatus.FromPitLane, StartStatus.FromPitLane },
@@ -27,6 +29,7 @@ public static class Constants
 
 	public readonly static Dictionary<string, QualifyStatus> TextToQualifyStatus = new Dictionary<string, QualifyStatus>()
 	{
+		{ String.Empty, QualifyStatus.Qualified },
 		{ Database.QualifyStatus.DidNotStart, QualifyStatus.DidNotStart },
 		{ Database.QualifyStatus.Excluded, QualifyStatus.Excluded },
 		{ Database.QualifyStatus.NotQualified, QualifyStatus.NotQualified },

@@ -46,7 +46,7 @@ namespace F1WM.UnitTests.Services
 		[Fact]
 		public async Task ShouldGetNewsSummaryList()
 		{
-			var count = 21;
+			uint count = 21;
 			var firstId = 43;
 			var news = fixture.Create<NewsSummaryPaged>();
 			newsRepositoryMock.Setup(r => r.GetLatestNews(firstId, 1, count)).ReturnsAsync(news);
@@ -68,8 +68,8 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetNewsByTypeId()
 		{
 			var id = 2;
-			var page = 1;
-			var countPerPage = 20;
+			uint page = 1;
+			uint countPerPage = 20;
 			await service.GetNewsByTypeId(id, page, countPerPage);
 
 			newsRepositoryMock.Verify(r => r.GetNewsByTypeId(id, page, countPerPage), Times.Once);
@@ -87,8 +87,8 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetNewsTagsByCategoryId()
 		{
 			var id = 1;
-			var page = 1;
-			var countPerPage = 20;
+			uint page = 1;
+			uint countPerPage = 20;
 			await service.GetNewsTagsByCategoryId(id, page, countPerPage);
 
 			newsRepositoryMock.Verify(r => r.GetNewsTagsByCategoryId(id, page, countPerPage), Times.Once);
@@ -97,8 +97,8 @@ namespace F1WM.UnitTests.Services
 		[Fact]
 		public async Task ShouldGetNewsTags()
 		{
-			var page = 1;
-			var countPerPage = 20;
+			uint page = 1;
+			uint countPerPage = 20;
 			await service.GetNewsTags(page, countPerPage);
 
 			newsRepositoryMock.Verify(r => r.GetNewsTags(page, countPerPage), Times.Once);
@@ -108,8 +108,8 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetNewsByTagId()
 		{
 			var id = 1;
-			var page = 1;
-			var countPerPage = 20;
+			uint page = 1;
+			uint countPerPage = 20;
 			await service.GetNewsByTagId(id, page, countPerPage);
 
 			newsRepositoryMock.Verify(r => r.GetNewsByTagId(id, page, countPerPage), Times.Once);
