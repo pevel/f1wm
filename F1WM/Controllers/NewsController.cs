@@ -20,7 +20,7 @@ namespace F1WM.Controllers
 		private readonly INewsService service;
 
 		[HttpGet]
-		public async Task<NewsSummaryPaged> GetManyNews(
+		public async Task<PagedResult<NewsSummary>> GetManyNews(
 					[FromQuery(Name = "firstId")] int? firstId = null,
 					[FromQuery(Name = "tagId")] int? tagId = null,
 					[FromQuery(Name = "typeId")] int? typeId = null,
@@ -52,7 +52,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("tags")]
-		public async Task<NewsTagsPaged> GetTags(
+		public async Task<PagedResult<NewsTag>> GetTags(
 			[FromQuery(Name = "categoryId")] int? id = null,
 			[FromQuery(Name = "page")] uint page = defaultPage,
 			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)

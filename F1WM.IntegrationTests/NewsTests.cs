@@ -22,7 +22,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-summary.json")]
 		public async Task ShouldGetManyNews(NewsSummaryTestData data)
 		{
-			await TestResponse<NewsSummaryPaged>(
+			await TestResponse<PagedResult<NewsSummary>>(
 				$"{baseAddress}/news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
@@ -60,7 +60,7 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<NewsTagsPaged>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
@@ -120,7 +120,7 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<NewsTagsPaged>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
@@ -147,7 +147,7 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
@@ -177,7 +177,7 @@ namespace F1WM.IntegrationTests
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<NewsSummaryPaged>(responseContent);
+			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
@@ -208,7 +208,7 @@ namespace F1WM.IntegrationTests
 			public int FirstId { get; set; }
 			public uint CountPerPage { get; set; }
 			public uint Page { get; set; }
-			public NewsSummaryPaged Expected { get; set; }
+			public PagedResult<NewsSummary> Expected { get; set; }
 		}
 	}
 }

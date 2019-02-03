@@ -8,7 +8,7 @@ namespace F1WM.DatabaseModel
 		public uint Id { get; set; }
 		public string Ascid { get; set; }
 		public string ShortName { get; set; }
-		public string NationalityKey { get; set; }
+		public string CountryKey { get; set; }
 		public string Name { get; set; }
 		public string City { get; set; }
 		public ushort? Longeststraight { get; set; }
@@ -26,12 +26,12 @@ namespace F1WM.DatabaseModel
 		public string Zipcode { get; set; }
 		public string Satmapcoords { get; set; }
 		public byte? Satmapzoom { get; set; }
-		public byte Status { get; set; }
+		public byte StatusId { get; set; }
 		public bool Fiatrackmap { get; set; }
 		public ushort? Length { get; set; }
 		public uint? Newstopicid { get; set; }
 		public string LapDriver { get; set; }
 		public string LapDescr { get; set; }
-		public virtual Country Nationality { get; set; }
+		public virtual Country Country { get; set; }
 	}
 }

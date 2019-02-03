@@ -1,9 +1,10 @@
 namespace F1WM.ApiModel
 {
-	public class TrackSummary
+	public class TrackSummary : TrackBase
 	{
-		public int Id { get; set; }
+		public string City { get; set; }
 		public string Name { get; set; }
-		public string TrackIcon { get; set; }
+		public Country Country { get; set; }
+		public byte StatusId { get; set; }
 	}
 }

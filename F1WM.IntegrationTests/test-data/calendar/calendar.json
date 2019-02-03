@@ -65,11 +65,10 @@
           "laps": 58,
           "track": {
             "id": 34,
-            "name": "Albert Park Circuit",
+            "shortName": "Albert Park",
             "trackIcon": "/img/tory/albert_park_m2.png"
           },
           "id": 1024,
-          "trackId": 34,
           "trackVersion": 1,
           "country": {
             "name": "Australia",
@@ -137,11 +136,10 @@
           "laps": 57,
           "track": {
             "id": 53,
-            "name": "Bahrain International Circuit",
+            "shortName": "Sakhir",
             "trackIcon": "/img/tory/bahrain_m2.png"
           },
           "id": 1025,
-          "trackId": 53,
           "trackVersion": 1,
           "country": {
             "name": "Bahrajn",
@@ -209,11 +207,10 @@
           "laps": 56,
           "track": {
             "id": 56,
-            "name": "Shanghai International Circuit",
+            "shortName": "Shanghai",
             "trackIcon": "/img/tory/shanghai_m2.png"
           },
           "id": 1026,
-          "trackId": 56,
           "trackVersion": 1,
           "country": {
             "name": "Chiny",
@@ -276,16 +273,15 @@
           "name": "Azerbaijan Grand Prix",
           "translatedName": "Grand Prix Azerbejdżanu",
           "distance": 306.306,
-          "lapLength": 6.005999999999999,
+          "lapLength": 6.0059999999999993,
           "offset": 0,
           "laps": 51,
           "track": {
             "id": 77,
-            "name": "Baku City Circuit",
+            "shortName": "Baku",
             "trackIcon": "/img/tory/baku_city_circuit_m2.png"
           },
           "id": 1027,
-          "trackId": 77,
           "trackVersion": 1,
           "country": {
             "name": "Azerbejdżan ",
@@ -348,16 +344,15 @@
           "name": "Gran Premio de Espa&#241;a Emirates",
           "translatedName": "Grand Prix Hiszpanii",
           "distance": 307.104,
-          "lapLength": 4.654999999999999,
+          "lapLength": 4.6549999999999994,
           "offset": 0.126,
           "laps": 66,
           "track": {
             "id": 12,
-            "name": "Circuit de Barcelona-Catalunya",
+            "shortName": "Catalunya",
             "trackIcon": "/img/tory/catalunya_m2.png"
           },
           "id": 1028,
-          "trackId": 12,
           "trackVersion": 4,
           "country": {
             "name": "Hiszpania",
@@ -425,11 +420,10 @@
           "laps": 78,
           "track": {
             "id": 38,
-            "name": "Circuit de Monaco",
+            "shortName": "Monte Carlo",
             "trackIcon": "/img/tory/monte_carlo_m2.png"
           },
           "id": 1029,
-          "trackId": 38,
           "trackVersion": 1,
           "country": {
             "name": "Monako",
@@ -497,11 +491,10 @@
           "laps": 70,
           "track": {
             "id": 40,
-            "name": "Circuit Gilles Villeneuve",
+            "shortName": "Gilles Villeneuve",
             "trackIcon": "/img/tory/gilles_villeneuve_m2.png"
           },
           "id": 1030,
-          "trackId": 40,
           "trackVersion": 2,
           "country": {
             "name": "Kanada",
@@ -564,16 +557,15 @@
           "name": "Pirelli Grand Prix de France",
           "translatedName": "Grand Prix Francji",
           "distance": 310.686,
-          "lapLength": 5.861999999999999,
+          "lapLength": 5.8619999999999992,
           "offset": 0,
           "laps": 53,
           "track": {
             "id": 30,
-            "name": "Circuit Paul Ricard",
+            "shortName": "Paul Ricard",
             "trackIcon": "/img/tory/paul_ricard_m2.png"
           },
           "id": 1031,
-          "trackId": 30,
           "trackVersion": 3,
           "country": {
             "name": "Francja",
@@ -641,11 +633,10 @@
           "laps": 71,
           "track": {
             "id": 1,
-            "name": "Red Bull Ring",
+            "shortName": "Red Bull Ring ",
             "trackIcon": "/img/tory/a1-ring_m2.png"
           },
           "id": 1032,
-          "trackId": 1,
           "trackVersion": 1,
           "country": {
             "name": "Austria",
@@ -713,11 +704,10 @@
           "laps": 52,
           "track": {
             "id": 57,
-            "name": "Silverstone Circuit",
+            "shortName": "Silverstone",
             "trackIcon": "/img/tory/silverstone_m2.png"
           },
           "id": 1033,
-          "trackId": 57,
           "trackVersion": 9,
           "country": {
             "name": "Wielka Brytania",
@@ -780,16 +770,15 @@
           "name": "Grosser Preis Emirates von Deutschland",
           "translatedName": "Grand Prix Niemiec",
           "distance": 306.458,
-          "lapLength": 4.574000000000001,
+          "lapLength": 4.5740000000000007,
           "offset": 0,
           "laps": 67,
           "track": {
             "id": 21,
-            "name": "Hockenheimring",
+            "shortName": "Hockenheim",
             "trackIcon": "/img/tory/hockenheim_m2.png"
           },
           "id": 1034,
-          "trackId": 21,
           "trackVersion": 2,
           "country": {
             "name": "Niemcy",
@@ -857,11 +846,10 @@
           "laps": 70,
           "track": {
             "id": 22,
-            "name": "Hungaroring",
+            "shortName": "Hungaroring",
             "trackIcon": "/img/tory/hungaroring_m2.png"
           },
           "id": 1035,
-          "trackId": 22,
           "trackVersion": 2,
           "country": {
             "name": "Węgry",
@@ -924,16 +912,15 @@
           "name": "Johnnie Walker Belgian Grand Prix",
           "translatedName": "Grand Prix Belgii",
           "distance": 308.052,
-          "lapLength": 7.004000000000001,
+          "lapLength": 7.0040000000000013,
           "offset": 0.124,
           "laps": 44,
           "track": {
             "id": 58,
-            "name": "Circuit de Spa-Francorchamps",
+            "shortName": "Spa-Francorchamps",
             "trackIcon": "/img/tory/spa-francorchamps_m2.png"
           },
           "id": 1036,
-          "trackId": 58,
           "trackVersion": 3,
           "country": {
             "name": "Belgia",
@@ -1001,11 +988,10 @@
           "laps": 53,
           "track": {
             "id": 41,
-            "name": "Autodromo Nazionale di Monza",
+            "shortName": "Monza",
             "trackIcon": "/img/tory/monza_m2.png"
           },
           "id": 1037,
-          "trackId": 41,
           "trackVersion": 2,
           "country": {
             "name": "Włochy",
@@ -1068,16 +1054,15 @@
           "name": "Singapore Airlines Singapore Grand Prix",
           "translatedName": "Grand Prix Singapuru",
           "distance": 308.706,
-          "lapLength": 5.063000000000001,
+          "lapLength": 5.0630000000000006,
           "offset": 0.137,
           "laps": 61,
           "track": {
             "id": 68,
-            "name": "Marina Bay Street Circuit",
+            "shortName": "Marina Bay",
             "trackIcon": "/img/tory/singapore_m2.png"
           },
           "id": 1038,
-          "trackId": 68,
           "trackVersion": 3,
           "country": {
             "name": "Singapur",
@@ -1140,16 +1125,15 @@
           "name": "VTB Russian Grand Prix",
           "translatedName": "Grand Prix Rosji",
           "distance": 309.944,
-          "lapLength": 5.848000000000001,
+          "lapLength": 5.8480000000000008,
           "offset": 0,
           "laps": 53,
           "track": {
             "id": 76,
-            "name": "Sochi Autodrom",
+            "shortName": "Soczi",
             "trackIcon": "/img/tory/soczi_m2.png"
           },
           "id": 1039,
-          "trackId": 76,
           "trackVersion": 1,
           "country": {
             "name": "Rosja",
@@ -1217,11 +1201,10 @@
           "laps": 53,
           "track": {
             "id": 59,
-            "name": "Suzuka Circuit",
+            "shortName": "Suzuka",
             "trackIcon": "/img/tory/suzuka_m2.png"
           },
           "id": 1040,
-          "trackId": 59,
           "trackVersion": 1,
           "country": {
             "name": "Japonia",
@@ -1289,11 +1272,10 @@
           "laps": 56,
           "track": {
             "id": 74,
-            "name": "Circuit of the Americas",
+            "shortName": "Austin",
             "trackIcon": "/img/tory/austin_m2.png"
           },
           "id": 1041,
-          "trackId": 74,
           "trackVersion": 1,
           "country": {
             "name": "USA",
@@ -1361,11 +1343,10 @@
           "laps": 71,
           "track": {
             "id": 35,
-            "name": "Autódromo Hermanos Rodríguez",
+            "shortName": "Mexico City",
             "trackIcon": "/img/tory/mexico_city_m2.png"
           },
           "id": 1042,
-          "trackId": 35,
           "trackVersion": 3,
           "country": {
             "name": "Meksyk",
@@ -1433,11 +1414,10 @@
           "laps": 71,
           "track": {
             "id": 25,
-            "name": "Autódromo José Carlos Pace",
+            "shortName": "Interlagos",
             "trackIcon": "/img/tory/interlagos_m2.png"
           },
           "id": 1043,
-          "trackId": 25,
           "trackVersion": 1,
           "country": {
             "name": "Brazylia",
@@ -1505,11 +1485,10 @@
           "laps": 55,
           "track": {
             "id": 70,
-            "name": "Yas Marina Circuit",
+            "shortName": "Yas Marina",
             "trackIcon": "/img/tory/abu_dhabi_m2.png"
           },
           "id": 1044,
-          "trackId": 70,
           "trackVersion": 1,
           "country": {
             "name": "Abu Zabi",
@@ -1585,11 +1564,10 @@
           "laps": 70,
           "track": {
             "id": 57,
-            "name": "Silverstone Circuit",
+            "shortName": "Silverstone",
             "trackIcon": "/img/tory/silverstone_m2.png"
           },
           "id": 1,
-          "trackId": 57,
           "trackVersion": 7,
           "country": {
             "name": "Wielka Brytania",
@@ -1657,11 +1635,10 @@
           "laps": 100,
           "track": {
             "id": 38,
-            "name": "Circuit de Monaco",
+            "shortName": "Monte Carlo",
             "trackIcon": "/img/tory/monte_carlo_m2.png"
           },
           "id": 2,
-          "trackId": 38,
           "trackVersion": 2,
           "country": {
             "name": "Monako",
@@ -1729,11 +1706,10 @@
           "laps": 138,
           "track": {
             "id": 24,
-            "name": "Indianapolis Motor Speedway",
+            "shortName": "Indianapolis",
             "trackIcon": "/img/tory/indianapolis_m2.png"
           },
           "id": 3,
-          "trackId": 24,
           "trackVersion": 2,
           "country": {
             "name": "Indianapolis 500",
@@ -1796,16 +1772,15 @@
           "name": "Grosser Preis der Schweiz",
           "translatedName": "Grand Prix Szwajcarii",
           "distance": 305.76,
-          "lapLength": 7.279999999999999,
+          "lapLength": 7.2799999999999994,
           "offset": 0,
           "laps": 42,
           "track": {
             "id": 9,
-            "name": "Circuit Bremgarten",
+            "shortName": "Bremgarten",
             "trackIcon": "/img/tory/bremgarten_m2.png"
           },
           "id": 4,
-          "trackId": 9,
           "trackVersion": 1,
           "country": {
             "name": "Szwajcaria",
@@ -1873,11 +1848,10 @@
           "laps": 35,
           "track": {
             "id": 58,
-            "name": "Circuit de Spa-Francorchamps",
+            "shortName": "Spa-Francorchamps",
             "trackIcon": "/img/tory/spa-francorchamps_m2.png"
           },
           "id": 5,
-          "trackId": 58,
           "trackVersion": 2,
           "country": {
             "name": "Belgia",
@@ -1945,11 +1919,10 @@
           "laps": 64,
           "track": {
             "id": 49,
-            "name": "Reims-Gueux",
+            "shortName": "Reims",
             "trackIcon": "/img/tory/reims_m2.png"
           },
           "id": 6,
-          "trackId": 49,
           "trackVersion": 2,
           "country": {
             "name": "Francja",
@@ -2017,11 +1990,10 @@
           "laps": 80,
           "track": {
             "id": 41,
-            "name": "Autodromo Nazionale di Monza",
+            "shortName": "Monza",
             "trackIcon": "/img/tory/monza_m2.png"
           },
           "id": 7,
-          "trackId": 41,
           "trackVersion": 3,
           "country": {
             "name": "Włochy",
