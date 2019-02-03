@@ -84,8 +84,7 @@ namespace F1WM.Repositories
 		public async Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, int page, int countPerPage)
 		{
 			var dbTracks = context.Tracks
-				.Where(t => t.StatusId == statusId)
-				.Include(t => t.Country);
+				.Where(t => t.StatusId == statusId);
 
 			return await GetPagedTracksResult(dbTracks, page, countPerPage);
 		}
@@ -122,6 +121,7 @@ namespace F1WM.Repositories
 
 			var apiTrack = await mapper.ProjectTo<TrackSummary>(
 				dbTracks
+					.OrderBy(t => t.Id)
 					.Skip(skipRows)
 					.Take(countPerPage))
 				.ToListAsync();
