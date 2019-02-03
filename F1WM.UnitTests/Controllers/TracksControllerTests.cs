@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -65,6 +67,73 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTracks()
+		{
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			serviceMock.Setup(s => s.GetTracks(1, 25)).ReturnsAsync(tracks);
+
+			var result = await controller.GetTracks(null);
+
+			serviceMock.Verify(s => s.GetTracks(1, 25), Times.Once);
+			result.Should().BeEquivalentTo(tracks);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTracksByStatusId()
+		{
+			byte statusId = 2;
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(tracks);
+
+			var result = await controller.GetTracks(statusId);
+
+			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			result.Should().BeEquivalentTo(tracks);
+		}
+
+		[Fact]
+		public async Task ShouldReturnEmptyListOfTracksByStatusId()
+		{
+			byte statusId = 3;
+			IEnumerable<TrackSummary> emptyResult = Enumerable.Empty<TrackSummary>();
+			PagedResult<TrackSummary> emptyResponse = new PagedResult<TrackSummary>
+			{
+				CurrentPage = 1,
+				PageCount = 0,
+				PageSize = 0,
+				RowCount = 0,
+				Result = emptyResult
+			};
+
+			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(emptyResponse);
+
+			var result = await controller.GetTracks(statusId);
+
+			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			Assert.Empty(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnProperTracksCount()
+		{
+			uint count = 5;
+
+			await controller.GetTracks(null, 1, count);
+
+			serviceMock.Verify(s => s.GetTracks(1, count), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnProperTracksPage()
+		{
+			uint page = 2;
+
+			await controller.GetTracks(null, page);
+
+			serviceMock.Verify(s => s.GetTracks(page, 25), Times.Once);
 		}
 	}
 }

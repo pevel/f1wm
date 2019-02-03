@@ -15,12 +15,38 @@ namespace F1WM.IntegrationTests
 				data.Expected);
 		}
 
+		[Theory]
+		[JsonData("tracks", "all-tracks-summary.json")]
+		public async Task ShouldGetTracks(TracksSummaryTestData data)
+		{
+			await TestResponse<PagedResult<TrackSummary>>(
+				$"{baseAddress}/tracks?countPerPage={data.CountPerPage}&page={data.Page}",
+				data.Expected);
+		}
+
+		[Theory]
+		[JsonData("tracks", "track-summary.json")]
+		public async Task ShouldGetTracksByStatusId(TracksSummaryTestData data)
+		{
+			await TestResponse<PagedResult<TrackSummary>>(
+				$"{baseAddress}/tracks?statusId={data.StatusId}&countPerPage={data.CountPerPage}&page={data.Page}",
+				data.Expected);
+		}
+
 		public class TrackRecordsTestData
 		{
 			public int TrackId { get; set; }
 			public int TrackVersion { get; set; }
 			public uint BeforeYear { get; set; }
 			public TrackRecordsInformation Expected { get; set; }
+		}
+
+		public class TracksSummaryTestData
+		{
+			public uint CountPerPage { get; set; }
+			public uint Page { get; set; }
+			public uint StatusId { get; set; }
+			public PagedResult<TrackSummary> Expected { get; set; }
 		}
 	}
 }

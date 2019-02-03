@@ -18,9 +18,8 @@ namespace F1WM.ApiModel
 		public double LapLength { get; set; }
 		public double Offset { get; set; }
 		public int Laps { get; set; }
-		public TrackSummary Track { get; set; }
+		public TrackBase Track { get; set; }
 		public int Id { get; set; }
-		public int TrackId { get; set; }
 		public int TrackVersion { get; set; }
 		public virtual Country Country { get; set; }
 	}

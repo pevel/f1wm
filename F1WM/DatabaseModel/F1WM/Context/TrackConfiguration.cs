@@ -15,7 +15,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasName("ascid")
 				.IsUnique();
 
-			builder.HasIndex(e => e.Status)
+			builder.HasIndex(e => e.StatusId)
 				.HasName("status");
 
 			builder.HasIndex(e => e.ShortName)
@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.NationalityKey)
+			builder.Property(e => e.CountryKey)
 				.IsRequired()
 				.HasColumnName("country")
 				.HasColumnType("char(3)")
@@ -130,7 +130,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(5)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Status)
+			builder.Property(e => e.StatusId)
 				.HasColumnName("status");
 
 			builder.Property(e => e.ShortName)
@@ -155,9 +155,9 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("zipcode")
 				.HasMaxLength(8);
 
-			builder.HasOne(e => e.Nationality)
+			builder.HasOne(e => e.Country)
 				.WithMany()
-				.HasForeignKey(e => e.NationalityKey)
+				.HasForeignKey(e => e.CountryKey)
 				.HasPrincipalKey(n => n.Key);
 		}
 	}
