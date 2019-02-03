@@ -19,7 +19,7 @@ namespace F1WM.Repositories
 			return await mapper.ProjectTo<NewsSummary>(dbNews).ToListAsync();
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, int page, int countPerPage)
+		public async Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, uint page, uint countPerPage)
 		{
 			IQueryable<News> dbNews;
 
@@ -72,7 +72,7 @@ namespace F1WM.Repositories
 			return news;
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetNewsByTagId(int tagId, int page, int countPerPage)
+		public async Task<PagedResult<NewsSummary>> GetNewsByTagId(int tagId, uint page, uint countPerPage)
 		{
 			var dbNews = context.NewsTagMatches
 					.Where(t => t.TagId == tagId)
@@ -84,7 +84,7 @@ namespace F1WM.Repositories
 			return await GetPagedNewsResult(dbNews, page, countPerPage);
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetNewsByTypeId(int typeId, int page, int countPerPage)
+		public async Task<PagedResult<NewsSummary>> GetNewsByTypeId(int typeId, uint page, uint countPerPage)
 		{
 			var dbNews = context.News
 				.Where(n => n.TypeId == typeId && !n.NewsHidden)
@@ -99,13 +99,13 @@ namespace F1WM.Repositories
 			return await mapper.ProjectTo<ApiModel.NewsType>(dbNewsTypes).ToListAsync();
 		}
 
-		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(int page, int countPerPage)
+		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(uint page, uint countPerPage)
 		{
 			var dbNewsTags = context.NewsTags;
 			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
 		}
 
-		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int categoryId, int page, int countPerPage)
+		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int categoryId, uint page, uint countPerPage)
 		{
 			var dbNewsTags = context.NewsTags.Where(nt => nt.CategoryId == categoryId);
 			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
@@ -137,49 +137,49 @@ namespace F1WM.Repositories
 			return true;
 		}
 
-		private async Task<PagedResult<NewsSummary>> GetPagedNewsResult(IQueryable<News> dbNews, int page, int countPerPage)
+		private async Task<PagedResult<NewsSummary>> GetPagedNewsResult(IQueryable<News> dbNews, uint page, uint countPerPage)
 		{
 			var skipRows = (page - 1) * countPerPage;
 			PagedResult<NewsSummary> result = new PagedResult<NewsSummary>
 			{
 				CurrentPage = page,
-				RowCount = dbNews.Count()
+				RowCount = (uint)dbNews.Count()
 			};
 
 			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (int)System.Math.Ceiling(pageCount);
+			result.PageCount = (uint)System.Math.Ceiling(pageCount);
 
 			var apiNews = await mapper.ProjectTo<NewsSummary>(
 				dbNews.OrderByDescending(n => n.Date)
-					.Skip(skipRows)
-					.Take(countPerPage))
+					.Skip((int)skipRows)
+					.Take((int)countPerPage))
 				.ToListAsync();
 
-			result.PageSize = apiNews.Count();
+			result.PageSize = (uint)apiNews.Count();
 			result.Result = apiNews;
 
 			return result;
 		}
 
-		private async Task<PagedResult<ApiModel.NewsTag>> GetPagedTagsResult(IQueryable<DatabaseModel.NewsTag> dbNewsTags, int page, int countPerPage)
+		private async Task<PagedResult<ApiModel.NewsTag>> GetPagedTagsResult(IQueryable<DatabaseModel.NewsTag> dbNewsTags, uint page, uint countPerPage)
 		{
 			var skipRows = (page - 1) * countPerPage;
 			PagedResult<ApiModel.NewsTag> result = new PagedResult<ApiModel.NewsTag>
 			{
 				CurrentPage = page,
-				RowCount = dbNewsTags.Count()
+				RowCount = (uint)dbNewsTags.Count()
 			};
 
 			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (int)System.Math.Ceiling(pageCount);
+			result.PageCount = (uint)System.Math.Ceiling(pageCount);
 
 			var apiTags = await mapper.ProjectTo<ApiModel.NewsTag>(
 				dbNewsTags
-					.Skip(skipRows)
-					.Take(countPerPage))
+					.Skip((int)skipRows)
+					.Take((int)countPerPage))
 				.ToListAsync();
 
-			result.PageSize = apiTags.Count();
+			result.PageSize = (uint)apiTags.Count();
 			result.Result = apiTags;
 
 			return result;

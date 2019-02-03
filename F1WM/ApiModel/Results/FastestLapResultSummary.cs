@@ -8,6 +8,6 @@ namespace F1WM.ApiModel
 		public CarSummary Car { get; set; }
 		public int LapNumber { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
-		public DateTime RaceDate { get; set; }
+		public DateTime? RaceDate { get; set; }
 	}
 }

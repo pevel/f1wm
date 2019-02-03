@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
 		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual DbSet<BroadcastedSessionType> BroadcastedSessionTypes { get; set; }
-		public virtual DbSet<F1Arts> F1Arts { get; set; }
+		public virtual DbSet<Article> Articles { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<Car> Cars { get; set; }
@@ -27,9 +27,9 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1driverpoints> F1driverpoints { get; set; }
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
-		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
+		public virtual DbSet<EngineMake> EngineMakes { get; set; }
 		public virtual DbSet<Engine> Engines { get; set; }
-		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
+		public virtual DbSet<EngineSpecification> EngineSpecifications { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<FastestLap> FastestLaps { get; set; }
 		public virtual DbSet<F1glossary> F1glossary { get; set; }
@@ -102,60 +102,6 @@ namespace F1WM.DatabaseModel
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(F1WMContext)));
-
-			modelBuilder.Entity<F1Arts>(entity =>
-			{
-				entity.HasKey(e => e.Artid);
-
-				entity.ToTable("f1_arts");
-
-				entity.HasIndex(e => e.Arttitle)
-					.HasName("arttitle");
-
-				entity.HasIndex(e => e.Catid)
-					.HasName("catid");
-
-				entity.Property(e => e.Artid)
-					.HasColumnName("artid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Arthidden)
-					.HasColumnName("arthidden")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Artposter)
-					.IsRequired()
-					.HasColumnName("artposter")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.Artpreview)
-					.HasColumnName("artpreview")
-					.HasMaxLength(255);
-
-				entity.Property(e => e.Arttext)
-					.HasColumnName("arttext")
-					.HasColumnType("text");
-
-				entity.Property(e => e.Arttitle)
-					.IsRequired()
-					.HasColumnName("arttitle")
-					.HasMaxLength(80);
-
-				entity.Property(e => e.Artviews)
-					.HasColumnName("artviews")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Catid)
-					.HasColumnName("catid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Newsid)
-					.HasColumnName("newsid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-			});
 
 			modelBuilder.Entity<F1ArtsCats>(entity =>
 			{
@@ -402,73 +348,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("id4")
 					.HasColumnType("char(4)")
 					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<F1enginemakes>(entity =>
-			{
-				entity.HasKey(e => e.Enginemakeid);
-
-				entity.ToTable("f1enginemakes");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Enginemake)
-					.HasName("enginemake");
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.Property(e => e.Enginemakeid)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Enginemake)
-					.IsRequired()
-					.HasColumnName("enginemake")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.Nat)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1enginesspecs>(entity =>
-			{
-				entity.HasKey(e => e.Engineid);
-
-				entity.ToTable("f1enginesspecs");
-
-				entity.Property(e => e.Engineid)
-					.HasColumnName("engineid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Enginespecs)
-					.HasColumnName("enginespecs")
-					.HasColumnType("text");
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>

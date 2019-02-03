@@ -28,8 +28,8 @@ namespace F1WM.Controllers
 		[HttpGet]
 		public async Task<PagedResult<TrackSummary>> GetTracks(
 			[FromQuery]byte? statusId, 
-			[FromQuery(Name = "page")] int page = defaultPage,
-			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
+			[FromQuery(Name = "page")] uint page = defaultPage,
+			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
 		{
 			if (statusId != null)
 			{
