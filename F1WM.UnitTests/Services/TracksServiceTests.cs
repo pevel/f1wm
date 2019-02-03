@@ -64,9 +64,10 @@ namespace F1WM.UnitTests.Services
 			var tracks = fixture.Create<PagedResult<TrackSummary>>();
 			repositoryMock.Setup(r => r.GetTracks(page, countPerPage)).ReturnsAsync(tracks);
 
-			await service.GetTracks(page, countPerPage);
+			var actual = await service.GetTracks(page, countPerPage);
 
 			repositoryMock.Verify(r => r.GetTracks(page, countPerPage), Times.Once);
+			actual.Should().BeEquivalentTo(tracks);
 		}
 
 		[Fact]
@@ -78,9 +79,10 @@ namespace F1WM.UnitTests.Services
 			var tracks = fixture.Create<PagedResult<TrackSummary>>();
 			repositoryMock.Setup(r => r.GetTracksByStatusId(statusId, page, countPerPage)).ReturnsAsync(tracks);
 
-			await service.GetTracksByStatusId(statusId, page, countPerPage);
+			var actual = await service.GetTracksByStatusId(statusId, page, countPerPage);
 
 			repositoryMock.Verify(r => r.GetTracksByStatusId(statusId, page, countPerPage), Times.Once);
+			actual.Should().BeEquivalentTo(tracks);
 		}
 	}
 }

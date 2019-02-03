@@ -72,19 +72,28 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnTracks()
 		{
-			await controller.GetTracks(null);
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			serviceMock.Setup(s => s.GetTracks(1, 25)).ReturnsAsync(tracks);
+
+			var result = await controller.GetTracks(null);
 
 			serviceMock.Verify(s => s.GetTracks(1, 25), Times.Once);
+			var okResult = Assert.IsType<TrackSummary>(result.Result);
+			okResult.Should().BeEquivalentTo(tracks);
 		}
 
 		[Fact]
 		public async Task ShouldReturnTracksByStatusId()
 		{
 			byte statusId = 2;
+			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(tracks);
 
-			await controller.GetTracks(statusId);
+			var result = await controller.GetTracks(statusId);
 
 			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			var okResult = Assert.IsType<TrackSummary>(result.Result);
+			tracks.Should().BeEquivalentTo(okResult);
 		}
 
 		[Fact]

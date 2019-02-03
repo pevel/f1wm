@@ -130,11 +130,10 @@ namespace F1WM.IntegrationTests
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsSummary> newsList = result.Result;
-			Assert.NotNull(newsList);
-			Assert.Equal(firstId, newsList.First().Id);
-			Assert.Equal(count, newsList.Count());
-			Assert.All(newsList, news =>
+			Assert.NotNull(result.Result);
+			Assert.Equal(firstId, result.Result.First().Id);
+			Assert.Equal(count, result.Result.Count());
+			Assert.All(result.Result, news =>
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
@@ -183,10 +182,9 @@ namespace F1WM.IntegrationTests
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsTag> tagsList = result.Result;
-			Assert.NotNull(tagsList);
-			Assert.Equal(count, tagsList.Count());
-			Assert.All(tagsList, tag =>
+			Assert.NotNull(result.Result);
+			Assert.Equal(count, result.Result.Count());
+			Assert.All(result.Result, tag =>
 			{
 				Assert.NotEqual((uint)0, tag.Id);
 				Assert.NotEqual((uint)0, tag.CategoryId);
@@ -243,10 +241,9 @@ namespace F1WM.IntegrationTests
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsTag> tagsList = result.Result;
-			Assert.NotNull(tagsList);
-			Assert.Equal(count, tagsList.Count());
-			Assert.All(tagsList, tag =>
+			Assert.NotNull(result.Result);
+			Assert.Equal(count, result.Result.Count());
+			Assert.All(result.Result, tag =>
 			{
 				Assert.NotEqual((uint)0, tag.Id);
 				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
@@ -271,9 +268,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(result.Result.Count(), count);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsSummary> newsList = result.Result;
-			Assert.NotNull(newsList);
-			Assert.All(newsList, news =>
+			Assert.NotNull(result.Result);
+			Assert.All(result.Result, news =>
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);
@@ -301,9 +297,8 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(result.Result.Count(), count);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			IEnumerable<NewsSummary> newsList = result.Result;
-			Assert.NotNull(newsList);
-			Assert.All(newsList, news =>
+			Assert.NotNull(result.Result);
+			Assert.All(result.Result, news =>
 			{
 				Assert.NotNull(news.Title);
 				Assert.NotNull(news.Subtitle);

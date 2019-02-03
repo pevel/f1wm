@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -63,10 +62,9 @@ namespace F1WM.IntegrationTests
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			var tracksList = result.Result as List<TrackSummary>;
-			Assert.NotNull(tracksList);
-			Assert.Equal(count, tracksList.Count());
-			Assert.All(tracksList, track =>
+			Assert.NotNull(result.Result);
+			Assert.Equal(count, result.Result.Count());
+			Assert.All(result.Result, track =>
 			{
 				Assert.NotEqual((uint)0, track.Id);
 				Assert.NotNull(track.City);
@@ -94,10 +92,9 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(result.Result.Count(), count);
 			Assert.Equal(1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
-			var tracksList = result.Result as List<TrackSummary>;
-			Assert.NotNull(tracksList);
-			Assert.Equal(count, tracksList.Count());
-			Assert.All(tracksList, track =>
+			Assert.NotNull(result.Result);
+			Assert.Equal(count, result.Result.Count());
+			Assert.All(result.Result, track =>
 			{
 				Assert.NotEqual((uint)0, track.Id);
 				Assert.NotNull(track.City);
