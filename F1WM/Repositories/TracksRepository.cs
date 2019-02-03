@@ -77,7 +77,7 @@ namespace F1WM.Repositories
 
 		public async Task<PagedResult<TrackSummary>> GetTracks(uint page, uint countPerPage)
 		{
-			var dbTracks = context.Tracks.Include(t => t.Country);
+			var dbTracks = context.Tracks;
 			return await GetPagedTracksResult(dbTracks, page, countPerPage);
 		}
 
