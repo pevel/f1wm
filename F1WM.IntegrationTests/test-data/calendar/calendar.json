@@ -64,19 +64,11 @@
           "offset": 0,
           "laps": 58,
           "track": {
-            "city": "Melbourne",
-            "name": "Albert Park Circuit",
-            "country": {
-              "name": "Australia",
-              "flagIcon": "/img/flagi/aus2.gif"
-            },
-            "statusId": 2,
             "id": 34,
             "shortName": "Albert Park",
             "trackIcon": "/img/tory/albert_park_m2.png"
           },
           "id": 1024,
-          "trackId": 34,
           "trackVersion": 1,
           "country": {
             "name": "Australia",
@@ -143,19 +135,11 @@
           "offset": 0.246,
           "laps": 57,
           "track": {
-            "city": "Sakhir",
-            "name": "Bahrain International Circuit",
-            "country": {
-              "name": "Bahrajn",
-              "flagIcon": "/img/flagi/bhn2.gif"
-            },
-            "statusId": 2,
             "id": 53,
             "shortName": "Sakhir",
             "trackIcon": "/img/tory/bahrain_m2.png"
           },
           "id": 1025,
-          "trackId": 53,
           "trackVersion": 1,
           "country": {
             "name": "Bahrajn",
@@ -222,19 +206,11 @@
           "offset": 0.19,
           "laps": 56,
           "track": {
-            "city": "Szanghaj",
-            "name": "Shanghai International Circuit",
-            "country": {
-              "name": "Chiny",
-              "flagIcon": "/img/flagi/chn2.gif"
-            },
-            "statusId": 2,
             "id": 56,
             "shortName": "Shanghai",
             "trackIcon": "/img/tory/shanghai_m2.png"
           },
           "id": 1026,
-          "trackId": 56,
           "trackVersion": 1,
           "country": {
             "name": "Chiny",
@@ -301,19 +277,11 @@
           "offset": 0,
           "laps": 51,
           "track": {
-            "city": "Baku",
-            "name": "Baku City Circuit",
-            "country": {
-              "name": "Azerbejdżan ",
-              "flagIcon": "/img/flagi/aze2.gif"
-            },
-            "statusId": 2,
             "id": 77,
             "shortName": "Baku",
             "trackIcon": "/img/tory/baku_city_circuit_m2.png"
           },
           "id": 1027,
-          "trackId": 77,
           "trackVersion": 1,
           "country": {
             "name": "Azerbejdżan ",
@@ -380,19 +348,11 @@
           "offset": 0.126,
           "laps": 66,
           "track": {
-            "city": "Montmelo",
-            "name": "Circuit de Barcelona-Catalunya",
-            "country": {
-              "name": "Hiszpania",
-              "flagIcon": "/img/flagi/esp2.gif"
-            },
-            "statusId": 2,
             "id": 12,
             "shortName": "Catalunya",
             "trackIcon": "/img/tory/catalunya_m2.png"
           },
           "id": 1028,
-          "trackId": 12,
           "trackVersion": 4,
           "country": {
             "name": "Hiszpania",
@@ -459,19 +419,11 @@
           "offset": 0,
           "laps": 78,
           "track": {
-            "city": "Monte Carlo",
-            "name": "Circuit de Monaco",
-            "country": {
-              "name": "Monako",
-              "flagIcon": "/img/flagi/mon2.gif"
-            },
-            "statusId": 2,
             "id": 38,
             "shortName": "Monte Carlo",
             "trackIcon": "/img/tory/monte_carlo_m2.png"
           },
           "id": 1029,
-          "trackId": 38,
           "trackVersion": 1,
           "country": {
             "name": "Monako",
@@ -538,19 +490,11 @@
           "offset": 0,
           "laps": 70,
           "track": {
-            "city": "Montreal",
-            "name": "Circuit Gilles Villeneuve",
-            "country": {
-              "name": "Kanada",
-              "flagIcon": "/img/flagi/can2.gif"
-            },
-            "statusId": 2,
             "id": 40,
             "shortName": "Gilles Villeneuve",
             "trackIcon": "/img/tory/gilles_villeneuve_m2.png"
           },
           "id": 1030,
-          "trackId": 40,
           "trackVersion": 2,
           "country": {
             "name": "Kanada",
@@ -617,19 +561,11 @@
           "offset": 0,
           "laps": 53,
           "track": {
-            "city": "Le Castellet",
-            "name": "Circuit Paul Ricard",
-            "country": {
-              "name": "Francja",
-              "flagIcon": "/img/flagi/fra2.gif"
-            },
-            "statusId": 0,
             "id": 30,
             "shortName": "Paul Ricard",
             "trackIcon": "/img/tory/paul_ricard_m2.png"
           },
           "id": 1031,
-          "trackId": 30,
           "trackVersion": 3,
           "country": {
             "name": "Francja",
@@ -696,19 +632,11 @@
           "offset": 0,
           "laps": 71,
           "track": {
-            "city": "Spielberg",
-            "name": "Red Bull Ring",
-            "country": {
-              "name": "Austria",
-              "flagIcon": "/img/flagi/aut2.gif"
-            },
-            "statusId": 2,
             "id": 1,
             "shortName": "Red Bull Ring ",
             "trackIcon": "/img/tory/a1-ring_m2.png"
           },
           "id": 1032,
-          "trackId": 1,
           "trackVersion": 1,
           "country": {
             "name": "Austria",
@@ -775,19 +703,11 @@
           "offset": 0.105,
           "laps": 52,
           "track": {
-            "city": "Silverstone",
-            "name": "Silverstone Circuit",
-            "country": {
-              "name": "Wielka Brytania",
-              "flagIcon": "/img/flagi/gbr2.gif"
-            },
-            "statusId": 2,
             "id": 57,
             "shortName": "Silverstone",
             "trackIcon": "/img/tory/silverstone_m2.png"
           },
           "id": 1033,
-          "trackId": 57,
           "trackVersion": 9,
           "country": {
             "name": "Wielka Brytania",
@@ -854,19 +774,11 @@
           "offset": 0,
           "laps": 67,
           "track": {
-            "city": "Hockenheim",
-            "name": "Hockenheimring",
-            "country": {
-              "name": "Niemcy",
-              "flagIcon": "/img/flagi/ger2.gif"
-            },
-            "statusId": 2,
             "id": 21,
             "shortName": "Hockenheim",
             "trackIcon": "/img/tory/hockenheim_m2.png"
           },
           "id": 1034,
-          "trackId": 21,
           "trackVersion": 2,
           "country": {
             "name": "Niemcy",
@@ -933,19 +845,11 @@
           "offset": 0.04,
           "laps": 70,
           "track": {
-            "city": "Budapeszt",
-            "name": "Hungaroring",
-            "country": {
-              "name": "Węgry",
-              "flagIcon": "/img/flagi/hun2.gif"
-            },
-            "statusId": 2,
             "id": 22,
             "shortName": "Hungaroring",
             "trackIcon": "/img/tory/hungaroring_m2.png"
           },
           "id": 1035,
-          "trackId": 22,
           "trackVersion": 2,
           "country": {
             "name": "Węgry",
@@ -1012,19 +916,11 @@
           "offset": 0.124,
           "laps": 44,
           "track": {
-            "city": "Spa",
-            "name": "Circuit de Spa-Francorchamps",
-            "country": {
-              "name": "Belgia",
-              "flagIcon": "/img/flagi/bel2.gif"
-            },
-            "statusId": 2,
             "id": 58,
             "shortName": "Spa-Francorchamps",
             "trackIcon": "/img/tory/spa-francorchamps_m2.png"
           },
           "id": 1036,
-          "trackId": 58,
           "trackVersion": 3,
           "country": {
             "name": "Belgia",
@@ -1091,19 +987,11 @@
           "offset": 0.309,
           "laps": 53,
           "track": {
-            "city": "Monza",
-            "name": "Autodromo Nazionale di Monza",
-            "country": {
-              "name": "Włochy",
-              "flagIcon": "/img/flagi/ita2.gif"
-            },
-            "statusId": 2,
             "id": 41,
             "shortName": "Monza",
             "trackIcon": "/img/tory/monza_m2.png"
           },
           "id": 1037,
-          "trackId": 41,
           "trackVersion": 2,
           "country": {
             "name": "Włochy",
@@ -1170,19 +1058,11 @@
           "offset": 0.137,
           "laps": 61,
           "track": {
-            "city": "Singapur",
-            "name": "Marina Bay Street Circuit",
-            "country": {
-              "name": "Singapur",
-              "flagIcon": "/img/flagi/sin2.gif"
-            },
-            "statusId": 2,
             "id": 68,
             "shortName": "Marina Bay",
             "trackIcon": "/img/tory/singapore_m2.png"
           },
           "id": 1038,
-          "trackId": 68,
           "trackVersion": 3,
           "country": {
             "name": "Singapur",
@@ -1249,19 +1129,11 @@
           "offset": 0,
           "laps": 53,
           "track": {
-            "city": "Soczi",
-            "name": "Sochi Autodrom",
-            "country": {
-              "name": "Rosja",
-              "flagIcon": "/img/flagi/rus2.gif"
-            },
-            "statusId": 2,
             "id": 76,
             "shortName": "Soczi",
             "trackIcon": "/img/tory/soczi_m2.png"
           },
           "id": 1039,
-          "trackId": 76,
           "trackVersion": 1,
           "country": {
             "name": "Rosja",
@@ -1328,19 +1200,11 @@
           "offset": 0.3,
           "laps": 53,
           "track": {
-            "city": "Suzuka",
-            "name": "Suzuka Circuit",
-            "country": {
-              "name": "Japonia",
-              "flagIcon": "/img/flagi/jpn2.gif"
-            },
-            "statusId": 2,
             "id": 59,
             "shortName": "Suzuka",
             "trackIcon": "/img/tory/suzuka_m2.png"
           },
           "id": 1040,
-          "trackId": 59,
           "trackVersion": 1,
           "country": {
             "name": "Japonia",
@@ -1407,19 +1271,11 @@
           "offset": 0,
           "laps": 56,
           "track": {
-            "city": "Austin",
-            "name": "Circuit of the Americas",
-            "country": {
-              "name": "USA",
-              "flagIcon": "/img/flagi/usa2.gif"
-            },
-            "statusId": 2,
             "id": 74,
             "shortName": "Austin",
             "trackIcon": "/img/tory/austin_m2.png"
           },
           "id": 1041,
-          "trackId": 74,
           "trackVersion": 1,
           "country": {
             "name": "USA",
@@ -1486,19 +1342,11 @@
           "offset": 0,
           "laps": 71,
           "track": {
-            "city": "Mexico City",
-            "name": "Autódromo Hermanos Rodríguez",
-            "country": {
-              "name": "Meksyk",
-              "flagIcon": "/img/flagi/mex2.gif"
-            },
-            "statusId": 2,
             "id": 35,
             "shortName": "Mexico City",
             "trackIcon": "/img/tory/mexico_city_m2.png"
           },
           "id": 1042,
-          "trackId": 35,
           "trackVersion": 3,
           "country": {
             "name": "Meksyk",
@@ -1565,19 +1413,11 @@
           "offset": 0.3,
           "laps": 71,
           "track": {
-            "city": "Sao Paulo",
-            "name": "Autódromo José Carlos Pace",
-            "country": {
-              "name": "Brazylia",
-              "flagIcon": "/img/flagi/bra2.gif"
-            },
-            "statusId": 2,
             "id": 25,
             "shortName": "Interlagos",
             "trackIcon": "/img/tory/interlagos_m2.png"
           },
           "id": 1043,
-          "trackId": 25,
           "trackVersion": 1,
           "country": {
             "name": "Brazylia",
@@ -1644,16 +1484,11 @@
           "offset": 0.115,
           "laps": 55,
           "track": {
-            "city": "Abu Zabi",
-            "name": "Yas Marina Circuit",
-            "country": null,
-            "statusId": 2,
             "id": 70,
             "shortName": "Yas Marina",
             "trackIcon": "/img/tory/abu_dhabi_m2.png"
           },
           "id": 1044,
-          "trackId": 70,
           "trackVersion": 1,
           "country": {
             "name": "Abu Zabi",
@@ -1728,19 +1563,11 @@
           "offset": 0,
           "laps": 70,
           "track": {
-            "city": "Silverstone",
-            "name": "Silverstone Circuit",
-            "country": {
-              "name": "Wielka Brytania",
-              "flagIcon": "/img/flagi/gbr2.gif"
-            },
-            "statusId": 2,
             "id": 57,
             "shortName": "Silverstone",
             "trackIcon": "/img/tory/silverstone_m2.png"
           },
           "id": 1,
-          "trackId": 57,
           "trackVersion": 7,
           "country": {
             "name": "Wielka Brytania",
@@ -1807,19 +1634,11 @@
           "offset": 0,
           "laps": 100,
           "track": {
-            "city": "Monte Carlo",
-            "name": "Circuit de Monaco",
-            "country": {
-              "name": "Monako",
-              "flagIcon": "/img/flagi/mon2.gif"
-            },
-            "statusId": 2,
             "id": 38,
             "shortName": "Monte Carlo",
             "trackIcon": "/img/tory/monte_carlo_m2.png"
           },
           "id": 2,
-          "trackId": 38,
           "trackVersion": 2,
           "country": {
             "name": "Monako",
@@ -1886,16 +1705,11 @@
           "offset": 0,
           "laps": 138,
           "track": {
-            "city": "Indianapolis",
-            "name": "Indianapolis Motor Speedway",
-            "country": null,
-            "statusId": 0,
             "id": 24,
             "shortName": "Indianapolis",
             "trackIcon": "/img/tory/indianapolis_m2.png"
           },
           "id": 3,
-          "trackId": 24,
           "trackVersion": 2,
           "country": {
             "name": "Indianapolis 500",
@@ -1962,19 +1776,11 @@
           "offset": 0,
           "laps": 42,
           "track": {
-            "city": "Bremgarten",
-            "name": "Circuit Bremgarten",
-            "country": {
-              "name": "Szwajcaria",
-              "flagIcon": "/img/flagi/sui2.gif"
-            },
-            "statusId": 0,
             "id": 9,
             "shortName": "Bremgarten",
             "trackIcon": "/img/tory/bremgarten_m2.png"
           },
           "id": 4,
-          "trackId": 9,
           "trackVersion": 1,
           "country": {
             "name": "Szwajcaria",
@@ -2041,19 +1847,11 @@
           "offset": 0,
           "laps": 35,
           "track": {
-            "city": "Spa",
-            "name": "Circuit de Spa-Francorchamps",
-            "country": {
-              "name": "Belgia",
-              "flagIcon": "/img/flagi/bel2.gif"
-            },
-            "statusId": 2,
             "id": 58,
             "shortName": "Spa-Francorchamps",
             "trackIcon": "/img/tory/spa-francorchamps_m2.png"
           },
           "id": 5,
-          "trackId": 58,
           "trackVersion": 2,
           "country": {
             "name": "Belgia",
@@ -2120,19 +1918,11 @@
           "offset": 0,
           "laps": 64,
           "track": {
-            "city": "Reims",
-            "name": "Reims-Gueux",
-            "country": {
-              "name": "Francja",
-              "flagIcon": "/img/flagi/fra2.gif"
-            },
-            "statusId": 0,
             "id": 49,
             "shortName": "Reims",
             "trackIcon": "/img/tory/reims_m2.png"
           },
           "id": 6,
-          "trackId": 49,
           "trackVersion": 2,
           "country": {
             "name": "Francja",
@@ -2199,19 +1989,11 @@
           "offset": 0,
           "laps": 80,
           "track": {
-            "city": "Monza",
-            "name": "Autodromo Nazionale di Monza",
-            "country": {
-              "name": "Włochy",
-              "flagIcon": "/img/flagi/ita2.gif"
-            },
-            "statusId": 2,
             "id": 41,
             "shortName": "Monza",
             "trackIcon": "/img/tory/monza_m2.png"
           },
           "id": 7,
-          "trackId": 41,
           "trackVersion": 3,
           "country": {
             "name": "Włochy",
@@ -2222,5 +2004,3 @@
     }
   }
 ]
-
-
