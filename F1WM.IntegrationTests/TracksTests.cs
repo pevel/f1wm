@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -16,6 +17,26 @@ namespace F1WM.IntegrationTests
 				data.Expected);
 		}
 
+		[Theory]
+		[JsonData("tracks", "track-records.json")]
+		public async Task ShouldGetTracks(TracksSummaryTestData data)
+		{
+			await TestResponse<TrackSummary>(
+				$"{baseAddress}/tracks?countPerPage={data.CountPerPage}&page={data.Page}",
+				data.Expected);
+		}
+
+		[Theory]
+		[JsonData("tracks", "track-records.json")]
+		public async Task ShouldGetTracksByStatusId(TracksSummaryTestData data)
+		{
+			var statusId = 2;
+
+			await TestResponse<TrackSummary>(
+				$"{baseAddress}/tracks?statusId={statusId}&countPerPage={data.CountPerPage}&page={data.Page}",
+				data.Expected);
+		}
+
 		public class TrackRecordsTestData
 		{
 			public int TrackId { get; set; }
@@ -24,62 +45,11 @@ namespace F1WM.IntegrationTests
 			public TrackRecordsInformation Expected { get; set; }
 		}
 
-		[Fact]
-		public async Task ShouldGetTracks()
+		public class TracksSummaryTestData
 		{
-			var count = 5;
-
-			var response = await client.GetAsync($"{baseAddress}/tracks?countPerPage={count}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<TrackSummary>>(responseContent);
-			Assert.NotNull(result.Result);
-			Assert.Equal(count, result.PageSize);
-			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal(1, result.CurrentPage);
-			Assert.True(result.PageCount > 0);
-			Assert.NotNull(result.Result);
-			Assert.Equal(count, result.Result.Count());
-			Assert.All(result.Result, track =>
-			{
-				Assert.NotEqual((uint)0, track.Id);
-				Assert.NotNull(track.City);
-				Assert.NotNull(track.Country);
-				Assert.NotNull(track.ShortName);
-				Assert.True(track.StatusId < 3);
-				Assert.False(string.IsNullOrWhiteSpace(track.TrackIcon));
-			});
-		}
-
-		[Fact]
-		public async Task ShouldGetTracksByStatusId()
-		{
-			var statusId = 2;
-			var count = 7;
-
-			var response = await client.GetAsync($"{baseAddress}/tracks?statusId={statusId}&countPerPage={count}");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<TrackSummary>>(responseContent);
-			Assert.NotNull(result.Result);
-			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal(count, result.PageSize);
-			Assert.Equal(result.Result.Count(), count);
-			Assert.Equal(1, result.CurrentPage);
-			Assert.True(result.PageCount > 0);
-			Assert.NotNull(result.Result);
-			Assert.Equal(count, result.Result.Count());
-			Assert.All(result.Result, track =>
-			{
-				Assert.NotEqual((uint)0, track.Id);
-				Assert.NotNull(track.City);
-				Assert.NotNull(track.Country);
-				Assert.NotNull(track.ShortName);
-				Assert.True(track.StatusId < 3);
-				Assert.False(string.IsNullOrWhiteSpace(track.TrackIcon));
-			});
+			public uint CountPerPage { get; set; }
+			public uint Page { get; set; }
+			public TrackSummary Expected { get; set; }
 		}
 	}
 }
