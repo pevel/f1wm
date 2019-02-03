@@ -22,7 +22,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-summary.json")]
 		public async Task ShouldGetManyNews(NewsSummaryTestData data)
 		{
-			await TestResponse<NewsSummary>(
+			await TestResponse<PagedResult<NewsSummary>>(
 				$"{baseAddress}/news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
@@ -208,7 +208,7 @@ namespace F1WM.IntegrationTests
 			public int FirstId { get; set; }
 			public uint CountPerPage { get; set; }
 			public uint Page { get; set; }
-			public NewsSummary Expected { get; set; }
+			public PagedResult<NewsSummary> Expected { get; set; }
 		}
 	}
 }
