@@ -78,8 +78,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTracks(null);
 
 			serviceMock.Verify(s => s.GetTracks(1, 25), Times.Once);
-			var okResult = Assert.IsType<TrackSummary>(result.Result);
-			okResult.Should().BeEquivalentTo(tracks);
+			result.Should().BeEquivalentTo(tracks);
 		}
 
 		[Fact]
@@ -92,8 +91,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTracks(statusId);
 
 			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
-			var okResult = Assert.IsType<TrackSummary>(result.Result);
-			tracks.Should().BeEquivalentTo(okResult);
+			result.Should().BeEquivalentTo(tracks);
 		}
 
 		[Fact]
@@ -121,7 +119,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperTracksCount()
 		{
-			var count = 5;
+			uint count = 5;
 
 			await controller.GetTracks(null, 1, count);
 
@@ -131,7 +129,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperTracksPage()
 		{
-			var page = 2;
+			uint page = 2;
 
 			await controller.GetTracks(null, page);
 
