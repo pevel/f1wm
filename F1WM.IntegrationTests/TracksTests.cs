@@ -1,7 +1,5 @@
-using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -18,22 +16,20 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Theory]
-		[JsonData("tracks", "track-records.json")]
+		[JsonData("tracks", "all-tracks-summary.json")]
 		public async Task ShouldGetTracks(TracksSummaryTestData data)
 		{
-			await TestResponse<TrackSummary>(
+			await TestResponse<PagedResult<TrackSummary>>(
 				$"{baseAddress}/tracks?countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
 
 		[Theory]
-		[JsonData("tracks", "track-records.json")]
+		[JsonData("tracks", "track-summary.json")]
 		public async Task ShouldGetTracksByStatusId(TracksSummaryTestData data)
 		{
-			var statusId = 2;
-
-			await TestResponse<TrackSummary>(
-				$"{baseAddress}/tracks?statusId={statusId}&countPerPage={data.CountPerPage}&page={data.Page}",
+			await TestResponse<PagedResult<TrackSummary>>(
+				$"{baseAddress}/tracks?statusId={data.StatusId}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
 
@@ -49,7 +45,8 @@ namespace F1WM.IntegrationTests
 		{
 			public uint CountPerPage { get; set; }
 			public uint Page { get; set; }
-			public TrackSummary Expected { get; set; }
+			public uint StatusId { get; set; }
+			public PagedResult<TrackSummary> Expected { get; set; }
 		}
 	}
 }
