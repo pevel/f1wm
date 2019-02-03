@@ -29,6 +29,15 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(lastRace);
 		}
 
+		[HttpGet("{raceId}/fastest-laps")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<RaceFastestLaps>> GetRaceFastestLaps(int raceId)
+		{
+			var fastestLaps = await service.GetRaceFastestLaps(raceId);
+			return this.NotFoundResultIfNull(fastestLaps);
+		}
+
 		public RacesController(IRacesService service)
 		{
 			this.service = service;

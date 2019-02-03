@@ -100,5 +100,15 @@ namespace F1WM.Repositories
 				.SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
 		}
+
+		public async Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
+		{
+			var apiFastestLaps = new RaceFastestLaps() { RaceId = raceId };
+			apiFastestLaps.Results = await mapper.ProjectTo<RaceFastestLap>(context.FastestLaps
+					.Where(f => f.RaceId == raceId)
+					.OrderBy(f => f.Time))
+				.ToListAsync();
+			return apiFastestLaps.Results.Any() ? apiFastestLaps : null;
+		}
 	}
 }

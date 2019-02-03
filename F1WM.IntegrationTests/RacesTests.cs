@@ -87,5 +87,20 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
 		}
+
+		[Theory]
+		[JsonData("races", "race-fastest-laps.json")]
+		public async Task ShouldGetRaceFastestLaps(RaceFastestLapsTestData data)
+		{
+			await TestResponse<RaceFastestLaps>(
+				$"{baseAddress}/races/{data.RaceId}/fastest-laps",
+				data.Expected);
+		}
+
+		public class RaceFastestLapsTestData
+		{
+			public int RaceId { get; set; }
+			public RaceFastestLaps Expected { get; set; }
+		}
 	}
 }

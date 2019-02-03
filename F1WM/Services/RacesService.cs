@@ -22,6 +22,11 @@ namespace F1WM.Services
 			return model;
 		}
 
+		public Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
+		{
+			return racesRepository.GetRaceFastestLaps(raceId);
+		}
+
 		public RacesService(
 			IRacesRepository racesRepository,
 			IResultsRepository resultsRepository,
