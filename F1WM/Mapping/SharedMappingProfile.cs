@@ -24,6 +24,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 			CreateMap<Team, TeamSummary>()
 				.ForMember(api => api.Logo, o => o.MapFrom(db => db.Key.IgnoreEmpty().GetTeamLogoPath()));
+			CreateMap<Season, SeasonSummary>();
 		}
 	}
 }

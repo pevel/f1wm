@@ -60,7 +60,7 @@ namespace F1WM.Repositories
 				.Include(f => f.Entry).ThenInclude(e => e.Car)
 				.Where(f => f.Race.TrackId == trackId && f.Race.TrackVersion == trackVersion)
 				.Where(f => f.Race.Date.Year < beforeYear)
-				.Where(f => f.Frlpos == "1")
+				.Where(f => f.PositionOrStatus == "1")
 				.OrderBy(f => f.Time)
 				.FirstOrDefaultAsync();
 			if (dbFastestQualifyingLapInNewFormat == null && dbBestAverageSpeedResult == null && dbFastestLap == null)

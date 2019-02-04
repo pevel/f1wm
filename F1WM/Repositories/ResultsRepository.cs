@@ -22,7 +22,7 @@ namespace F1WM.Repositories
 			var dbFastestLap = await context.FastestLaps
 				.Include(r => r.Entry).ThenInclude(e => e.Driver)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
-				.SingleOrDefaultAsync(f => f.RaceId == raceId && f.Frlpos == "1");
+				.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
 			return model.Results.Any() ? model : null;

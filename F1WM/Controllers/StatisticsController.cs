@@ -14,9 +14,11 @@ namespace F1WM.Controllers
 		[HttpGet("drivers/{driverId}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<DriverStatistics>> GetDriverStatistics([FromRoute]int driverId)
+		public async Task<ActionResult<DriverStatistics>> GetDriverStatistics(
+			[FromRoute]int driverId,
+			[FromQuery]int? atYear)
 		{
-			var statistics = await service.GetDriverStatistics(driverId);
+			var statistics = await service.GetDriverStatistics(driverId, atYear);
 			return this.NotFoundResultIfNull(statistics);
 		}
 

@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1fastestlaps");
 
-			builder.HasIndex(e => e.Frlpos)
+			builder.HasIndex(e => e.PositionOrStatus)
 				.HasName("frlpos");
 
 			builder.HasIndex(e => e.RaceId)
@@ -24,7 +24,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Frlpos)
+			builder.Property(e => e.PositionOrStatus)
 				.IsRequired()
 				.HasColumnName("frlpos")
 				.HasColumnType("char(2)")
@@ -34,7 +34,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("lap")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Ord)
+			builder.Property(e => e.Order)
 				.HasColumnName("ord")
 				.HasDefaultValueSql("'0'");
 

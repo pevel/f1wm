@@ -5,6 +5,6 @@ namespace F1WM.Repositories
 {
 	public interface IStatisticsRepository
 	{
-		Task<DriverStatistics> GetDriverStatistics(int driverId);
+		Task<DriverStatistics> GetDriverStatistics(int driverId, int atYear);
 	}
 }

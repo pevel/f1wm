@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	public class Race
 	{
 		public uint Id { get; set; }
-		public uint Seasonid { get; set; }
+		public uint SeasonId { get; set; }
 		public byte Numinseason { get; set; }
 		public string CountryKey { get; set; }
 		public uint TrackId { get; set; }

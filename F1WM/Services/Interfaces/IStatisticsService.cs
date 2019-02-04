@@ -5,6 +5,6 @@ namespace F1WM.Services
 {
 	public interface IStatisticsService
 	{
-		Task<DriverStatistics> GetDriverStatistics(int driverId);
+		Task<DriverStatistics> GetDriverStatistics(int driverId, int? atYear);
 	}
 }
