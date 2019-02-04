@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -60,13 +61,7 @@ namespace F1WM.Repositories
 					.FirstOrDefaultAsync())?.Id;
 				if (news.Redirect != null && news.TryParseResultRedirect(out ResultRedirectLink link))
 				{
-					news.ResultLink = new ResultLink()
-					{
-						Type = Constants.ResultTypeToLinkType[link.ResultType],
-						RaceId = (int?)(await context.Races
-								.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number))?
-							.Id
-					};
+					await IncludeResultLink(news, link);
 				}
 			}
 			return news;
@@ -183,6 +178,19 @@ namespace F1WM.Repositories
 			result.Result = apiTags;
 
 			return result;
+		}
+
+		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)
+		{
+			var resultType = Constants.ResultTypeToLinkType[link.ResultType];
+			if (Constants.LinkTypeToAction.TryGetValue(resultType, out var getLink))
+			{
+				news.ResultLink = await getLink(context, link);
+			}
+			else
+			{
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

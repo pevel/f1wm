@@ -30,9 +30,9 @@ namespace F1WM.Utilities
 						else
 						{
 							var token = line.Length > 0 ? $"{line[0]}" : "";
-							if (Constants.TokenToParserMapping.ContainsKey(token))
+							if (Constants.TokenToParser.ContainsKey(token))
 							{
-								line = Constants.TokenToParserMapping[token](line);
+								line = Constants.TokenToParser[token](line);
 							}
 							writer.Write(line + "<br/>");
 						}
