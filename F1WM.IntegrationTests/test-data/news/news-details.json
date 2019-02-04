@@ -130,5 +130,25 @@
       "title": "Lapierre zwycięzcą prestiżowego wyścigu o Grand Prix Makau",
       "subtitle": ""
     }
+  },
+  {
+    "newsId": 44199,
+    "why": "news with fastest laps link",
+    "expected": {
+      "posterName": "Nataniel Piórkowski",
+      "views": 4579,
+      "text": "",
+      "nextNewsId": 44207,
+      "previousNewsId": 44198,
+      "resultLink": {
+        "type": "FastestLaps",
+        "raceId": 1044
+      },
+      "redirect": "php/rel_gen.php?rok=2018&nr=21&dzial=13",
+      "id": 44199,
+      "date": "2018-11-25T16:11:08",
+      "title": "GP Abu Zabi: najszybsze okrążenia wyścigu",
+      "subtitle": "Najlepszym czasem na pojedynczym kółku popisał się Sebastian Vettel."
+    }
   }
 ]
