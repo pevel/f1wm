@@ -7,14 +7,18 @@ using System;
 using AutoMapper;
 using System.Linq.Expressions;
 using F1WM.DatabaseModel.Constants;
-using System.Collections.Generic;
+using F1WM.Utilities;
 
 namespace F1WM.Repositories
 {
 	public class TracksRepository : RepositoryBase, ITracksRepository
 	{
 		private readonly IMapper mapper;
-		private readonly Expression<Func<Qualifying, bool>> hasFastestLap = q => q.Session1Position == 1 || q.Session2Position == 1 || q.Session3Position == 1 || (q.Session1Position == 0 && q.PositionOrStatus == "1");
+		private readonly Expression<Func<Qualifying, bool>> hasFastestLap =
+			q => q.Session1Position == 1 ||
+				q.Session2Position == 1 ||
+				q.Session3Position == 1 ||
+				(q.Session1Position == 0 && q.PositionOrStatus == "1");
 
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)
 		{
@@ -25,7 +29,9 @@ namespace F1WM.Repositories
 				.Where(hasFastestLap)
 				.Where(q => q.Race.Date.Year < beforeYear)
 				.Where(q => q.Race.TrackId == trackId && q.Race.TrackVersion == trackVersion)
-				.Select(q => new { Qualifying = q, Time = (new [] { q.Session1Time, q.Session2Time, q.Session3Time }).Where(t => t != TimeSpan.Zero).Min() })
+				.Select(q => new { Qualifying = q, Time = (new [] { q.Session1Time, q.Session2Time, q.Session3Time })
+					.Where(t => t != TimeSpan.Zero)
+					.Min() })
 				.OrderBy(g => g.Time)
 				.FirstOrDefaultAsync())
 				?.Qualifying;
@@ -68,25 +74,28 @@ namespace F1WM.Repositories
 					TrackId = trackId,
 					TrackVersion = trackVersion,
 					BeforeYear = beforeYear,
-					FastestQualifyingLapResult = GetFastestQualifyingLap(dbFastestQualifyingLapInNewFormat, dbFastestQualifyingLapInOldFormat),
+					FastestQualifyingLapResult = GetFastestQualifyingLap(
+						dbFastestQualifyingLapInNewFormat,
+						dbFastestQualifyingLapInOldFormat),
 					FastestRaceLapResult = mapper.Map<FastestLapResultSummary>(dbFastestLap),
 					BestAverageSpeedResult = mapper.Map<AverageSpeedResult>(dbBestAverageSpeedResult)
 				};
 			}
 		}
 
-		public async Task<PagedResult<TrackSummary>> GetTracks(uint page, uint countPerPage)
+		public Task<PagedResult<TrackSummary>> GetTracks(uint page, uint countPerPage)
 		{
-			var dbTracks = context.Tracks;
-			return await GetPagedTracksResult(dbTracks, page, countPerPage);
+			var dbTracks = context.Tracks.OrderBy(t => t.Id);
+			return dbTracks.GetPagedResult<Track, TrackSummary>(mapper, page, countPerPage);
 		}
 
-		public async Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage)
+		public Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage)
 		{
 			var dbTracks = context.Tracks
-				.Where(t => t.StatusId == statusId);
+				.Where(t => t.StatusId == statusId)
+				.OrderBy(t => t.Id);
 
-			return await GetPagedTracksResult(dbTracks, page, countPerPage);
+			return dbTracks.GetPagedResult<Track, TrackSummary>(mapper, page, countPerPage);
 		}
 
 		public TracksRepository(F1WMContext context, IMapper mapper)
@@ -105,31 +114,6 @@ namespace F1WM.Repositories
 			{
 				return mapper.Map<FastestQualifyingLapResultSummary>(newFormat);
 			}
-		}
-
-		private async Task<PagedResult<TrackSummary>> GetPagedTracksResult(IQueryable<Track> dbTracks, uint page, uint countPerPage)
-		{
-			var skipRows = (page - 1) * countPerPage;
-			PagedResult<TrackSummary> result = new PagedResult<TrackSummary>
-			{
-				CurrentPage = page,
-				RowCount = (uint)dbTracks.Count()
-			};
-
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (uint)Math.Ceiling(pageCount);
-
-			var apiTrack = await mapper.ProjectTo<TrackSummary>(
-				dbTracks
-					.OrderBy(t => t.Id)
-					.Skip((int)skipRows)
-					.Take((int)countPerPage))
-				.ToListAsync();
-
-			result.PageSize = (uint)apiTrack.Count();
-			result.Result = apiTrack;
-
-			return result;
 		}
 	}
 }

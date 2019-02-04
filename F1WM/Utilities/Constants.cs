@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
+using Microsoft.EntityFrameworkCore;
 using Database = F1WM.DatabaseModel.Constants;
 
 public static class Constants
 {
-	public readonly static Dictionary<string, ResultStatus> TextToResultStatus = new Dictionary<string, ResultStatus>()
+	public readonly static Dictionary<string, ResultStatus> TextToResultStatus =
+		new Dictionary<string, ResultStatus>()
 	{
 		{ String.Empty, ResultStatus.Classified },
 		{ Database.ResultStatus.DidNotStart, ResultStatus.DidNotStart },
@@ -17,7 +21,8 @@ public static class Constants
 		{ Database.ResultStatus.NotClassified, ResultStatus.NotClassified }
 	};
 
-	public readonly static Dictionary<string, StartStatus> TextToStartStatus = new Dictionary<string, StartStatus>()
+	public readonly static Dictionary<string, StartStatus> TextToStartStatus =
+		new Dictionary<string, StartStatus>()
 	{
 		{ String.Empty, StartStatus.FromGrid },
 		{ Database.StartStatus.NotClassified, StartStatus.NotClassified },
@@ -27,7 +32,8 @@ public static class Constants
 		{ Database.StartStatus.NotQualified, StartStatus.NotQualified }
 	};
 
-	public readonly static Dictionary<string, QualifyStatus> TextToQualifyStatus = new Dictionary<string, QualifyStatus>()
+	public readonly static Dictionary<string, QualifyStatus> TextToQualifyStatus =
+		new Dictionary<string, QualifyStatus>()
 	{
 		{ String.Empty, QualifyStatus.Qualified },
 		{ Database.QualifyStatus.DidNotStart, QualifyStatus.DidNotStart },
@@ -36,7 +42,8 @@ public static class Constants
 		{ Database.QualifyStatus.NotPreQualified, QualifyStatus.NotPreQualified }
 	};
 
-	public readonly static Dictionary<string, OtherResultStatus> TextToOtherResultStatus = new Dictionary<string, OtherResultStatus>()
+	public readonly static Dictionary<string, OtherResultStatus> TextToOtherResultStatus =
+		new Dictionary<string, OtherResultStatus>()
 	{
 		{ String.Empty, OtherResultStatus.Classified },
 		{ Database.OtherResultStatus.DidNotStart, OtherResultStatus.DidNotStart },
@@ -45,7 +52,8 @@ public static class Constants
 		{ Database.OtherResultStatus.NotQualified, OtherResultStatus.NotQualified }
 	};
 
-	public readonly static Dictionary<string, Func<string, string>> TokenToParserMapping = new Dictionary<string, Func<string, string>>()
+	public readonly static Dictionary<string, Func<string, string>> TokenToParser =
+		new Dictionary<string, Func<string, string>>()
 	{
 		{ "#", line => $"<span class=\"news-text-center\">{line.Substring(1)}</span>" },
 		{ "*", line => $"<h2 class=\"news-text-center\">{line.Substring(1)}</h2>" },
@@ -54,14 +62,34 @@ public static class Constants
 		{ "@", line => line.ParseImageInformation() }
 	};
 
-	public readonly static Dictionary<Database.ResultType, ResultLinkType> ResultTypeToLinkType = new Dictionary<Database.ResultType, ResultLinkType>()
+	public readonly static Dictionary<Database.ResultType, ResultLinkType> ResultTypeToLinkType =
+		new Dictionary<Database.ResultType, ResultLinkType>()
 	{
 		{ Database.ResultType.QualifyingComments, ResultLinkType.Qualifying },
 		{ Database.ResultType.QualifyingSummary, ResultLinkType.Qualifying },
 		{ Database.ResultType.Race, ResultLinkType.Race },
-		{ Database.ResultType.FastestLaps, ResultLinkType.Unknown },
+		{ Database.ResultType.FastestLaps, ResultLinkType.FastestLaps },
 		{ Database.ResultType.PitStops, ResultLinkType.Unknown },
 		{ Database.ResultType.Tyres, ResultLinkType.Unknown },
 		{ Database.ResultType.RaceCharts, ResultLinkType.Unknown }
 	};
+
+	public readonly static Dictionary<ResultLinkType, Func<F1WMContext, ResultRedirectLink, Task<ResultLink>>> LinkTypeToAction =
+		new Dictionary<ResultLinkType, Func<F1WMContext, ResultRedirectLink, Task<ResultLink>>>()
+	{
+		{ ResultLinkType.Race, (c, l) => getRaceIdResultLinkByYearAndNumber(c, l) },
+		{ ResultLinkType.Qualifying, (c, l) => getRaceIdResultLinkByYearAndNumber(c, l) },
+		{ ResultLinkType.FastestLaps, (c, l) => getRaceIdResultLinkByYearAndNumber(c, l) }
+	};
+
+	private readonly static Func<F1WMContext, ResultRedirectLink, Task<ResultLink>> getRaceIdResultLinkByYearAndNumber =
+		async (context, link) => 
+		{
+			var resultLink = new ResultLink() { Type = ResultTypeToLinkType[link.ResultType] };
+			resultLink.RaceId = (int?)(await context.Races
+					.Where(r => r.Date.Year == link.Year && r.Numinseason == link.Number)
+					.Select(r => r.Id)
+					.FirstOrDefaultAsync());
+			return resultLink;
+		};
 }

@@ -27,6 +27,20 @@ namespace F1WM.IntegrationTests
 				data.Expected);
 		}
 
+		[Theory]
+		[JsonData("news", "news-types.json")]
+		public async Task ShouldGetNewsTypes(NewsTypesTestData data)
+		{
+			await TestResponse<IEnumerable<NewsType>>($"{baseAddress}/news/types", data.Expected);
+		}
+
+		[Theory]
+		[JsonData("news", "news-tag-categories.json")]
+		public async Task ShouldGetNewsCategories(NewsTagCategoriesTestData data)
+		{
+			await TestResponse<IEnumerable<NewsTagCategory>>($"{baseAddress}/news/categories", data.Expected);
+		}
+
 		[Fact]
 		public async Task ShouldGetImportantNews()
 		{
@@ -74,39 +88,6 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual((uint)0, tag.Id);
 				Assert.NotEqual((uint)0, tag.CategoryId);
 				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
-			});
-		}
-
-		[Fact]
-		public async Task ShouldGetNewsTypes()
-		{
-			var response = await client.GetAsync($"{baseAddress}/news/types");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var typesList = JsonConvert.DeserializeObject<IEnumerable<NewsType>>(responseContent);
-			Assert.NotNull(typesList);
-			Assert.All(typesList, type =>
-			{
-				Assert.NotEqual((uint)0, type.Id);
-				Assert.False(string.IsNullOrWhiteSpace(type.Title));
-				Assert.False(string.IsNullOrWhiteSpace(type.AlternativeTitle));
-			});
-		}
-
-		[Fact]
-		public async Task ShouldGetNewsCategories()
-		{
-			var response = await client.GetAsync($"{baseAddress}/news/categories");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var categoriesList = JsonConvert.DeserializeObject<IEnumerable<NewsTagCategory>>(responseContent);
-			Assert.NotNull(categoriesList);
-			Assert.All(categoriesList, category =>
-			{
-				Assert.NotEqual((uint)0, category.Id);
-				Assert.False(string.IsNullOrWhiteSpace(category.Title));
 			});
 		}
 
@@ -209,6 +190,16 @@ namespace F1WM.IntegrationTests
 			public uint CountPerPage { get; set; }
 			public uint Page { get; set; }
 			public PagedResult<NewsSummary> Expected { get; set; }
+		}
+
+		public class NewsTypesTestData
+		{
+			public IEnumerable<NewsType> Expected { get; set; }
+		}
+
+		public class NewsTagCategoriesTestData
+		{
+			public IEnumerable<NewsTagCategory> Expected { get; set; }
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +20,7 @@ namespace F1WM.Repositories
 			return await mapper.ProjectTo<NewsSummary>(dbNews).ToListAsync();
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, uint page, uint countPerPage)
+		public Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, uint page, uint countPerPage)
 		{
 			IQueryable<News> dbNews;
 
@@ -41,7 +42,7 @@ namespace F1WM.Repositories
 					.OrderByDescending(n => n.Date);
 			}
 
-			return await GetPagedNewsResult(dbNews, page, countPerPage);
+			return dbNews.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}
 
 		public async Task<NewsDetails> GetNewsDetails(int id)
@@ -60,37 +61,30 @@ namespace F1WM.Repositories
 					.FirstOrDefaultAsync())?.Id;
 				if (news.Redirect != null && news.TryParseResultRedirect(out ResultRedirectLink link))
 				{
-					news.ResultLink = new ResultLink()
-					{
-						Type = Constants.ResultTypeToLinkType[link.ResultType],
-						RaceId = (int?)(await context.Races
-								.FirstOrDefaultAsync(r => r.Date.Year == link.Year && r.Numinseason == link.Number))?
-							.Id
-					};
+					await IncludeResultLink(news, link);
 				}
 			}
 			return news;
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetNewsByTagId(int tagId, uint page, uint countPerPage)
+		public Task<PagedResult<NewsSummary>> GetNewsByTagId(int tagId, uint page, uint countPerPage)
 		{
 			var dbNews = context.NewsTagMatches
 					.Where(t => t.TagId == tagId)
-					.Include(t => t.News)
 					.Select(t => t.News)
 					.Where(n => !n.NewsHidden)
-					.Include(n => n.MainTag);
+					.OrderByDescending(n => n.Date);
 
-			return await GetPagedNewsResult(dbNews, page, countPerPage);
+			return dbNews.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}
 
-		public async Task<PagedResult<NewsSummary>> GetNewsByTypeId(int typeId, uint page, uint countPerPage)
+		public Task<PagedResult<NewsSummary>> GetNewsByTypeId(int typeId, uint page, uint countPerPage)
 		{
 			var dbNews = context.News
-				.Where(n => n.TypeId == typeId && !n.NewsHidden)
-				.Include(n => n.MainTag);
+				.OrderByDescending(n => n.Date)
+				.Where(n => n.TypeId == typeId && !n.NewsHidden);
 
-			return await GetPagedNewsResult(dbNews, page, countPerPage);
+			return dbNews.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}
 
 		public async Task<IEnumerable<ApiModel.NewsType>> GetNewsTypes()
@@ -99,21 +93,23 @@ namespace F1WM.Repositories
 			return await mapper.ProjectTo<ApiModel.NewsType>(dbNewsTypes).ToListAsync();
 		}
 
-		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(uint page, uint countPerPage)
+		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(uint page, uint countPerPage)
 		{
-			var dbNewsTags = context.NewsTags;
-			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
+			var dbNewsTags = context.NewsTags.OrderBy(nt => nt.Id);
+			return dbNewsTags.GetPagedResult<DatabaseModel.NewsTag, ApiModel.NewsTag>(mapper, page, countPerPage);
 		}
 
-		public async Task<PagedResult<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int categoryId, uint page, uint countPerPage)
+		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTagsByCategoryId(int categoryId, uint page, uint countPerPage)
 		{
-			var dbNewsTags = context.NewsTags.Where(nt => nt.CategoryId == categoryId);
-			return await GetPagedTagsResult(dbNewsTags, page, countPerPage);
+			var dbNewsTags = context.NewsTags
+				.Where(nt => nt.CategoryId == categoryId)
+				.OrderBy(nt => nt.Id);
+			return dbNewsTags.GetPagedResult<DatabaseModel.NewsTag, ApiModel.NewsTag>(mapper, page, countPerPage);
 		}
 
 		public async Task<IEnumerable<ApiModel.NewsTagCategory>> GetNewsTagCategories()
 		{
-			var dbCategories = context.NewsCategories;
+			var dbCategories = context.NewsCategories.OrderBy(c => c.Id);
 			return await mapper.ProjectTo<ApiModel.NewsTagCategory>(dbCategories).ToListAsync();
 		}
 
@@ -137,52 +133,17 @@ namespace F1WM.Repositories
 			return true;
 		}
 
-		private async Task<PagedResult<NewsSummary>> GetPagedNewsResult(IQueryable<News> dbNews, uint page, uint countPerPage)
+		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)
 		{
-			var skipRows = (page - 1) * countPerPage;
-			PagedResult<NewsSummary> result = new PagedResult<NewsSummary>
+			var resultType = Constants.ResultTypeToLinkType[link.ResultType];
+			if (Constants.LinkTypeToAction.TryGetValue(resultType, out var getLink))
 			{
-				CurrentPage = page,
-				RowCount = (uint)dbNews.Count()
-			};
-
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (uint)System.Math.Ceiling(pageCount);
-
-			var apiNews = await mapper.ProjectTo<NewsSummary>(
-				dbNews.OrderByDescending(n => n.Date)
-					.Skip((int)skipRows)
-					.Take((int)countPerPage))
-				.ToListAsync();
-
-			result.PageSize = (uint)apiNews.Count();
-			result.Result = apiNews;
-
-			return result;
-		}
-
-		private async Task<PagedResult<ApiModel.NewsTag>> GetPagedTagsResult(IQueryable<DatabaseModel.NewsTag> dbNewsTags, uint page, uint countPerPage)
-		{
-			var skipRows = (page - 1) * countPerPage;
-			PagedResult<ApiModel.NewsTag> result = new PagedResult<ApiModel.NewsTag>
+				news.ResultLink = await getLink(context, link);
+			}
+			else
 			{
-				CurrentPage = page,
-				RowCount = (uint)dbNewsTags.Count()
-			};
-
-			var pageCount = (double)result.RowCount / countPerPage;
-			result.PageCount = (uint)System.Math.Ceiling(pageCount);
-
-			var apiTags = await mapper.ProjectTo<ApiModel.NewsTag>(
-				dbNewsTags
-					.Skip((int)skipRows)
-					.Take((int)countPerPage))
-				.ToListAsync();
-
-			result.PageSize = (uint)apiTags.Count();
-			result.Result = apiTags;
-
-			return result;
+				throw new NotImplementedException();
+			}
 		}
 	}
 }

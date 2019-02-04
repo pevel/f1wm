@@ -6,6 +6,7 @@ namespace F1WM.ApiModel
 		Practice,
 		Qualifying,
 		Race,
+		FastestLaps,
 		Other
 	}
 }
