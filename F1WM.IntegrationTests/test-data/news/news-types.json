@@ -1,0 +1,36 @@
+[
+  {
+    "expected": [
+      {
+        "id": 1,
+        "title": "Formuła 1",
+        "alternativeTitle": "F1"
+      },
+      {
+        "id": 3,
+        "title": "Artykuły, konkursy",
+        "alternativeTitle": "Artykuły"
+      },
+      {
+        "id": 4,
+        "title": "LiGNA",
+        "alternativeTitle": "LiGNA"
+      },
+      {
+        "id": 5,
+        "title": "Inne sporty motorowe",
+        "alternativeTitle": "Inne serie"
+      },
+      {
+        "id": 6,
+        "title": "Wszystkie",
+        "alternativeTitle": "Wszystkie typy"
+      },
+      {
+        "id": 7,
+        "title": "Rajdy",
+        "alternativeTitle": "Rajdy"
+      }
+    ]
+  }
+]
