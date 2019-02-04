@@ -31,7 +31,8 @@ namespace F1WM.Startups
 				.AddTransient<IDriversService, DriversService>()
 				.AddTransient<ITeamsService, TeamsService>()
 				.AddTransient<IEntriesService, EntriesService>()
-				.AddTransient<IEnginesService, EnginesService>();
+				.AddTransient<IEnginesService, EnginesService>()
+				.AddTransient<IStatisticsService, StatisticsService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)
