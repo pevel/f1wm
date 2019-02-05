@@ -24,7 +24,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1constrpoints> F1constrpoints { get; set; }
 		public virtual DbSet<DriverStandingsPosition> DriverStandingsPositions { get; set; }
 		public virtual DbSet<F1drivercsLastpos> F1drivercsLastpos { get; set; }
-		public virtual DbSet<F1driverpoints> F1driverpoints { get; set; }
+		public virtual DbSet<DriverPoints> DriverPoints { get; set; }
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
 		public virtual DbSet<EngineMake> EngineMakes { get; set; }
@@ -297,39 +297,6 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.Seasonid)
 					.HasColumnName("seasonid")
 					.HasColumnType("int(11)");
-			});
-
-			modelBuilder.Entity<F1driverpoints>(entity =>
-			{
-				entity.ToTable("f1driverpoints");
-
-				entity.HasIndex(e => e.Driverid)
-					.HasName("driverid");
-
-				entity.HasIndex(e => e.Raceid)
-					.HasName("raceid");
-
-				entity.HasIndex(e => e.Seasonid)
-					.HasName("seasonid");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Driverid)
-					.HasColumnName("driverid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Raceid)
-					.HasColumnName("raceid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Seasonid)
-					.HasColumnName("seasonid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
 			});
 
 			modelBuilder.Entity<F1driversid3>(entity =>

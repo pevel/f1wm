@@ -32,5 +32,6 @@ namespace F1WM.DatabaseModel
 		public string Letter { get; set; }
 		public string Teamshort { get; set; }
 		public virtual Country Country { get; set; }
+		public virtual IEnumerable<Entry> Entries { get; set; }
 	}
 }
