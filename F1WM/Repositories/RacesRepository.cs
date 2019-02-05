@@ -85,7 +85,7 @@ namespace F1WM.Repositories
 			var dbFastestResult = await context.Entries
 				.Include(e => e.Race)
 				.Include(e => e.FastestLap)
-				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
+				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.PositionOrStatus == "1")
 				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(e => e.Race.Date)
 				.FirstAsync();

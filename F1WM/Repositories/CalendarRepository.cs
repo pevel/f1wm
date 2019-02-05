@@ -79,7 +79,7 @@ namespace F1WM.Repositories
 				.Include(f => f.Entry).ThenInclude(e => e.Race)
 				.Include(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Where(f => f.Frlpos == "1" && f.Entry.Race.Date.Year == year)
+				.Where(f => f.PositionOrStatus == "1" && f.Entry.Race.Date.Year == year)
 				.ToListAsync();
 
 			foreach (CalendarRace calendarRace in calendar)

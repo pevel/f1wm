@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1races");
 
-			builder.HasIndex(e => e.Seasonid)
+			builder.HasIndex(e => e.SeasonId)
 				.HasName("seasonid");
 
 			builder.HasIndex(e => e.TrackId)
@@ -62,7 +62,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("qualtype")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Seasonid)
+			builder.Property(e => e.SeasonId)
 				.HasColumnName("seasonid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");

@@ -34,7 +34,8 @@ namespace F1WM.Startups
 				.AddTransient<IDriversRepository, DriversRepository>()
 				.AddTransient<ITeamsRepository, TeamsRepository>()
 				.AddTransient<IEntriesRepository, EntriesRepository>()
-				.AddTransient<IEnginesRepository, EnginesRepository>();
+				.AddTransient<IEnginesRepository, EnginesRepository>()
+				.AddTransient<IStatisticsRepository, StatisticsRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration, string key)
