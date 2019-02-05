@@ -1,0 +1,415 @@
+[
+  {
+    "driverId": 1,
+    "atYear": 1951,
+    "why": "statistics output limited by year",
+    "expected": {
+      "driverId": 1,
+      "seasons": [
+        {
+          "season": {
+            "id": 2,
+            "year": 1951
+          },
+          "starts": 1,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "anyPoints": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 224,
+              "name": "HWM",
+              "logo": "/img/ikony/2_hwm.gif"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "driverId": 869,
+    "atYear": 2018,
+    "why": "driver statistics with team change during mid-season",
+    "expected": {
+      "driverId": 869,
+      "seasons": [
+        {
+          "season": {
+            "id": 65,
+            "year": 2014
+          },
+          "starts": 0,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "anyPoints": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notClassified": 0,
+          "teams": [
+            {
+              "id": 435,
+              "name": "Toro Rosso",
+              "logo": "/img/ikony/2_str.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 66,
+            "year": 2015
+          },
+          "starts": 19,
+          "points": 49,
+          "wins": 0,
+          "podiums": 0,
+          "anyPoints": 10,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notClassified": 4,
+          "teams": [
+            {
+              "id": 435,
+              "name": "Toro Rosso",
+              "logo": "/img/ikony/2_str.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 67,
+            "year": 2016
+          },
+          "starts": 21,
+          "points": 204,
+          "wins": 1,
+          "podiums": 7,
+          "anyPoints": 17,
+          "polePositions": 0,
+          "fastestLaps": 1,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 385,
+              "name": "Red Bull",
+              "logo": "/img/ikony/2_red.gif"
+            },
+            {
+              "id": 435,
+              "name": "Toro Rosso",
+              "logo": "/img/ikony/2_str.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 68,
+            "year": 2017
+          },
+          "starts": 20,
+          "points": 168,
+          "wins": 2,
+          "podiums": 4,
+          "anyPoints": 13,
+          "polePositions": 0,
+          "fastestLaps": 1,
+          "notClassified": 7,
+          "teams": [
+            {
+              "id": 385,
+              "name": "Red Bull",
+              "logo": "/img/ikony/2_red.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 69,
+            "year": 2018
+          },
+          "starts": 21,
+          "points": 249,
+          "wins": 2,
+          "podiums": 11,
+          "anyPoints": 17,
+          "polePositions": 0,
+          "fastestLaps": 2,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 385,
+              "name": "Red Bull",
+              "logo": "/img/ikony/2_red.gif"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "driverId": 806,
+    "atYear": 2018,
+    "why": "regular driver statistics",
+    "expected": {
+      "driverId": 806,
+      "seasons": [
+        {
+          "season": {
+            "id": 58,
+            "year": 2007
+          },
+          "starts": 17,
+          "points": 109,
+          "wins": 4,
+          "podiums": 12,
+          "anyPoints": 15,
+          "polePositions": 6,
+          "fastestLaps": 2,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 59,
+            "year": 2008
+          },
+          "starts": 18,
+          "points": 98,
+          "wins": 5,
+          "podiums": 10,
+          "anyPoints": 14,
+          "polePositions": 7,
+          "fastestLaps": 1,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 60,
+            "year": 2009
+          },
+          "starts": 17,
+          "points": 49,
+          "wins": 2,
+          "podiums": 5,
+          "anyPoints": 8,
+          "polePositions": 4,
+          "fastestLaps": 0,
+          "notClassified": 2,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 61,
+            "year": 2010
+          },
+          "starts": 19,
+          "points": 240,
+          "wins": 3,
+          "podiums": 9,
+          "anyPoints": 15,
+          "polePositions": 1,
+          "fastestLaps": 5,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 62,
+            "year": 2011
+          },
+          "starts": 19,
+          "points": 227,
+          "wins": 3,
+          "podiums": 6,
+          "anyPoints": 16,
+          "polePositions": 1,
+          "fastestLaps": 3,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 63,
+            "year": 2012
+          },
+          "starts": 20,
+          "points": 190,
+          "wins": 4,
+          "podiums": 7,
+          "anyPoints": 14,
+          "polePositions": 7,
+          "fastestLaps": 1,
+          "notClassified": 5,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 64,
+            "year": 2013
+          },
+          "starts": 19,
+          "points": 189,
+          "wins": 1,
+          "podiums": 5,
+          "anyPoints": 17,
+          "polePositions": 5,
+          "fastestLaps": 1,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 65,
+            "year": 2014
+          },
+          "starts": 19,
+          "points": 384,
+          "wins": 11,
+          "podiums": 16,
+          "anyPoints": 16,
+          "polePositions": 7,
+          "fastestLaps": 7,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 66,
+            "year": 2015
+          },
+          "starts": 19,
+          "points": 381,
+          "wins": 10,
+          "podiums": 17,
+          "anyPoints": 18,
+          "polePositions": 11,
+          "fastestLaps": 8,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 67,
+            "year": 2016
+          },
+          "starts": 21,
+          "points": 380,
+          "wins": 10,
+          "podiums": 17,
+          "anyPoints": 19,
+          "polePositions": 12,
+          "fastestLaps": 3,
+          "notClassified": 2,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 68,
+            "year": 2017
+          },
+          "starts": 20,
+          "points": 363,
+          "wins": 9,
+          "podiums": 13,
+          "anyPoints": 20,
+          "polePositions": 11,
+          "fastestLaps": 7,
+          "notClassified": 0,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 69,
+            "year": 2018
+          },
+          "starts": 21,
+          "points": 408,
+          "wins": 11,
+          "podiums": 17,
+          "anyPoints": 20,
+          "polePositions": 11,
+          "fastestLaps": 3,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 93,
+              "name": "Mercedes",
+              "logo": "/img/ikony/2_mer.gif"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
