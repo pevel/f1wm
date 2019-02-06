@@ -23,7 +23,7 @@ namespace F1WM.Repositories
 			var teams = await GetTeamsStatistics(driverId);
 			await IncludeSeasons(driverId, atYear, apiStatistics);
 			FillSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, teams);
-			return apiStatistics;
+			return apiStatistics.Seasons.Any() ? apiStatistics : null;
 		}
 
 		public StatisticsRepository(F1WMContext context, IMapper mapper)
