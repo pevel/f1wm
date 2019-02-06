@@ -26,6 +26,11 @@ namespace F1WM.Repositories
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
 		}
 
+		public Task<TeamStatistics> GetTeamStatistics(int teamId, int v)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public StatisticsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.mapper = mapper;
