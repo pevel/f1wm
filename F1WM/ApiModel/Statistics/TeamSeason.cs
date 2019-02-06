@@ -6,7 +6,7 @@ namespace F1WM.ApiModel
 	{
 		public SeasonSummary Season { get; set; }
 		public int Starts { get; set; }
-		public int CarStarts { get; set; }
+		public int GrandPrixCount { get; set; }
 		public float? Points { get; set; }
 		public int Wins { get; set; }
 		public int Podiums { get; set; }

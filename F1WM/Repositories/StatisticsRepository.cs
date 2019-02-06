@@ -34,7 +34,7 @@ namespace F1WM.Repositories
 			var fromFastestLaps = await GetFastestLapsStatistics(f => f.Entry.TeamId == teamId, atYear);
 			var fromResults = await GetResultsStatistics(r => r.Entry.TeamId == teamId, atYear);
 			var fromGrids = await GetGridStatistics(g => g.Entry.TeamId == teamId, atYear);
-			var fromPoints = await GetPointsStatistics(p => p.Driver.Team.Id == teamId, atYear);
+			var fromPoints = await GetPointsStatistics(p => p.Entry.TeamId == teamId, atYear);
 			await IncludeTeamSeasons(teamId, atYear, apiStatistics);
 			FillTeamSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints);
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
@@ -66,7 +66,7 @@ namespace F1WM.Repositories
 					.FirstOrDefault();
 				(s.Starts, s.PolePositions) = fromGrids
 					.Where(g => g.SeasonId == s.Season.Id)
-					.Select(g => (g.Starts, g.PolePositions))
+					.Select(g => (g.GrandPrixCount, g.PolePositions))
 					.FirstOrDefault();
 				(s.Points, s.AnyPoints) = fromPoints
 					.Where(p => p.SeasonId == s.Season.Id)
@@ -95,9 +95,9 @@ namespace F1WM.Repositories
 					.Where(r => r.SeasonId == s.Season.Id)
 					.Select(r => (r.NotFinished, r.Podiums, r.Wins))
 					.FirstOrDefault();
-				(s.Starts, s.PolePositions) = fromGrids
+				(s.Starts, s.GrandPrixCount, s.PolePositions) = fromGrids
 					.Where(g => g.SeasonId == s.Season.Id)
-					.Select(g => (g.Starts, g.PolePositions))
+					.Select(g => (g.Starts, g.GrandPrixCount, g.PolePositions))
 					.FirstOrDefault();
 				s.Points = fromPoints
 					.Where(p => p.SeasonId == s.Season.Id)
@@ -135,7 +135,7 @@ namespace F1WM.Repositories
 				.Select(g => new PointsStatistics
 				{
 					SeasonId = g.Key,
-					Points = g.Sum(p => p.Points ?? 0),
+					Points = g.Sum(p => p.Points ?? 0) + g.Sum(p => p.NotCountedTowardsChampionshipPoints ?? 0),
 					AnyPoints = g.Count()
 				})
 				.ToListAsync();
@@ -152,8 +152,10 @@ namespace F1WM.Repositories
 				.Select(g => new GridStatistics
 				{
 					SeasonId = g.Key,
-					PolePositions = g.Count(gr => gr.StartPositionOrStatus == "1"),
-					Starts = g.Count(gr => gr.StartPositionOrStatus.Started())
+					PolePositions = g.Count(grid => grid.StartPositionOrStatus == "1"),
+					GrandPrixCount = g.GroupBy(grid => grid.RaceId)
+						.Count(raceGrids => raceGrids.Any(raceGrid => raceGrid.StartPositionOrStatus.Started())),
+					Starts = g.Count(grid => grid.StartPositionOrStatus.Started())
 				})
 				.ToListAsync();
 		}
@@ -227,6 +229,7 @@ namespace F1WM.Repositories
 			public uint SeasonId { get; set; }
 			public int PolePositions { get; set; }
 			public int Starts { get; set; }
+			public int GrandPrixCount { get; set; }
 		}
 
 		private class PointsStatistics
