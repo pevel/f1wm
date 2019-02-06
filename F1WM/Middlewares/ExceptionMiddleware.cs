@@ -1,10 +1,13 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 using F1WM.Services;
 using Microsoft.AspNetCore.Http;
+using MySql.Data.MySqlClient;
+using Newtonsoft.Json;
 
-namespace F1WM.Utilities
+namespace F1WM.Middlewares
 {
 	public class ExceptionMiddleware
 	{
@@ -35,11 +38,21 @@ namespace F1WM.Utilities
 			context.Response.ContentType = "application/json";
 			context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
 
-			return context.Response.WriteAsync(new
+			var message = ExceptionTypeToMessage().GetValueOrDefault(exception.GetType());
+			return context.Response.WriteAsync(JsonConvert.SerializeObject(new
 			{
-				StatusCode = context.Response.StatusCode,
-				Message = "Internal Server Error from the custom middleware."
-			}.ToString());
+				Message = message ?? "Unknown error"
+			}));
+		}
+
+		private static Dictionary<Type, string> ExceptionTypeToMessage()
+		{
+			return new Dictionary<Type, string>()
+			{
+				{ typeof(Exception), "Internal server error" },
+				{ typeof(NotImplementedException), "Not implemented" },
+				{ typeof(MySqlException), "Database error" }
+			};
 		}
 	}
 }

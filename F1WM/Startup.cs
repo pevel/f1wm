@@ -1,6 +1,7 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using F1WM.DatabaseModel;
+using F1WM.Middlewares;
 using F1WM.Services;
 using F1WM.Startups;
 using F1WM.Utilities;
