@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
@@ -16,19 +18,26 @@ namespace F1WM.Repositories
 		public async Task<DriverStatistics> GetDriverStatistics(int driverId, int atYear)
 		{
 			var apiStatistics = new DriverStatistics() { DriverId = driverId };
-			var fromFastestLaps = await GetFastestLapsStatistics(driverId, atYear);
-			var fromResults = await GetResultsStatistics(driverId, atYear);
-			var fromGrids = await GetGridStatistics(driverId, atYear);
-			var fromPoints = await GetPointsStatistics(driverId, atYear);
-			var teams = await GetTeamsStatistics(driverId);
-			await IncludeSeasons(driverId, atYear, apiStatistics);
-			FillSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, teams);
+			var fromFastestLaps = await GetFastestLapsStatistics(f => f.Entry.DriverId == driverId,	atYear);
+			var fromResults = await GetResultsStatistics(r => r.Entry.DriverId == driverId, atYear);
+			var fromGrids = await GetGridStatistics(g => g.Entry.DriverId == driverId, atYear);
+			var fromPoints = await GetPointsStatistics(p => p.DriverId == driverId, atYear);
+			var teams = await GetTeams(driverId);
+			await IncludeDriverSeasons(driverId, atYear, apiStatistics);
+			FillDriverSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, teams);
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
 		}
 
-		public Task<TeamStatistics> GetTeamStatistics(int teamId, int v)
+		public async Task<TeamStatistics> GetTeamStatistics(int teamId, int atYear)
 		{
-			throw new System.NotImplementedException();
+			var apiStatistics = new TeamStatistics() { TeamId = teamId };
+			var fromFastestLaps = await GetFastestLapsStatistics(f => f.Entry.TeamId == teamId, atYear);
+			var fromResults = await GetResultsStatistics(r => r.Entry.TeamId == teamId, atYear);
+			var fromGrids = await GetGridStatistics(g => g.Entry.TeamId == teamId, atYear);
+			var fromPoints = await GetPointsStatistics(p => p.Driver.Team.Id == teamId, atYear);
+			await IncludeTeamSeasons(teamId, atYear, apiStatistics);
+			FillTeamSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints);
+			return apiStatistics.Seasons.Any() ? apiStatistics : null;
 		}
 
 		public StatisticsRepository(F1WMContext context, IMapper mapper)
@@ -37,13 +46,13 @@ namespace F1WM.Repositories
 			this.context = context;
 		}
 
-		private static void FillSeasons(
+		private static void FillDriverSeasons(
 			DriverStatistics apiStatistics,
 			IEnumerable<FastestLapsStatistics> fromFastestLaps,
 			IEnumerable<ResultsStatistics> fromResults,
 			IEnumerable<GridStatistics> fromGrids,
 			IEnumerable<PointsStatistics> fromPoints,
-			IEnumerable<TeamsStatistics> teams)
+			IEnumerable<Teams> teams)
 		{
 			foreach (var s in apiStatistics.Seasons)
 			{
@@ -51,33 +60,17 @@ namespace F1WM.Repositories
 					.Where(f => f.SeasonId == s.Season.Id)
 					.Select(f => f.FastestLaps)
 					.FirstOrDefault();
-				s.NotClassified = fromResults
+				(s.NotClassified, s.Podiums, s.Wins) = fromResults
 					.Where(r => r.SeasonId == s.Season.Id)
-					.Select(r => r.NotClassified)
+					.Select(r => (r.NotClassified, r.Podiums, r.Wins))
 					.FirstOrDefault();
-				s.Podiums = fromResults
-					.Where(r => r.SeasonId == s.Season.Id)
-					.Select(r => r.Podiums)
-					.FirstOrDefault();
-				s.Starts = fromGrids
+				(s.Starts, s.PolePositions) = fromGrids
 					.Where(g => g.SeasonId == s.Season.Id)
-					.Select(g => g.Starts)
+					.Select(g => (g.Starts, g.PolePositions))
 					.FirstOrDefault();
-				s.PolePositions = fromGrids
-					.Where(g => g.SeasonId == s.Season.Id)
-					.Select(g => g.PolePositions)
-					.FirstOrDefault();
-				s.Wins = fromResults
-					.Where(r => r.SeasonId == s.Season.Id)
-					.Select(r => r.Wins)
-					.FirstOrDefault();
-				s.Points = fromPoints
+				(s.Points, s.AnyPoints) = fromPoints
 					.Where(p => p.SeasonId == s.Season.Id)
-					.Select(p => p.Points)
-					.FirstOrDefault();
-				s.AnyPoints = fromPoints
-					.Where(p => p.SeasonId == s.Season.Id)
-					.Select(p => p.AnyPoints)
+					.Select(p => (p.Points, p.AnyPoints))
 					.FirstOrDefault();
 				s.Teams = teams
 					.Where(t => t.SeasonId == s.Season.Id)
@@ -85,7 +78,35 @@ namespace F1WM.Repositories
 			}
 		}
 
-		private async Task<IEnumerable<TeamsStatistics>> GetTeamsStatistics(int driverId)
+		private void FillTeamSeasons(
+			TeamStatistics apiStatistics,
+			IEnumerable<FastestLapsStatistics> fromFastestLaps,
+			IEnumerable<ResultsStatistics> fromResults,
+			IEnumerable<GridStatistics> fromGrids,
+			IEnumerable<PointsStatistics> fromPoints)
+		{
+			foreach (var s in apiStatistics.Seasons)
+			{
+				s.FastestLaps = fromFastestLaps
+					.Where(f => f.SeasonId == s.Season.Id)
+					.Select(f => f.FastestLaps)
+					.FirstOrDefault();
+				(s.NotFinished, s.Podiums, s.Wins) = fromResults
+					.Where(r => r.SeasonId == s.Season.Id)
+					.Select(r => (r.NotFinished, r.Podiums, r.Wins))
+					.FirstOrDefault();
+				(s.Starts, s.PolePositions) = fromGrids
+					.Where(g => g.SeasonId == s.Season.Id)
+					.Select(g => (g.Starts, g.PolePositions))
+					.FirstOrDefault();
+				s.Points = fromPoints
+					.Where(p => p.SeasonId == s.Season.Id)
+					.Select(p => p.Points)
+					.FirstOrDefault();
+			}
+		}
+
+		private async Task<IEnumerable<Teams>> GetTeams(int driverId)
 		{
 			return await context.Entries
 				.Where(e => e.DriverId == driverId)
@@ -95,7 +116,7 @@ namespace F1WM.Repositories
 					Team = e.Team
 				})
 				.GroupBy(e => new { e.SeasonId, e.Team.Id })
-				.Select(e => new TeamsStatistics
+				.Select(e => new Teams
 				{
 					SeasonId = e.Key.SeasonId,
 					Team = mapper.Map<TeamSummary>(e.Select(g => g.Team).First())
@@ -103,10 +124,12 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<PointsStatistics>> GetPointsStatistics(int driverId, int atYear)
+		private async Task<IEnumerable<PointsStatistics>> GetPointsStatistics(
+			Expression<Func<DriverPoints, bool>> selector,
+			int atYear)
 		{
 			return await context.DriverPoints
-				.Where(p => p.DriverId == driverId)
+				.Where(selector)
 				.Where(p => p.Race.Date.Year <= atYear)
 				.GroupBy(p => p.SeasonId)
 				.Select(g => new PointsStatistics
@@ -118,10 +141,12 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<GridStatistics>> GetGridStatistics(int driverId, int atYear)
+		private async Task<IEnumerable<GridStatistics>> GetGridStatistics(
+			Expression<Func<Grid, bool>> selector,
+			int atYear)
 		{
 			return await context.Grids
-				.Where(g => g.Entry.DriverId == driverId)
+				.Where(selector)
 				.Where(g => g.Race.Date.Year <= atYear)
 				.GroupBy(r => r.Race.SeasonId)
 				.Select(g => new GridStatistics
@@ -133,10 +158,12 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<ResultsStatistics>> GetResultsStatistics(int driverId, int atYear)
+		private async Task<IEnumerable<ResultsStatistics>> GetResultsStatistics(
+			Expression<Func<Result, bool>> selector,
+			int atYear)
 		{
 			return await context.Results
-				.Where(r => r.Entry.DriverId == driverId)
+				.Where(selector)
 				.Where(r => r.Race.Date.Year <= atYear)
 				.GroupBy(r => r.Race.SeasonId)
 				.Select(g => new ResultsStatistics
@@ -144,26 +171,39 @@ namespace F1WM.Repositories
 					SeasonId = g.Key,
 					Wins = g.Count(r => r.PositionOrStatus == "1"),
 					Podiums = g.Count(r => r.PositionOrStatus.OnPodium()),
+					NotFinished = g.Count(r => r.PositionOrStatus.NotFinished()),
 					NotClassified = g.Count(r => r.PositionOrStatus.NotClassified())
 				})
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<FastestLapsStatistics>> GetFastestLapsStatistics(int driverId, int atYear)
+		private async Task<IEnumerable<FastestLapsStatistics>> GetFastestLapsStatistics(
+			Expression<Func<FastestLap, bool>> selector,
+			 int atYear)
 		{
 			return await context.FastestLaps
-				.Where(f => f.Entry.DriverId == driverId && f.PositionOrStatus == "1")
-				.Where(f => f.Race.Date.Year <= atYear)
+				.Where(selector)
+				.Where(f => f.PositionOrStatus == "1" && f.Race.Date.Year <= atYear)
 				.GroupBy(f => f.Race.SeasonId)
 				.Select(g => new FastestLapsStatistics { SeasonId = g.Key, FastestLaps = g.Count() })
 				.ToListAsync();
 		}
 
-		private async Task IncludeSeasons(int driverId, int atYear, DriverStatistics apiStatistics)
+		private async Task IncludeDriverSeasons(int driverId, int atYear, DriverStatistics apiStatistics)
 		{
 			apiStatistics.Seasons = await mapper.ProjectTo<DriverSeason>(context.Seasons
 					.Where(s => s.Year <= atYear)
-					.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.DriverId == driverId)))
+					.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.DriverId == driverId))
+					.OrderByDescending(s => s.Year))
+				.ToListAsync();
+		}
+
+		private async Task IncludeTeamSeasons(int teamId, int atYear, TeamStatistics apiStatistics)
+		{
+			apiStatistics.Seasons = await mapper.ProjectTo<TeamSeason>(context.Seasons
+					.Where(s => s.Year <= atYear)
+					.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.TeamId == teamId))
+					.OrderByDescending(s => s.Year))
 				.ToListAsync();
 		}
 
@@ -179,6 +219,7 @@ namespace F1WM.Repositories
 			public int Wins { get; set; }
 			public int Podiums { get; set; }
 			public int NotClassified { get; set; }
+			public int NotFinished { get; set; }
 		}
 
 		private class GridStatistics
@@ -195,7 +236,7 @@ namespace F1WM.Repositories
 			public int AnyPoints { get; set; }
 		}
 
-		private class TeamsStatistics
+		private class Teams
 		{
 			public uint SeasonId { get; set; }
 			public TeamSummary Team { get; set; }

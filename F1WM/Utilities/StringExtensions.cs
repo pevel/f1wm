@@ -166,7 +166,16 @@ namespace F1WM.Utilities
 
 		public static bool NotClassified(this string statusText)
 		{
-			return statusText == Database.StartStatus.NotClassified;
+			return statusText == Database.ResultStatus.NotClassified;
+		}
+
+		public static bool NotFinished(this string statusText)
+		{
+			return statusText == Database.ResultStatus.DidNotStartAgain ||
+				statusText == Database.ResultStatus.Disqualified ||
+				statusText == Database.ResultStatus.Excluded ||
+				statusText == Database.ResultStatus.DidNotStart ||
+				statusText == Database.ResultStatus.NotClassified;
 		}
 	}
 }

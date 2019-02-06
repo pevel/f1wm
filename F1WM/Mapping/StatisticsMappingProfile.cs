@@ -14,6 +14,8 @@ namespace F1WM.Mapping
 		{
 			CreateMap<Season, DriverSeason>()
 				.ForMember(api => api.Season, o => o.MapFrom(db => db));
+			CreateMap<Season, TeamSeason>()
+				.ForMember(api => api.Season, o => o.MapFrom(db => db));
 		}
 	}
 }
