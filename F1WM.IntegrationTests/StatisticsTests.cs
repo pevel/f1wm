@@ -8,7 +8,7 @@ namespace F1WM.IntegrationTests
 	{
 		[Theory]
 		[JsonData("statistics", "driver-statistics.json")]
-		public async Task ShouldGetConstructorsStatistics(DriverStatisticsTestData data)
+		public async Task ShouldGetDriverStatistics(DriverStatisticsTestData data)
 		{
 			await TestResponse<DriverStatistics>(
 				$"{baseAddress}/statistics/drivers/{data.DriverId}?atYear={data.AtYear}",

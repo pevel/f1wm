@@ -8,6 +8,7 @@ using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
+using DatabaseConstants = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Repositories
 {
@@ -68,7 +69,7 @@ namespace F1WM.Repositories
 					.FirstOrDefault();
 				(s.Starts, s.PolePositions) = fromGrids
 					.Where(g => g.SeasonId == s.Season.Id)
-					.Select(g => (g.GrandPrixCount, g.PolePositions))
+					.Select(g => (g.Starts, g.PolePositions))
 					.FirstOrDefault();
 				(s.Points, s.AnyPoints) = fromPoints
 					.Where(p => p.SeasonId == s.Season.Id)
@@ -199,14 +200,15 @@ namespace F1WM.Repositories
 			return await context.Grids
 				.Where(selector)
 				.Where(g => g.Race.Date.Year <= atYear)
+				.Where(g => g.Entry.Result.PositionOrStatus != DatabaseConstants.ResultStatus.DidNotStart)
 				.GroupBy(r => r.Race.SeasonId)
 				.Select(g => new GridStatistics
 				{
 					SeasonId = g.Key,
 					PolePositions = g.Count(grid => grid.StartPositionOrStatus == "1"),
 					GrandPrixCount = g.GroupBy(grid => grid.RaceId)
-						.Count(raceGrids => raceGrids.Any(raceGrid => raceGrid.StartPositionOrStatus.Started())),
-					Starts = g.Count(grid => grid.StartPositionOrStatus.Started())
+						.Count(raceGrids => raceGrids.Any(raceGrid => raceGrid.Started())),
+					Starts = g.Count(grid => grid.Started())
 				})
 				.ToListAsync();
 		}

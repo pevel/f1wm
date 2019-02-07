@@ -151,14 +151,6 @@ namespace F1WM.Utilities
 			return statusText == Database.OtherResultStatus.AdditionalPoints;
 		}
 
-		public static bool Started(this string statusText)
-		{
-			return statusText != Database.StartStatus.Excluded &&
-				statusText != Database.StartStatus.NotClassified &&
-				statusText != Database.StartStatus.NotPreQualified &&
-				statusText != Database.StartStatus.NotQualified;
-		}
-
 		public static bool OnPodium(this string positionOrStatus)
 		{
 			return positionOrStatus == "1" || positionOrStatus == "2" || positionOrStatus == "3";
