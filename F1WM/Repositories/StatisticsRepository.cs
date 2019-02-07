@@ -36,11 +36,70 @@ namespace F1WM.Repositories
 			var fromResults = await GetResultsStatistics(r => r.Entry.TeamId == teamId, atYear);
 			var fromGrids = await GetGridStatistics(g => g.Entry.TeamId == teamId, atYear);
 			var fromPoints = await GetPointsStatistics(p => p.Entry.TeamId == teamId, atYear);
-			var cars = await GetCars(teamId, atYear);
-			var drivers = await GetDrivers(teamId, atYear);
+			var cars = await GetCars(e => e.TeamId == teamId, atYear);
+			var drivers = await GetDrivers(e => e.TeamId == teamId, atYear);
 			await IncludeTeamSeasons(teamId, atYear, apiStatistics);
 			FillTeamSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, cars, drivers);
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
+		}
+
+		public async Task<EngineStatistics> GetEngineStatistics(int engineId, int atYear)
+		{
+			var apiStatistics = new EngineStatistics() { EngineId = engineId };
+			var fromFastestLaps = await GetFastestLapsStatistics(f => f.Entry.EngineId == engineId, atYear);
+			var fromResults = await GetResultsStatistics(r => r.Entry.EngineId == engineId, atYear);
+			var fromGrids = await GetGridStatistics(g => g.Entry.EngineId == engineId, atYear);
+			var fromPoints = await GetPointsStatistics(p => p.Entry.EngineId == engineId, atYear);
+			var cars = await GetCars(e => e.EngineId == engineId, atYear);
+			var drivers = await GetDrivers(e => e.EngineId == engineId, atYear);
+			await IncludeEngineSeasons(engineId, atYear, apiStatistics);
+			FillEngineSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, cars, drivers);
+			return apiStatistics.Seasons.Any() ? apiStatistics : null;
+		}
+
+		private void FillEngineSeasons(
+			EngineStatistics apiStatistics,
+			IEnumerable<FastestLapsStatistics> fromFastestLaps,
+			IEnumerable<ResultsStatistics> fromResults,
+			IEnumerable<GridStatistics> fromGrids,
+			IEnumerable<PointsStatistics> fromPoints,
+			IEnumerable<CarsSeason> cars,
+			IEnumerable<DriversSeason> drivers)
+		{
+			foreach (var s in apiStatistics.Seasons)
+			{
+				s.FastestLaps = fromFastestLaps
+					.Where(f => f.SeasonId == s.Season.Id)
+					.Select(f => f.FastestLaps)
+					.FirstOrDefault();
+				(s.NotFinished, s.Podiums, s.Wins) = fromResults
+					.Where(r => r.SeasonId == s.Season.Id)
+					.Select(r => (r.NotFinished, r.Podiums, r.Wins))
+					.FirstOrDefault();
+				(s.Starts, s.GrandPrixCount, s.PolePositions) = fromGrids
+					.Where(g => g.SeasonId == s.Season.Id)
+					.Select(g => (g.Starts, g.GrandPrixCount, g.PolePositions))
+					.FirstOrDefault();
+				s.Points = fromPoints
+					.Where(p => p.SeasonId == s.Season.Id)
+					.Select(p => p.Points)
+					.FirstOrDefault();
+				s.Cars = cars
+					.Where(c => c.SeasonId == s.Season.Id)
+					.Select(c => c.Car);
+				s.Drivers = drivers
+					.Where(d => d.SeasonId == s.Season.Id)
+					.Select(d => d.Driver);
+			}
+		}
+
+		private async Task IncludeEngineSeasons(int engineId, int atYear, EngineStatistics apiStatistics)
+		{
+			apiStatistics.Seasons = await mapper.ProjectTo<EngineSeason>(context.Seasons
+					.Where(s => s.Year <= atYear)
+					.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.EngineId == engineId))
+					.OrderByDescending(s => s.Year))
+				.ToListAsync();
 		}
 
 		public StatisticsRepository(F1WMContext context, IMapper mapper)
@@ -136,10 +195,12 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<DriversSeason>> GetDrivers(int teamId, int atYear)
+		private async Task<IEnumerable<DriversSeason>> GetDrivers(
+			Expression<Func<Entry, bool>> selector,
+			int atYear)
 		{
 			return await context.Entries
-				.Where(e => e.TeamId == teamId)
+				.Where(selector)
 				.Where(e => e.Race.Date.Year <= atYear)
 				.Select(e => new
 				{
@@ -156,10 +217,12 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private async Task<IEnumerable<CarsSeason>> GetCars(int teamId, int atYear)
+		private async Task<IEnumerable<CarsSeason>> GetCars(
+			Expression<Func<Entry, bool>> selector,
+			int atYear)
 		{
 			return await context.Entries
-				.Where(e => e.TeamId == teamId)
+				.Where(selector)
 				.Where(e => e.Race.Date.Year <= atYear)
 				.Select(e => new
 				{

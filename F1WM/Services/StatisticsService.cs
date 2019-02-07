@@ -14,6 +14,11 @@ namespace F1WM.Services
 			return repository.GetDriverStatistics(driverId, atYear ?? time.Now.Year);
 		}
 
+		public Task<EngineStatistics> GetEngineStatistics(int engineId, int? atYear)
+		{
+			return repository.GetEngineStatistics(engineId, atYear ?? time.Now.Year);
+		}
+
 		public Task<TeamStatistics> GetTeamStatistics(int teamId, int? atYear)
 		{
 			return repository.GetTeamStatistics(teamId, atYear ?? time.Now.Year);

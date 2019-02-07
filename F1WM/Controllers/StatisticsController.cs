@@ -33,6 +33,17 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(statistics);
 		}
 
+		[HttpGet("engines/{engineId}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<EngineStatistics>> GetEngineStatistics(
+			[FromRoute]int engineId,
+			[FromQuery]int? atYear)
+		{
+			var statistics = await service.GetEngineStatistics(engineId, atYear);
+			return this.NotFoundResultIfNull(statistics);
+		}
+
 		public StatisticsController(IStatisticsService service)
 		{
 			this.service = service;
