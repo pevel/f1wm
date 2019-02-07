@@ -1,0 +1,735 @@
+[
+  {
+    "teamId": 93,
+    "atYear": 2018,
+    "why": "statistic with early seasons",
+    "expected": {
+      "teamId": 93,
+      "seasons": [
+        {
+          "season": {
+            "id": 69,
+            "year": 2018
+          },
+          "starts": 42,
+          "grandPrixCount": 21,
+          "points": 655,
+          "wins": 11,
+          "podiums": 25,
+          "polePositions": 13,
+          "fastestLaps": 10,
+          "notFinished": 2,
+          "cars": [
+            {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            },
+            {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 68,
+            "year": 2017
+          },
+          "starts": 40,
+          "grandPrixCount": 20,
+          "points": 668,
+          "wins": 12,
+          "podiums": 26,
+          "polePositions": 15,
+          "fastestLaps": 9,
+          "notFinished": 1,
+          "cars": [
+            {
+              "id": 1081,
+              "name": "Mercedes W08 EQ Power+"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            },
+            {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 67,
+            "year": 2016
+          },
+          "starts": 42,
+          "grandPrixCount": 21,
+          "points": 765,
+          "wins": 19,
+          "podiums": 33,
+          "polePositions": 20,
+          "fastestLaps": 9,
+          "notFinished": 3,
+          "cars": [
+            {
+              "id": 1067,
+              "name": "Mercedes F1 W07 Hybrid"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 66,
+            "year": 2015
+          },
+          "starts": 38,
+          "grandPrixCount": 19,
+          "points": 703,
+          "wins": 16,
+          "podiums": 32,
+          "polePositions": 18,
+          "fastestLaps": 13,
+          "notFinished": 2,
+          "cars": [
+            {
+              "id": 1058,
+              "name": "Mercedes F1 W06 Hybrid"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 65,
+            "year": 2014
+          },
+          "starts": 38,
+          "grandPrixCount": 19,
+          "points": 701,
+          "wins": 16,
+          "podiums": 31,
+          "polePositions": 18,
+          "fastestLaps": 12,
+          "notFinished": 5,
+          "cars": [
+            {
+              "id": 1047,
+              "name": "Mercedes F1 W05  Hybrid"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 64,
+            "year": 2013
+          },
+          "starts": 38,
+          "grandPrixCount": 19,
+          "points": 360,
+          "wins": 3,
+          "podiums": 9,
+          "polePositions": 8,
+          "fastestLaps": 1,
+          "notFinished": 4,
+          "cars": [
+            {
+              "id": 1037,
+              "name": "Mercedes F1 W04"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 63,
+            "year": 2012
+          },
+          "starts": 40,
+          "grandPrixCount": 20,
+          "points": 142,
+          "wins": 1,
+          "podiums": 3,
+          "polePositions": 1,
+          "fastestLaps": 3,
+          "notFinished": 10,
+          "cars": [
+            {
+              "id": 1023,
+              "name": "Mercedes F1 W03"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 652,
+              "firstName": "Michael",
+              "surname": "Schumacher"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 62,
+            "year": 2011
+          },
+          "starts": 38,
+          "grandPrixCount": 19,
+          "points": 165,
+          "wins": 0,
+          "podiums": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 7,
+          "cars": [
+            {
+              "id": 1010,
+              "name": "Mercedes GP W02"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 652,
+              "firstName": "Michael",
+              "surname": "Schumacher"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 61,
+            "year": 2010
+          },
+          "starts": 38,
+          "grandPrixCount": 19,
+          "points": 214,
+          "wins": 0,
+          "podiums": 3,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 4,
+          "cars": [
+            {
+              "id": 999,
+              "name": "Mercedes GP W01"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 616,
+              "firstName": "Nico",
+              "surname": "Rosberg"
+            },
+            {
+              "id": 652,
+              "firstName": "Michael",
+              "surname": "Schumacher"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 6,
+            "year": 1955
+          },
+          "starts": 21,
+          "grandPrixCount": 6,
+          "points": 81,
+          "wins": 5,
+          "podiums": 10,
+          "polePositions": 4,
+          "fastestLaps": 5,
+          "notFinished": 9,
+          "cars": [
+            {
+              "id": 109,
+              "name": "Mercedes W196 R str."
+            },
+            {
+              "id": 112,
+              "name": "Mercedes W196 R"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio"
+            },
+            {
+              "id": 343,
+              "firstName": "Hans",
+              "surname": "Herrmann"
+            },
+            {
+              "id": 397,
+              "firstName": "Karl",
+              "surname": "Kling"
+            },
+            {
+              "id": 509,
+              "firstName": "Stirling",
+              "surname": "Moss"
+            },
+            {
+              "id": 672,
+              "firstName": "Andre",
+              "surname": "Simon"
+            },
+            {
+              "id": 709,
+              "firstName": "Piero",
+              "surname": "Taruffi"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 5,
+            "year": 1954
+          },
+          "starts": 18,
+          "grandPrixCount": 6,
+          "points": 60.1,
+          "wins": 4,
+          "podiums": 7,
+          "polePositions": 4,
+          "fastestLaps": 4,
+          "notFinished": 6,
+          "cars": [
+            {
+              "id": 109,
+              "name": "Mercedes W196 R str."
+            },
+            {
+              "id": 112,
+              "name": "Mercedes W196 R"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio"
+            },
+            {
+              "id": 343,
+              "firstName": "Hans",
+              "surname": "Herrmann"
+            },
+            {
+              "id": 397,
+              "firstName": "Karl",
+              "surname": "Kling"
+            },
+            {
+              "id": 412,
+              "firstName": "Hermann",
+              "surname": "Lang"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "teamId": 161,
+    "atYear": 1954,
+    "why": "statistics output limited by year",
+    "expected": {
+      "teamId": 161,
+      "seasons": [
+        {
+          "season": {
+            "id": 5,
+            "year": 1954
+          },
+          "starts": 29,
+          "grandPrixCount": 8,
+          "points": 80.7,
+          "wins": 2,
+          "podiums": 13,
+          "polePositions": 2,
+          "fastestLaps": 4,
+          "notFinished": 13,
+          "cars": [
+            {
+              "id": 100,
+              "name": "Ferrari 553"
+            },
+            {
+              "id": 103,
+              "name": "Ferrari 625"
+            },
+            {
+              "id": 108,
+              "name": "Ferrari 553/555"
+            },
+            {
+              "id": 110,
+              "name": "Ferrari 625/555"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 28,
+              "firstName": "Alberto",
+              "surname": "Ascari"
+            },
+            {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina"
+            },
+            {
+              "id": 300,
+              "firstName": "Jose Froilan",
+              "surname": "Gonzalez"
+            },
+            {
+              "id": 334,
+              "firstName": "Mike",
+              "surname": "Hawthorn"
+            },
+            {
+              "id": 456,
+              "firstName": "Umberto",
+              "surname": "Maglioli"
+            },
+            {
+              "id": 463,
+              "firstName": "Robert",
+              "surname": "Manzon"
+            },
+            {
+              "id": 709,
+              "firstName": "Piero",
+              "surname": "Taruffi"
+            },
+            {
+              "id": 729,
+              "firstName": "Maurice",
+              "surname": "Trintignant"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 4,
+            "year": 1953
+          },
+          "starts": 34,
+          "grandPrixCount": 8,
+          "points": 124,
+          "wins": 7,
+          "podiums": 16,
+          "polePositions": 6,
+          "fastestLaps": 5,
+          "notFinished": 8,
+          "cars": [
+            {
+              "id": 59,
+              "name": "Ferrari 500"
+            },
+            {
+              "id": 100,
+              "name": "Ferrari 553"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 28,
+              "firstName": "Alberto",
+              "surname": "Ascari"
+            },
+            {
+              "id": 133,
+              "firstName": "Piero",
+              "surname": "Carini"
+            },
+            {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina"
+            },
+            {
+              "id": 334,
+              "firstName": "Mike",
+              "surname": "Hawthorn"
+            },
+            {
+              "id": 456,
+              "firstName": "Umberto",
+              "surname": "Maglioli"
+            },
+            {
+              "id": 748,
+              "firstName": "Luigi",
+              "surname": "Villoresi"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 3,
+            "year": 1952
+          },
+          "starts": 24,
+          "grandPrixCount": 8,
+          "points": 110.5,
+          "wins": 7,
+          "podiums": 15,
+          "polePositions": 7,
+          "fastestLaps": 7,
+          "notFinished": 5,
+          "cars": [
+            {
+              "id": 59,
+              "name": "Ferrari 500"
+            },
+            {
+              "id": 66,
+              "name": "Ferrari 375 Special"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 28,
+              "firstName": "Alberto",
+              "surname": "Ascari"
+            },
+            {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina"
+            },
+            {
+              "id": 672,
+              "firstName": "Andre",
+              "surname": "Simon"
+            },
+            {
+              "id": 709,
+              "firstName": "Piero",
+              "surname": "Taruffi"
+            },
+            {
+              "id": 748,
+              "firstName": "Luigi",
+              "surname": "Villoresi"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 2,
+            "year": 1951
+          },
+          "starts": 25,
+          "grandPrixCount": 7,
+          "points": 86,
+          "wins": 3,
+          "podiums": 13,
+          "polePositions": 3,
+          "fastestLaps": 0,
+          "notFinished": 7,
+          "cars": [
+            {
+              "id": 13,
+              "name": "Ferrari 125"
+            },
+            {
+              "id": 37,
+              "name": "Ferrari 375"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 28,
+              "firstName": "Alberto",
+              "surname": "Ascari"
+            },
+            {
+              "id": 300,
+              "firstName": "Jose Froilan",
+              "surname": "Gonzalez"
+            },
+            {
+              "id": 709,
+              "firstName": "Piero",
+              "surname": "Taruffi"
+            },
+            {
+              "id": 748,
+              "firstName": "Luigi",
+              "surname": "Villoresi"
+            },
+            {
+              "id": 772,
+              "firstName": "Peter",
+              "surname": "Whitehead"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 1,
+            "year": 1950
+          },
+          "starts": 10,
+          "grandPrixCount": 4,
+          "points": 20,
+          "wins": 0,
+          "podiums": 3,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 7,
+          "cars": [
+            {
+              "id": 13,
+              "name": "Ferrari 125"
+            },
+            {
+              "id": 32,
+              "name": "Ferrari 166/F2/50"
+            },
+            {
+              "id": 34,
+              "name": "Ferrari 125/275"
+            },
+            {
+              "id": 37,
+              "name": "Ferrari 375"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 28,
+              "firstName": "Alberto",
+              "surname": "Ascari"
+            },
+            {
+              "id": 662,
+              "firstName": "Dorino",
+              "surname": "Serafini"
+            },
+            {
+              "id": 675,
+              "firstName": "Raymond",
+              "surname": "Sommer"
+            },
+            {
+              "id": 748,
+              "firstName": "Luigi",
+              "surname": "Villoresi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "teamId": 50,
+    "atYear": 2018,
+    "why": "regular statistics",
+    "expected": {
+      "teamId": 50,
+      "seasons": [
+        {
+          "season": {
+            "id": 9,
+            "year": 1958
+          },
+          "starts": 1,
+          "grandPrixCount": 1,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 1,
+          "cars": [
+            {
+              "id": 44,
+              "name": "Kuzma"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 781,
+              "firstName": "Dempsey",
+              "surname": "Wilson"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
