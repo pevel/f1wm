@@ -22,7 +22,7 @@ namespace F1WM.Repositories
 			var fromResults = await GetResultsStatistics(r => r.Entry.DriverId == driverId, atYear);
 			var fromGrids = await GetGridStatistics(g => g.Entry.DriverId == driverId, atYear);
 			var fromPoints = await GetPointsStatistics(p => p.DriverId == driverId, atYear);
-			var teams = await GetTeams(driverId);
+			var teams = await GetTeams(driverId, atYear);
 			await IncludeDriverSeasons(driverId, atYear, apiStatistics);
 			FillDriverSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, teams);
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
@@ -35,8 +35,10 @@ namespace F1WM.Repositories
 			var fromResults = await GetResultsStatistics(r => r.Entry.TeamId == teamId, atYear);
 			var fromGrids = await GetGridStatistics(g => g.Entry.TeamId == teamId, atYear);
 			var fromPoints = await GetPointsStatistics(p => p.Entry.TeamId == teamId, atYear);
+			var cars = await GetCars(teamId, atYear);
+			var drivers = await GetDrivers(teamId, atYear);
 			await IncludeTeamSeasons(teamId, atYear, apiStatistics);
-			FillTeamSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints);
+			FillTeamSeasons(apiStatistics, fromFastestLaps, fromResults, fromGrids, fromPoints, cars, drivers);
 			return apiStatistics.Seasons.Any() ? apiStatistics : null;
 		}
 
@@ -52,7 +54,7 @@ namespace F1WM.Repositories
 			IEnumerable<ResultsStatistics> fromResults,
 			IEnumerable<GridStatistics> fromGrids,
 			IEnumerable<PointsStatistics> fromPoints,
-			IEnumerable<Teams> teams)
+			IEnumerable<TeamsSeason> teams)
 		{
 			foreach (var s in apiStatistics.Seasons)
 			{
@@ -83,7 +85,9 @@ namespace F1WM.Repositories
 			IEnumerable<FastestLapsStatistics> fromFastestLaps,
 			IEnumerable<ResultsStatistics> fromResults,
 			IEnumerable<GridStatistics> fromGrids,
-			IEnumerable<PointsStatistics> fromPoints)
+			IEnumerable<PointsStatistics> fromPoints,
+			IEnumerable<CarsSeason> cars,
+			IEnumerable<DriversSeason> drivers)
 		{
 			foreach (var s in apiStatistics.Seasons)
 			{
@@ -103,23 +107,70 @@ namespace F1WM.Repositories
 					.Where(p => p.SeasonId == s.Season.Id)
 					.Select(p => p.Points)
 					.FirstOrDefault();
+				s.Cars = cars
+					.Where(c => c.SeasonId == s.Season.Id)
+					.Select(c => c.Car);
+				s.Drivers = drivers
+					.Where(d => d.SeasonId == s.Season.Id)
+					.Select(d => d.Driver);
 			}
 		}
 
-		private async Task<IEnumerable<Teams>> GetTeams(int driverId)
+		private async Task<IEnumerable<TeamsSeason>> GetTeams(int driverId, int atYear)
 		{
 			return await context.Entries
 				.Where(e => e.DriverId == driverId)
+				.Where(e => e.Race.Date.Year <= atYear)
 				.Select(e => new
 				{
 					SeasonId = e.Race.SeasonId,
 					Team = e.Team
 				})
 				.GroupBy(e => new { e.SeasonId, e.Team.Id })
-				.Select(e => new Teams
+				.Select(e => new TeamsSeason
 				{
 					SeasonId = e.Key.SeasonId,
 					Team = mapper.Map<TeamSummary>(e.Select(g => g.Team).First())
+				})
+				.ToListAsync();
+		}
+
+		private async Task<IEnumerable<DriversSeason>> GetDrivers(int teamId, int atYear)
+		{
+			return await context.Entries
+				.Where(e => e.TeamId == teamId)
+				.Where(e => e.Race.Date.Year <= atYear)
+				.Select(e => new
+				{
+					SeasonId = e.Race.SeasonId,
+					TeamId = e.TeamId,
+					Driver = e.Driver
+				})
+				.GroupBy(e => new { e.SeasonId, e.TeamId, e.Driver.Id })
+				.Select(g => new DriversSeason
+				{
+					SeasonId = g.Key.SeasonId,
+					Driver = mapper.Map<DriverSummary>(g.Select(entry => entry.Driver).FirstOrDefault())
+				})
+				.ToListAsync();
+		}
+
+		private async Task<IEnumerable<CarsSeason>> GetCars(int teamId, int atYear)
+		{
+			return await context.Entries
+				.Where(e => e.TeamId == teamId)
+				.Where(e => e.Race.Date.Year <= atYear)
+				.Select(e => new
+				{
+					SeasonId = e.Race.SeasonId,
+					TeamId = e.TeamId,
+					Car = e.Car
+				})
+				.GroupBy(e => new { e.SeasonId, e.TeamId, e.Car.Id })
+				.Select(g => new CarsSeason
+				{
+					SeasonId = g.Key.SeasonId,
+					Car = mapper.Map<CarSummary>(g.Select(entry => entry.Car).FirstOrDefault())
 				})
 				.ToListAsync();
 		}
@@ -239,10 +290,22 @@ namespace F1WM.Repositories
 			public int AnyPoints { get; set; }
 		}
 
-		private class Teams
+		private class TeamsSeason
 		{
 			public uint SeasonId { get; set; }
 			public TeamSummary Team { get; set; }
+		}
+
+		private class CarsSeason
+		{
+			public uint SeasonId { get; set; }
+			public CarSummary Car { get; set; }
+		}
+
+		private class DriversSeason
+		{
+			public uint SeasonId { get; set; }
+			public DriverSummary Driver { get; set; }
 		}
 	}
 }
