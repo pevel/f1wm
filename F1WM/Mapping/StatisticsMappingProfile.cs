@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
-using F1WM.Utilities;
 
 namespace F1WM.Mapping
 {
@@ -12,6 +8,8 @@ namespace F1WM.Mapping
 	{
 		public StatisticsProfile()
 		{
+			CreateMap<DriverStandingsPosition, DriverSeason>()
+				.ForMember(api => api.Points, o => o.Ignore());
 			CreateMap<Season, DriverSeason>()
 				.ForMember(api => api.Season, o => o.MapFrom(db => db));
 			CreateMap<Season, TeamSeason>()
