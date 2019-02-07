@@ -41,6 +41,15 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Points)
 				.HasColumnName("points")
 				.HasColumnType("float");
+
+			builder.Property(e => e.NotCountedTowardsChampionshipPoints)
+				.HasColumnName("ncpoints")
+				.HasColumnType("float");
+
+			builder.HasOne(e => e.Entry)
+				.WithOne()
+				.HasForeignKey<DriverPoints>(e => new { e.DriverId, e.RaceId })
+				.HasPrincipalKey<Entry>(e => new { e.DriverId, e.RaceId });
 		}
 	}
 }
