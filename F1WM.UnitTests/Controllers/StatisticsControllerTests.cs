@@ -48,5 +48,31 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetDriverStatistics(driverId, null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnTeamStatistics()
+		{
+			var teamId = 777;
+			var statistics = fixture.Create<TeamStatistics>();
+			serviceMock.Setup(s => s.GetTeamStatistics(teamId, null)).ReturnsAsync(statistics);
+
+			var result = await controller.GetTeamStatistics(teamId, null);
+
+			serviceMock.Verify(s => s.GetTeamStatistics(teamId, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(statistics);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfTeamStatisticsNotFound()
+		{
+			var teamId = 555;
+			serviceMock.Setup(s => s.GetTeamStatistics(teamId, null)).ReturnsAsync((TeamStatistics)null);
+
+			var result = await controller.GetTeamStatistics(teamId, null);
+
+			serviceMock.Verify(s => s.GetTeamStatistics(teamId, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
 	}
 }
