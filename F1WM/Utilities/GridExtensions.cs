@@ -3,6 +3,7 @@ using System.Globalization;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
+using Database = F1WM.DatabaseModel.Constants;
 
 public static class GridExtensions
 {
@@ -29,5 +30,13 @@ public static class GridExtensions
 			FinishedLaps = null,
 			Time = dbResult.Time
 		};
+	}
+
+	public static bool Started(this Grid dbGrid)
+	{
+		return dbGrid.StartPositionOrStatus != Database.StartStatus.Excluded &&
+			dbGrid.StartPositionOrStatus != Database.StartStatus.NotClassified &&
+			dbGrid.StartPositionOrStatus != Database.StartStatus.NotPreQualified &&
+			dbGrid.StartPositionOrStatus != Database.StartStatus.NotQualified;
 	}
 }

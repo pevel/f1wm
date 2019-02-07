@@ -22,6 +22,17 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(statistics);
 		}
 
+		[HttpGet("teams/{teamId}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TeamStatistics>> GetTeamStatistics(
+			[FromRoute]int teamId,
+			[FromQuery]int? atYear)
+		{
+			var statistics = await service.GetTeamStatistics(teamId, atYear);
+			return this.NotFoundResultIfNull(statistics);
+		}
+
 		public StatisticsController(IStatisticsService service)
 		{
 			this.service = service;

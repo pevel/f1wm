@@ -54,5 +54,35 @@ namespace F1WM.UnitTests.Services
 			timeServiceMock.Verify(t => t.Now, Times.Never);
 			actual.Should().BeEquivalentTo(statistics);
 		}
+
+		[Fact]
+		public async Task ShouldGetTeamStatisticsUntilCurrentYear()
+		{
+			var teamId = 321;
+			var now = new DateTime(2000, 1, 1);
+			var statistics = fixture.Create<TeamStatistics>();
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			repositoryMock.Setup(r => r.GetTeamStatistics(teamId, now.Year)).ReturnsAsync(statistics);
+
+			var actual = await service.GetTeamStatistics(teamId, null);
+
+			repositoryMock.Verify(r => r.GetTeamStatistics(teamId, now.Year), Times.Once);
+			actual.Should().BeEquivalentTo(statistics);
+		}
+
+		[Fact]
+		public async Task ShouldGetTeamStatisticsUntilGivenYear()
+		{
+			var teamId = 123;
+			var year = 966;
+			var statistics = fixture.Create<TeamStatistics>();
+			repositoryMock.Setup(r => r.GetTeamStatistics(teamId, year)).ReturnsAsync(statistics);
+
+			var actual = await service.GetTeamStatistics(teamId, year);
+
+			repositoryMock.Verify(r => r.GetTeamStatistics(teamId, year), Times.Once);
+			timeServiceMock.Verify(t => t.Now, Times.Never);
+			actual.Should().BeEquivalentTo(statistics);
+		}
 	}
 }

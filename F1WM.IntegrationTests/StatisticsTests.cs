@@ -8,10 +8,20 @@ namespace F1WM.IntegrationTests
 	{
 		[Theory]
 		[JsonData("statistics", "driver-statistics.json")]
-		public async Task ShouldGetConstructorsStatistics(DriverStatisticsTestData data)
+		public async Task ShouldGetDriverStatistics(DriverStatisticsTestData data)
 		{
 			await TestResponse<DriverStatistics>(
 				$"{baseAddress}/statistics/drivers/{data.DriverId}?atYear={data.AtYear}",
+				data.Expected,
+				data.Why);
+		}
+
+		[Theory]
+		[JsonData("statistics", "team-statistics.json")]
+		public async Task ShouldGetTeamStatistics(TeamStatisticsTestData data)
+		{
+			await TestResponse<TeamStatistics>(
+				$"{baseAddress}/statistics/teams/{data.TeamId}?atYear={data.AtYear}",
 				data.Expected,
 				data.Why);
 		}
@@ -22,6 +32,14 @@ namespace F1WM.IntegrationTests
 			public int AtYear { get; set; }
 			public string Why { get; set; }
 			public DriverStatistics Expected { get; set; }
+		}
+
+		public class TeamStatisticsTestData
+		{
+			public int TeamId { get; set; }
+			public int AtYear { get; set; }
+			public string Why { get; set; }
+			public TeamStatistics Expected { get; set; }
 		}
 	}
 }
