@@ -84,5 +84,35 @@ namespace F1WM.UnitTests.Services
 			timeServiceMock.Verify(t => t.Now, Times.Never);
 			actual.Should().BeEquivalentTo(statistics);
 		}
+
+		[Fact]
+		public async Task ShouldGetEngineStatisticsUntilCurrentYear()
+		{
+			var engineId = 909;
+			var now = new DateTime(2001, 2, 9);
+			var statistics = fixture.Create<EngineStatistics>();
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			repositoryMock.Setup(r => r.GetEngineStatistics(engineId, now.Year)).ReturnsAsync(statistics);
+
+			var actual = await service.GetEngineStatistics(engineId, null);
+
+			repositoryMock.Verify(r => r.GetEngineStatistics(engineId, now.Year), Times.Once);
+			actual.Should().BeEquivalentTo(statistics);
+		}
+
+		[Fact]
+		public async Task ShouldGetEngineStatisticsUntilGivenYear()
+		{
+			var engineId = 808;
+			var year = 2000;
+			var statistics = fixture.Create<EngineStatistics>();
+			repositoryMock.Setup(r => r.GetEngineStatistics(engineId, year)).ReturnsAsync(statistics);
+
+			var actual = await service.GetEngineStatistics(engineId, year);
+
+			repositoryMock.Verify(r => r.GetEngineStatistics(engineId, year), Times.Once);
+			timeServiceMock.Verify(t => t.Now, Times.Never);
+			actual.Should().BeEquivalentTo(statistics);
+		}
 	}
 }

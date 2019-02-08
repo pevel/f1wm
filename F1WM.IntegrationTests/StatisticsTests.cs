@@ -26,6 +26,15 @@ namespace F1WM.IntegrationTests
 				data.Why);
 		}
 
+		[Theory]
+		[JsonData("statistics", "engine-statistics.json")]
+		public async Task ShouldGetEngineStatistics(EngineStatisticsTestData data)
+		{
+			await TestResponse<EngineStatistics>(
+				$"{baseAddress}/statistics/engines/{data.EngineId}?atYear={data.AtYear}",
+				data.Expected);
+		}
+
 		public class DriverStatisticsTestData
 		{
 			public int DriverId { get; set; }
@@ -40,6 +49,13 @@ namespace F1WM.IntegrationTests
 			public int AtYear { get; set; }
 			public string Why { get; set; }
 			public TeamStatistics Expected { get; set; }
+		}
+
+		public class EngineStatisticsTestData
+		{
+			public int EngineId { get; set; }
+			public int AtYear { get; set; }
+			public EngineStatistics Expected { get; set; }
 		}
 	}
 }
