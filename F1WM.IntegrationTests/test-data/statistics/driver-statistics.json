@@ -11,7 +11,7 @@
             "id": 2,
             "year": 1951
           },
-          "position": 0,
+          "position": null,
           "starts": 1,
           "points": 0,
           "wins": 0,
@@ -123,6 +123,28 @@
           "polePositions": 0,
           "fastestLaps": 0,
           "notClassified": 4,
+          "teams": [
+            {
+              "id": 435,
+              "name": "Toro Rosso",
+              "logo": "/img/ikony/2_str.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 65,
+            "year": 2014
+          },
+          "position": null,
+          "starts": 0,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "anyPoints": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notClassified": 0,
           "teams": [
             {
               "id": 435,
@@ -654,6 +676,258 @@
               "id": 294,
               "name": "Lotus",
               "logo": "/img/ikony/2_lot.gif"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "driverId": 661,
+    "atYear": 2018,
+    "why": "statistics with missing driver standings",
+    "expected": {
+      "driverId": 661,
+      "seasons": [
+        {
+          "season": {
+            "id": 45,
+            "year": 1994
+          },
+          "position": null,
+          "starts": 3,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "anyPoints": 0,
+          "polePositions": 3,
+          "fastestLaps": 0,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 496,
+              "name": "Williams",
+              "logo": "/img/ikony/2_wil.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 44,
+            "year": 1993
+          },
+          "position": 2,
+          "starts": 16,
+          "points": 73,
+          "wins": 5,
+          "podiums": 7,
+          "anyPoints": 11,
+          "polePositions": 1,
+          "fastestLaps": 1,
+          "notClassified": 4,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 43,
+            "year": 1992
+          },
+          "position": 4,
+          "starts": 16,
+          "points": 50,
+          "wins": 3,
+          "podiums": 7,
+          "anyPoints": 8,
+          "polePositions": 1,
+          "fastestLaps": 1,
+          "notClassified": 7,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 42,
+            "year": 1991
+          },
+          "position": 1,
+          "starts": 16,
+          "points": 96,
+          "wins": 7,
+          "podiums": 12,
+          "anyPoints": 14,
+          "polePositions": 8,
+          "fastestLaps": 2,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 41,
+            "year": 1990
+          },
+          "position": 1,
+          "starts": 16,
+          "points": 78,
+          "wins": 6,
+          "podiums": 11,
+          "anyPoints": 11,
+          "polePositions": 10,
+          "fastestLaps": 2,
+          "notClassified": 4,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 40,
+            "year": 1989
+          },
+          "position": 2,
+          "starts": 16,
+          "points": 60,
+          "wins": 6,
+          "podiums": 7,
+          "anyPoints": 7,
+          "polePositions": 13,
+          "fastestLaps": 3,
+          "notClassified": 6,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 39,
+            "year": 1988
+          },
+          "position": 1,
+          "starts": 16,
+          "points": 94,
+          "wins": 8,
+          "podiums": 11,
+          "anyPoints": 13,
+          "polePositions": 13,
+          "fastestLaps": 3,
+          "notClassified": 1,
+          "teams": [
+            {
+              "id": 320,
+              "name": "McLaren",
+              "logo": "/img/ikony/2_mcl.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 38,
+            "year": 1987
+          },
+          "position": 3,
+          "starts": 16,
+          "points": 57,
+          "wins": 2,
+          "podiums": 8,
+          "anyPoints": 11,
+          "polePositions": 1,
+          "fastestLaps": 3,
+          "notClassified": 3,
+          "teams": [
+            {
+              "id": 294,
+              "name": "Lotus",
+              "logo": "/img/ikony/2_lot.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 37,
+            "year": 1986
+          },
+          "position": 4,
+          "starts": 16,
+          "points": 55,
+          "wins": 2,
+          "podiums": 8,
+          "anyPoints": 10,
+          "polePositions": 8,
+          "fastestLaps": 0,
+          "notClassified": 6,
+          "teams": [
+            {
+              "id": 294,
+              "name": "Lotus",
+              "logo": "/img/ikony/2_lot.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 36,
+            "year": 1985
+          },
+          "position": 4,
+          "starts": 16,
+          "points": 38,
+          "wins": 2,
+          "podiums": 6,
+          "anyPoints": 6,
+          "polePositions": 7,
+          "fastestLaps": 3,
+          "notClassified": 7,
+          "teams": [
+            {
+              "id": 294,
+              "name": "Lotus",
+              "logo": "/img/ikony/2_lot.gif"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 35,
+            "year": 1984
+          },
+          "position": 9,
+          "starts": 14,
+          "points": 13,
+          "wins": 0,
+          "podiums": 3,
+          "anyPoints": 5,
+          "polePositions": 0,
+          "fastestLaps": 1,
+          "notClassified": 8,
+          "teams": [
+            {
+              "id": 475,
+              "name": "Toleman",
+              "logo": "/img/ikony/2_tol.gif"
             }
           ]
         }

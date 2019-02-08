@@ -169,19 +169,22 @@ namespace F1WM.Repositories
 
 		private async Task IncludeDriverSeasons(int driverId, int atYear, DriverStatistics apiStatistics)
 		{
-			apiStatistics.Seasons = await mapper.ProjectTo<DriverSeason>(context.DriverStandingsPositions
-					.Where(s => s.DriverId == driverId)
-					.Where(s => s.Season.Year <= atYear)
-					.OrderByDescending(s => s.Season.Year))
-				.ToListAsync();
-			if (!apiStatistics.Seasons.Any())
-			{
-				apiStatistics.Seasons = await mapper.ProjectTo<DriverSeason>(context.Seasons
-						.Where(s => s.Year <= atYear)
-						.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.DriverId == driverId))
-						.OrderByDescending(s => s.Year))
+			var dbSeasons = await context.Seasons
+					.Include(s => s.DriverStandings)
+					.Where(s => s.Year <= atYear)
+					.Where(s => s.Races.SelectMany(r => r.Entries).Any(e => e.DriverId == driverId))
+					.OrderByDescending(s => s.Year)
 					.ToListAsync();
-			}
+			apiStatistics.Seasons = dbSeasons
+				.Select(s => new DriverSeason
+				{
+					Season = mapper.Map<SeasonSummary>(s),
+					Position = s.DriverStandings
+						.Where(ds => ds.DriverId == driverId)
+						.Select(ds => ds.Position == 0 ? null : (ushort?)ds.Position)
+						.FirstOrDefault()
+				})
+				.ToList();
 		}
 
 		private async Task IncludeTeamSeasons(int teamId, int atYear, TeamStatistics apiStatistics)

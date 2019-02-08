@@ -74,6 +74,11 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Year)
 				.HasColumnName("year")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasMany(e => e.DriverStandings)
+				.WithOne(ds => ds.Season)
+				.HasForeignKey(ds => ds.SeasonId)
+				.HasPrincipalKey(e => e.Id);
 		}
 	}
 }
