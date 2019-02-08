@@ -3,6 +3,7 @@ using System.IO;
 using System.Text.RegularExpressions;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Utilities.Model;
 using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
@@ -32,9 +33,17 @@ namespace F1WM.Utilities
 							var token = line.Length > 0 ? $"{line[0]}" : "";
 							if (Constants.TokenToParser.ContainsKey(token))
 							{
-								line = Constants.TokenToParser[token](line);
+								Constants.TokenToParser[token](new NewsParserContext()
+								{
+									CurrentLine = line,
+									Reader = reader,
+									Writer = writer
+								});
 							}
-							writer.Write(line + "<br/>");
+							else
+							{
+								writer.Write(line + "<br/>");
+							}
 						}
 					}
 					news.Text = writer.ToString();

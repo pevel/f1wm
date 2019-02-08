@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using F1WM.ApiModel;
 using Database = F1WM.DatabaseModel.Constants;
 
@@ -19,7 +20,7 @@ namespace F1WM.Utilities
 				var imageSource = text.Split(',')[2];
 				imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
 				var imageInformation = $"<img src=\"{imageSource}\">";
-				text = imageInformation;
+				text = imageInformation + "<br/>";
 			}
 			return text;
 		}
