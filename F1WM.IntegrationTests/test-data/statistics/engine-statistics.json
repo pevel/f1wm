@@ -1,0 +1,242 @@
+[
+  {
+    "engineId": 1,
+    "atYear": 2018,
+    "expected": {
+      "engineId": 1,
+      "seasons": [
+        {
+          "season": {
+            "id": 2,
+            "year": 1951
+          },
+          "starts": 27,
+          "grandPrixCount": 7,
+          "points": 87,
+          "wins": 5,
+          "podiums": 11,
+          "polePositions": 4,
+          "fastestLaps": 7,
+          "notFinished": 8,
+          "cars": [
+            {
+              "id": 36,
+              "name": "Alfa Romeo 159"
+            },
+            {
+              "id": 41,
+              "name": "Alfa Romeo 159A"
+            },
+            {
+              "id": 51,
+              "name": "Alfa Romeo 159B"
+            },
+            {
+              "id": 54,
+              "name": "Alfa Romeo 159M"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 84,
+              "firstName": "Felice",
+              "surname": "Bonetto"
+            },
+            {
+              "id": 192,
+              "firstName": "Emmanuel",
+              "surname": "de Graffenried"
+            },
+            {
+              "id": 234,
+              "firstName": "Luigi",
+              "surname": "Fagioli"
+            },
+            {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio"
+            },
+            {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina"
+            },
+            {
+              "id": 564,
+              "firstName": "Paul",
+              "surname": "Pietsch"
+            },
+            {
+              "id": 633,
+              "firstName": "Consalvo",
+              "surname": "Sanesi"
+            }
+          ]
+        },
+        {
+          "season": {
+            "id": 1,
+            "year": 1950
+          },
+          "starts": 21,
+          "grandPrixCount": 6,
+          "points": 90,
+          "wins": 6,
+          "podiums": 12,
+          "polePositions": 6,
+          "fastestLaps": 6,
+          "notFinished": 8,
+          "cars": [
+            {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            {
+              "id": 36,
+              "name": "Alfa Romeo 159"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 234,
+              "firstName": "Luigi",
+              "surname": "Fagioli"
+            },
+            {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio"
+            },
+            {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina"
+            },
+            {
+              "id": 547,
+              "firstName": "Reg",
+              "surname": "Parnell"
+            },
+            {
+              "id": 633,
+              "firstName": "Consalvo",
+              "surname": "Sanesi"
+            },
+            {
+              "id": 709,
+              "firstName": "Piero",
+              "surname": "Taruffi"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "engineId": 123,
+    "atYear": 1985,
+    "expected": {
+      "engineId": 123,
+      "seasons": [
+        {
+          "season": {
+            "id": 36,
+            "year": 1985
+          },
+          "starts": 9,
+          "grandPrixCount": 9,
+          "points": 0,
+          "wins": 0,
+          "podiums": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 9,
+          "cars": [
+            {
+              "id": 611,
+              "name": "Zakspeed 841"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 178,
+              "firstName": "Christian",
+              "surname": "Danner"
+            },
+            {
+              "id": 542,
+              "firstName": "Jonathan",
+              "surname": "Palmer"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "engineId": 300,
+    "atYear": 2018,
+    "expected": {
+      "engineId": 300,
+      "seasons": [
+        {
+          "season": {
+            "id": 69,
+            "year": 2018
+          },
+          "starts": 84,
+          "grandPrixCount": 21,
+          "points": 184,
+          "wins": 0,
+          "podiums": 0,
+          "polePositions": 0,
+          "fastestLaps": 0,
+          "notFinished": 17,
+          "cars": [
+            {
+              "id": 1095,
+              "name": "McLaren MCL33"
+            },
+            {
+              "id": 1091,
+              "name": "Renault R.S.18"
+            }
+          ],
+          "drivers": [
+            {
+              "id": 13,
+              "firstName": "Fernando",
+              "surname": "Alonso"
+            },
+            {
+              "id": 861,
+              "firstName": "Stoffel",
+              "surname": "Vandoorne"
+            },
+            {
+              "id": 894,
+              "firstName": "Lando",
+              "surname": "Norris"
+            },
+            {
+              "id": 815,
+              "firstName": "Nico",
+              "surname": "Hulkenberg"
+            },
+            {
+              "id": 873,
+              "firstName": "Carlos",
+              "surname": "Sainz"
+            },
+            {
+              "id": 896,
+              "firstName": "Artjom",
+              "surname": "Markiełow"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
