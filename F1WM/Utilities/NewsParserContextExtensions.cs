@@ -26,7 +26,7 @@ namespace F1WM.Utilities
 		private static bool TryParseTableDeclaration(string text, out NewsTableProperties properties)
 		{
 			properties = null;
-			var regex = new Regex(@"%(?<width>\w+)%(?<columns>\d+)%(?<order>NR)?%?(STRATA)?%?(\w+)?");
+			var regex = new Regex(@"%(?<width>\w+)%(?<columns>\d+)%?(?<order>NR)?%?(STRATA)?%?(\w+)?");
 			var match = regex.Match(text);
 			if (match.Success)
 			{
@@ -43,7 +43,7 @@ namespace F1WM.Utilities
 
 		private static void ParseTable(NewsParserContext context, NewsTableProperties properties)
 		{
-			bool expectHeaders = false;
+			bool expectHeaders = true;
 			int order = 1;
 			context.Writer.Write($"<table class=\"{tableClass}\">");
 			while (context.Reader.Peek() != -1)
@@ -58,7 +58,7 @@ namespace F1WM.Utilities
 						string className = tokens[0] == "&" ? titleClass : footerClass;
 						int colspan = properties.InsertOrderColumn ? properties.ColumnsCount + 1 : properties.ColumnsCount;
 						context.Writer.Write($"<td class=\"{className}\" colspan=\"{colspan}\">{tokens[1]}</td>");
-						expectHeaders = true;
+						expectHeaders = tokens[0] == "&";
 						order = 1;
 					}
 					else
