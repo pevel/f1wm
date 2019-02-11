@@ -56,7 +56,8 @@ namespace F1WM.Utilities
 					if (tokens[0] == "&" || tokens[0] == "%")
 					{
 						string className = tokens[0] == "&" ? titleClass : footerClass;
-						context.Writer.Write($"<td class=\"{className}\">{tokens[1]}</td>");
+						int colspan = properties.InsertOrderColumn ? properties.ColumnsCount + 1 : properties.ColumnsCount;
+						context.Writer.Write($"<td class=\"{className}\" colspan=\"{colspan}\">{tokens[1]}</td>");
 						expectHeaders = true;
 						order = 1;
 					}
