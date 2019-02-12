@@ -11,14 +11,14 @@ namespace F1WM.DatabaseModel
 		public string CountryKey { get; set; }
 		public string Name { get; set; }
 		public string City { get; set; }
-		public ushort? Longeststraight { get; set; }
+		public ushort? LongestStraight { get; set; }
 		public string Width { get; set; }
 		public string Pitwindows1 { get; set; }
 		public string Pitwindows2 { get; set; }
 		public string Pitwindows3 { get; set; }
-		public string Startlocal { get; set; }
-		public string Startpoland { get; set; }
-		public string Orgaddress { get; set; }
+		public TimeSpan RaceStartLocal { get; set; }
+		public TimeSpan RaceStartPoland { get; set; }
+		public string Address { get; set; }
 		public string Orgtel { get; set; }
 		public string Orgfax { get; set; }
 		public uint? Artid { get; set; }
@@ -33,5 +33,6 @@ namespace F1WM.DatabaseModel
 		public string LapDriver { get; set; }
 		public string LapDescr { get; set; }
 		public virtual Country Country { get; set; }
+		public virtual Link Website { get; set; }
 	}
 }

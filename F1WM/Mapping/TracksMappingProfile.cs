@@ -12,6 +12,8 @@ namespace F1WM.Mapping
 		{
 			CreateMap<DatabaseModel.Track, ApiModel.Track>()
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
+			CreateMap<DatabaseModel.Track, ApiModel.TrackDetails>()
+				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
 		}
 	}
 }

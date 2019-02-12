@@ -68,13 +68,13 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.Property(e => e.Length).HasColumnName("length");
 
-			builder.Property(e => e.Longeststraight).HasColumnName("longeststraight");
+			builder.Property(e => e.LongestStraight).HasColumnName("longeststraight");
 
 			builder.Property(e => e.Newstopicid)
 				.HasColumnName("newstopicid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Orgaddress)
+			builder.Property(e => e.Address)
 				.IsRequired()
 				.HasColumnName("orgaddress")
 				.HasMaxLength(128)
@@ -118,17 +118,21 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.Property(e => e.Satmapzoom).HasColumnName("satmapzoom");
 
-			builder.Property(e => e.Startlocal)
+			builder.Property(e => e.RaceStartLocal)
 				.IsRequired()
 				.HasColumnName("startlocal")
+				.HasColumnType("varchar(5)")
 				.HasMaxLength(5)
-				.HasDefaultValueSql("''");
+				.HasDefaultValueSql("''")
+				.HasTimeOfDayConversions();
 
-			builder.Property(e => e.Startpoland)
+			builder.Property(e => e.RaceStartPoland)
 				.IsRequired()
 				.HasColumnName("startpoland")
+				.HasColumnType("varchar(5)")
 				.HasMaxLength(5)
-				.HasDefaultValueSql("''");
+				.HasDefaultValueSql("''")
+				.HasTimeOfDayConversions();
 
 			builder.Property(e => e.StatusId)
 				.HasColumnName("status");
