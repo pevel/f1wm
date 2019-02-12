@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
+using F1WM.Utilities.Model;
 using Microsoft.EntityFrameworkCore;
 using Database = F1WM.DatabaseModel.Constants;
 
@@ -52,14 +53,15 @@ public static class Constants
 		{ Database.OtherResultStatus.NotQualified, OtherResultStatus.NotQualified }
 	};
 
-	public readonly static Dictionary<string, Func<string, string>> TokenToParser =
-		new Dictionary<string, Func<string, string>>()
+	public readonly static Dictionary<string, Action<NewsParserContext>> TokenToParser =
+		new Dictionary<string, Action<NewsParserContext>>()
 	{
-		{ "#", line => $"<span class=\"news-text-center\">{line.Substring(1)}</span>" },
-		{ "*", line => $"<h2 class=\"news-text-center\">{line.Substring(1)}</h2>" },
-		{ ">", line => $"<h3>{line.Substring(1)}</h3>" },
-		{ "=", line => $"<span class=\"news-text-title\">{line.Substring(1)}</span>" },
-		{ "@", line => line.ParseImageInformation() }
+		{ "#", c => c.Writer.Write($"<span class=\"news-text-center\">{c.CurrentLine.Substring(1)}</span><br/>") },
+		{ "*", c => c.Writer.Write($"<h2 class=\"news-text-center\">{c.CurrentLine.Substring(1)}</h2><br/>") },
+		{ ">", c => c.Writer.Write($"<h3>{c.CurrentLine.Substring(1)}</h3><br/>") },
+		{ "=", c => c.Writer.Write($"<span class=\"news-text-title\">{c.CurrentLine.Substring(1)}</span><br/>") },
+		{ "@", c => c.Writer.Write(c.CurrentLine.ParseImageInformation()) },
+		{ "%", c => c.ParseTable() }
 	};
 
 	public readonly static Dictionary<Database.ResultType, ResultLinkType> ResultTypeToLinkType =

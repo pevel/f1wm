@@ -1,3 +1,5 @@
+using System;
+using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
@@ -23,6 +25,20 @@ namespace F1WM.IntegrationTests
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var actual = JsonConvert.DeserializeObject<T>(responseContent);
 			actual.Should().BeEquivalentTo(expected, why);
+		}
+
+		protected async Task TestResponse<T>(
+			string url,
+			T expected,
+			Expression<Func<T, object>> exclude,
+			string why = "")
+		{
+			Assert.NotNull(expected);
+			var response = await client.GetAsync(url);
+			response.EnsureSuccessStatusCode();
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var actual = JsonConvert.DeserializeObject<T>(responseContent);
+			actual.Should().BeEquivalentTo(expected, o => o.Excluding(exclude), why);
 		}
 
 		protected IntegrationTestBase()

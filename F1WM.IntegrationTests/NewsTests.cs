@@ -15,7 +15,11 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-details.json")]
 		public async Task ShouldGetSingleNews(NewsDetailsTestData data)
 		{
-			await TestResponse<NewsDetails>($"{baseAddress}/news/{data.NewsId}", data.Expected, data.Why);
+			await TestResponse<NewsDetails>(
+				$"{baseAddress}/news/{data.NewsId}",
+				data.Expected,
+				n => n.Views,
+				data.Why);
 		}
 
 		[Theory]
