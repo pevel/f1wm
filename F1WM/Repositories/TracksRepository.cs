@@ -20,6 +20,12 @@ namespace F1WM.Repositories
 				q.Session3Position == 1 ||
 				(q.Session1Position == 0 && q.PositionOrStatus == "1");
 
+
+		public Task<TrackDetails> GetTrack(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)
 		{
 			var dbFastestQualifyingLapInNewFormat = (await context.Qualifying

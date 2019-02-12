@@ -13,18 +13,6 @@ namespace F1WM.Controllers
 		private const int defaultPage = 1;
 		private const int defaultCountPerPage = 25;
 
-		[HttpGet("{trackId}/versions/{trackVersion}/records")]
-		[ProducesResponseType(200)]
-		[ProducesResponseType(404)]
-		public async Task<ActionResult<TrackRecordsInformation>> GetTrackRecords(
-			[FromRoute]int trackId,
-			[FromRoute]int trackVersion,
-			[FromQuery]int? beforeYear)
-		{
-			var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
-			return this.NotFoundResultIfNull(records);
-		}
-
 		[HttpGet]
 		public async Task<PagedResult<Track>> GetTracks(
 			[FromQuery]byte? statusId, 
@@ -41,7 +29,28 @@ namespace F1WM.Controllers
 			}
 		}
 
-			public TracksController(ITracksService service)
+		[HttpGet("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackDetails>> GetTrack(int id)
+		{
+			var track = await service.GetTrack(id);
+			return this.NotFoundResultIfNull(track);
+		}
+
+		[HttpGet("{trackId}/versions/{trackVersion}/records")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackRecordsInformation>> GetTrackRecords(
+			[FromRoute]int trackId,
+			[FromRoute]int trackVersion,
+			[FromQuery]int? beforeYear)
+		{
+			var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
+			return this.NotFoundResultIfNull(records);
+		}
+
+		public TracksController(ITracksService service)
 		{
 			this.service = service;
 		}
