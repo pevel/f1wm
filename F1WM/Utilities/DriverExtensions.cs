@@ -21,9 +21,9 @@ namespace F1WM.Utilities
 			}
 		}
 
-		public static IEnumerable<DriverCareerYear> ParseCareerInfo(this Driver driver)
+		public static IEnumerable<DriverCareerPeriod> ParseCareerInfo(this Driver driver)
 		{
-			var careerYears = new List<DriverCareerYear>();
+			var career = new List<DriverCareerPeriod>();
 			try
 			{
 				if (!string.IsNullOrEmpty(driver.CareerText))
@@ -34,17 +34,21 @@ namespace F1WM.Utilities
 						{
 							var headerLine = reader.ReadLine();
 							var headerLineSplitted = headerLine.Trim().Split(':');
+							var yearsSplitted = headerLineSplitted[0].Split('-');
+							int startYear = Int32.Parse(yearsSplitted[0]);
+							int endYear =  Int32.Parse(yearsSplitted.Length > 1 ? yearsSplitted[1] : yearsSplitted[0]);
 							var textLine = reader.ReadLine();
-							careerYears.Add(new DriverCareerYear()
+							career.Add(new DriverCareerPeriod()
 							{
-								Year = Int32.Parse(headerLineSplitted[0]),
+								StartYear = startYear,
+								EndYear = endYear,
 								Picture = headerLineSplitted[1].GetCareerImagePath(),
 								Text = textLine
 							});
 						}
 					}
 				}
-				return careerYears.OrderByDescending(y => y.Year);
+				return career.OrderByDescending(y => y.StartYear);
 			}
 			catch (Exception ex)
 			{
