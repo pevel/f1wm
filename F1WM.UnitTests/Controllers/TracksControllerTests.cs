@@ -72,7 +72,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnTracks()
 		{
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			var tracks = fixture.Create<PagedResult<Track>>();
 			serviceMock.Setup(s => s.GetTracks(1, 25)).ReturnsAsync(tracks);
 
 			var result = await controller.GetTracks(null);
@@ -85,7 +85,7 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnTracksByStatusId()
 		{
 			byte statusId = 2;
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			var tracks = fixture.Create<PagedResult<Track>>();
 			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(tracks);
 
 			var result = await controller.GetTracks(statusId);
@@ -98,8 +98,8 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnEmptyListOfTracksByStatusId()
 		{
 			byte statusId = 3;
-			IEnumerable<TrackSummary> emptyResult = Enumerable.Empty<TrackSummary>();
-			PagedResult<TrackSummary> emptyResponse = new PagedResult<TrackSummary>
+			IEnumerable<Track> emptyResult = Enumerable.Empty<Track>();
+			PagedResult<Track> emptyResponse = new PagedResult<Track>
 			{
 				CurrentPage = 1,
 				PageCount = 0,

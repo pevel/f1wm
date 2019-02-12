@@ -61,7 +61,7 @@ namespace F1WM.UnitTests.Services
 		{
 			uint page = 2;
 			uint countPerPage = 21;
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			var tracks = fixture.Create<PagedResult<Track>>();
 			repositoryMock.Setup(r => r.GetTracks(page, countPerPage)).ReturnsAsync(tracks);
 
 			var actual = await service.GetTracks(page, countPerPage);
@@ -76,7 +76,7 @@ namespace F1WM.UnitTests.Services
 			byte statusId = 2;
 			uint page = 1;
 			uint countPerPage = 25;
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			var tracks = fixture.Create<PagedResult<Track>>();
 			repositoryMock.Setup(r => r.GetTracksByStatusId(statusId, page, countPerPage)).ReturnsAsync(tracks);
 
 			var actual = await service.GetTracksByStatusId(statusId, page, countPerPage);

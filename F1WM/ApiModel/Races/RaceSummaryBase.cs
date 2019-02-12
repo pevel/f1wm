@@ -8,6 +8,6 @@ namespace F1WM.ApiModel
 		public string Name { get; set; }
 		public string TranslatedName { get; set; }
 		public DateTime Date { get; set; }
-		public TrackBase Track { get; set; }
+		public TrackSummary Track { get; set; }
 	}
 }
