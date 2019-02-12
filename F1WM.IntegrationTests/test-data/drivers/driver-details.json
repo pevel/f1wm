@@ -2,6 +2,7 @@
   {
     "driverId": 806,
     "atYear": 2018,
+    "why": "regular driver details",
     "expected": {
       "picture": "/img/kierowcy/lham.jpg",
       "birthday": "1985-01-07T00:00:00",
@@ -44,114 +45,136 @@
         "name": "Grand Prix Kanady",
         "date": "2007-06-10T00:00:00"
       },
-      "careerYears": [
+      "careerPeriods": [
         {
-          "year": 2018,
+          "startYear": 2018,
+          "endYear": 2018,
           "picture": "/kierowcy/kariera/lham_2018.jpg",
           "text": "Po raz pierwszy w hybrydowej erze Mercedes musi uznać wyższość konkurenta, którym jest Ferrari. Mimo to swoim talentem udaje mu się maskować niedoskonałości modelu W09, co udowodnił sięgając po pole position na Silverstone, Hungaroringu czy Marina Bay, a także wygrywając w Niemczech po starcie dopiero z czternastego pola. Po letniej przerwie Mercedes odzyskuje mistrzowską formę, a Hamilton bezlitośnie wykorzystuje liczne błędy Sebastiana Vettela, który znów walczy z nim o mistrzowską koronę. Podobnie jak przed rokiem wygrywa tytuł w Meksyku, zrównując się z Juanem Manuelem Fangio. W całym sezonie jedenastokrotnie ustawia się na pierwszym polu i tryumfuje, a także jako pierwszy kierowca w historii przekracza próg czterystu punktów. Przedłuża umowę z zespołem do końca 2020 roku."
         },
         {
-          "year": 2017,
+          "startYear": 2017,
+          "endYear": 2017,
           "picture": "/kierowcy/kariera/lham_2017.jpg",
           "text": "Mercedes po zmianie przepisów traci sporą część swojej przewagi, przez co do walki o mistrzowskie tytuły włącza się Ferrari. W pierwszej połowie sezonu Hamilton musi uznać wyższość Vettela, który od GP Australii przewodzi klasyfikacji kierowców. Model W08 prezentuje bardzo niespójne osiągi, a w kilku rundach ma sporego pecha, przez którego traci szanse na dobre wyniki. Mimo to po letniej przerwie łapie wiatr w żagle i po tryumfie na Monzy wskakuje na pierwsze miejsce w tabeli, a po serii katastrofalnych występów Ferrari w Azji drastycznie wzrasta jego przewaga. Ostatecznie w Meksyku przypieczętowuje czwarty tytuł mistrza świata z dorobkiem dziewięciu zwycięstw. Ponadto w Grand Prix Włoch odbiera Michaelowi Schumacherowi rekord największej liczby zdobytych pole position."
         },
         {
-          "year": 2016,
+          "startYear": 2016,
+          "endYear": 2016,
           "picture": "/kierowcy/kariera/lham_2016.jpg",
           "text": "Sezon 2016 jest jednym z najbardziej pechowych w jego karierze. Wygrywa dziesięć wyścigów, lecz to nie wystarcza do zdobycia czwartego tytułu mistrza świata Formuły 1, który trafia w ręce Nico Rosberga. Jego Mercedesa trapią liczne usterki jak w Chinach czy Malezji, gdzie po defekcie silnika spalinowego traci pewne zwycięstwo, natomiast w Belgii po przekroczeniu dozwolonej liczby podzespołów rusza z ostatniej linii. W Hiszpanii bierze udział w kolizji z zespołowym partnerem, do której doszło podczas walki o pozycję lidera, natomiast w Abu Zabi celowo go spowalnia, by podtrzymać swoje szanse na tytuł. Ostatecznie jest drugi z dorobkiem 380 punktów."
         },
         {
-          "year": 2015,
+          "startYear": 2015,
+          "endYear": 2015,
           "picture": "/kierowcy/kariera/lham_2015.jpg",
           "text": "W sezonie 2015 całkowicie dominuje swojego zespołowego partnera - Nico Rosberga. Zdobywa aż jedenaście pole position, najwięcej w karierze, natomiast w wyścigach tryumfuje dziesięciokrotnie, co przy bardzo skutecznej jeździe pozwala mu na przypieczętowanie tytułu mistrza świata na trzy rundy przed końcem w Stanach Zjednoczonych. W trzech ostatnich wyścigach mając zapewniony końcowy sukces notuje spadek formy, o czym świadczą trzy porażki z Rosbergiem podczas wyścigów. Decyduje się na przedłużenie umowy z Mercedesem do końca 2018 roku."
         },
         {
-          "year": 2014,
+          "startYear": 2014,
+          "endYear": 2014,
           "picture": "/kierowcy/kariera/lham_2014.jpg",
           "text": "Mercedes przygotowuje genialny bolid na sezon 2014, który tylko trzykrotnie musiał uznać wyższość rywali. Za jego kierownicą Hamilton wygrywa aż jedenaście wyścigów i podczas kończącego sezon Grand Prix Abu Zabi przypieczętowuje swój drugi tytuł mistrza świata. W trakcie zmagań toczy pasjonujące pojedynki z zespołowym partnerem, dwukrotnie przebija się z samego końca stawki na podium, odpada przez awarie podzespołów, a w Belgii zalicza kontakt z Rosbergiem. Przez te problemy oraz podwójną liczbę punktów w ostatnim wyścigu, musi być czujny do samego końca, aczkolwiek w końcu udaje mu się powtórzyć wyczyn z 2008 roku."
         },
         {
-          "year": 2013,
+          "startYear": 2013,
+          "endYear": 2013,
           "picture": "/kierowcy/kariera/lham_2013.jpg",
           "text": "Decyzja o zmianie zespołu okazuje się być trafna. McLaren przygotowuje na ten sezon fatalny bolid, natomiast Mercedes wraca do czołówki. W barwach nowej ekipy zdobywa aż pięć pole position i wygrywa jeden wyścig na węgierskim torze Hungaroring. Poza tym melduje się na podium czterokrotnie. Zalicza kiepską końcówkę sezonu, co zespół tłumaczy uszkodzonym nadwoziem. Plasuje się w klasyfikacji na czwartej lokacie ze 189 punktami na koncie."
         },
         {
-          "year": 2012,
+          "startYear": 2012,
+          "endYear": 2012,
           "picture": "/kierowcy/kariera/lham_2012.jpg",
           "text": "Do pierwszych dwóch wyścigów sezonu startuje z pole position, jednakże kończy je na trzecich miejscach. W Hiszpanii po zdobyciu pierwszego pola zostaje zdyskwalifikowany za zatrzymanie bolidu na torze po upływie czasu. Pierwsze zwycięstwo odnosi dopiero w Kanadzie. Kolejne tryumfy świętuje na Węgrzech, we Włoszech i w Stanach Zjednoczonych. W Singapurze, Abu Zabi oraz Brazylii jadąc na pierwszym miejscu odpada z rywalizacji po awariach bolidu i kolizjach. We wrześniu podpisuje trzyletni kontrakt z Mercedesem, decydując się na opuszczenie McLarena po sześciu latach współpracy."
         },
         {
-          "year": 2011,
+          "startYear": 2011,
+          "endYear": 2011,
           "picture": "/kierowcy/kariera/lham_lewis_abu_2011.jpg",
           "text": "Sezon pełen wzlotów i upadków. Prezentuje świetną formę kwalifikacyjną - 8 razy startuje z pierwszego rzędu oraz trzykrotnie wygrywa. W trakcie sezonu przytrafia mu się jednak wiele błędów, popełnia aż 10 wykroczeń, sławne stają się jego kolizje z Massą. Brak stabilnej formy powoduje przegraną w wewnętrznym pojedynku z Buttonem i zajęcie dopiero piątego miejsca w klasyfikacji generalnej."
         },
         {
-          "year": 2010,
+          "startYear": 2010,
+          "endYear": 2010,
           "picture": "/kierowcy/kariera/lham_2010_chicane.jpg",
           "text": "Jak sam deklaruje, wkłada całą swoją pasję w każdy wyścig, lecz ze względu na nie zawsze trafną strategię zespołu i niekiedy słabsze osiągi bolidu, przez pierwsze 6 zawodów sezonu pozostaje bez zwycięstwa. Potem przychodzi wspaniały okres i zajęcie fotela lidera mistrzostw, jednak awaria auta na Węgrzech jest dla niego pierwszą zapowiedzią porażki. Udaje mu się wygrać jeszcze w Spa, ale niedoścignione maszyny Red Bulla nie pozwalają mu na więcej triumfów. Ponadto nie zdobywa punktów podczas GP Włoch i Singapuru z powodu kolizji, co znacznie oddala go od tytułu. Ostatecznie kończy rok na 4 pozycji, tuż przed nowym zespołowym partnerem Jensonem Buttonem."
         },
         {
-          "year": 2009,
+          "startYear": 2009,
+          "endYear": 2009,
           "picture": "/kierowcy/kariera/lham_2009_glowka_boli.jpg",
           "text": "Tym razem nieoczekiwanie dysponuje niekonkurencyjnym bolidem. Czwarta pozycja zdobyta podczas otwierających sezon zawodów w Australii zostaje mu odebrana za oszukanie sędziów. W ogóle pierwsza połowa roku jest dla niego kompletnie nieudana. Wielki powrót do walki o czołowe pozycje przychodzi wraz z lepszą formą jego auta podczas GP Węgier, które wygrywa. Odnosi jeszcze jedno zwycięstwo w Singapurze, w sumie 5 razy wizytuje na podium, co daje mu 5 lokatę w klasyfikacji łącznej."
         },
         {
-          "year": 2008,
+          "startYear": 2008,
+          "endYear": 2008,
           "picture": "/kierowcy/kariera/lham_2008_mistrz.jpg",
           "text": "W wieku 23 lat zostaje wówczas najmłodszym w historii mistrzem świata Formuły 1. W całym sezonie 10 razy staje na podium i 5 razy wygrywa. W nieprawdopodobny sposób zgarnia sprzed nosa tytuł swojemu największemu konkurentowi Felipe Massie w finałowych zawodach na torze Interlagos. Jego nowy zespołowy kolega Heikki Kovalainen pozostaje niewidoczny wobec wielkich sukcesów Hamiltona, który to przedłuża swój kontrakt z McLarenem do 2012 roku."
         },
         {
-          "year": 2007,
+          "startYear": 2007,
+          "endYear": 2007,
           "picture": "/kierowcy/kariera/lham_2007_nr2.jpg",
           "text": "Niesamowity debiutancki sezon w F1. Staje na podium w każdym z pierwszych 9 grand prix, ponadto bardzo ostro rywalizuje z zespołowym kolegą i jednocześnie ówczesnym mistrzem świata - Fernando Alonso. W sumie odnosi 4 zwycięstwa i do 6 zawodów rusza z pierwszego pola startowego. Traci niemal pewny tytuł z powodu błędów popełnionych w dwóch ostatnich wyścigach. Na osłodę zostaje mu 2 pozycja w klasyfikacji łącznej. Pod koniec roku Alonso rezygnuje z bycia jego partnerem zespołowym."
         },
         {
-          "year": 2006,
+          "startYear": 2006,
+          "endYear": 2006,
           "picture": "/kierowcy/kariera/lham_2006_reka.jpg",
           "text": "Przechodzi do serii GP2 i znów jest w najszybszym zespole w stawce (ART). W imponującym stylu zdobywa mistrzostwo, pokonując swoich najgroźniejszych rywali Nelsona Piqueta Jr i Timo Glocka. Pod koniec roku świat obiega wiadomość, że Hamilton w sezonie 2007 będzie kierowcą wyścigowym stajni McLaren rywalizującej w F1."
         },
         {
-          "year": 2005,
+          "startYear": 2005,
+          "endYear": 2005,
           "picture": "/kierowcy/kariera/lham_white_smile.jpg",
           "text": "Dostaje angaż w mistrzowskim zespole F3 - ASM. Dominuje w całych mistrzostwach, triumfując w 15 z 20 rozegranych wyścigów."
         },
         {
-          "year": 2004,
+          "startYear": 2004,
+          "endYear": 2004,
           "picture": "/kierowcy/kariera/lham_2004_bandy_macau.jpg",
           "text": "Cały czas jeżdżąc w ekipie Manor przechodzi do Formuły 3 Euro Series. Udaje mu się jeden raz wygrać, sezon kończy jako piąty, ponadto zwyciężą w wyścigu kwalifikacyjnym prestiżowego Grand Prix Makau. Pod koniec roku odbywa pierwszą jazdę bolidem F1 stajni McLaren na torze Silverstone."
         },
         {
-          "year": 2003,
+          "startYear": 2003,
+          "endYear": 2003,
           "picture": "/kierowcy/kariera/lham_2003_elf.jpg",
           "text": "Tym razem już sięga po tytuł brytyjskiej Formuły Renault. W sumie zwycięża 10 razy i gromadzi 419 punktów, mimo ominięcia dwóch ostatnich zawodów na rzecz występów w brytyjskiej Formule 3."
         },
         {
-          "year": 2002,
+          "startYear": 2002,
+          "endYear": 2002,
           "picture": "/kierowcy/kariera/lham_2002_lusterko.jpg",
           "text": "Uczestniczy już w głównej serii brytyjskiej Formuły Renault, reprezentując zespół Manor Motorsport. Dzięki odniesionym trzem triumfom i zdobytym dwóm pole position plasuje się na 3 lokacie w klasyfikacji łącznej."
         },
         {
-          "year": 2001,
+          "startYear": 2001,
+          "endYear": 2001,
           "picture": "/kierowcy/kariera/lham_2001_winter.jpg",
           "text": "Przesiada się do bolidu, ale już na swoim 3 okrążeniu powoduje wypadek. Mimo to wchodzi do zimowych mistrzostw brytyjskiej Formuły Renault, które kończy jako piąty."
         },
         {
-          "year": 1999,
+          "startYear": 1999,
+          "endYear": 1999,
           "picture": "/kierowcy/kariera/lham_1999_champion.jpg",
           "text": "W ciągu dwóch lat zostaje kartingowym mistrzem Europy i Świata, dzięki czemu wielu widzi w nim wielkiego kierowcę przyszłości."
         },
         {
-          "year": 1998,
+          "startYear": 1998,
+          "endYear": 1998,
           "picture": "/kierowcy/kariera/lham_1998_z_dennisem.jpg",
           "text": "Zostaje włączony do programu rozwojowego kierowców prowadzonego przez zespół McLaren. Jego kontrakt przewiduje nawet ewentualną posadę w F1."
         },
         {
-          "year": 1995,
+          "startYear": 1995,
+          "endYear": 1995,
           "picture": "/kierowcy/kariera/lham_1995_siedzi.jpg",
           "text": "Zdobywa swój pierwszy tytuł Kartingowego Mistrza Wielkiej Brytanii. Ponadto poznaje Rona Dennisa. W następnych 2 latach skutecznie broni mistrzostwa."
         },
         {
-          "year": 1993,
+          "startYear": 1993,
+          "endYear": 1993,
           "picture": "/kierowcy/kariera/lham_1993_kart.jpg",
           "text": "Rozpoczyna karierę od pierwszych jazd gokartem na specjalnym torze Rye House."
         }
@@ -168,6 +191,7 @@
   {
     "driverId": 237,
     "atYear": 2018,
+    "why": "driver details without career info",
     "expected": {
       "picture": "/img/kierowcy/gfar.jpg",
       "birthday": "1906-10-30T00:00:00",
@@ -202,13 +226,118 @@
         "name": "Grand Prix Wielkiej Brytanii",
         "date": "1950-05-13T00:00:00"
       },
-      "careerYears": [],
+      "careerPeriods": [],
       "id": 237,
       "firstName": "Nino",
       "surname": "Farina",
       "nationality": {
         "name": "Włochy",
         "flagIcon": "/img/flagi/ita2.gif"
+      }
+    }
+  },
+  {
+    "driverId": 861,
+    "atYear": 2018,
+    "why": "driver details with career info in other format",
+    "expected": {
+      "picture": "/img/kierowcy/svan.jpg",
+      "birthday": "1992-03-26T00:00:00",
+      "birthPlace": "Kortrijk",
+      "residence": "Roeselare",
+      "website": "www.stoffelvandoorne.com",
+      "height": "176",
+      "weight": "65",
+      "maritalStatus": "Kawaler",
+      "kids": null,
+      "number": 2,
+      "team": {
+        "id": 320,
+        "name": "McLaren",
+        "logo": "/img/ikony/2_mcl.gif"
+      },
+      "car": {
+        "id": 1095,
+        "name": "McLaren MCL33"
+      },
+      "championAtSeries": [
+        "2010 Formuła 4 Eurocup 1.6",
+        "2012 Formuła Renault 2.0 Eurocup",
+        "2015 GP2 Series"
+      ],
+      "firstStartAt": {
+        "raceId": 984,
+        "name": "Grand Prix Bahrajnu",
+        "date": "2016-04-03T00:00:00"
+      },
+      "careerPeriods": [
+        {
+          "startYear": 2018,
+          "endYear": 2018,
+          "picture": "/kierowcy/kariera/svan_2018.jpg",
+          "text": "Jest jednym z największych rozczarowań w sezonie 2018. Sromotnie przegrywa zespołowy pojedynek z Fernando Alonso, który pokonuje go we wszystkich kwalifikacjach. Z kolei w wyścigach tylko czterokrotnie pojawia się w pierwszej dziesiątce, kompletując 12 punktów. Na pewnym etapie sezonu boryka się również z bolidem McLarena, który kompletnie nie reaguje na zmiany ustawień. Mimo pomocy ze strony zespołu, wyniki Vandoorne'a nie ulegają poprawie i zapada decyzja o zakończeniu współpracy. Zajmuje szesnaste miejsce w klasyfikacji, a od nowego roku wiąże się z Mercedesem, który powierzy mu funkcję kierowcy rozwojowego oraz posadę w zespole HWA w Formule E."
+        },
+        {
+          "startYear": 2017,
+          "endYear": 2017,
+          "picture": "/kierowcy/kariera/svan_2017.jpg",
+          "text": "Jednostka Hondy ponownie okazuje się być największą bolączką McLarena, mimo, że bolid MCL32 sprawia wrażenie konkurencyjnego. W całym sezonie kilkakrotnie odpada po awarii układu napędowego, otrzymując również liczne kary przesunięcia na starcie za nieprzepisowe wymiany podzespołów. Sam sezon pod względem sportowym jest dla niego pełen wzlotów i upadków. Początek zmagań jest dla niego nieudany, ponieważ wyraźnie odstaje od Fernando Alonso, a także popełnia kilka błędów, które zakończyły się w Hiszpanii kolizją z Massą, a także dwoma wypadkami w Monako. Tylko trzykrotnie pojawia się w pierwszej dziesiątce, kompletując łącznie 13 punktów. Zajmuje szesnaste miejsce, lecz McLaren przedłuża z nim umowę na sezon 2018."
+        },
+        {
+          "startYear": 2016,
+          "endYear": 2016,
+          "picture": "/kierowcy/kariera/svan_2016.jpg",
+          "text": "Jest łączony z posadą kierowcy wyścigowego McLarena, lecz ekipa ostatecznie decyduje się zachować swoich zawodników i Stoffel już trzeci rok pełni obowiązki testera. Mimo to w Bahrajnie otrzymuje możliwość debiutu w Formule 1, po tym, jak Alonso nie przechodzi kontroli medycznej. Kwalifikuje się przed Jensonem Buttonem, natomiast  w wyścigu dojeżdża dziesiąty, zdobywając jeden punkt. Resztę sezonu spędza w japońskiej Super Formula, gdzie dwukrotnie dojeżdża na pierwszym miejscu, a w końcowej tabeli jest czwarty. Na Monzy zostaje potwierdzony jako nowy kierowca McLarena w 2017 roku."
+        },
+        {
+          "startYear": 2015,
+          "endYear": 2015,
+          "picture": "/kierowcy/kariera/svan_2015.jpg",
+          "text": "Zostaje na drugi rok w GP2 jako kierowca ART. Tym razem nie pozostawia rywalom żadnych szans i całkowicie dominuje mistrzostwa. Zgarnia tytuł w Soczi na dwie rundy przed końcem sezonu, wygrywając łącznie siedem wyścigów oraz zdobywając cztery pole position, a także dystansując najbliższego rywala na odległość aż 160 punktów. "
+        },
+        {
+          "startYear": 2014,
+          "endYear": 2014,
+          "picture": "/kierowcy/kariera/svan_2014.jpg",
+          "text": "Przechodzi do GP2, dołączając do zespołu ART. Już podczas pierwszej rundy sezonu w Bahrajnie wygrywa sprint, powtarzając później tę sztukę jeszcze trzykrotnie. Dobra forma po letniej przerwie pozwala mu zredukować stratę do czołówki, lecz po raz kolejny musi się zadowolić tytułem wicemistrza. Ponadto zostaje nowym kierowcą testowym McLarena i m.in. bierze udział w pracach rozwojowych nad nową jednostką Hondy. "
+        },
+        {
+          "startYear": 2013,
+          "endYear": 2013,
+          "picture": "/kierowcy/kariera/svan_2013.jpg",
+          "text": "Na początku roku trafia pod skrzydła McLarena, dołączając do juniorskiego programu oraz Formuły Renault 3.5. Zastępuje zeszłorocznego czempiona Robina Frijnsa w ekipie Fortec Motorsport i jest jednym z faworytów do mistrzowskiego tytułu, który ostatecznie przegrywa z drugim juniorem McLarena - Kevinem Magnussenem. Sezon kończy jako wicemistrz, mając w dorobku cztery wygrane oraz trzy pole position. "
+        },
+        {
+          "startYear": 2012,
+          "endYear": 2012,
+          "picture": "/kierowcy/kariera/svan_2012.jpg",
+          "text": "Pozostaje w europejskiej Formule Renault 2.0 na cały sezon, natomiast w północnoeuropejskim cyklu decyduje się na pojedyncze starty. W kontynentalnej edycji mistrzostw zgarnia tytuł, wygrywając wcześniej cztery wyścigi. Z kolei w NEC tryumfuje pięciokrotnie, lecz przy niepełnym programie wystarcza mu to na zaledwie dziewiątą pozycję w klasyfikacji.  "
+        },
+        {
+          "startYear": 2011,
+          "endYear": 2011,
+          "picture": "/kierowcy/kariera/svan_2011.jpg",
+          "text": "Przesiada się za kierownicę bolidu Formuły Renault 2.0, dołączając do europejskiej oraz północnoeuropejskiej edycji tych mistrzostw. W Eurocupie zostaje sklasyfikowany na piątym miejscu z zaledwie jednym podium wywalczonym na Hungaroringu, natomiast w FR2.0 NEC jest trzeci bez żadnego zwycięstwa. "
+        },
+        {
+          "startYear": 2010,
+          "endYear": 2010,
+          "picture": "/kierowcy/kariera/svan_2010.jpg",
+          "text": "Przenosi się do europejskiej Formuły 4, rozpoczynając swoją przygodę z bolidami jednomiejscowymi. W swoim debiucie zdobywa mistrzowski tytuł z dorobkiem sześciu zwycięstw oraz trzech miejsc na podium. "
+        },
+        {
+          "startYear": 1998,
+          "endYear": 2009,
+          "picture": "/kierowcy/kariera/svan_1998-2009.jpg",
+          "text": "Swoją przygodę z motorsportem rozpoczyna w wieku 6 lat od kartingu. Za kierownicą gokarta ściga się do 2009 roku i w tym czasie wygrywa mistrzostwa Belgii oraz zostaje wicemistrzem świata w kategorii KF2."
+        }
+      ],
+      "id": 861,
+      "firstName": "Stoffel",
+      "surname": "Vandoorne",
+      "nationality": {
+        "name": "Belgia",
+        "flagIcon": "/img/flagi/bel2.gif"
       }
     }
   }
