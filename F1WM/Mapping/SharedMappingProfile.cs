@@ -15,7 +15,7 @@ namespace F1WM.Mapping
 			CreateMap<DatabaseModel.Country, ApiModel.Country>()
 				.ForMember(api => api.FlagIcon, o => o.MapFrom(db => db.Key.GetFlagIconPath()));
 			CreateMap<DatabaseModel.Track, TrackSummary>()
-				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Ascid.GetTrackIconPath()));
+				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Key.GetTrackIconPath()));
 			CreateMap<Car, CarSummary>();
 			CreateMap<Race, RaceSummary>()
 				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))

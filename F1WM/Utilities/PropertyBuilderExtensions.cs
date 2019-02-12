@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 public static class PropertyBuilderExtensions
 {
-	private const string timeOfDayFormat = "hh\\:mm";
+	private const string timeOfDayFormat = "h\\:mm";
 
 	public static PropertyBuilder<TimeSpan> HasTimeConversions(this PropertyBuilder<TimeSpan> builder)
 	{
@@ -24,6 +24,9 @@ public static class PropertyBuilderExtensions
 
 	private static TimeSpan ParseTimeOfDay(string v)
 	{
-		return TimeSpan.ParseExact(v, timeOfDayFormat, CultureInfo.InvariantCulture);
+		return string.IsNullOrWhiteSpace(v) ? TimeSpan.Zero : TimeSpan.ParseExact(
+			v,
+			timeOfDayFormat,
+			CultureInfo.InvariantCulture);
 	}
 }

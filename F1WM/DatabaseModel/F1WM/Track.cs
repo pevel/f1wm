@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	public class Track
 	{
 		public uint Id { get; set; }
-		public string Ascid { get; set; }
+		public string Key { get; set; }
 		public string ShortName { get; set; }
 		public string CountryKey { get; set; }
 		public string Name { get; set; }

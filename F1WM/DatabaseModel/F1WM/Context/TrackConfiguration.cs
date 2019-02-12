@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1tracks");
 
-			builder.HasIndex(e => e.Ascid)
+			builder.HasIndex(e => e.Key)
 				.HasName("ascid")
 				.IsUnique();
 
@@ -29,7 +29,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("artid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Ascid)
+			builder.Property(e => e.Key)
 				.IsRequired()
 				.HasColumnName("ascid")
 				.HasMaxLength(64)
@@ -163,6 +163,11 @@ namespace F1WM.DatabaseModel.Context
 				.WithMany()
 				.HasForeignKey(e => e.CountryKey)
 				.HasPrincipalKey(n => n.Key);
+
+			builder.HasOne(e => e.Website)
+				.WithOne()
+				.HasForeignKey<Track>(e => e.Key)
+				.HasPrincipalKey<Link>(t => t.CategoryKey);
 		}
 	}
 }
