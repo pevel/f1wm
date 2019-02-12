@@ -1,8 +1,9 @@
 namespace F1WM.ApiModel
 {
-	public class DriverCareerYear
+	public class DriverCareerPeriod
 	{
-		public int Year { get; set; }
+		public int StartYear { get; set; }
+		public int EndYear { get; set; }
 		public string Picture { get; set; }
 		public string Text { get; set; }
 	}

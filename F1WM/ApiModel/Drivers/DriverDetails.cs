@@ -27,6 +27,6 @@ namespace F1WM.ApiModel
 		public RaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public RaceSummary FirstWinAt { get; set; }
-		public IEnumerable<DriverCareerYear> CareerYears { get; set; }
+		public IEnumerable<DriverCareerPeriod> CareerPeriods { get; set; }
 	}
 }

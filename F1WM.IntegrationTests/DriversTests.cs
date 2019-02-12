@@ -19,7 +19,8 @@ namespace F1WM.IntegrationTests
 		{
 			await TestResponse<DriverDetails>(
 				$"{baseAddress}/Drivers/{data.DriverId}?atYear={data.AtYear}",
-				data.Expected);
+				data.Expected,
+				data.Why);
 		}
 
 		public class DriversTestData
@@ -32,6 +33,7 @@ namespace F1WM.IntegrationTests
 		{
 			public int DriverId { get; set; }
 			public uint AtYear { get; set; }
+			public string Why { get; set; }
 			public DriverDetails Expected { get; set; }
 		}
 	}

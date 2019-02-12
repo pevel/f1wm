@@ -50,9 +50,12 @@ namespace F1WM.Repositories
 				.Include(e => e.Team)
 				.OrderByDescending(e => e.Race.Date)
 				.FirstOrDefaultAsync(e => e.DriverId == id && e.Race.Date.Year <= atYear);
-			apiDriver.Number = dbLastEntry.Number;
-			apiDriver.Car = mapper.Map<CarSummary>(dbLastEntry.Car);
-			apiDriver.Team = mapper.Map<TeamSummary>(dbLastEntry.Team);
+			if (dbLastEntry != null)
+			{
+				apiDriver.Number = dbLastEntry.Number;
+				apiDriver.Car = mapper.Map<CarSummary>(dbLastEntry.Car);
+				apiDriver.Team = mapper.Map<TeamSummary>(dbLastEntry.Team);
+			}
 		}
 
 		private IQueryable<Driver> GetDriver(int id)
