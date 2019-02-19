@@ -11,6 +11,8 @@ namespace F1WM.ApiModel
 		public string BirthPlace { get; set; }
 		public string Residence { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
+		public DateTime? Death { get; set; }
+		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public string DeathPlace { get; set; }
 		public string Website { get; set; }
 		public string Height { get; set; }
