@@ -160,6 +160,9 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Birthday)
 				.HasColumnName("birth");
 
+			builder.Property(e => e.Death)
+				.HasColumnName("death");
+
 			builder.HasOne(e => e.Nationality)
 				.WithMany()
 				.HasPrincipalKey(n => n.Key)
