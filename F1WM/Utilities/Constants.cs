@@ -89,7 +89,7 @@ public static class Constants
 		{
 			var resultLink = new ResultLink() { Type = ResultTypeToLinkType[link.ResultType] };
 			resultLink.RaceId = (int?)(await context.Races
-					.Where(r => r.Date.Year == link.Year && r.Numinseason == link.Number)
+					.Where(r => r.Date.Year == link.Year && r.OrderInSeason == link.Number)
 					.Select(r => r.Id)
 					.FirstOrDefaultAsync());
 			return resultLink;

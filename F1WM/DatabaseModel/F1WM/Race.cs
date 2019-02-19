@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
 	{
 		public uint Id { get; set; }
 		public uint SeasonId { get; set; }
-		public byte Numinseason { get; set; }
+		public byte OrderInSeason { get; set; }
 		public string CountryKey { get; set; }
 		public uint TrackId { get; set; }
 		public bool Weather { get; set; }

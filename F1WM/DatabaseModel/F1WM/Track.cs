@@ -24,8 +24,8 @@ namespace F1WM.DatabaseModel
 		public uint? Artid { get; set; }
 		public string Weatherurl { get; set; }
 		public string Zipcode { get; set; }
-		public string Satmapcoords { get; set; }
-		public byte? Satmapzoom { get; set; }
+		public string MapCoordinates { get; set; }
+		public byte? MapZoom { get; set; }
 		public byte StatusId { get; set; }
 		public bool Fiatrackmap { get; set; }
 		public ushort? Length { get; set; }
@@ -34,5 +34,6 @@ namespace F1WM.DatabaseModel
 		public string LapDescr { get; set; }
 		public virtual Country Country { get; set; }
 		public virtual Link Website { get; set; }
+		public virtual IEnumerable<Race> Races { get; set; }
 	}
 }

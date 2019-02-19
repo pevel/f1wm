@@ -110,13 +110,13 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(20)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Satmapcoords)
+			builder.Property(e => e.MapCoordinates)
 				.IsRequired()
 				.HasColumnName("satmapcoords")
 				.HasMaxLength(25)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Satmapzoom).HasColumnName("satmapzoom");
+			builder.Property(e => e.MapZoom).HasColumnName("satmapzoom");
 
 			builder.Property(e => e.RaceStartLocal)
 				.IsRequired()

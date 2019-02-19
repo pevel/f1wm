@@ -46,7 +46,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Numinseason)
+			builder.Property(e => e.OrderInSeason)
 				.HasColumnName("numinseason")
 				.HasDefaultValueSql("'0'");
 
@@ -88,7 +88,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("date");
 
 			builder.HasOne(e => e.Track)
-				.WithMany()
+				.WithMany(t => t.Races)
 				.HasPrincipalKey(t => t.Id)
 				.HasForeignKey(e => e.TrackId);
 

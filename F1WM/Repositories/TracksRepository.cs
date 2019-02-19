@@ -23,9 +23,17 @@ namespace F1WM.Repositories
 
 		public async Task<TrackDetails> GetTrack(int id, int atYear)
 		{
-			return await mapper.ProjectTo<TrackDetails>(context.Tracks
-					.Where(t => t.Id == id))
+			var dbTrack = await context.Tracks
+				.Include(t => t.Country)
+				.SingleOrDefaultAsync(t => t.Id == id);
+			await context.Entry(dbTrack)
+				.Collection(t => t.Races)
+				.Query()
+				.Where(r => r.Date.Year <= atYear)
+				.Include(r => r.Country)
+				.OrderByDescending(r => r.Date)
 				.FirstOrDefaultAsync();
+			return mapper.Map<TrackDetails>(dbTrack);
 		}
 
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)
