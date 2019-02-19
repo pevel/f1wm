@@ -84,5 +84,19 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetTracksByStatus(statusId, page, countPerPage), Times.Once);
 			actual.Should().BeEquivalentTo(tracks);
 		}
+
+		[Fact]
+		public async Task ShouldGetTrack()
+		{
+			int id = 77777;
+			int year = 467;
+			var track = fixture.Create<TrackDetails>();
+			repositoryMock.Setup(r => r.GetTrack(id, year)).ReturnsAsync(track);
+
+			var actual = await service.GetTrack(id, year);
+
+			repositoryMock.Verify(r => r.GetTrack(id, year), Times.Once);
+			actual.Should().BeEquivalentTo(track);
+		}
 	}
 }
