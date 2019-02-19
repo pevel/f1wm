@@ -21,7 +21,7 @@ namespace F1WM.Repositories
 				(q.Session1Position == 0 && q.PositionOrStatus == "1");
 
 
-		public async Task<TrackDetails> GetTrack(int id)
+		public async Task<TrackDetails> GetTrack(int id, int atYear)
 		{
 			return await mapper.ProjectTo<TrackDetails>(context.Tracks
 					.Where(t => t.Id == id))
@@ -56,7 +56,7 @@ namespace F1WM.Repositories
 
 		public Task<PagedResult<ApiModel.Track>> GetTracks(uint page, uint countPerPage)
 		{
-			var dbTracks = context.Tracks.OrderBy(t => t.Id);
+			var dbTracks = context.Tracks.OrderBy(t => t.ShortName);
 			return dbTracks.GetPagedResult<DatabaseModel.Track, ApiModel.Track>(mapper, page, countPerPage);
 		}
 

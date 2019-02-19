@@ -22,9 +22,10 @@ namespace F1WM.Services
 			return repository.GetTracksByStatusId(statusId, page, countPerPage);
 		}
 
-		public Task<TrackDetails> GetTrack(int id)
+		public Task<TrackDetails> GetTrack(int id, int? atYear)
 		{
-			return repository.GetTrack(id);
+			var now = time.Now;
+			return repository.GetTrack(id, atYear ?? now.Year);
 		}
 
 		public Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int? beforeYear)

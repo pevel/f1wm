@@ -32,9 +32,11 @@ namespace F1WM.Controllers
 		[HttpGet("{id}")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<TrackDetails>> GetTrack(int id)
+		public async Task<ActionResult<TrackDetails>> GetTrack(
+			[FromRoute]int id,
+			[FromQuery]int? atYear)
 		{
-			var track = await service.GetTrack(id);
+			var track = await service.GetTrack(id, atYear);
 			return this.NotFoundResultIfNull(track);
 		}
 
