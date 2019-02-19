@@ -29,6 +29,7 @@ namespace F1WM.DatabaseModel
 		public ushort DebutYear { get; set; }
 		public string CareerText { get; set; }
 		public DateTime Birthday { get; set; }
+		public DateTime? Death { get; set; }
 		public virtual IEnumerable<DriverStandingsPosition> StandingsPositions { get; set; }
 		public virtual Country Nationality { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
