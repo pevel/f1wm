@@ -86,11 +86,11 @@ namespace F1WM.UnitTests.Controllers
 		{
 			byte statusId = 2;
 			var tracks = fixture.Create<PagedResult<Track>>();
-			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(tracks);
+			serviceMock.Setup(s => s.GetTracksByStatus(statusId, 1, 25)).ReturnsAsync(tracks);
 
 			var result = await controller.GetTracks(statusId);
 
-			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			serviceMock.Verify(s => s.GetTracksByStatus(statusId, 1, 25), Times.Once);
 			result.Should().BeEquivalentTo(tracks);
 		}
 
@@ -108,11 +108,11 @@ namespace F1WM.UnitTests.Controllers
 				Result = emptyResult
 			};
 
-			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(emptyResponse);
+			serviceMock.Setup(s => s.GetTracksByStatus(statusId, 1, 25)).ReturnsAsync(emptyResponse);
 
 			var result = await controller.GetTracks(statusId);
 
-			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			serviceMock.Verify(s => s.GetTracksByStatus(statusId, 1, 25), Times.Once);
 			Assert.Empty(result.Result);
 		}
 

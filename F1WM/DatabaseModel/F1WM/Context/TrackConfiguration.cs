@@ -15,7 +15,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasName("ascid")
 				.IsUnique();
 
-			builder.HasIndex(e => e.StatusId)
+			builder.HasIndex(e => e.Status)
 				.HasName("status");
 
 			builder.HasIndex(e => e.ShortName)
@@ -134,7 +134,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasDefaultValueSql("''")
 				.HasTimeOfDayConversions();
 
-			builder.Property(e => e.StatusId)
+			builder.Property(e => e.Status)
 				.HasColumnName("status");
 
 			builder.Property(e => e.ShortName)

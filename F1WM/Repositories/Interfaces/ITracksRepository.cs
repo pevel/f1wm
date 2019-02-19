@@ -8,7 +8,7 @@ namespace F1WM.Repositories
 	{
 		Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear);
 		Task<PagedResult<Track>> GetTracks(uint page, uint countPerPage);
-		Task<PagedResult<Track>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage);
+		Task<PagedResult<Track>> GetTracksByStatus(byte statusId, uint page, uint countPerPage);
 		Task<TrackDetails> GetTrack(int id, int atYear);
 	}
 }

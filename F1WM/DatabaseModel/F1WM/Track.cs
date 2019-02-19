@@ -26,7 +26,7 @@ namespace F1WM.DatabaseModel
 		public string Zipcode { get; set; }
 		public string MapCoordinates { get; set; }
 		public byte? MapZoom { get; set; }
-		public byte StatusId { get; set; }
+		public byte Status { get; set; }
 		public bool Fiatrackmap { get; set; }
 		public ushort? Length { get; set; }
 		public uint? Newstopicid { get; set; }

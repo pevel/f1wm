@@ -26,10 +26,10 @@ namespace F1WM.IntegrationTests
 
 		[Theory]
 		[JsonData("tracks", "track-summary.json")]
-		public async Task ShouldGetTracksByStatusId(TracksSummaryTestData data)
+		public async Task ShouldGetTracksByStatus(TracksSummaryTestData data)
 		{
 			await TestResponse<PagedResult<Track>>(
-				$"{baseAddress}/tracks?statusId={data.StatusId}&countPerPage={data.CountPerPage}&page={data.Page}",
+				$"{baseAddress}/tracks?status={data.Status}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
 
@@ -45,7 +45,7 @@ namespace F1WM.IntegrationTests
 		{
 			public uint CountPerPage { get; set; }
 			public uint Page { get; set; }
-			public uint StatusId { get; set; }
+			public uint Status { get; set; }
 			public PagedResult<Track> Expected { get; set; }
 		}
 	}

@@ -77,11 +77,11 @@ namespace F1WM.UnitTests.Services
 			uint page = 1;
 			uint countPerPage = 25;
 			var tracks = fixture.Create<PagedResult<Track>>();
-			repositoryMock.Setup(r => r.GetTracksByStatusId(statusId, page, countPerPage)).ReturnsAsync(tracks);
+			repositoryMock.Setup(r => r.GetTracksByStatus(statusId, page, countPerPage)).ReturnsAsync(tracks);
 
-			var actual = await service.GetTracksByStatusId(statusId, page, countPerPage);
+			var actual = await service.GetTracksByStatus(statusId, page, countPerPage);
 
-			repositoryMock.Verify(r => r.GetTracksByStatusId(statusId, page, countPerPage), Times.Once);
+			repositoryMock.Verify(r => r.GetTracksByStatus(statusId, page, countPerPage), Times.Once);
 			actual.Should().BeEquivalentTo(tracks);
 		}
 	}

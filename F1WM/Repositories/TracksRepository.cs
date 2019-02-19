@@ -64,16 +64,17 @@ namespace F1WM.Repositories
 
 		public Task<PagedResult<ApiModel.Track>> GetTracks(uint page, uint countPerPage)
 		{
-			var dbTracks = context.Tracks.OrderBy(t => t.ShortName);
+			var dbTracks = context.Tracks
+				.OrderByDescending(t => t.Status)
+				.ThenBy(t => t.ShortName);
 			return dbTracks.GetPagedResult<DatabaseModel.Track, ApiModel.Track>(mapper, page, countPerPage);
 		}
 
-		public Task<PagedResult<ApiModel.Track>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage)
+		public Task<PagedResult<ApiModel.Track>> GetTracksByStatus(byte status, uint page, uint countPerPage)
 		{
 			var dbTracks = context.Tracks
-				.Where(t => t.StatusId == statusId)
-				.OrderBy(t => t.Id);
-
+				.Where(t => t.Status == status)
+				.OrderBy(t => t.ShortName);
 			return dbTracks.GetPagedResult<DatabaseModel.Track, ApiModel.Track>(mapper, page, countPerPage);
 		}
 

@@ -17,9 +17,9 @@ namespace F1WM.Services
 			return repository.GetTracks(page, countPerPage);
 		}
 
-		public Task<PagedResult<Track>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage)
+		public Task<PagedResult<Track>> GetTracksByStatus(byte status, uint page, uint countPerPage)
 		{
-			return repository.GetTracksByStatusId(statusId, page, countPerPage);
+			return repository.GetTracksByStatus(status, page, countPerPage);
 		}
 
 		public Task<TrackDetails> GetTrack(int id, int? atYear)

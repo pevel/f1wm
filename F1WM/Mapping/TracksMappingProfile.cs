@@ -12,8 +12,10 @@ namespace F1WM.Mapping
 		public TracksMappingProfile()
 		{
 			CreateMap<DatabaseModel.Track, ApiModel.Track>()
+				.ForMember(api => api.Status, o => o.MapFrom(db => (TrackStatus)db.Status))
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Key.GetTrackIconPath()));
 			CreateMap<DatabaseModel.Track, ApiModel.TrackDetails>()
+				.ForMember(api => api.Status, o => o.MapFrom(db => (TrackStatus)db.Status))
 				.ForMember(api => api.LastRace, o => o.MapFrom(db => db.Races.OrderByDescending(r => r.Date).First()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Website.Url))
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Key.GetTrackIconPath()));

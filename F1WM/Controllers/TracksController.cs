@@ -15,13 +15,13 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		public async Task<PagedResult<Track>> GetTracks(
-			[FromQuery]byte? statusId, 
+			[FromQuery]byte? status, 
 			[FromQuery(Name = "page")] uint page = defaultPage,
 			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
 		{
-			if (statusId != null)
+			if (status != null)
 			{
-				return await service.GetTracksByStatusId((byte)statusId, page, countPerPage);
+				return await service.GetTracksByStatus((byte)status, page, countPerPage);
 			}
 			else
 			{
