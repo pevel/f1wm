@@ -13,5 +13,6 @@ namespace F1WM.ApiModel
 		public TimeSpan RaceStartLocal { get; set; }
 		public TimeSpan RaceStartPoland { get; set; }
 		public string Coordinates { get; set; }
+		public string Image { get; set; }
 	}
 }

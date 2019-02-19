@@ -18,6 +18,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Status, o => o.MapFrom(db => (TrackStatus)db.Status))
 				.ForMember(api => api.LastRace, o => o.MapFrom(db => db.Races.OrderByDescending(r => r.Date).First()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Website.Url))
+				.ForMember(api => api.Image, o => o.MapFrom(db => db.Key.GetTrackImagePath()))
 				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Key.GetTrackIconPath()));
 			CreateMap<Race, TrackRaceSummary>()
 				.ForMember(api => api.LapLength, o => o.MapFrom(db => (db.Distance + db.Offset) / db.Laps))
