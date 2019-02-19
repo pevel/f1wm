@@ -12,7 +12,7 @@ namespace F1WM.ApiModel
 		public TrackRaceSummary LastRace { get; set; }
 		public TimeSpan RaceStartLocal { get; set; }
 		public TimeSpan RaceStartPoland { get; set; }
-		public string Coordinates { get; set; }
+		public string MapCoordinates { get; set; }
 		public string Image { get; set; }
 	}
 }

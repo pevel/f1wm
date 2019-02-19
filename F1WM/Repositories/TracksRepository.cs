@@ -25,6 +25,7 @@ namespace F1WM.Repositories
 		{
 			var dbTrack = await context.Tracks
 				.Include(t => t.Country)
+				.Include(t => t.Website)
 				.SingleOrDefaultAsync(t => t.Id == id);
 			await context.Entry(dbTrack)
 				.Collection(t => t.Races)
@@ -33,7 +34,7 @@ namespace F1WM.Repositories
 				.Include(r => r.Country)
 				.OrderByDescending(r => r.Date)
 				.FirstOrDefaultAsync();
-			return mapper.Map<TrackDetails>(dbTrack);
+			return dbTrack != null ? mapper.Map<TrackDetails>(dbTrack) : null;
 		}
 
 		public async Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int beforeYear)

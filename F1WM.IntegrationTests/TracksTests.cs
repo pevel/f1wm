@@ -7,6 +7,15 @@ namespace F1WM.IntegrationTests
 	public class TracksTests : IntegrationTestBase
 	{
 		[Theory]
+		[JsonData("tracks", "track-details.json")]
+		public async Task ShouldGetTrack(TrackDetailsTestData data)
+		{
+			await TestResponse<TrackDetails>(
+				$"{baseAddress}/tracks/{data.TrackId}?atYear={data.AtYear}",
+				data.Expected);
+		}
+
+		[Theory]
 		[JsonData("tracks", "track-records.json")]
 		public async Task ShouldGetTrackRecords(TrackRecordsTestData data)
 		{
@@ -47,6 +56,13 @@ namespace F1WM.IntegrationTests
 			public uint Page { get; set; }
 			public uint Status { get; set; }
 			public PagedResult<Track> Expected { get; set; }
+		}
+
+		public class TrackDetailsTestData
+		{
+			public int TrackId { get; set; }
+			public int AtYear { get; set; }
+			public TrackDetails Expected { get; set; }
 		}
 	}
 }

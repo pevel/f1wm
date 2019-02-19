@@ -167,7 +167,8 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasOne(e => e.Website)
 				.WithOne()
 				.HasForeignKey<Track>(e => e.Key)
-				.HasPrincipalKey<Link>(t => t.CategoryKey);
+				.HasPrincipalKey<Link>(t => t.CategoryKey)
+				.IsRequired(false);
 		}
 	}
 }
