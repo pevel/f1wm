@@ -1,0 +1,107 @@
+[
+  {
+    "trackId": 57,
+    "atYear": 2018,
+    "expected": {
+      "address": "Silverstone Circuit, Towcester, Northants, NN12 8TN",
+      "website": "www.silverstone-circuit.co.uk",
+      "longestStraight": null,
+      "width": "",
+      "lastRace": {
+        "laps": 52,
+        "orderInSeason": 10,
+        "translatedName": "Grand Prix Wielkiej Brytanii",
+        "distance": 306.227,
+        "lapLength": 5.891,
+        "offset": 0.105,
+        "raceId": 1033,
+        "name": "Rolex British Grand Prix",
+        "date": "2018-07-08T00:00:00"
+      },
+      "raceStartLocal": "14:10:00",
+      "raceStartPoland": "15:10:00",
+      "mapCoordinates": "52.070854,-1.016707",
+      "image": "/img/tory/silverstone.jpg",
+      "city": "Silverstone",
+      "shortName": "Silverstone",
+      "country": {
+        "name": "Wielka Brytania",
+        "flagIcon": "/img/flagi/gbr2.gif"
+      },
+      "status": "CurrentRaceTrack",
+      "id": 57,
+      "name": "Silverstone Circuit",
+      "trackIcon": "/img/tory/silverstone_m2.png"
+    }
+  },
+  {
+    "trackId": 22,
+    "atYear": 2018,
+    "expected": {
+      "address": "2146 Mogyorod Pf. 10, Hungaroring Sport Rt., Hungary",
+      "website": "www.hungaroring.hu",
+      "longestStraight": 788,
+      "width": "10-11",
+      "lastRace": {
+        "laps": 70,
+        "orderInSeason": 12,
+        "translatedName": "Grand Prix Węgier",
+        "distance": 306.63,
+        "lapLength": 4.381,
+        "offset": 0.04,
+        "raceId": 1035,
+        "name": "Rolex Magyar Nagydíj",
+        "date": "2018-07-29T00:00:00"
+      },
+      "raceStartLocal": "15:10:00",
+      "raceStartPoland": "15:10:00",
+      "mapCoordinates": "47.583039,19.251738",
+      "image": "/img/tory/hungaroring.jpg",
+      "city": "Budapeszt",
+      "shortName": "Hungaroring",
+      "country": {
+        "name": "Węgry",
+        "flagIcon": "/img/flagi/hun2.gif"
+      },
+      "status": "CurrentRaceTrack",
+      "id": 22,
+      "name": "Hungaroring",
+      "trackIcon": "/img/tory/hungaroring_m2.png"
+    }
+  },
+  {
+    "trackId": 2,
+    "atYear": 2018,
+    "expected": {
+      "address": "",
+      "website": null,
+      "longestStraight": null,
+      "width": "",
+      "lastRace": {
+        "laps": 81,
+        "orderInSeason": 17,
+        "translatedName": "Grand Prix Australii",
+        "distance": 306.18,
+        "lapLength": 3.7800000000000002,
+        "offset": 0,
+        "raceId": 581,
+        "name": "EDS Australian Grand Prix",
+        "date": "1995-11-12T00:00:00"
+      },
+      "raceStartLocal": "00:00:00",
+      "raceStartPoland": "00:00:00",
+      "mapCoordinates": "-34.926674,138.616304",
+      "image": "/img/tory/adelaide.jpg",
+      "city": "Adelajda",
+      "shortName": "Adelaide",
+      "country": {
+        "name": "Australia",
+        "flagIcon": "/img/flagi/aus2.gif"
+      },
+      "status": "FormerRaceTrack",
+      "id": 2,
+      "name": "Adelaide Street Circuit",
+      "trackIcon": "/img/tory/adelaide_m2.png"
+    }
+  }
+]

@@ -12,21 +12,27 @@ namespace F1WM.Services
 		private readonly ITracksRepository repository;
 		private readonly ITimeService time;
 
-		public Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int? beforeYear)
-		{
-			var now = time.Now;
-			return repository.GetTrackRecords(trackId, trackVersion, beforeYear ?? now.Year);
-		}
-
-		public Task<PagedResult<TrackSummary>> GetTracks(uint page, uint countPerPage)
+		public Task<PagedResult<Track>> GetTracks(uint page, uint countPerPage)
 		{
 			return repository.GetTracks(page, countPerPage);
 		}
 
-		public Task<PagedResult<TrackSummary>> GetTracksByStatusId(byte statusId, uint page, uint countPerPage)
+		public Task<PagedResult<Track>> GetTracksByStatus(byte status, uint page, uint countPerPage)
 		{
-			return repository.GetTracksByStatusId(statusId, page, countPerPage);
+			return repository.GetTracksByStatus(status, page, countPerPage);
 		}
+
+		public Task<TrackDetails> GetTrack(int id, int? atYear)
+		{
+			var now = time.Now;
+			return repository.GetTrack(id, atYear ?? now.Year);
+		}
+
+		public Task<TrackRecordsInformation> GetTrackRecords(int trackId, int trackVersion, int? beforeYear)
+		{
+			var now = time.Now;
+			return repository.GetTrackRecords(trackId, trackVersion, beforeYear ?? now.Year);
+		}	
 
 		public TracksService(ITracksRepository repository, ITimeService time)
 		{

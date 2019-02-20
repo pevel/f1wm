@@ -72,7 +72,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnTracks()
 		{
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
+			var tracks = fixture.Create<PagedResult<Track>>();
 			serviceMock.Setup(s => s.GetTracks(1, 25)).ReturnsAsync(tracks);
 
 			var result = await controller.GetTracks(null);
@@ -84,22 +84,22 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnTracksByStatusId()
 		{
-			byte statusId = 2;
-			var tracks = fixture.Create<PagedResult<TrackSummary>>();
-			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(tracks);
+			byte status = 2;
+			var tracks = fixture.Create<PagedResult<Track>>();
+			serviceMock.Setup(s => s.GetTracksByStatus(status, 1, 25)).ReturnsAsync(tracks);
 
-			var result = await controller.GetTracks(statusId);
+			var result = await controller.GetTracks(status);
 
-			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			serviceMock.Verify(s => s.GetTracksByStatus(status, 1, 25), Times.Once);
 			result.Should().BeEquivalentTo(tracks);
 		}
 
 		[Fact]
 		public async Task ShouldReturnEmptyListOfTracksByStatusId()
 		{
-			byte statusId = 3;
-			IEnumerable<TrackSummary> emptyResult = Enumerable.Empty<TrackSummary>();
-			PagedResult<TrackSummary> emptyResponse = new PagedResult<TrackSummary>
+			byte status = 3;
+			IEnumerable<Track> emptyResult = Enumerable.Empty<Track>();
+			PagedResult<Track> emptyResponse = new PagedResult<Track>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
@@ -108,11 +108,11 @@ namespace F1WM.UnitTests.Controllers
 				Result = emptyResult
 			};
 
-			serviceMock.Setup(s => s.GetTracksByStatusId(statusId, 1, 25)).ReturnsAsync(emptyResponse);
+			serviceMock.Setup(s => s.GetTracksByStatus(status, 1, 25)).ReturnsAsync(emptyResponse);
 
-			var result = await controller.GetTracks(statusId);
+			var result = await controller.GetTracks(status);
 
-			serviceMock.Verify(s => s.GetTracksByStatusId(statusId, 1, 25), Times.Once);
+			serviceMock.Verify(s => s.GetTracksByStatus(status, 1, 25), Times.Once);
 			Assert.Empty(result.Result);
 		}
 
@@ -134,6 +134,32 @@ namespace F1WM.UnitTests.Controllers
 			await controller.GetTracks(null, page);
 
 			serviceMock.Verify(s => s.GetTracks(page, 25), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTrackDetails()
+		{
+			int id = 99999;
+			var track = fixture.Create<TrackDetails>();
+			serviceMock.Setup(s => s.GetTrack(id, null)).ReturnsAsync(track);
+
+			var result = await controller.GetTrack(id, null);
+
+			serviceMock.Verify(s => s.GetTrack(id, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(track);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfTrackNotFound()
+		{
+			int id = 88888;
+			serviceMock.Setup(s => s.GetTrack(id, null)).ReturnsAsync((TrackDetails)null);
+
+			var result = await controller.GetTrack(id, null);
+
+			serviceMock.Verify(s => s.GetTrack(id, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

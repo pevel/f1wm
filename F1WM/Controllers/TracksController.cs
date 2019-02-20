@@ -13,6 +13,33 @@ namespace F1WM.Controllers
 		private const int defaultPage = 1;
 		private const int defaultCountPerPage = 25;
 
+		[HttpGet]
+		public async Task<PagedResult<Track>> GetTracks(
+			[FromQuery]byte? status, 
+			[FromQuery(Name = "page")] uint page = defaultPage,
+			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+		{
+			if (status != null)
+			{
+				return await service.GetTracksByStatus((byte)status, page, countPerPage);
+			}
+			else
+			{
+				return await service.GetTracks(page, countPerPage);
+			}
+		}
+
+		[HttpGet("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackDetails>> GetTrack(
+			[FromRoute]int id,
+			[FromQuery]int? atYear)
+		{
+			var track = await service.GetTrack(id, atYear);
+			return this.NotFoundResultIfNull(track);
+		}
+
 		[HttpGet("{trackId}/versions/{trackVersion}/records")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
@@ -25,23 +52,7 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(records);
 		}
 
-		[HttpGet]
-		public async Task<PagedResult<TrackSummary>> GetTracks(
-			[FromQuery]byte? statusId, 
-			[FromQuery(Name = "page")] uint page = defaultPage,
-			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
-		{
-			if (statusId != null)
-			{
-				return await service.GetTracksByStatusId((byte)statusId, page, countPerPage);
-			}
-			else
-			{
-				return await service.GetTracks(page, countPerPage);
-			}
-		}
-
-			public TracksController(ITracksService service)
+		public TracksController(ITracksService service)
 		{
 			this.service = service;
 		}

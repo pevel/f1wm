@@ -23,7 +23,7 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(nextRace);
 			Assert.NotNull(nextRace.Track);
 			Assert.NotEqual(0, nextRace.Id);
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.ShortName));
+			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.Name));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.TrackIcon));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.Name));
 			Assert.False(string.IsNullOrWhiteSpace(nextRace.TranslatedName));
@@ -54,7 +54,7 @@ namespace F1WM.IntegrationTests
 			Assert.NotNull(lastRace);
 			Assert.NotNull(lastRace.Track);
 			Assert.NotEqual(0, lastRace.Id);
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.ShortName));
+			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.Name));
 			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.TrackIcon));
 			Assert.False(string.IsNullOrWhiteSpace(lastRace.Name));
 			Assert.False(string.IsNullOrWhiteSpace(lastRace.TranslatedName));

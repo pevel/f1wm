@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using F1WM.Services;
 using Microsoft.AspNetCore.Http;
 using MySql.Data.MySqlClient;
@@ -51,7 +52,8 @@ namespace F1WM.Middlewares
 			{
 				{ typeof(Exception), "Internal server error" },
 				{ typeof(NotImplementedException), "Not implemented" },
-				{ typeof(MySqlException), "Database error" }
+				{ typeof(MySqlException), "Database error" },
+				{ typeof(AutoMapperMappingException), "Internal server error: misconfigured model mapping" }
 			};
 		}
 	}

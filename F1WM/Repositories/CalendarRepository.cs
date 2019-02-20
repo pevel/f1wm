@@ -61,14 +61,21 @@ namespace F1WM.Repositories
 		private async Task IncludeLastRaceResult(int year, List<CalendarRace> calendar)
 		{
 			var dbRaceResults = await context.Results
+				.Include(r => r.Entry).ThenInclude(e => e.Grid)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.Where(r => r.PositionOrStatus == "1" && r.Race.Date.Year == year)
 				.ToListAsync();
+			
+			foreach (var r in dbRaceResults)
+			{
+				r.Entry.Grid.FillStartPositionInfo();
+			}
 
 			foreach (CalendarRace calendarRace in calendar)
 			{
-				calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults.FirstOrDefault(r => r.RaceId == calendarRace.Id));
+				calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults
+					.FirstOrDefault(r => r.RaceId == calendarRace.Id));
 			}
 
 		}

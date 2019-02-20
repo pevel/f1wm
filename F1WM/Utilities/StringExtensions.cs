@@ -68,6 +68,11 @@ namespace F1WM.Utilities
 			return $"/img/tory/{id}_m2.png";
 		}
 
+		public static string GetTrackImagePath(this string id)
+		{
+			return $"/img/tory/{id}.jpg";
+		}
+
 		public static string GetGenericIconPath(this string id)
 		{
 			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
