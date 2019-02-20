@@ -24,7 +24,7 @@ namespace F1WM.Utilities
 						{
 							if (sections.TryGetValue(sectionName, out var keyValues))
 							{
-								keyValues.Add(tokens[0], tokens[1]);
+								keyValues.Add(tokens[0].Trim(), tokens[1].Trim());
 							}
 							else
 							{
@@ -33,7 +33,7 @@ namespace F1WM.Utilities
 						}
 						else if (!string.IsNullOrWhiteSpace(tokens[0]))
 						{
-							sectionName = tokens[0];
+							sectionName = tokens[0].Trim();
 						}
 					}
 				}
