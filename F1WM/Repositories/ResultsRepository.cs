@@ -25,6 +25,7 @@ namespace F1WM.Repositories
 				.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
 			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
+			model.Distance = await GetRaceDistance(raceId);
 			return model.Results.Any() ? model : null;
 		}
 
@@ -126,6 +127,12 @@ namespace F1WM.Repositories
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.Entry).ThenInclude(e => e.Tyres)
 				.Include(r => r.Entry).ThenInclude(e => e.Grid);
+		}
+
+		private async Task<double> GetRaceDistance(int raceId)
+		{
+			var dbResult = await context.Races.SingleOrDefaultAsync(r => r.Id == raceId);
+			return dbResult.Distance;
 		}
 	}
 }

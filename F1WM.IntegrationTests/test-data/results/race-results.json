@@ -4,6 +4,7 @@
     "why": "race in the old format",
     "expected": {
       "raceId": 7,
+      "distance": 504,
       "results": [
         {
           "finishPosition": 1,
@@ -196,43 +197,22 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 19,
-          "number": 6,
+          "startPosition": 7,
+          "number": 60,
           "driver": {
-            "id": 147,
-            "firstName": "Louis",
-            "surname": "Chiron"
+            "id": 709,
+            "firstName": "Piero",
+            "surname": "Taruffi"
           },
           "car": {
-            "id": 2,
-            "name": "Maserati 4CLT/48"
+            "id": 1,
+            "name": "Alfa Romeo 158"
           },
           "tyres": "Pirelli",
-          "finishedLaps": 13,
+          "finishedLaps": 25,
           "time": "00:00:00",
           "pitStopVisits": 0,
-          "information": "ciśnienie oleju",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
-          "startPosition": 2,
-          "number": 16,
-          "driver": {
-            "id": 28,
-            "firstName": "Alberto",
-            "surname": "Ascari"
-          },
-          "car": {
-            "id": 37,
-            "name": "Ferrari 375"
-          },
-          "tyres": "Pirelli",
-          "finishedLaps": 21,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "silnik",
+          "information": "silnik; jechał na zmianę z Fangio",
           "status": "NotClassified",
           "startStatus": "FromGrid"
         },
@@ -259,19 +239,82 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 27,
-          "number": 28,
+          "startPosition": 2,
+          "number": 16,
           "driver": {
-            "id": 564,
-            "firstName": "Paul",
-            "surname": "Pietsch"
+            "id": 28,
+            "firstName": "Alberto",
+            "surname": "Ascari"
+          },
+          "car": {
+            "id": 37,
+            "name": "Ferrari 375"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 21,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "silnik",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 26,
+          "number": 62,
+          "driver": {
+            "id": 157,
+            "firstName": "Franco",
+            "surname": "Comotti"
+          },
+          "car": {
+            "id": 33,
+            "name": "Maserati 4CLT/50 Milano"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 15,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "wycofał się",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 19,
+          "number": 6,
+          "driver": {
+            "id": 147,
+            "firstName": "Louis",
+            "surname": "Chiron"
           },
           "car": {
             "id": 2,
             "name": "Maserati 4CLT/48"
           },
           "tyres": "Pirelli",
-          "finishedLaps": 0,
+          "finishedLaps": 13,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "ciśnienie oleju",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 4,
+          "number": 46,
+          "driver": {
+            "id": 633,
+            "firstName": "Consalvo",
+            "surname": "Sanesi"
+          },
+          "car": {
+            "id": 1,
+            "name": "Alfa Romeo 158"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 11,
           "time": "00:00:00",
           "pitStopVisits": 0,
           "information": "silnik",
@@ -301,19 +344,19 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 4,
-          "number": 46,
+          "startPosition": 27,
+          "number": 28,
           "driver": {
-            "id": 633,
-            "firstName": "Consalvo",
-            "surname": "Sanesi"
+            "id": 564,
+            "firstName": "Paul",
+            "surname": "Pietsch"
           },
           "car": {
-            "id": 1,
-            "name": "Alfa Romeo 158"
+            "id": 2,
+            "name": "Maserati 4CLT/48"
           },
           "tyres": "Pirelli",
-          "finishedLaps": 11,
+          "finishedLaps": 0,
           "time": "00:00:00",
           "pitStopVisits": 0,
           "information": "silnik",
@@ -343,48 +386,6 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 7,
-          "number": 60,
-          "driver": {
-            "id": 709,
-            "firstName": "Piero",
-            "surname": "Taruffi"
-          },
-          "car": {
-            "id": 1,
-            "name": "Alfa Romeo 158"
-          },
-          "tyres": "Pirelli",
-          "finishedLaps": 25,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "silnik; jechał na zmianę z Fangio",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
-          "startPosition": 26,
-          "number": 62,
-          "driver": {
-            "id": 157,
-            "firstName": "Franco",
-            "surname": "Comotti"
-          },
-          "car": {
-            "id": 33,
-            "name": "Maserati 4CLT/50 Milano"
-          },
-          "tyres": "Pirelli",
-          "finishedLaps": 15,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "wycofał się",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
           "startPosition": null,
           "number": 60,
           "driver": {
@@ -406,48 +407,6 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 22,
-          "number": 2,
-          "driver": {
-            "id": 150,
-            "firstName": "Johnny",
-            "surname": "Claes"
-          },
-          "car": {
-            "id": 7,
-            "name": "Talbot-Lago T26C"
-          },
-          "tyres": "Dunlop",
-          "finishedLaps": 22,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "przegrzanie silnika",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
-          "startPosition": 8,
-          "number": 12,
-          "driver": {
-            "id": 675,
-            "firstName": "Raymond",
-            "surname": "Sommer"
-          },
-          "car": {
-            "id": 7,
-            "name": "Talbot-Lago T26C"
-          },
-          "tyres": "Dunlop",
-          "finishedLaps": 48,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "skrzynia biegów",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
           "startPosition": 21,
           "number": 32,
           "driver": {
@@ -464,27 +423,6 @@
           "time": "00:00:00",
           "pitStopVisits": 0,
           "information": "chłodnica",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
-          "startPosition": 11,
-          "number": 40,
-          "driver": {
-            "id": 458,
-            "firstName": "Guy",
-            "surname": "Mairesse"
-          },
-          "car": {
-            "id": 7,
-            "name": "Talbot-Lago T26C"
-          },
-          "tyres": "Dunlop",
-          "finishedLaps": 42,
-          "time": "00:00:00",
-          "pitStopVisits": 0,
-          "information": "przewód olejowy",
           "status": "NotClassified",
           "startStatus": "FromGrid"
         },
@@ -511,6 +449,48 @@
         },
         {
           "finishPosition": null,
+          "startPosition": 8,
+          "number": 12,
+          "driver": {
+            "id": 675,
+            "firstName": "Raymond",
+            "surname": "Sommer"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "tyres": "Dunlop",
+          "finishedLaps": 48,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "skrzynia biegów",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 11,
+          "number": 40,
+          "driver": {
+            "id": 458,
+            "firstName": "Guy",
+            "surname": "Mairesse"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "tyres": "Dunlop",
+          "finishedLaps": 42,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "przewód olejowy",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
           "startPosition": 20,
           "number": 56,
           "driver": {
@@ -527,6 +507,27 @@
           "time": "00:00:00",
           "pitStopVisits": 0,
           "information": "skrzynia biegów",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 22,
+          "number": 2,
+          "driver": {
+            "id": 150,
+            "firstName": "Johnny",
+            "surname": "Claes"
+          },
+          "car": {
+            "id": 7,
+            "name": "Talbot-Lago T26C"
+          },
+          "tyres": "Dunlop",
+          "finishedLaps": 22,
+          "time": "00:00:00",
+          "pitStopVisits": 0,
+          "information": "przegrzanie silnika",
           "status": "NotClassified",
           "startStatus": "FromGrid"
         },
@@ -635,6 +636,7 @@
     "why": "race in the new format, with various statuses",
     "expected": {
       "raceId": 1040,
+      "distance": 307.471,
       "results": [
         {
           "finishPosition": 1,
@@ -1016,27 +1018,6 @@
         },
         {
           "finishPosition": null,
-          "startPosition": 12,
-          "number": 20,
-          "driver": {
-            "id": 855,
-            "firstName": "Kevin",
-            "surname": "Magnussen"
-          },
-          "car": {
-            "id": 1087,
-            "name": "Haas VF-18"
-          },
-          "tyres": "Pirelli",
-          "finishedLaps": 8,
-          "time": "00:00:00",
-          "pitStopVisits": 2,
-          "information": "uszkodzenia bolidu",
-          "status": "NotClassified",
-          "startStatus": "FromGrid"
-        },
-        {
-          "finishPosition": null,
           "startPosition": 16,
           "number": 27,
           "driver": {
@@ -1053,6 +1034,27 @@
           "time": "00:00:00",
           "pitStopVisits": 2,
           "information": "jednostka napędowa",
+          "status": "NotClassified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": null,
+          "startPosition": 12,
+          "number": 20,
+          "driver": {
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 8,
+          "time": "00:00:00",
+          "pitStopVisits": 2,
+          "information": "uszkodzenia bolidu",
           "status": "NotClassified",
           "startStatus": "FromGrid"
         }
