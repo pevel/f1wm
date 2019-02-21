@@ -22,13 +22,15 @@ namespace F1WM.Utilities
 						var tokens = line.Split('|');
 						if (tokens.Count() == 2)
 						{
+							var key = tokens[0].Trim();
+							var value = tokens[1].Trim();
 							if (sections.TryGetValue(sectionName, out var keyValues))
 							{
-								keyValues.Add(tokens[0].Trim(), tokens[1].Trim());
+								keyValues.Add(key, value);
 							}
 							else
 							{
-								sections.Add(sectionName, new Dictionary<string, string>());
+								sections.Add(sectionName, new Dictionary<string, string>() {{ key, value }});
 							}
 						}
 						else if (!string.IsNullOrWhiteSpace(tokens[0]))

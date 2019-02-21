@@ -1,6 +1,52 @@
 [
   {
+    "engineId": 286,
+    "why": "engine with more specifications sections",
+    "expected": {
+      "picture": "/img/silniki/286.jpg",
+      "firstStartAt": {
+        "raceId": 962,
+        "name": "Grand Prix Australii",
+        "date": "2015-03-15T00:00:00"
+      },
+      "firstWinAt": {
+        "raceId": 962,
+        "name": "Grand Prix Australii",
+        "date": "2015-03-15T00:00:00"
+      },
+      "specifications": {
+        "Silnik spalinowy": {
+          "Pojemność": "1600 cm3",
+          "Liczba cylindrów": "6",
+          "Maks. obroty": "15.000 (maksimum dopuszczane przez FIA)",
+          "Rozstaw cylindrów": "90 stopni",
+          "Zawory": "4 na cylinder, napędzane pneumatycznie",
+          "Doładowanie": "Pojedyncza turbosprężarka z nielimitowanym ciśnieniem doładowania (typowe maksimum 3,5 bara w związku z limitem przepływu paliwa)",
+          "Wtrysk": "bezpośredni",
+          "ECU": "MES SECU",
+          "Limit przepływu paliwa": "100kg/h (-40% w porównaniu do V8)",
+          "Dozwolona ilość paliwa na wyścig": "100kg (-35% w porównaniu do V8)",
+          "Średnica tulei cylindrowej": "80mm",
+          "Liczba zaworów": "24 (4 na cylinder)",
+          "Wydech": "pojedynczy wydech, od turbiny w osi bolidu",
+          "Minimalna waga": "145 kg"
+        },
+        "System odzyskiwania energii (ERS)": {
+          "Obroty MGU-K": "maksymalnie 50 000 obr./min.",
+          "Moc MGU-K": "maksymalnie 120kW",
+          "Energia odzyskana przez MGU-K": "maksymalnie 2MJ/okrążenie",
+          "Energia uwolniona przez MGU-K": "maksymalnie 4MJ/okrążenie",
+          "Obroty MGU-H": "125 000 obr/min",
+          "Energia odzyskana przez MGU-H": "nielimitowana (ponad 2MJ/okrążenie)"
+        }
+      },
+      "id": 286,
+      "name": "Mercedes PU106B 1.6T V6"
+    }
+  },
+  {
     "engineId": 278,
+    "why": "regular engine",
     "expected": {
       "picture": "/img/silniki/278.jpg",
       "firstStartAt": {
@@ -14,12 +60,14 @@
         "date": "2012-04-22T00:00:00"
       },
       "specifications": {
-        "Pojemność": "2400 cm3",
-        "Maks. obroty": "18.000 (maksimum dopuszczane przez FIA)",
-        "Rozstaw cylindrów": "90 stopni",
-        "Zawory": "4 na cylinder, napędzane pneumatycznie",
-        "Waga": "95 kg (minimalny limit wagowy FIA)",
-        "ECU": " MES SECU"
+        "default": {
+          "Pojemność": "2400 cm3",
+          "Maks. obroty": "18.000 (maksimum dopuszczane przez FIA)",
+          "Rozstaw cylindrów": "90 stopni",
+          "Zawory": "4 na cylinder, napędzane pneumatycznie",
+          "Waga": "95 kg (minimalny limit wagowy FIA)",
+          "ECU": "MES SECU"
+        }
       },
       "id": 278,
       "name": "Renault RS27-2012 2.4 V8"
@@ -27,6 +75,7 @@
   },
   {
     "engineId": 15,
+    "why": "engine without specifications",
     "expected": {
       "picture": "/img/silniki/15.jpg",
       "firstStartAt": {
@@ -46,6 +95,7 @@
   },
   {
     "engineId": 214,
+    "why": "engine with default specifications and no wins",
     "expected": {
       "picture": "/img/silniki/214.jpg",
       "firstStartAt": {
@@ -54,16 +104,18 @@
         "date": "2004-03-07T00:00:00"
       },
       "specifications": {
-        "Bazowany na": "Cosworth CR-6",
-        "Pojemność": "2998 cm3",
-        "Rozstaw cylindrów": "90 stopni",
-        "Głowice cylindrów": "cztery zawory na cylinder, pneumatyczny system zaworów",
-        "Przepustnica": "elektryczno-hydrauliczna",
-        "Konstrukcja": "blok, głowice cylindrów i tłoki ze stopów aluminium",
-        "Wał korbowy": "stalowy",
-        "Elektronika": "Pi Research",
-        "Zapłon": "Cosworth Racing",
-        "Świece": "Champion"
+        "default": {
+          "Bazowany na": "Cosworth CR-6",
+          "Pojemność": "2998 cm3",
+          "Rozstaw cylindrów": "90 stopni",
+          "Głowice cylindrów": "cztery zawory na cylinder, pneumatyczny system zaworów",
+          "Przepustnica": "elektryczno-hydrauliczna",
+          "Konstrukcja": "blok, głowice cylindrów i tłoki ze stopów aluminium",
+          "Wał korbowy": "stalowy",
+          "Elektronika": "Pi Research",
+          "Zapłon": "Cosworth Racing",
+          "Świece": "Champion"
+        }
       },
       "id": 214,
       "name": "Ford Cosworth RS2 3.0 V10"

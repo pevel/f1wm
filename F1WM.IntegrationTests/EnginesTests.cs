@@ -17,7 +17,10 @@ namespace F1WM.IntegrationTests
 		[JsonData("engines", "engine-details.json")]
 		public async Task ShouldGetEngine(EngineDetailsTestData data)
 		{
-			await TestResponse<EngineDetails>($"{baseAddress}/Engines/{data.EngineId}", data.Expected);
+			await TestResponse<EngineDetails>(
+				$"{baseAddress}/Engines/{data.EngineId}",
+				data.Expected,
+				data.Why);
 		}
 
 		public class EnginesTestData
@@ -29,6 +32,7 @@ namespace F1WM.IntegrationTests
 		public class EngineDetailsTestData
 		{
 			public int EngineId { get; set; }
+			public string Why { get; set; }
 			public EngineDetails Expected { get; set; }
 		}
 	}
