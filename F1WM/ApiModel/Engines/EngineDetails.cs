@@ -9,6 +9,6 @@ namespace F1WM.ApiModel
 		public RaceSummary FirstStartAt { get; set; }
 		[JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
 		public RaceSummary FirstWinAt { get; set; }
-		public Dictionary<string, string> Specifications { get; set; }
+		public Dictionary<string, Dictionary<string, string>> Specifications { get; set; }
 	}
 }
