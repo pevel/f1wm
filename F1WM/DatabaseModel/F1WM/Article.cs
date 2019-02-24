@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
 	{
 		public uint Id { get; set; }
 		public uint ArticleCategoryId { get; set; }
-		public uint NewsId { get; set; }
+		public uint? NewsId { get; set; }
 		public string Title { get; set; }
 		public string Poster { get; set; }
 		public byte IsHidden { get; set; }

@@ -1,6 +1,6 @@
 namespace F1WM.DatabaseModel
 {
-	public enum DriverGroup
+	public enum DriverGroup : ushort
 	{
 		FormerDriver = 0,
 		CurrentDriver,
