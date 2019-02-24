@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using F1WM.ApiModel;
 using F1WM.Utilities.Model;
 
 namespace F1WM.Utilities
@@ -10,6 +11,7 @@ namespace F1WM.Utilities
 		private const string tableClass = "news-table";
 		private const string titleClass = "news-table-title";
 		private const string footerClass = "news-table-footer";
+		private const string videoClass = "news-video";
 
 		public static void ParseTable(this NewsParserContext context)
 		{
@@ -19,8 +21,82 @@ namespace F1WM.Utilities
 			}
 			else
 			{
-				context.Writer.Write(context.CurrentLine + "<br/>");
+				context.DumpCurrentLine();
 			}
+		}
+
+		public static void ParseResultsOrVideo(this NewsParserContext context)
+		{
+			if (TryGetEventId(context.CurrentLine, out var resultLink))
+			{
+				context.News.ResultLink = resultLink;
+			}
+			else if (context.CurrentLine.StartsWith("^youtube,"))
+			{
+				ParseVideo(context);
+			}
+			else
+			{
+				context.DumpCurrentLine();
+			}
+		}
+
+		public static void ParsePracticeResults(this NewsParserContext context)
+		{
+			if (TryGetPracticeResultLink(context.CurrentLine, out var resultLink))
+			{
+				context.News.ResultLink = resultLink;
+			}
+			else
+			{
+				context.DumpCurrentLine();
+			}
+		}
+
+		private static bool TryGetEventId(string line, out ResultLink resultLink)
+		{
+			var preparedLine = line;
+			if (line.StartsWith("^rezultat,"))
+			{
+				preparedLine = line.Replace("rezultat,", "");
+			}
+			if (int.TryParse(preparedLine.Replace("^", ""), out int eventId))
+			{
+				resultLink = new ResultLink()
+				{
+					Type = ResultLinkType.Other,
+					EventId = eventId
+				};
+				return true;
+			}
+			resultLink = null;
+			return false;
+		}
+
+		private static void ParseVideo(NewsParserContext context)
+		{
+
+		}
+
+		private static bool TryGetPracticeResultLink(this string line, out ResultLink resultLink)
+		{
+			if (line.StartsWith("$^"))
+			{
+				var regex = new Regex(@"\$\^([\d]+)\$(t[\d]+)");
+				var match = regex.Match(line);
+				if (match.Groups.Count == 3)
+				{
+					resultLink = new ResultLink()
+					{
+						Type = ResultLinkType.Practice,
+						RaceId = Int32.Parse(match.Groups[1].Value),
+						Session = match.Groups[2].Value
+					};
+					return true;
+				}
+			}
+			resultLink = null;
+			return false;
 		}
 
 		private static bool TryParseTableDeclaration(string text, out NewsTableProperties properties)
@@ -90,6 +166,11 @@ namespace F1WM.Utilities
 				}
 			}
 			context.Writer.Write("</table>");
+		}
+
+		private static void DumpCurrentLine(this NewsParserContext context)
+		{
+			context.Writer.Write(context.CurrentLine + "<br/>");
 		}
 	}
 }
