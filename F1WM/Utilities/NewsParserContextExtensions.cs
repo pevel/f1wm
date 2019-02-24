@@ -75,7 +75,15 @@ namespace F1WM.Utilities
 
 		private static void ParseVideo(NewsParserContext context)
 		{
-
+			var addressToken = context.CurrentLine.Replace("^youtube,", "").Trim();
+			if (addressToken.StartsWith("http://") || addressToken.StartsWith("https://"))
+			{
+				addressToken = addressToken.Split("?v=")[1];
+			}
+			var source = $"https://www.youtube.com/embed/{addressToken}";
+			context.Writer.Write($"<div class=\"{videoClass}\">");
+			context.Writer.Write($"<iframe src=\"{source}\" frameborder=\"0\" allowfullscreen></iframe>");
+			context.Writer.Write("</div>");
 		}
 
 		private static bool TryGetPracticeResultLink(this string line, out ResultLink resultLink)
