@@ -1,7 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -10,104 +10,46 @@ namespace F1WM.Controllers
 	public class ResultsController : ControllerBase
 	{
 		private readonly IResultsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("race/{raceId}")]
-		[Produces("application/json", Type = typeof(RaceResult))]
-		public async Task<IActionResult> GetRaceResult(int raceId)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<RaceResult>> GetRaceResult(int raceId)
 		{
-			try
-			{
-				var raceResult = await service.GetRaceResult(raceId);
-				if (raceResult != null)
-				{
-					return Ok(raceResult);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var raceResult = await service.GetRaceResult(raceId);
+			return this.NotFoundResultIfNull(raceResult);
 		}
 
 		[HttpGet("qualifying/{raceId}")]
-		[Produces("application/json", Type = typeof(QualifyingResult))]
-		public async Task<IActionResult> GetQualifyingResult(int raceId)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<QualifyingResult>> GetQualifyingResult(int raceId)
 		{
-			try
-			{
-				var qualifyingResult = await service.GetQualifyingResult(raceId);
-				if (qualifyingResult != null)
-				{
-					return Ok(qualifyingResult);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var qualifyingResult = await service.GetQualifyingResult(raceId);
+			return this.NotFoundResultIfNull(qualifyingResult);
 		}
 
 		[HttpGet("practice/{raceId}/sessions/{session}")]
-		[Produces("application/json", Type = typeof(PracticeSessionResult))]
-		public async Task<IActionResult> GetPracticeSessionResult(int raceId, string session)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<PracticeSessionResult>> GetPracticeSessionResult(int raceId, string session)
 		{
-			try
-			{
-				var result = await service.GetPracticeSessionResult(raceId, session);
-				if (result != null)
-				{
-					return Ok(result);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var result = await service.GetPracticeSessionResult(raceId, session);
+			return this.NotFoundResultIfNull(result);
 		}
 
 		[HttpGet("other/{eventId}")]
-		[Produces("application/json", Type = typeof(OtherResult))]
-		public async Task<IActionResult> GetOtherResult(int eventId)
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<OtherResult>> GetOtherResult(int eventId)
 		{
-			try
-			{
-				var result = await service.GetOtherResult(eventId);
-				if (result != null)
-				{
-					return Ok(result);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var result = await service.GetOtherResult(eventId);
+			return this.NotFoundResultIfNull(result);
 		}
 
-		public ResultsController(IResultsService service, ILoggingService logger)
+		public ResultsController(IResultsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

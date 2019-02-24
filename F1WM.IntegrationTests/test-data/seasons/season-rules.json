@@ -1,0 +1,32 @@
+[
+  {
+    "year": 2018,
+    "expected": {
+      "id": 69,
+      "pointsSystem": "25-18-15-12-10-8-6-4-2-1, liczone rezultaty: wszystkie",
+      "engineRules": "V6 o pojemności 1,6 litra z doładowaniem, maks. 15.000 obr./min., limit trzech silników na jeden samochód w całym sezonie",
+      "carWeight": "minimum 733 kg wliczając kierowcę, kamery, balast i system halo",
+      "qualifyingRules": "Q1: 18-min. sesja z małą ilością paliwa (jeżdżą wszyscy) (okr. ukończone po czasie liczy się)<br>Q2: 15-min. sesja z małą ilością paliwa (jeździ top 15 z Q1) (okr. ukończone po czasie liczy się)<br>Q3: 12-min. sesja z małą ilością paliwa (jeździ top 10 z Q2) (okr. ukończone po czasie liczy się)<br>(kierowcy z Q3 muszą rozpocząć wyścig na oponach, na których uzyskali swój najlepszy czas w Q2)"
+    }
+  },
+  {
+    "year": 1992,
+    "expected": {
+      "id": 43,
+      "pointsSystem": "10-6-4-3-2-1, liczone rezultaty: wszystkie",
+      "engineRules": "maks. 12 cylindrów, pojemność 3,5 litra bez doładowania",
+      "carWeight": "minimum 575 kg",
+      "qualifyingRules": "26 najszybszych samochodów kwalifikuje się do wyścigu<br>tylko 30 samochodów może brać udział w kwalifikacjach, pozostałe muszą się przed-kwalifikować"
+    }
+  },
+  {
+    "year": 1950,
+    "expected": {
+      "id": 1,
+      "pointsSystem": "8-6-4-3-2, 1 za najszybsze kółko, liczone rezultaty: połowa, zaokrąglona w górę lub +1",
+      "engineRules": "pojemność 4,5 litra bez doładowania lub 1,5 litra z doładowaniem",
+      "carWeight": "brak limitu",
+      "qualifyingRules": ""
+    }
+  }
+]

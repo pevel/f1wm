@@ -29,7 +29,13 @@ namespace F1WM.Startups
 				.AddTransient<IBroadcastsRepository, BroadcastRepository>()
 				.AddTransient<IAuthRepository, AuthRepository>()
 				.AddTransient<ISeasonsRepository, SeasonsRepository>()
-				.AddTransient<ITracksRepository, TracksRepository>();
+				.AddTransient<IGridsRepository, GridsRepository>()
+				.AddTransient<ITracksRepository, TracksRepository>()
+				.AddTransient<IDriversRepository, DriversRepository>()
+				.AddTransient<ITeamsRepository, TeamsRepository>()
+				.AddTransient<IEntriesRepository, EntriesRepository>()
+				.AddTransient<IEnginesRepository, EnginesRepository>()
+				.AddTransient<IStatisticsRepository, StatisticsRepository>();
 		}
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration, string key)

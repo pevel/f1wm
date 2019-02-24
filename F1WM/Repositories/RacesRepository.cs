@@ -14,7 +14,6 @@ namespace F1WM.Repositories
 
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
 		{
-			await SetDbEncoding();
 			var dbNextRace = await context.Races
 				.OrderBy(r => r.Date)
 				.Include(r => r.Track)
@@ -29,7 +28,6 @@ namespace F1WM.Repositories
 
 		public async Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate)
 		{
-			await SetDbEncoding();
 			var dbLastRace = await context.Races
 				.OrderByDescending(r => r.Date)
 				.Include(r => r.Track)
@@ -87,7 +85,7 @@ namespace F1WM.Repositories
 			var dbFastestResult = await context.Entries
 				.Include(e => e.Race)
 				.Include(e => e.FastestLap)
-				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.Frlpos == "1")
+				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.PositionOrStatus == "1")
 				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(e => e.Race.Date)
 				.FirstAsync();
@@ -101,6 +99,16 @@ namespace F1WM.Repositories
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
+		}
+
+		public async Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
+		{
+			var apiFastestLaps = new RaceFastestLaps() { RaceId = raceId };
+			apiFastestLaps.Results = await mapper.ProjectTo<RaceFastestLap>(context.FastestLaps
+					.Where(f => f.RaceId == raceId)
+					.OrderBy(f => f.Time))
+				.ToListAsync();
+			return apiFastestLaps.Results.Any() ? apiFastestLaps : null;
 		}
 	}
 }

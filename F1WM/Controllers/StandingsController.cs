@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -14,46 +12,28 @@ namespace F1WM.Controllers
 		private const int defaultDriversStandingsCount = 10;
 
 		private readonly IStandingsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("constructors")]
-		[Produces("application/json", Type = typeof(ConstructorsStandings))]
-		public async Task<IActionResult> GetConstructorsStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
+		public async Task<ActionResult<ConstructorsStandings>> GetConstructorsStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultConstructorsStandingsCount)
 		{
-			try
-			{
-				var standings = await service.GetConstructorsStandings(count, seasonId);
-				return Ok(standings);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var standings = await service.GetConstructorsStandings(count, seasonId);
+			return Ok(standings);
 		}
 
 		[HttpGet("drivers")]
-		[Produces("application/json", Type = typeof(DriversStandings))]
-		public async Task<IActionResult> GetDriversStandings(
-			[FromQuery(Name = "seasonId")] int? seasonId = null, [FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
+		public async Task<ActionResult<DriversStandings>> GetDriversStandings(
+			[FromQuery(Name = "seasonId")] int? seasonId = null,
+			[FromQuery(Name = "count")] int count = defaultDriversStandingsCount)
 		{
-			try
-			{
-				var standings = await service.GetDriversStandings(count, seasonId);
-				return Ok(standings);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var standings = await service.GetDriversStandings(count, seasonId);
+			return Ok(standings);
 		}
 
-		public StandingsController(IStandingsService service, ILoggingService logger)
+		public StandingsController(IStandingsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

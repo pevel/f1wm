@@ -1,8 +1,10 @@
 using System;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.Repositories;
 using F1WM.Services;
+using FluentAssertions;
 using Moq;
 using Xunit;
 
@@ -11,12 +13,14 @@ namespace F1WM.UnitTests.Services
 	public class RacesServiceTests
 	{
 		private RacesService service;
+		private Fixture fixture;
 		private Mock<IRacesRepository> racesRepositoryMock;
 		private Mock<IResultsRepository> resultsRepositoryMock;
 		private Mock<ITimeService> timeServiceMock;
 
 		public RacesServiceTests()
 		{
+			fixture = new Fixture();
 			racesRepositoryMock = new Mock<IRacesRepository>();
 			resultsRepositoryMock = new Mock<IResultsRepository>();
 			timeServiceMock = new Mock<ITimeService>();
@@ -46,6 +50,19 @@ namespace F1WM.UnitTests.Services
 
 			racesRepositoryMock.Verify(r => r.GetMostRecentRaceBefore(now), Times.Once);
 			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetRaceFastestLaps()
+		{
+			var raceId = 888;
+			var fastestLaps = fixture.Create<RaceFastestLaps>();
+			racesRepositoryMock.Setup(r => r.GetRaceFastestLaps(raceId)).ReturnsAsync(fastestLaps);
+
+			var actual = await service.GetRaceFastestLaps(raceId);
+
+			racesRepositoryMock.Verify(r => r.GetRaceFastestLaps(raceId), Times.Once);
+			actual.Should().BeEquivalentTo(fastestLaps);
 		}
 	}
 }

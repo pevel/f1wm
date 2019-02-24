@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1races");
 
-			builder.HasIndex(e => e.Seasonid)
+			builder.HasIndex(e => e.SeasonId)
 				.HasName("seasonid");
 
 			builder.HasIndex(e => e.TrackId)
@@ -46,7 +46,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(64)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Numinseason)
+			builder.Property(e => e.OrderInSeason)
 				.HasColumnName("numinseason")
 				.HasDefaultValueSql("'0'");
 
@@ -62,7 +62,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("qualtype")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Seasonid)
+			builder.Property(e => e.SeasonId)
 				.HasColumnName("seasonid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
@@ -88,7 +88,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("date");
 
 			builder.HasOne(e => e.Track)
-				.WithMany()
+				.WithMany(t => t.Races)
 				.HasPrincipalKey(t => t.Id)
 				.HasForeignKey(e => e.TrackId);
 

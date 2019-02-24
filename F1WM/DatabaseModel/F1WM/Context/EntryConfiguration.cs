@@ -83,9 +83,8 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.ThirdDriver)
-				.HasColumnName("thirddriver")
-				.HasDefaultValueSql("'0'");
+			builder.Property(e => e.IsThirdDriver)
+				.HasColumnName("thirddriver");
 
 			builder.Property(e => e.TyresId)
 				.HasColumnName("tyresid")

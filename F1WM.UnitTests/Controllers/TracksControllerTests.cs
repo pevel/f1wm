@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using FluentAssertions;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -15,14 +17,12 @@ namespace F1WM.UnitTests.Controllers
 		private TracksController controller;
 		private Fixture fixture;
 		private Mock<ITracksService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public TracksControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<ITracksService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new TracksController(serviceMock.Object, loggerMock.Object);
+			controller = new TracksController(serviceMock.Object);
 		}
 
 		[Fact]
@@ -36,8 +36,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, null);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, null), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			records.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			records.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -52,8 +52,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, year);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, year), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			records.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			records.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -66,7 +66,100 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetTrackRecords(trackId, trackVersion, null);
 
 			serviceMock.Verify(s => s.GetTrackRecords(trackId, trackVersion, null), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTracks()
+		{
+			var tracks = fixture.Create<PagedResult<Track>>();
+			serviceMock.Setup(s => s.GetTracks(1, 25)).ReturnsAsync(tracks);
+
+			var result = await controller.GetTracks(null);
+
+			serviceMock.Verify(s => s.GetTracks(1, 25), Times.Once);
+			result.Should().BeEquivalentTo(tracks);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTracksByStatusId()
+		{
+			byte status = 2;
+			var tracks = fixture.Create<PagedResult<Track>>();
+			serviceMock.Setup(s => s.GetTracksByStatus(status, 1, 25)).ReturnsAsync(tracks);
+
+			var result = await controller.GetTracks(status);
+
+			serviceMock.Verify(s => s.GetTracksByStatus(status, 1, 25), Times.Once);
+			result.Should().BeEquivalentTo(tracks);
+		}
+
+		[Fact]
+		public async Task ShouldReturnEmptyListOfTracksByStatusId()
+		{
+			byte status = 3;
+			IEnumerable<Track> emptyResult = Enumerable.Empty<Track>();
+			PagedResult<Track> emptyResponse = new PagedResult<Track>
+			{
+				CurrentPage = 1,
+				PageCount = 0,
+				PageSize = 0,
+				RowCount = 0,
+				Result = emptyResult
+			};
+
+			serviceMock.Setup(s => s.GetTracksByStatus(status, 1, 25)).ReturnsAsync(emptyResponse);
+
+			var result = await controller.GetTracks(status);
+
+			serviceMock.Verify(s => s.GetTracksByStatus(status, 1, 25), Times.Once);
+			Assert.Empty(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnProperTracksCount()
+		{
+			uint count = 5;
+
+			await controller.GetTracks(null, 1, count);
+
+			serviceMock.Verify(s => s.GetTracks(1, count), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnProperTracksPage()
+		{
+			uint page = 2;
+
+			await controller.GetTracks(null, page);
+
+			serviceMock.Verify(s => s.GetTracks(page, 25), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnTrackDetails()
+		{
+			int id = 99999;
+			var track = fixture.Create<TrackDetails>();
+			serviceMock.Setup(s => s.GetTrack(id, null)).ReturnsAsync(track);
+
+			var result = await controller.GetTrack(id, null);
+
+			serviceMock.Verify(s => s.GetTrack(id, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(track);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfTrackNotFound()
+		{
+			int id = 88888;
+			serviceMock.Setup(s => s.GetTrack(id, null)).ReturnsAsync((TrackDetails)null);
+
+			var result = await controller.GetTrack(id, null);
+
+			serviceMock.Verify(s => s.GetTrack(id, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

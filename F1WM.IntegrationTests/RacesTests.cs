@@ -79,13 +79,28 @@ namespace F1WM.IntegrationTests
 				Assert.NotEqual(0, result.Car.Id);
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
-				Assert.NotEqual(0, result.Driver.Id);
+				Assert.NotEqual((uint)0, result.Driver.Id);
 				Assert.Null(result.Driver.Nationality);
 				Assert.True(0 <= result.FinishedLaps);
 				Assert.True(0 < result.Number);
 				Assert.True(0 <= result.PitStopVisits);
 				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
+		}
+
+		[Theory]
+		[JsonData("races", "race-fastest-laps.json")]
+		public async Task ShouldGetRaceFastestLaps(RaceFastestLapsTestData data)
+		{
+			await TestResponse<RaceFastestLaps>(
+				$"{baseAddress}/races/{data.RaceId}/fastest-laps",
+				data.Expected);
+		}
+
+		public class RaceFastestLapsTestData
+		{
+			public int RaceId { get; set; }
+			public RaceFastestLaps Expected { get; set; }
 		}
 	}
 }

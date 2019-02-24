@@ -11,8 +11,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Broadcaster> Broadcasters { get; set; }
 		public virtual DbSet<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual DbSet<BroadcastedSessionType> BroadcastedSessionTypes { get; set; }
-		public virtual DbSet<AjaxChatMessages> AjaxChatMessages { get; set; }
-		public virtual DbSet<F1Arts> F1Arts { get; set; }
+		public virtual DbSet<Article> Articles { get; set; }
 		public virtual DbSet<F1ArtsCats> F1ArtsCats { get; set; }
 		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<Car> Cars { get; set; }
@@ -25,12 +24,12 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1constrpoints> F1constrpoints { get; set; }
 		public virtual DbSet<DriverStandingsPosition> DriverStandingsPositions { get; set; }
 		public virtual DbSet<F1drivercsLastpos> F1drivercsLastpos { get; set; }
-		public virtual DbSet<F1driverpoints> F1driverpoints { get; set; }
+		public virtual DbSet<DriverPoints> DriverPoints { get; set; }
 		public virtual DbSet<Driver> Drivers { get; set; }
 		public virtual DbSet<F1driversid3> F1driversid3 { get; set; }
-		public virtual DbSet<F1enginemakes> F1enginemakes { get; set; }
-		public virtual DbSet<F1engines> F1engines { get; set; }
-		public virtual DbSet<F1enginesspecs> F1enginesspecs { get; set; }
+		public virtual DbSet<EngineMake> EngineMakes { get; set; }
+		public virtual DbSet<Engine> Engines { get; set; }
+		public virtual DbSet<EngineSpecification> EngineSpecifications { get; set; }
 		public virtual DbSet<Entry> Entries { get; set; }
 		public virtual DbSet<FastestLap> FastestLaps { get; set; }
 		public virtual DbSet<F1glossary> F1glossary { get; set; }
@@ -38,7 +37,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Hideusercoms> F1Hideusercoms { get; set; }
 		public virtual DbSet<F1lapsled> F1lapsled { get; set; }
 		public virtual DbSet<F1Ligna> F1Ligna { get; set; }
-		public virtual DbSet<F1Linki> F1Linki { get; set; }
+		public virtual DbSet<Link> Links { get; set; }
 		public virtual DbSet<F1LogZmian> F1LogZmian { get; set; }
 		public virtual DbSet<Country> Countries { get; set; }
 		public virtual DbSet<News> News { get; set; }
@@ -60,8 +59,8 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<F1Rezerwacje> F1Rezerwacje { get; set; }
 		public virtual DbSet<Season> Seasons { get; set; }
 		public virtual DbSet<F1Subskr> F1Subskr { get; set; }
-		public virtual DbSet<F1teamnames> F1teamnames { get; set; }
-		public virtual DbSet<F1teams> F1teams { get; set; }
+		public virtual DbSet<TeamName> TeamNames { get; set; }
+		public virtual DbSet<Team> Teams { get; set; }
 		public virtual DbSet<F1Texts> F1Texts { get; set; }
 		public virtual DbSet<Track> Tracks { get; set; }
 		public virtual DbSet<Tyres> Tyres { get; set; }
@@ -96,14 +95,6 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<SympollAuth> SympollAuth { get; set; }
 		public virtual DbSet<SympollList> SympollList { get; set; }
 
-		// Unable to generate entity type for table 'ajax_chat_bans'. Please see the warning messages.
-		// Unable to generate entity type for table 'ajax_chat_invitations'. Please see the warning messages.
-		// Unable to generate entity type for table 'ajax_chat_online'. Please see the warning messages.
-		// Unable to generate entity type for table 'stat_dni'. Please see the warning messages.
-		// Unable to generate entity type for table 'stat_mies'. Please see the warning messages.
-		// Unable to generate entity type for table 'sympoll_data'. Please see the warning messages.
-		// Unable to generate entity type for table 'sympoll_iplog'. Please see the warning messages.
-
 		public F1WMContext(DbContextOptions<F1WMContext> options) : base(options) { }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) { }
@@ -111,98 +102,6 @@ namespace F1WM.DatabaseModel
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
 			modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(F1WMContext)));
-			modelBuilder.Entity<AjaxChatMessages>(entity =>
-			{
-				entity.ToTable("ajax_chat_messages");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.Channel)
-					.HasColumnName("channel")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.DateTime)
-					.HasColumnName("dateTime")
-					.HasColumnType("datetime");
-
-				entity.Property(e => e.Ip)
-					.IsRequired()
-					.HasColumnName("ip")
-					.HasMaxLength(16);
-
-				entity.Property(e => e.Text)
-					.HasColumnName("text")
-					.HasColumnType("text");
-
-				entity.Property(e => e.UserId)
-					.HasColumnName("userID")
-					.HasColumnType("int(11)");
-
-				entity.Property(e => e.UserName)
-					.IsRequired()
-					.HasColumnName("userName")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.UserRole)
-					.HasColumnName("userRole")
-					.HasColumnType("int(1)");
-			});
-
-			modelBuilder.Entity<F1Arts>(entity =>
-			{
-				entity.HasKey(e => e.Artid);
-
-				entity.ToTable("f1_arts");
-
-				entity.HasIndex(e => e.Arttitle)
-					.HasName("arttitle");
-
-				entity.HasIndex(e => e.Catid)
-					.HasName("catid");
-
-				entity.Property(e => e.Artid)
-					.HasColumnName("artid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Arthidden)
-					.HasColumnName("arthidden")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Artposter)
-					.IsRequired()
-					.HasColumnName("artposter")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.Artpreview)
-					.HasColumnName("artpreview")
-					.HasMaxLength(255);
-
-				entity.Property(e => e.Arttext)
-					.HasColumnName("arttext")
-					.HasColumnType("text");
-
-				entity.Property(e => e.Arttitle)
-					.IsRequired()
-					.HasColumnName("arttitle")
-					.HasMaxLength(80);
-
-				entity.Property(e => e.Artviews)
-					.HasColumnName("artviews")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Catid)
-					.HasColumnName("catid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Newsid)
-					.HasColumnName("newsid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-			});
 
 			modelBuilder.Entity<F1ArtsCats>(entity =>
 			{
@@ -400,39 +299,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("int(11)");
 			});
 
-			modelBuilder.Entity<F1driverpoints>(entity =>
-			{
-				entity.ToTable("f1driverpoints");
-
-				entity.HasIndex(e => e.Driverid)
-					.HasName("driverid");
-
-				entity.HasIndex(e => e.Raceid)
-					.HasName("raceid");
-
-				entity.HasIndex(e => e.Seasonid)
-					.HasName("seasonid");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Driverid)
-					.HasColumnName("driverid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Raceid)
-					.HasColumnName("raceid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Seasonid)
-					.HasColumnName("seasonid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-			});
-
 			modelBuilder.Entity<F1driversid3>(entity =>
 			{
 				entity.HasKey(e => e.Id3);
@@ -449,109 +315,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("id4")
 					.HasColumnType("char(4)")
 					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<F1enginemakes>(entity =>
-			{
-				entity.HasKey(e => e.Enginemakeid);
-
-				entity.ToTable("f1enginemakes");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Enginemake)
-					.HasName("enginemake");
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.Property(e => e.Enginemakeid)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Enginemake)
-					.IsRequired()
-					.HasColumnName("enginemake")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.Nat)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1engines>(entity =>
-			{
-				entity.HasKey(e => e.Engineid);
-
-				entity.ToTable("f1engines");
-
-				entity.HasIndex(e => e.Engine)
-					.HasName("engine");
-
-				entity.HasIndex(e => e.Enginemakeid)
-					.HasName("enginemakeid");
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.Property(e => e.Engineid)
-					.HasColumnName("engineid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Engine)
-					.IsRequired()
-					.HasColumnName("engine")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Enginemakeid)
-					.HasColumnName("enginemakeid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-			});
-
-			modelBuilder.Entity<F1enginesspecs>(entity =>
-			{
-				entity.HasKey(e => e.Engineid);
-
-				entity.ToTable("f1enginesspecs");
-
-				entity.Property(e => e.Engineid)
-					.HasColumnName("engineid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Enginespecs)
-					.HasColumnName("enginespecs")
-					.HasColumnType("text");
 			});
 
 			modelBuilder.Entity<F1glossary>(entity =>
@@ -663,90 +426,6 @@ namespace F1WM.DatabaseModel
 				entity.Property(e => e.LSezon)
 					.HasColumnName("l_sezon")
 					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1Linki>(entity =>
-			{
-				entity.HasKey(e => e.LId);
-
-				entity.ToTable("f1_linki");
-
-				entity.HasIndex(e => e.LCatgrp)
-					.HasName("l_catgrp");
-
-				entity.HasIndex(e => e.LCatstr)
-					.HasName("l_catstr");
-
-				entity.HasIndex(e => e.LData)
-					.HasName("l_data");
-
-				entity.HasIndex(e => e.LNazwa)
-					.HasName("l_nazwa");
-
-				entity.HasIndex(e => e.LOcena)
-					.HasName("l_ocena");
-
-				entity.HasIndex(e => e.LOdslony)
-					.HasName("l_odslony");
-
-				entity.Property(e => e.LId)
-					.HasColumnName("l_id")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.LBanurl)
-					.HasColumnName("l_banurl")
-					.HasMaxLength(128);
-
-				entity.Property(e => e.LCatgrp)
-					.HasColumnName("l_catgrp")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LCatstr)
-					.HasColumnName("l_catstr")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.LData)
-					.HasColumnName("l_data")
-					.HasColumnType("datetime")
-					.HasDefaultValueSql("'0000-00-00 00:00:00'");
-
-				entity.Property(e => e.LJezyki)
-					.HasColumnName("l_jezyki")
-					.HasMaxLength(64);
-
-				entity.Property(e => e.LNazwa)
-					.IsRequired()
-					.HasColumnName("l_nazwa")
-					.HasMaxLength(255)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.LOcena)
-					.HasColumnName("l_ocena")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LOdslony)
-					.HasColumnName("l_odslony")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LOpis)
-					.HasColumnName("l_opis")
-					.HasMaxLength(255);
-
-				entity.Property(e => e.LRotator)
-					.HasColumnName("l_rotator")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LStatus)
-					.HasColumnName("l_status")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.LUrl)
-					.IsRequired()
-					.HasColumnName("l_url")
-					.HasMaxLength(128)
-					.HasDefaultValueSql("''");
 			});
 
 			modelBuilder.Entity<F1LogZmian>(entity =>
@@ -1156,198 +835,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnName("s_time")
 					.HasColumnType("int(11)")
 					.HasDefaultValueSql("'0'");
-			});
-
-			modelBuilder.Entity<F1teamnames>(entity =>
-			{
-				entity.HasKey(e => e.Teamnameid);
-
-				entity.ToTable("f1teamnames");
-
-				entity.HasIndex(e => e.Teamid)
-					.HasName("teamid");
-
-				entity.HasIndex(e => e.Teamname)
-					.HasName("teamname");
-
-				entity.Property(e => e.Teamnameid)
-					.HasColumnName("teamnameid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Teamid)
-					.HasColumnName("teamid")
-					.HasColumnType("mediumint unsigned")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Teamname)
-					.IsRequired()
-					.HasColumnName("teamname")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-			});
-
-			modelBuilder.Entity<F1teams>(entity =>
-			{
-				entity.HasKey(e => e.Teamid);
-
-				entity.ToTable("f1teams");
-
-				entity.HasIndex(e => e.Ascid)
-					.HasName("ascid")
-					.IsUnique();
-
-				entity.HasIndex(e => e.Litera)
-					.HasName("litera");
-
-				entity.HasIndex(e => e.Status)
-					.HasName("status");
-
-				entity.HasIndex(e => e.Team)
-					.HasName("team");
-
-				entity.Property(e => e.Teamid)
-					.HasColumnName("teamid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Artid)
-					.HasColumnName("artid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Ascid)
-					.IsRequired()
-					.HasColumnName("ascid")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Base)
-					.IsRequired()
-					.HasColumnName("base")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Basedonteam)
-					.IsRequired()
-					.HasColumnName("basedonteam")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Carmakeid)
-					.HasColumnName("carmakeid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Curboss)
-					.IsRequired()
-					.HasColumnName("curboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curbosspic)
-					.IsRequired()
-					.HasColumnName("curbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curengboss)
-					.IsRequired()
-					.HasColumnName("curengboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curengbosspic)
-					.IsRequired()
-					.HasColumnName("curengbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curtechdir)
-					.IsRequired()
-					.HasColumnName("curtechdir")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Curtechdirpic)
-					.IsRequired()
-					.HasColumnName("curtechdirpic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Firstboss)
-					.IsRequired()
-					.HasColumnName("firstboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Firstbosspic)
-					.IsRequired()
-					.HasColumnName("firstbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Founder)
-					.IsRequired()
-					.HasColumnName("founder")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Founderpic)
-					.IsRequired()
-					.HasColumnName("founderpic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Litera)
-					.IsRequired()
-					.HasColumnName("litera")
-					.HasColumnType("char(1)");
-
-				entity.Property(e => e.Nat)
-					.IsRequired()
-					.HasColumnName("nat")
-					.HasColumnType("char(3)")
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Newstopicid)
-					.HasColumnName("newstopicid")
-					.HasColumnType("mediumint unsigned");
-
-				entity.Property(e => e.Otherboss)
-					.IsRequired()
-					.HasColumnName("otherboss")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Otherbossocc)
-					.IsRequired()
-					.HasColumnName("otherbossocc")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Otherbosspic)
-					.IsRequired()
-					.HasColumnName("otherbosspic")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Secondfactory)
-					.IsRequired()
-					.HasColumnName("secondfactory")
-					.HasMaxLength(45)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Status)
-					.HasColumnName("status")
-					.HasDefaultValueSql("'0'");
-
-				entity.Property(e => e.Team)
-					.IsRequired()
-					.HasColumnName("team")
-					.HasMaxLength(64)
-					.HasDefaultValueSql("''");
-
-				entity.Property(e => e.Teamshort)
-					.IsRequired()
-					.HasColumnName("teamshort")
-					.HasMaxLength(10);
 			});
 
 			modelBuilder.Entity<F1Texts>(entity =>

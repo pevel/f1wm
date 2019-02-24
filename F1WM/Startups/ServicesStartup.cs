@@ -26,7 +26,13 @@ namespace F1WM.Startups
 				.AddTransient<IBroadcastsService, BroadcastsService>()
 				.AddTransient<IGuidService, GuidService>()
 				.AddTransient<ISeasonsService, SeasonsService>()
-				.AddTransient<ITracksService, TracksService>();
+				.AddTransient<IGridsService, GridsService>()
+				.AddTransient<ITracksService, TracksService>()
+				.AddTransient<IDriversService, DriversService>()
+				.AddTransient<ITeamsService, TeamsService>()
+				.AddTransient<IEntriesService, EntriesService>()
+				.AddTransient<IEnginesService, EnginesService>()
+				.AddTransient<IStatisticsService, StatisticsService>();
 		}
 
 		private static BBCodeParser BuildBBCodeParser(IServiceProvider serviceProvider)

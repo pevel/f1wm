@@ -1,8 +1,10 @@
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using F1WM.DatabaseModel;
+using F1WM.Middlewares;
 using F1WM.Services;
 using F1WM.Startups;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -11,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NSwag.AspNetCore;
 
+[assembly: ApiConventionType(typeof(DefaultApiConventions))]
 namespace F1WM
 {
 	public class Startup
@@ -77,6 +80,7 @@ namespace F1WM
 				}
 				configurationBuilder.AddEnvironmentVariables();
 				application
+					.UseMiddleware<ExceptionMiddleware>()
 					.UseCustomForwardedHeaders()
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)

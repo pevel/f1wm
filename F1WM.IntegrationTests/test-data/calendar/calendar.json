@@ -1,0 +1,2006 @@
+[
+  {
+    "year": 2018,
+    "expected": {
+      "seasonId": 69,
+      "races": [
+        {
+          "date": "2018-03-25T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:21.1640000"
+          },
+          "winnerRaceResult": {
+            "number": 5,
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 58,
+            "time": "01:29:33.2830000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 54,
+            "raceDate": "2018-03-25T00:00:00",
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:25.9450000"
+          },
+          "name": "Rolex Australian Grand Prix",
+          "translatedName": "Grand Prix Australii",
+          "distance": 307.574,
+          "lapLength": 5.303,
+          "offset": 0,
+          "laps": 58,
+          "track": {
+            "id": 34,
+            "name": "Albert Park Circuit",
+            "trackIcon": "/img/tory/albert_park_m2.png"
+          },
+          "id": 1024,
+          "trackVersion": 1,
+          "country": {
+            "name": "Australia",
+            "flagIcon": "/img/flagi/aus2.gif"
+          }
+        },
+        {
+          "date": "2018-04-08T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:27.9580000"
+          },
+          "winnerRaceResult": {
+            "number": 5,
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 57,
+            "time": "01:32:01.9400000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 22,
+            "raceDate": "2018-04-08T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:33.7400000"
+          },
+          "name": "Gulf Air Bahrain Grand Prix",
+          "translatedName": "Grand Prix Bahrajnu",
+          "distance": 308.238,
+          "lapLength": 5.412,
+          "offset": 0.246,
+          "laps": 57,
+          "track": {
+            "id": 53,
+            "name": "Bahrain International Circuit",
+            "trackIcon": "/img/tory/bahrain_m2.png"
+          },
+          "id": 1025,
+          "trackVersion": 1,
+          "country": {
+            "name": "Bahrajn",
+            "flagIcon": "/img/flagi/bhn2.gif"
+          }
+        },
+        {
+          "date": "2018-04-15T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:31.0950000"
+          },
+          "winnerRaceResult": {
+            "number": 3,
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "finishedLaps": 56,
+            "time": "01:35:36.3800000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 55,
+            "raceDate": "2018-04-15T00:00:00",
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:35.7850000"
+          },
+          "name": "Heineken Chinese Grand Prix",
+          "translatedName": "Grand Prix Chin",
+          "distance": 305.066,
+          "lapLength": 5.451,
+          "offset": 0.19,
+          "laps": 56,
+          "track": {
+            "id": 56,
+            "name": "Shanghai International Circuit",
+            "trackIcon": "/img/tory/shanghai_m2.png"
+          },
+          "id": 1026,
+          "trackVersion": 1,
+          "country": {
+            "name": "Chiny",
+            "flagIcon": "/img/flagi/chn2.gif"
+          }
+        },
+        {
+          "date": "2018-04-29T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:41.4980000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 51,
+            "time": "01:43:44.2910000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 37,
+            "raceDate": "2018-04-29T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:45.1490000"
+          },
+          "name": "Azerbaijan Grand Prix",
+          "translatedName": "Grand Prix Azerbejdżanu",
+          "distance": 306.306,
+          "lapLength": 6.005999999999999,
+          "offset": 0,
+          "laps": 51,
+          "track": {
+            "id": 77,
+            "name": "Baku City Circuit",
+            "trackIcon": "/img/tory/baku_city_circuit_m2.png"
+          },
+          "id": 1027,
+          "trackVersion": 1,
+          "country": {
+            "name": "Azerbejdżan ",
+            "flagIcon": "/img/flagi/aze2.gif"
+          }
+        },
+        {
+          "date": "2018-05-13T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:16.1730000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 66,
+            "time": "01:35:29.9720000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 61,
+            "raceDate": "2018-05-13T00:00:00",
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:18.4410000"
+          },
+          "name": "Gran Premio de Espa&#241;a Emirates",
+          "translatedName": "Grand Prix Hiszpanii",
+          "distance": 307.104,
+          "lapLength": 4.654999999999999,
+          "offset": 0.126,
+          "laps": 66,
+          "track": {
+            "id": 12,
+            "name": "Circuit de Barcelona-Catalunya",
+            "trackIcon": "/img/tory/catalunya_m2.png"
+          },
+          "id": 1028,
+          "trackVersion": 4,
+          "country": {
+            "name": "Hiszpania",
+            "flagIcon": "/img/flagi/esp2.gif"
+          }
+        },
+        {
+          "date": "2018-05-27T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:10.8100000"
+          },
+          "winnerRaceResult": {
+            "number": 3,
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "finishedLaps": 78,
+            "time": "01:42:54.8070000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 60,
+            "raceDate": "2018-05-27T00:00:00",
+            "driver": {
+              "id": 869,
+              "firstName": "Max",
+              "surname": "Verstappen",
+              "nationality": {
+                "name": "Holandia",
+                "flagIcon": "/img/flagi/ned2.gif"
+              }
+            },
+            "time": "00:01:14.2600000"
+          },
+          "name": "Grand Prix de Monaco",
+          "translatedName": "Grand Prix Monako",
+          "distance": 260.286,
+          "lapLength": 3.337,
+          "offset": 0,
+          "laps": 78,
+          "track": {
+            "id": 38,
+            "name": "Circuit de Monaco",
+            "trackIcon": "/img/tory/monte_carlo_m2.png"
+          },
+          "id": 1029,
+          "trackVersion": 1,
+          "country": {
+            "name": "Monako",
+            "flagIcon": "/img/flagi/mon2.gif"
+          }
+        },
+        {
+          "date": "2018-06-10T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:10.7640000"
+          },
+          "winnerRaceResult": {
+            "number": 5,
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 68,
+            "time": "01:28:31.3770000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 65,
+            "raceDate": "2018-06-10T00:00:00",
+            "driver": {
+              "id": 869,
+              "firstName": "Max",
+              "surname": "Verstappen",
+              "nationality": {
+                "name": "Holandia",
+                "flagIcon": "/img/flagi/ned2.gif"
+              }
+            },
+            "time": "00:01:13.8640000"
+          },
+          "name": "Heineken Grand Prix du Canada",
+          "translatedName": "Grand Prix Kanady",
+          "distance": 305.27,
+          "lapLength": 4.361,
+          "offset": 0,
+          "laps": 70,
+          "track": {
+            "id": 40,
+            "name": "Circuit Gilles Villeneuve",
+            "trackIcon": "/img/tory/gilles_villeneuve_m2.png"
+          },
+          "id": 1030,
+          "trackVersion": 2,
+          "country": {
+            "name": "Kanada",
+            "flagIcon": "/img/flagi/can2.gif"
+          }
+        },
+        {
+          "date": "2018-06-24T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:30.0290000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 53,
+            "time": "01:30:11.3850000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 41,
+            "raceDate": "2018-06-24T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:34.2250000"
+          },
+          "name": "Pirelli Grand Prix de France",
+          "translatedName": "Grand Prix Francji",
+          "distance": 310.686,
+          "lapLength": 5.861999999999999,
+          "offset": 0,
+          "laps": 53,
+          "track": {
+            "id": 30,
+            "name": "Circuit Paul Ricard",
+            "trackIcon": "/img/tory/paul_ricard_m2.png"
+          },
+          "id": 1031,
+          "trackVersion": 3,
+          "country": {
+            "name": "Francja",
+            "flagIcon": "/img/flagi/fra2.gif"
+          }
+        },
+        {
+          "date": "2018-07-01T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:03.1300000"
+          },
+          "winnerRaceResult": {
+            "number": 33,
+            "driver": {
+              "id": 869,
+              "firstName": "Max",
+              "surname": "Verstappen",
+              "nationality": {
+                "name": "Holandia",
+                "flagIcon": "/img/flagi/ned2.gif"
+              }
+            },
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "finishedLaps": 71,
+            "time": "01:21:56.0240000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "lapNumber": 71,
+            "raceDate": "2018-07-01T00:00:00",
+            "driver": {
+              "id": 588,
+              "firstName": "Kimi",
+              "surname": "Raikkonen",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:06.9570000"
+          },
+          "name": "eyetime Grosser Preis von Österreich",
+          "translatedName": "Grand Prix Austrii",
+          "distance": 307.146,
+          "lapLength": 4.3260000000000005,
+          "offset": 0,
+          "laps": 71,
+          "track": {
+            "id": 1,
+            "name": "Red Bull Ring",
+            "trackIcon": "/img/tory/a1-ring_m2.png"
+          },
+          "id": 1032,
+          "trackVersion": 1,
+          "country": {
+            "name": "Austria",
+            "flagIcon": "/img/flagi/aut2.gif"
+          }
+        },
+        {
+          "date": "2018-07-08T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:25.8920000"
+          },
+          "winnerRaceResult": {
+            "number": 5,
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 52,
+            "time": "01:27:29.7840000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "lapNumber": 47,
+            "raceDate": "2018-07-08T00:00:00",
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:30.6960000"
+          },
+          "name": "Rolex British Grand Prix",
+          "translatedName": "Grand Prix Wielkiej Brytanii",
+          "distance": 306.227,
+          "lapLength": 5.891,
+          "offset": 0.105,
+          "laps": 52,
+          "track": {
+            "id": 57,
+            "name": "Silverstone Circuit",
+            "trackIcon": "/img/tory/silverstone_m2.png"
+          },
+          "id": 1033,
+          "trackVersion": 9,
+          "country": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          }
+        },
+        {
+          "date": "2018-07-22T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:11.2120000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 67,
+            "time": "01:32:29.8450000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 66,
+            "raceDate": "2018-07-22T00:00:00",
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:15.5450000"
+          },
+          "name": "Grosser Preis Emirates von Deutschland",
+          "translatedName": "Grand Prix Niemiec",
+          "distance": 306.458,
+          "lapLength": 4.574000000000001,
+          "offset": 0,
+          "laps": 67,
+          "track": {
+            "id": 21,
+            "name": "Hockenheimring",
+            "trackIcon": "/img/tory/hockenheim_m2.png"
+          },
+          "id": 1034,
+          "trackVersion": 2,
+          "country": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          }
+        },
+        {
+          "date": "2018-07-29T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:35.6580000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 70,
+            "time": "01:37:16.4270000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "lapNumber": 46,
+            "raceDate": "2018-07-29T00:00:00",
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:20.0120000"
+          },
+          "name": "Rolex Magyar Nagydíj",
+          "translatedName": "Grand Prix Węgier",
+          "distance": 306.63,
+          "lapLength": 4.381,
+          "offset": 0.04,
+          "laps": 70,
+          "track": {
+            "id": 22,
+            "name": "Hungaroring",
+            "trackIcon": "/img/tory/hungaroring_m2.png"
+          },
+          "id": 1035,
+          "trackVersion": 2,
+          "country": {
+            "name": "Węgry",
+            "flagIcon": "/img/flagi/hun2.gif"
+          }
+        },
+        {
+          "date": "2018-08-26T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:58.1790000"
+          },
+          "winnerRaceResult": {
+            "number": 5,
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 44,
+            "time": "01:23:34.4760000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 32,
+            "raceDate": "2018-08-26T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:46.2860000"
+          },
+          "name": "Johnnie Walker Belgian Grand Prix",
+          "translatedName": "Grand Prix Belgii",
+          "distance": 308.052,
+          "lapLength": 7.004000000000001,
+          "offset": 0.124,
+          "laps": 44,
+          "track": {
+            "id": 58,
+            "name": "Circuit de Spa-Francorchamps",
+            "trackIcon": "/img/tory/spa-francorchamps_m2.png"
+          },
+          "id": 1036,
+          "trackVersion": 3,
+          "country": {
+            "name": "Belgia",
+            "flagIcon": "/img/flagi/bel2.gif"
+          }
+        },
+        {
+          "date": "2018-09-02T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 588,
+              "firstName": "Kimi",
+              "surname": "Raikkonen",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:19.1190000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 53,
+            "time": "01:16:54.4840000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 30,
+            "raceDate": "2018-09-02T00:00:00",
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:22.4970000"
+          },
+          "name": "Gran Premio Heineken d'Italia",
+          "translatedName": "Grand Prix Włoch",
+          "distance": 306.72,
+          "lapLength": 5.793000000000001,
+          "offset": 0.309,
+          "laps": 53,
+          "track": {
+            "id": 41,
+            "name": "Autodromo Nazionale di Monza",
+            "trackIcon": "/img/tory/monza_m2.png"
+          },
+          "id": 1037,
+          "trackVersion": 2,
+          "country": {
+            "name": "Włochy",
+            "flagIcon": "/img/flagi/ita2.gif"
+          }
+        },
+        {
+          "date": "2018-09-16T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:36.0150000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 61,
+            "time": "01:51:11.6110000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1087,
+              "name": "Haas VF-18"
+            },
+            "lapNumber": 50,
+            "raceDate": "2018-09-16T00:00:00",
+            "driver": {
+              "id": 855,
+              "firstName": "Kevin",
+              "surname": "Magnussen",
+              "nationality": {
+                "name": "Dania",
+                "flagIcon": "/img/flagi/den2.gif"
+              }
+            },
+            "time": "00:01:41.9050000"
+          },
+          "name": "Singapore Airlines Singapore Grand Prix",
+          "translatedName": "Grand Prix Singapuru",
+          "distance": 308.706,
+          "lapLength": 5.063000000000001,
+          "offset": 0.137,
+          "laps": 61,
+          "track": {
+            "id": 68,
+            "name": "Marina Bay Street Circuit",
+            "trackIcon": "/img/tory/singapore_m2.png"
+          },
+          "id": 1038,
+          "trackVersion": 3,
+          "country": {
+            "name": "Singapur",
+            "flagIcon": "/img/flagi/sin2.gif"
+          }
+        },
+        {
+          "date": "2018-09-30T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:31.3870000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 53,
+            "time": "01:27:25.1810000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 50,
+            "raceDate": "2018-09-30T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:35.8610000"
+          },
+          "name": "VTB Russian Grand Prix",
+          "translatedName": "Grand Prix Rosji",
+          "distance": 309.944,
+          "lapLength": 5.848000000000001,
+          "offset": 0,
+          "laps": 53,
+          "track": {
+            "id": 76,
+            "name": "Sochi Autodrom",
+            "trackIcon": "/img/tory/soczi_m2.png"
+          },
+          "id": 1039,
+          "trackVersion": 1,
+          "country": {
+            "name": "Rosja",
+            "flagIcon": "/img/flagi/rus2.gif"
+          }
+        },
+        {
+          "date": "2018-10-07T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:27.7600000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 53,
+            "time": "01:27:17.0620000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "lapNumber": 53,
+            "raceDate": "2018-10-07T00:00:00",
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:32.3180000"
+          },
+          "name": "Honda Japanese Grand Prix",
+          "translatedName": "Grand Prix Japonii",
+          "distance": 307.471,
+          "lapLength": 5.807,
+          "offset": 0.3,
+          "laps": 53,
+          "track": {
+            "id": 59,
+            "name": "Suzuka Circuit",
+            "trackIcon": "/img/tory/suzuka_m2.png"
+          },
+          "id": 1040,
+          "trackVersion": 1,
+          "country": {
+            "name": "Japonia",
+            "flagIcon": "/img/flagi/jpn2.gif"
+          }
+        },
+        {
+          "date": "2018-10-21T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:32.2370000"
+          },
+          "winnerRaceResult": {
+            "number": 7,
+            "driver": {
+              "id": 588,
+              "firstName": "Kimi",
+              "surname": "Raikkonen",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "finishedLaps": 56,
+            "time": "01:34:18.6430000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 40,
+            "raceDate": "2018-10-21T00:00:00",
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:37.3920000"
+          },
+          "name": "Pirelli United States Grand Prix",
+          "translatedName": "Grand Prix Stanów Zjednoczonych",
+          "distance": 308.728,
+          "lapLength": 5.513,
+          "offset": 0,
+          "laps": 56,
+          "track": {
+            "id": 74,
+            "name": "Circuit of the Americas",
+            "trackIcon": "/img/tory/austin_m2.png"
+          },
+          "id": 1041,
+          "trackVersion": 1,
+          "country": {
+            "name": "USA",
+            "flagIcon": "/img/flagi/usa2.gif"
+          }
+        },
+        {
+          "date": "2018-10-28T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 827,
+              "firstName": "Daniel",
+              "surname": "Ricciardo",
+              "nationality": {
+                "name": "Australia",
+                "flagIcon": "/img/flagi/aus2.gif"
+              }
+            },
+            "time": "00:01:14.7590000"
+          },
+          "winnerRaceResult": {
+            "number": 33,
+            "driver": {
+              "id": 869,
+              "firstName": "Max",
+              "surname": "Verstappen",
+              "nationality": {
+                "name": "Holandia",
+                "flagIcon": "/img/flagi/ned2.gif"
+              }
+            },
+            "car": {
+              "id": 1089,
+              "name": "Red Bull RB14"
+            },
+            "finishedLaps": 71,
+            "time": "01:38:28.8510000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 65,
+            "raceDate": "2018-10-28T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:18.7410000"
+          },
+          "name": "Gran Premio de Mexico",
+          "translatedName": "Grand Prix Meksyku",
+          "distance": 305.584,
+          "lapLength": 4.304,
+          "offset": 0,
+          "laps": 71,
+          "track": {
+            "id": 35,
+            "name": "Autódromo Hermanos Rodríguez",
+            "trackIcon": "/img/tory/mexico_city_m2.png"
+          },
+          "id": 1042,
+          "trackVersion": 3,
+          "country": {
+            "name": "Meksyk",
+            "flagIcon": "/img/flagi/mex2.gif"
+          }
+        },
+        {
+          "date": "2018-11-11T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:07.2810000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 71,
+            "time": "01:27:09.0660000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "lapNumber": 65,
+            "raceDate": "2018-11-11T00:00:00",
+            "driver": {
+              "id": 828,
+              "firstName": "Valtteri",
+              "surname": "Bottas",
+              "nationality": {
+                "name": "Finlandia",
+                "flagIcon": "/img/flagi/fin2.gif"
+              }
+            },
+            "time": "00:01:10.5400000"
+          },
+          "name": "Grande Pr&#234;mio Heineken do Brasil",
+          "translatedName": "Grand Prix Brazylii",
+          "distance": 305.639,
+          "lapLength": 4.309,
+          "offset": 0.3,
+          "laps": 71,
+          "track": {
+            "id": 25,
+            "name": "Autódromo José Carlos Pace",
+            "trackIcon": "/img/tory/interlagos_m2.png"
+          },
+          "id": 1043,
+          "trackVersion": 1,
+          "country": {
+            "name": "Brazylia",
+            "flagIcon": "/img/flagi/bra2.gif"
+          }
+        },
+        {
+          "date": "2018-11-25T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "time": "00:01:34.7940000"
+          },
+          "winnerRaceResult": {
+            "number": 44,
+            "driver": {
+              "id": 806,
+              "firstName": "Lewis",
+              "surname": "Hamilton",
+              "nationality": {
+                "name": "Wielka Brytania",
+                "flagIcon": "/img/flagi/gbr2.gif"
+              }
+            },
+            "car": {
+              "id": 1093,
+              "name": "Mercedes W09 EQ Power+"
+            },
+            "finishedLaps": 55,
+            "time": "01:39:40.3820000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1094,
+              "name": "Ferrari SF71H"
+            },
+            "lapNumber": 54,
+            "raceDate": "2018-11-25T00:00:00",
+            "driver": {
+              "id": 808,
+              "firstName": "Sebastian",
+              "surname": "Vettel",
+              "nationality": {
+                "name": "Niemcy",
+                "flagIcon": "/img/flagi/ger2.gif"
+              }
+            },
+            "time": "00:01:40.8670000"
+          },
+          "name": "Etihad Airways Abu Dhabi Grand Prix",
+          "translatedName": "Grand Prix Abu Zabi",
+          "distance": 305.355,
+          "lapLength": 5.554,
+          "offset": 0.115,
+          "laps": 55,
+          "track": {
+            "id": 70,
+            "name": "Yas Marina Circuit",
+            "trackIcon": "/img/tory/abu_dhabi_m2.png"
+          },
+          "id": 1044,
+          "trackVersion": 1,
+          "country": {
+            "name": "Abu Zabi",
+            "flagIcon": "/img/flagi/abu2.gif"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "year": 1950,
+    "expected": {
+      "seasonId": 1,
+      "races": [
+        {
+          "date": "1950-05-13T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "time": "00:01:50.8000000"
+          },
+          "winnerRaceResult": {
+            "number": 2,
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "finishedLaps": 70,
+            "time": "02:13:23.6000000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "lapNumber": 2,
+            "raceDate": "1950-05-13T00:00:00",
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "time": "00:01:50.6000000"
+          },
+          "name": "British Grand Prix",
+          "translatedName": "Grand Prix Wielkiej Brytanii",
+          "distance": 325.43,
+          "lapLength": 4.649,
+          "offset": 0,
+          "laps": 70,
+          "track": {
+            "id": 57,
+            "name": "Silverstone Circuit",
+            "trackIcon": "/img/tory/silverstone_m2.png"
+          },
+          "id": 1,
+          "trackVersion": 7,
+          "country": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          }
+        },
+        {
+          "date": "1950-05-21T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:01:50.2000000"
+          },
+          "winnerRaceResult": {
+            "number": 34,
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "finishedLaps": 100,
+            "time": "03:13:18.7000000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "lapNumber": 0,
+            "raceDate": "1950-05-21T00:00:00",
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:01:51"
+          },
+          "name": "Grand Prix de Monaco",
+          "translatedName": "Grand Prix Monako",
+          "distance": 318,
+          "lapLength": 3.18,
+          "offset": 0,
+          "laps": 100,
+          "track": {
+            "id": 38,
+            "name": "Circuit de Monaco",
+            "trackIcon": "/img/tory/monte_carlo_m2.png"
+          },
+          "id": 2,
+          "trackVersion": 2,
+          "country": {
+            "name": "Monako",
+            "flagIcon": "/img/flagi/mon2.gif"
+          }
+        },
+        {
+          "date": "1950-05-30T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 238,
+              "firstName": "Walt",
+              "surname": "Faulkner",
+              "nationality": {
+                "name": "USA",
+                "flagIcon": "/img/flagi/usa2.gif"
+              }
+            },
+            "time": "00:01:06.9920000"
+          },
+          "winnerRaceResult": {
+            "number": 1,
+            "driver": {
+              "id": 549,
+              "firstName": "Johnnie",
+              "surname": "Parsons",
+              "nationality": {
+                "name": "USA",
+                "flagIcon": "/img/flagi/usa2.gif"
+              }
+            },
+            "car": {
+              "id": 14,
+              "name": "Kurtis Kraft"
+            },
+            "finishedLaps": 138,
+            "time": "02:46:55.9700000",
+            "information": "wyścig przerwany z powodu deszczu",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 14,
+              "name": "Kurtis Kraft"
+            },
+            "lapNumber": 0,
+            "raceDate": "1950-05-30T00:00:00",
+            "driver": {
+              "id": 549,
+              "firstName": "Johnnie",
+              "surname": "Parsons",
+              "nationality": {
+                "name": "USA",
+                "flagIcon": "/img/flagi/usa2.gif"
+              }
+            },
+            "time": "00:01:09.7700000"
+          },
+          "name": "Indianapolis International Motor Sweepstakes",
+          "translatedName": "Grand Prix Indianapolis 500",
+          "distance": 555.174,
+          "lapLength": 4.023,
+          "offset": 0,
+          "laps": 138,
+          "track": {
+            "id": 24,
+            "name": "Indianapolis Motor Speedway",
+            "trackIcon": "/img/tory/indianapolis_m2.png"
+          },
+          "id": 3,
+          "trackVersion": 2,
+          "country": {
+            "name": "Indianapolis 500",
+            "flagIcon": "/img/flagi/in52.gif"
+          }
+        },
+        {
+          "date": "1950-06-04T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:02:42.1000000"
+          },
+          "winnerRaceResult": {
+            "number": 16,
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "finishedLaps": 42,
+            "time": "02:02:53.7000000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "lapNumber": 8,
+            "raceDate": "1950-06-04T00:00:00",
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "time": "00:02:41.6000000"
+          },
+          "name": "Grosser Preis der Schweiz",
+          "translatedName": "Grand Prix Szwajcarii",
+          "distance": 305.76,
+          "lapLength": 7.279999999999999,
+          "offset": 0,
+          "laps": 42,
+          "track": {
+            "id": 9,
+            "name": "Circuit Bremgarten",
+            "trackIcon": "/img/tory/bremgarten_m2.png"
+          },
+          "id": 4,
+          "trackVersion": 1,
+          "country": {
+            "name": "Szwajcaria",
+            "flagIcon": "/img/flagi/sui2.gif"
+          }
+        },
+        {
+          "date": "1950-06-18T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "time": "00:04:37"
+          },
+          "winnerRaceResult": {
+            "number": 10,
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "finishedLaps": 35,
+            "time": "02:47:26",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "lapNumber": 18,
+            "raceDate": "1950-06-18T00:00:00",
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "time": "00:04:34.1000000"
+          },
+          "name": "Grand Prix de Belgique",
+          "translatedName": "Grand Prix Belgii",
+          "distance": 494.2,
+          "lapLength": 14.12,
+          "offset": 0,
+          "laps": 35,
+          "track": {
+            "id": 58,
+            "name": "Circuit de Spa-Francorchamps",
+            "trackIcon": "/img/tory/spa-francorchamps_m2.png"
+          },
+          "id": 5,
+          "trackVersion": 2,
+          "country": {
+            "name": "Belgia",
+            "flagIcon": "/img/flagi/bel2.gif"
+          }
+        },
+        {
+          "date": "1950-07-02T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:02:30.6000000"
+          },
+          "winnerRaceResult": {
+            "number": 6,
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "finishedLaps": 64,
+            "time": "02:57:52.8000000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 1,
+              "name": "Alfa Romeo 158"
+            },
+            "lapNumber": 52,
+            "raceDate": "1950-07-02T00:00:00",
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:02:35.6000000"
+          },
+          "name": "Grand Prix de l'Automobile Club de France",
+          "translatedName": "Grand Prix Francji",
+          "distance": 500.16,
+          "lapLength": 7.815,
+          "offset": 0,
+          "laps": 64,
+          "track": {
+            "id": 49,
+            "name": "Reims-Gueux",
+            "trackIcon": "/img/tory/reims_m2.png"
+          },
+          "id": 6,
+          "trackVersion": 2,
+          "country": {
+            "name": "Francja",
+            "flagIcon": "/img/flagi/fra2.gif"
+          }
+        },
+        {
+          "date": "1950-09-03T00:00:00",
+          "polePositionLapResult": {
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:01:58.6000000"
+          },
+          "winnerRaceResult": {
+            "number": 10,
+            "driver": {
+              "id": 237,
+              "firstName": "Nino",
+              "surname": "Farina",
+              "nationality": {
+                "name": "Włochy",
+                "flagIcon": "/img/flagi/ita2.gif"
+              }
+            },
+            "car": {
+              "id": 36,
+              "name": "Alfa Romeo 159"
+            },
+            "finishedLaps": 80,
+            "time": "02:51:17.4000000",
+            "information": "",
+            "status": "Classified",
+            "startStatus": "FromGrid"
+          },
+          "fastestLapResult": {
+            "car": {
+              "id": 36,
+              "name": "Alfa Romeo 159"
+            },
+            "lapNumber": 7,
+            "raceDate": "1950-09-03T00:00:00",
+            "driver": {
+              "id": 236,
+              "firstName": "Juan Manuel",
+              "surname": "Fangio",
+              "nationality": {
+                "name": "Argentyna",
+                "flagIcon": "/img/flagi/arg2.gif"
+              }
+            },
+            "time": "00:02:00"
+          },
+          "name": "Gran Premio d'Italia",
+          "translatedName": "Grand Prix Włoch",
+          "distance": 504,
+          "lapLength": 6.3,
+          "offset": 0,
+          "laps": 80,
+          "track": {
+            "id": 41,
+            "name": "Autodromo Nazionale di Monza",
+            "trackIcon": "/img/tory/monza_m2.png"
+          },
+          "id": 7,
+          "trackVersion": 3,
+          "country": {
+            "name": "Włochy",
+            "flagIcon": "/img/flagi/ita2.gif"
+          }
+        }
+      ]
+    }
+  }
+]

@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1tracks");
 
-			builder.HasIndex(e => e.Ascid)
+			builder.HasIndex(e => e.Key)
 				.HasName("ascid")
 				.IsUnique();
 
@@ -29,7 +29,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("artid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Ascid)
+			builder.Property(e => e.Key)
 				.IsRequired()
 				.HasColumnName("ascid")
 				.HasMaxLength(64)
@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(45)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.NationalityKey)
+			builder.Property(e => e.CountryKey)
 				.IsRequired()
 				.HasColumnName("country")
 				.HasColumnType("char(3)")
@@ -68,13 +68,13 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.Property(e => e.Length).HasColumnName("length");
 
-			builder.Property(e => e.Longeststraight).HasColumnName("longeststraight");
+			builder.Property(e => e.LongestStraight).HasColumnName("longeststraight");
 
 			builder.Property(e => e.Newstopicid)
 				.HasColumnName("newstopicid")
 				.HasColumnType("mediumint unsigned");
 
-			builder.Property(e => e.Orgaddress)
+			builder.Property(e => e.Address)
 				.IsRequired()
 				.HasColumnName("orgaddress")
 				.HasMaxLength(128)
@@ -110,25 +110,29 @@ namespace F1WM.DatabaseModel.Context
 				.HasMaxLength(20)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Satmapcoords)
+			builder.Property(e => e.MapCoordinates)
 				.IsRequired()
 				.HasColumnName("satmapcoords")
 				.HasMaxLength(25)
 				.HasDefaultValueSql("''");
 
-			builder.Property(e => e.Satmapzoom).HasColumnName("satmapzoom");
+			builder.Property(e => e.MapZoom).HasColumnName("satmapzoom");
 
-			builder.Property(e => e.Startlocal)
+			builder.Property(e => e.RaceStartLocal)
 				.IsRequired()
 				.HasColumnName("startlocal")
+				.HasColumnType("varchar(5)")
 				.HasMaxLength(5)
-				.HasDefaultValueSql("''");
+				.HasDefaultValueSql("''")
+				.HasTimeOfDayConversions();
 
-			builder.Property(e => e.Startpoland)
+			builder.Property(e => e.RaceStartPoland)
 				.IsRequired()
 				.HasColumnName("startpoland")
+				.HasColumnType("varchar(5)")
 				.HasMaxLength(5)
-				.HasDefaultValueSql("''");
+				.HasDefaultValueSql("''")
+				.HasTimeOfDayConversions();
 
 			builder.Property(e => e.Status)
 				.HasColumnName("status");
@@ -155,10 +159,16 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("zipcode")
 				.HasMaxLength(8);
 
-			builder.HasOne(e => e.Nationality)
+			builder.HasOne(e => e.Country)
 				.WithMany()
-				.HasForeignKey(e => e.NationalityKey)
+				.HasForeignKey(e => e.CountryKey)
 				.HasPrincipalKey(n => n.Key);
+
+			builder.HasOne(e => e.Website)
+				.WithOne()
+				.HasForeignKey<Track>(e => e.Key)
+				.HasPrincipalKey<Link>(t => t.CategoryKey)
+				.IsRequired(false);
 		}
 	}
 }

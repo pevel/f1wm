@@ -1,7 +1,7 @@
-using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -10,35 +10,51 @@ namespace F1WM.Controllers
 	public class TracksController : ControllerBase
 	{
 		private readonly ITracksService service;
-		private readonly ILoggingService logger;
+		private const int defaultPage = 1;
+		private const int defaultCountPerPage = 25;
 
-		[HttpGet("{trackId}/versions/{trackVersion}/records")]
-		[Produces("application/json", Type = typeof(TrackRecordsInformation))]
-		public async Task<IActionResult> GetTrackRecords(int trackId, int trackVersion, [FromQuery]int? beforeYear)
+		[HttpGet]
+		public async Task<PagedResult<Track>> GetTracks(
+			[FromQuery]byte? status, 
+			[FromQuery(Name = "page")] uint page = defaultPage,
+			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
 		{
-			try
+			if (status != null)
 			{
-				var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
-				if (records != null)
-				{
-					return Ok(records);
-				}
-				else
-				{
-					return NotFound();
-				}
+				return await service.GetTracksByStatus((byte)status, page, countPerPage);
 			}
-			catch (Exception ex)
+			else
 			{
-				logger.LogError(ex);
-				throw ex;
+				return await service.GetTracks(page, countPerPage);
 			}
 		}
 
-		public TracksController(ITracksService service, ILoggingService logger)
+		[HttpGet("{id}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackDetails>> GetTrack(
+			[FromRoute]int id,
+			[FromQuery]int? atYear)
+		{
+			var track = await service.GetTrack(id, atYear);
+			return this.NotFoundResultIfNull(track);
+		}
+
+		[HttpGet("{trackId}/versions/{trackVersion}/records")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackRecordsInformation>> GetTrackRecords(
+			[FromRoute]int trackId,
+			[FromRoute]int trackVersion,
+			[FromQuery]int? beforeYear)
+		{
+			var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
+			return this.NotFoundResultIfNull(records);
+		}
+
+		public TracksController(ITracksService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

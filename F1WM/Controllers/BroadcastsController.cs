@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,128 +12,78 @@ namespace F1WM.Controllers
 	public class BroadcastsController : ControllerBase
 	{
 		private readonly IBroadcastsService service;
-		private readonly ILoggingService logger;
 
 		[HttpGet("next")]
-		[Produces("application/json", Type = typeof(BroadcastsInformation))]
-		public async Task<IActionResult> GetNextBroadcasts()
+		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts()
 		{
-			try
-			{
-				var broadcasts = await service.GetNextBroadcasts();
-				if (broadcasts != null)
-				{
-					return Ok(broadcasts);
-				}
-				else
-				{
-					return NotFound();
-				}
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var broadcasts = await service.GetNextBroadcasts();
+			return this.NotFoundResultIfNull(broadcasts);
 		}
 
 		[HttpGet("broadcasters")]
 		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
-			try
-			{
-				return await service.GetBroadcasters();
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetBroadcasters();
 		}
 
 		[HttpGet("types")]
 		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
-			try
-			{
-				return await service.GetSessionTypes();
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			return await service.GetSessionTypes();
 		}
 
 		[HttpPost("types")]
 		[Authorize]
-		[Produces("application/json", Type = typeof(BroadcastSessionType))]
-		public async Task<IActionResult> AddSessionType([FromBody]BroadcastSessionTypeAddRequest request)
+		[ProducesResponseType(201)]
+		[ProducesResponseType(401)]
+		public async Task<ActionResult<BroadcastSessionType>> AddSessionType(
+			[FromBody]BroadcastSessionTypeAddRequest request)
 		{
-			try
-			{
-				var type = await service.AddSessionType(request);
-				return CreatedAtAction(nameof(GetSessionTypes), type);
-			}
-			catch (Exception ex)
-			{
-				logger.LogError(ex);
-				throw ex;
-			}
+			var type = await service.AddSessionType(request);
+			return CreatedAtAction(nameof(GetSessionTypes), type);
 		}
 
 		[HttpPost("broadcasters")]
 		[Authorize]
-		[Produces("application/json", Type = typeof(Broadcaster))]
-		public async Task<IActionResult> AddBroadcaster([FromBody]BroadcasterAddRequest request)
+		[ProducesResponseType(201)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(422)]
+		public async Task<ActionResult<Broadcaster>> AddBroadcaster(
+			[FromBody]BroadcasterAddRequest request)
 		{
-			try
+			var broadcaster = await service.AddBroadcaster(request);
+			if (broadcaster != null)
 			{
-				var broadcaster = await service.AddBroadcaster(request);
-				if (broadcaster != null)
-				{
-					return CreatedAtAction(nameof(GetBroadcasters), broadcaster);
-				}
-				else
-				{
-					return UnprocessableEntity();
-				}
+				return CreatedAtAction(nameof(GetBroadcasters), broadcaster);
 			}
-			catch (Exception ex)
+			else
 			{
-				logger.LogError(ex);
-				throw ex;
+				return UnprocessableEntity();
 			}
 		}
 
 		[HttpPost]
 		[Authorize]
-		[Produces("application/json", Type = typeof(BroadcastsInformation))]
-		public async Task<IActionResult> AddBroadcasts([FromBody]BroadcastsAddRequest request)
+		[ProducesResponseType(201)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(422)]
+		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
+			[FromBody]BroadcastsAddRequest request)
 		{
-			try
+			var broadcasts = await service.AddBroadcasts(request);
+			if (broadcasts != null)
 			{
-				var broadcasts = await service.AddBroadcasts(request);
-				if (broadcasts != null)
-				{
-					return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
-				}
-				else
-				{
-					return UnprocessableEntity();
-				}
+				return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
 			}
-			catch (Exception ex)
+			else
 			{
-				logger.LogError(ex);
-				throw ex;
+				return UnprocessableEntity();
 			}
 		}
 
-		public BroadcastsController(IBroadcastsService service, ILoggingService logger)
+		public BroadcastsController(IBroadcastsService service)
 		{
 			this.service = service;
-			this.logger = logger;
 		}
 	}
 }

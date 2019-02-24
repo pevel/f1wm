@@ -14,7 +14,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.Lastrace)
 				.HasName("lastrace");
 
-			builder.HasIndex(e => e.Races)
+			builder.HasIndex(e => e.RaceCount)
 				.HasName("races");
 
 			builder.HasIndex(e => e.Id)
@@ -57,7 +57,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("qualrules")
 				.HasColumnType("text");
 
-			builder.Property(e => e.Races)
+			builder.Property(e => e.RaceCount)
 				.HasColumnName("races")
 				.HasDefaultValueSql("'0'");
 
@@ -74,6 +74,11 @@ namespace F1WM.DatabaseModel.Context
 			builder.Property(e => e.Year)
 				.HasColumnName("year")
 				.HasDefaultValueSql("'0'");
+
+			builder.HasMany(e => e.DriverStandings)
+				.WithOne(ds => ds.Season)
+				.HasForeignKey(ds => ds.SeasonId)
+				.HasPrincipalKey(e => e.Id);
 		}
 	}
 }

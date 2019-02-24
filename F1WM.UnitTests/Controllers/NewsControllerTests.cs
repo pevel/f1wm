@@ -14,13 +14,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private NewsController controller;
 		private Mock<INewsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public NewsControllerTests()
 		{
 			serviceMock = new Mock<INewsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new NewsController(serviceMock.Object, loggerMock.Object);
+			controller = new NewsController(serviceMock.Object);
 		}
 
 		[Fact]
@@ -34,7 +32,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperNewsCount()
 		{
-			var count = 5;
+			uint count = 5;
 
 			await controller.GetManyNews(null, null, null, 1, count);
 
@@ -44,7 +42,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperNewsPage()
 		{
-			var page = 2;
+			uint page = 2;
 
 			await controller.GetManyNews(null, null, null, page);
 
@@ -79,7 +77,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetSingle(id);
 
 			serviceMock.Verify(s => s.GetNewsDetails(id), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -106,23 +104,23 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var id = 44;
 
-			var result = await controller.IncremetViews(id);
+			var result = await controller.IncrementViews(id);
 
 			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
 			Assert.IsType<NotFoundResult>(result);
 		}
 
 		[Fact]
-		public async Task ShouldReturn200IfViewsIncremented()
+		public async Task ShouldReturn204IfViewsIncremented()
 		{
 			var id = 44000;
 
 			serviceMock.Setup(s => s.IncrementViews(id)).ReturnsAsync(true);
 
-			var result = await controller.IncremetViews(id);
+			var result = await controller.IncrementViews(id);
 
 			serviceMock.Verify(s => s.IncrementViews(id), Times.Once);
-			Assert.IsType<OkResult>(result);
+			Assert.IsType<NoContentResult>(result);
 		}
 
 		[Fact]
@@ -184,7 +182,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var tagId = 2;
 			IEnumerable<NewsSummary> emptyResult = Enumerable.Empty<NewsSummary>();
-			NewsSummaryPaged emptyResponse = new NewsSummaryPaged
+			PagedResult<NewsSummary> emptyResponse = new PagedResult<NewsSummary>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
@@ -206,7 +204,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var typeId = 1;
 			IEnumerable<NewsSummary> emptyResult = Enumerable.Empty<NewsSummary>();
-			NewsSummaryPaged emptyResponse = new NewsSummaryPaged
+			PagedResult<NewsSummary> emptyResponse = new PagedResult<NewsSummary>
 			{
 				CurrentPage = 1,
 				PageCount = 0,
@@ -228,7 +226,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var categoryId = 10;
 			IEnumerable<NewsTag> emptyResult = Enumerable.Empty<NewsTag>();
-			NewsTagsPaged emptyResponse = new NewsTagsPaged
+			PagedResult<NewsTag> emptyResponse = new PagedResult<NewsTag>
 			{
 				CurrentPage = 1,
 				PageCount = 0,

@@ -17,7 +17,6 @@ namespace F1WM.Repositories
 
 		public async Task<Calendar> GetCalendar(int year)
 		{
-			await SetDbEncoding();
 			var dbRaces = await context.Races
 				.Include(r => r.Track)
 				.Include(r => r.Country)
@@ -31,11 +30,11 @@ namespace F1WM.Repositories
 			await IncludeLastPolePositionResult(year, races);
 			await IncludeLastRaceResult(year, races);
 			await IncludeFastestLaps(year, races);
-			var result = new Calendar();
-			await GetSeasonId(year, result);
-			result.Races = races;
-			CalculateLap(result);
-			return result;
+			var apiCalendar = new Calendar();
+			await GetSeasonId(year, apiCalendar);
+			apiCalendar.Races = races;
+			CalculateLap(apiCalendar);
+			return apiCalendar;
 		}
 
 		public CalendarRepository(F1WMContext context, IMapper mapper)
@@ -62,14 +61,21 @@ namespace F1WM.Repositories
 		private async Task IncludeLastRaceResult(int year, List<CalendarRace> calendar)
 		{
 			var dbRaceResults = await context.Results
+				.Include(r => r.Entry).ThenInclude(e => e.Grid)
 				.Include(r => r.Entry).ThenInclude(e => e.Car)
 				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.Where(r => r.PositionOrStatus == "1" && r.Race.Date.Year == year)
 				.ToListAsync();
+			
+			foreach (var r in dbRaceResults)
+			{
+				r.Entry.Grid.FillStartPositionInfo();
+			}
 
 			foreach (CalendarRace calendarRace in calendar)
 			{
-				calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults.FirstOrDefault(r => r.RaceId == calendarRace.Id));
+				calendarRace.WinnerRaceResult = mapper.Map<WinnerRaceResultSummary>(dbRaceResults
+					.FirstOrDefault(r => r.RaceId == calendarRace.Id));
 			}
 
 		}
@@ -80,7 +86,7 @@ namespace F1WM.Repositories
 				.Include(f => f.Entry).ThenInclude(e => e.Race)
 				.Include(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(f => f.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
-				.Where(f => f.Frlpos == "1" && f.Entry.Race.Date.Year == year)
+				.Where(f => f.PositionOrStatus == "1" && f.Entry.Race.Date.Year == year)
 				.ToListAsync();
 
 			foreach (CalendarRace calendarRace in calendar)

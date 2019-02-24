@@ -12,13 +12,11 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private ResultsController controller;
 		private Mock<IResultsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public ResultsControllerTests()
 		{
 			serviceMock = new Mock<IResultsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new ResultsController(serviceMock.Object, loggerMock.Object);
+			controller = new ResultsController(serviceMock.Object);
 		}
 
 		[Fact]
@@ -30,7 +28,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetRaceResult(raceId);
 
 			serviceMock.Verify(s => s.GetRaceResult(raceId), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -41,7 +39,7 @@ namespace F1WM.UnitTests.Controllers
 
 			var result = await controller.GetRaceResult(raceId);
 
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -53,7 +51,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetQualifyingResult(raceId);
 
 			serviceMock.Verify(s => s.GetQualifyingResult(raceId), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -64,7 +62,7 @@ namespace F1WM.UnitTests.Controllers
 
 			var result = await controller.GetQualifyingResult(raceId);
 
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -77,7 +75,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetPracticeSessionResult(raceId, session);
 
 			serviceMock.Verify(s => s.GetPracticeSessionResult(raceId, session), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -89,7 +87,7 @@ namespace F1WM.UnitTests.Controllers
 
 			var result = await controller.GetPracticeSessionResult(raceId, session);
 
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -101,7 +99,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetOtherResult(eventId);
 
 			serviceMock.Verify(s => s.GetOtherResult(eventId), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
@@ -112,7 +110,7 @@ namespace F1WM.UnitTests.Controllers
 
 			var result = await controller.GetOtherResult(eventId);
 
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}
 }

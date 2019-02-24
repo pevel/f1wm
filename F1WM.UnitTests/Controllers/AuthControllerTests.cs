@@ -18,14 +18,12 @@ namespace F1WM.UnitTests.Controllers
 		private AuthController controller;
 		private Mock<IAuthService> serviceMock;
 		private Mock<IConfiguration> configurationMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public AuthControllerTests()
 		{
 			serviceMock = new Mock<IAuthService>();
 			configurationMock = new Mock<IConfiguration>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new AuthController(serviceMock.Object, configurationMock.Object, loggerMock.Object);
+			controller = new AuthController(serviceMock.Object, configurationMock.Object);
 		}
 
 		[Fact]
@@ -40,8 +38,8 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.SignIn(login.Email, login.Password), Times.Once);
 			serviceMock.Verify(s => s.GenerateTokens(login.Email), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			tokens.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			tokens.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -54,7 +52,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.SignIn(login.Email, login.Password), Times.Once);
 			serviceMock.Verify(s => s.GenerateTokens(login.Email), Times.Never);
-			Assert.IsType<UnauthorizedResult>(result);
+			Assert.IsType<UnauthorizedResult>(result.Result);
 		}
 
 		[Fact]
@@ -78,8 +76,8 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.SignUp(It.Is<F1WMUser>(u => isTheSameUser(u)), registerRequest.Password), Times.Once);
 			serviceMock.Verify(s => s.GenerateTokens(registerRequest.Email), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			tokens.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			tokens.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -99,7 +97,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.SignUp(It.Is<F1WMUser>(u => isTheSameUser(u)), registerRequest.Password), Times.Never);
 			serviceMock.Verify(s => s.GenerateTokens(registerRequest.Email), Times.Never);
-			Assert.IsType<UnprocessableEntityResult>(result);
+			Assert.IsType<UnprocessableEntityResult>(result.Result);
 		}
 
 		[Fact]
@@ -121,9 +119,9 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.RefreshAccessToken(tokens);
 
 			serviceMock.Verify(s => s.RefreshAccessToken(tokens), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			Assert.NotEqual(tokens.AccessToken, ((Tokens)((OkObjectResult)result).Value).AccessToken);
-			Assert.Equal(tokens.RefreshToken, ((Tokens)((OkObjectResult)result).Value).RefreshToken);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			Assert.NotEqual(tokens.AccessToken, ((Tokens)okResult.Value).AccessToken);
+			Assert.Equal(tokens.RefreshToken, ((Tokens)okResult.Value).RefreshToken);
 		}
 
 		[Fact]
@@ -139,7 +137,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.RefreshAccessToken(tokens);
 
 			serviceMock.Verify(s => s.RefreshAccessToken(tokens), Times.Once);
-			Assert.IsType<UnauthorizedResult>(result);
+			Assert.IsType<UnauthorizedResult>(result.Result);
 		}
 	}
 }

@@ -6,7 +6,7 @@ namespace F1WM.DatabaseModel
 	{
 		public uint Id { get; set; }
 		public ushort Year { get; set; }
-		public byte Races { get; set; }
+		public byte RaceCount { get; set; }
 		public byte Lastrace { get; set; }
 		public string Reviewnews { get; set; }
 		public string Reviewarts { get; set; }
@@ -17,5 +17,6 @@ namespace F1WM.DatabaseModel
 		public uint Newstyres { get; set; }
 		public IEnumerable<DriverStandingsPosition> DriverStandings { get; set; }
 		public IEnumerable<ConstructorStandingsPosition> ConstructorStandings { get; set; }
+		public IEnumerable<Race> Races { get; set; }
 	}
 }

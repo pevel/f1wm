@@ -1,39 +1,16 @@
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Text.RegularExpressions;
 using F1WM.ApiModel;
-using F1WM.DatabaseModel;
 using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
-		public static bool TryParseResultRedirect(this string text, out ResultRedirectLink link)
+		public static string IgnoreEmpty(this string text)
 		{
-			if (!string.IsNullOrWhiteSpace(text))
-			{
-				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)(&dzial=([\d]+))*");
-				var match = regex.Match(text);
-				if (match.Groups.Count == 5)
-				{
-					if (!int.TryParse(match.Groups[4].Value, out int resultType))
-					{
-						resultType = (int)Database.ResultType.Race;
-					}
-					link = new ResultRedirectLink()
-					{
-						Year = int.Parse(match.Groups[1].Value),
-						Number = int.Parse(match.Groups[2].Value),
-						ResultType = (Database.ResultType)resultType
-					};
-					return true;
-				}
-			}
-			link = null;
-			return false;
+			return text == "-" || string.IsNullOrWhiteSpace(text) ? null : text;
 		}
 
 		public static string ParseImageInformation(this string text)
@@ -43,7 +20,7 @@ namespace F1WM.Utilities
 				var imageSource = text.Split(',')[2];
 				imageSource = imageSource.StartsWith("http") ? imageSource : $"/img/news/{imageSource}";
 				var imageInformation = $"<img src=\"{imageSource}\">";
-				text = imageInformation;
+				text = imageInformation + "<br/>";
 			}
 			return text;
 		}
@@ -56,7 +33,10 @@ namespace F1WM.Utilities
 				int id;
 				if (tokens.Length != 3 || !int.TryParse(tokens[0], out id))
 				{
-					throw new ArgumentException("Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)", nameof(text));
+					throw new ArgumentException(
+						"Attempted to parse text in an unknown format (it's expected to be: newsID|imageUrl|newsShortText)",
+						nameof(text)
+					);
 				}
 				return new ImportantNewsSummary()
 				{
@@ -88,9 +68,29 @@ namespace F1WM.Utilities
 			return $"/img/tory/{id}_m2.png";
 		}
 
+		public static string GetTrackImagePath(this string id)
+		{
+			return $"/img/tory/{id}.jpg";
+		}
+
 		public static string GetGenericIconPath(this string id)
 		{
 			return id == null ? string.Empty : $"/img/ikony/{id}.gif";
+		}
+
+		public static string GetSmallDriverPicturePath(this string id)
+		{
+			return $"/img/ikony/1_{id}.gif";
+		}
+
+		public static string GetMainDriverPicturePath(this string id)
+		{
+			return id == null ? null : $"/img/kierowcy/{id}.jpg";
+		}
+
+		public static string GetTeamLogoPath(this string id)
+		{
+			return id == null ? null : $"/img/ikony/2_{id}.gif";
 		}
 
 		public static string GetGrandPrixName(this string genitive)
@@ -98,23 +98,47 @@ namespace F1WM.Utilities
 			return $"Grand Prix {genitive}";
 		}
 
+		public static string GetCareerImagePath(this string text)
+		{
+			return text == null ? null : $"/kierowcy/kariera/{text}";
+		}
+
+		public static string GetTeamImagePath(this string text)
+		{
+			return text == null || string.IsNullOrWhiteSpace(text) ? null : $"/img/zespoly/{text}";
+		}
+
+		public static string GetLargeTeamLogoPath(this string id)
+		{
+			return id == null || string.IsNullOrWhiteSpace(id) ? null : $"/img/zespoly/{id}_logo.gif";
+		}
+
+		public static string GetTeamHeadquartersPicturePath(this string id)
+		{
+			return id == null || string.IsNullOrWhiteSpace(id) ? null : $"/img/zespoly/{id}_base.jpg";
+		}
+
 		public static ResultStatus GetResultStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToResultStatus.TryGetValue(statusText, out ResultStatus status) ? status : ResultStatus.Unknown;
 		}
 
 		public static StartStatus GetStartStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToStartStatus.TryGetValue(statusText, out StartStatus status) ? status : StartStatus.Unknown;
 		}
 
 		public static QualifyStatus GetQualifyStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToQualifyStatus.TryGetValue(statusText, out QualifyStatus status) ? status : QualifyStatus.Unknown;
 		}
 
 		public static OtherResultStatus GetOtherResultStatus(this string statusText)
 		{
+			statusText = statusText ?? String.Empty;
 			return Constants.TextToOtherResultStatus.TryGetValue(statusText, out OtherResultStatus status) ? status : OtherResultStatus.Other;
 		}
 
@@ -131,6 +155,25 @@ namespace F1WM.Utilities
 		public static bool HasAdditionalPoints(this string statusText)
 		{
 			return statusText == Database.OtherResultStatus.AdditionalPoints;
+		}
+
+		public static bool OnPodium(this string positionOrStatus)
+		{
+			return positionOrStatus == "1" || positionOrStatus == "2" || positionOrStatus == "3";
+		}
+
+		public static bool NotClassified(this string statusText)
+		{
+			return statusText == Database.ResultStatus.NotClassified;
+		}
+
+		public static bool NotFinished(this string statusText)
+		{
+			return statusText == Database.ResultStatus.DidNotStartAgain ||
+				statusText == Database.ResultStatus.Disqualified ||
+				statusText == Database.ResultStatus.Excluded ||
+				statusText == Database.ResultStatus.DidNotStart ||
+				statusText == Database.ResultStatus.NotClassified;
 		}
 	}
 }

@@ -1,8 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text.RegularExpressions;
 using F1WM.ApiModel;
+using F1WM.DatabaseModel;
+using F1WM.Utilities.Model;
+using Database = F1WM.DatabaseModel.Constants;
 
 namespace F1WM.Utilities
 {
@@ -29,11 +31,19 @@ namespace F1WM.Utilities
 						else
 						{
 							var token = line.Length > 0 ? $"{line[0]}" : "";
-							if (Constants.TokenToParserMapping.ContainsKey(token))
+							if (Constants.TokenToParser.ContainsKey(token))
 							{
-								line = Constants.TokenToParserMapping[token](line);
+								Constants.TokenToParser[token](new NewsParserContext()
+								{
+									CurrentLine = line,
+									Reader = reader,
+									Writer = writer
+								});
 							}
-							writer.WriteLine(line + "<br/>");
+							else
+							{
+								writer.Write(line + "<br/>");
+							}
 						}
 					}
 					news.Text = writer.ToString();
@@ -87,6 +97,31 @@ namespace F1WM.Utilities
 				}
 			}
 			resultLink = null;
+			return false;
+		}
+
+		public static bool TryParseResultRedirect(this NewsDetails news, out ResultRedirectLink link)
+		{
+			if (!string.IsNullOrWhiteSpace(news.Redirect))
+			{
+				var regex = new Regex(@"php/rel_gen\.php\?rok=([\d]+)&nr=([\d]+)(&dzial=([\d]+))*");
+				var match = regex.Match(news.Redirect);
+				if (match.Groups.Count == 5)
+				{
+					if (!int.TryParse(match.Groups[4].Value, out int resultType))
+					{
+						resultType = (int)Database.ResultType.Race;
+					}
+					link = new ResultRedirectLink()
+					{
+						Year = int.Parse(match.Groups[1].Value),
+						Number = int.Parse(match.Groups[2].Value),
+						ResultType = (Database.ResultType)resultType
+					};
+					return true;
+				}
+			}
+			link = null;
 			return false;
 		}
 	}

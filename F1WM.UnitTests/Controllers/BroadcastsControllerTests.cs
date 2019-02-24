@@ -15,14 +15,12 @@ namespace F1WM.UnitTests.Controllers
 		private BroadcastsController controller;
 		private Fixture fixture;
 		private Mock<IBroadcastsService> serviceMock;
-		private Mock<ILoggingService> loggerMock;
 
 		public BroadcastsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<IBroadcastsService>();
-			loggerMock = new Mock<ILoggingService>();
-			controller = new BroadcastsController(serviceMock.Object, loggerMock.Object);
+			controller = new BroadcastsController(serviceMock.Object);
 		}
 
 		[Fact]
@@ -34,8 +32,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetNextBroadcasts();
 
 			serviceMock.Verify(s => s.GetNextBroadcasts(), Times.Once);
-			Assert.IsType<OkObjectResult>(result);
-			broadcasts.Should().BeEquivalentTo(((OkObjectResult)result).Value);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			broadcasts.Should().BeEquivalentTo(okResult.Value);
 		}
 
 		[Fact]
@@ -47,7 +45,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.GetNextBroadcasts();
 
 			serviceMock.Verify(s => s.GetNextBroadcasts(), Times.Once);
-			Assert.IsType<NotFoundResult>(result);
+			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
@@ -84,8 +82,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.AddBroadcaster(request);
 
 			serviceMock.Verify(s => s.AddBroadcaster(request), Times.Once);
-			Assert.IsType<CreatedAtActionResult>(result);
-			broadcaster.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+			var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
+			broadcaster.Should().BeEquivalentTo(createdAtActionResult.Value);
 		}
 
 		[Fact]
@@ -97,7 +95,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.AddBroadcaster(request);
 
 			serviceMock.Verify(s => s.AddBroadcaster(request), Times.Once);
-			Assert.IsType<UnprocessableEntityResult>(result);
+			Assert.IsType<UnprocessableEntityResult>(result.Result);
 		}
 
 		[Fact]
@@ -110,8 +108,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.AddSessionType(request);
 
 			serviceMock.Verify(s => s.AddSessionType(request), Times.Once);
-			Assert.IsType<CreatedAtActionResult>(result);
-			type.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+			var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
+			type.Should().BeEquivalentTo(createdAtActionResult.Value);
 		}
 
 		[Fact]
@@ -124,8 +122,8 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.AddBroadcasts(request);
 
 			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
-			Assert.IsType<CreatedAtActionResult>(result);
-			broadcasts.Should().BeEquivalentTo(((CreatedAtActionResult)result).Value);
+			var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
+			broadcasts.Should().BeEquivalentTo(createdAtActionResult.Value);
 		}
 
 		[Fact]
@@ -137,7 +135,7 @@ namespace F1WM.UnitTests.Controllers
 			var result = await controller.AddBroadcasts(request);
 
 			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
-			Assert.IsType<UnprocessableEntityResult>(result);
+			Assert.IsType<UnprocessableEntityResult>(result.Result);
 		}
 	}
 }

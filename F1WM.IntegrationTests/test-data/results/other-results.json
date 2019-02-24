@@ -1,0 +1,1043 @@
+[
+  {
+    "eventId": 3234,
+    "why": "F2 result",
+    "expected": {
+      "eventId": 3234,
+      "eventName": "Bahrajn 1 (główny)",
+      "series": {
+        "id": 4,
+        "name": "Formula 2"
+      },
+      "results": [
+        {
+          "finishPosition": 1,
+          "number": "19",
+          "teamName": "Carlin",
+          "driver": {
+            "id": 2059,
+            "firstName": "Lando",
+            "surname": "Norris",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:57:46.2060000",
+          "status": "Classified",
+          "points": 25
+        },
+        {
+          "finishPosition": 2,
+          "number": "18",
+          "teamName": "Carlin",
+          "driver": {
+            "id": 1878,
+            "firstName": "Sergio Sette",
+            "surname": "Camara",
+            "nationality": {
+              "name": "Brazylia",
+              "flagIcon": "/img/flagi/bra2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:57:54.5270000",
+          "status": "Classified",
+          "points": 18
+        },
+        {
+          "finishPosition": 3,
+          "number": "1",
+          "teamName": "Russian Time",
+          "driver": {
+            "id": 1268,
+            "firstName": "Artiom",
+            "surname": "Markiełow",
+            "nationality": {
+              "name": "Rosja",
+              "flagIcon": "/img/flagi/rus2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:57:54.7380000",
+          "status": "Classified",
+          "points": 15
+        },
+        {
+          "finishPosition": 4,
+          "number": "5",
+          "teamName": "DAMS",
+          "driver": {
+            "id": 1933,
+            "firstName": "Alexander",
+            "surname": "Albon",
+            "nationality": {
+              "name": "Tajlandia",
+              "flagIcon": "/img/flagi/tha2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:57:55.5550000",
+          "status": "Classified",
+          "points": 12
+        },
+        {
+          "finishPosition": 5,
+          "number": "8",
+          "teamName": "ART Grand Prix",
+          "driver": {
+            "id": 1919,
+            "firstName": "George",
+            "surname": "Russell",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:00.1530000",
+          "status": "Classified",
+          "points": 10
+        },
+        {
+          "finishPosition": 6,
+          "number": "4",
+          "teamName": "Prema Racing",
+          "driver": {
+            "id": 1886,
+            "firstName": "Nyck",
+            "surname": "de Vries",
+            "nationality": {
+              "name": "Holandia",
+              "flagIcon": "/img/flagi/ned2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:00.8670000",
+          "status": "Classified",
+          "points": 8
+        },
+        {
+          "finishPosition": 7,
+          "number": "3",
+          "teamName": "Prema Racing",
+          "driver": {
+            "id": 1462,
+            "firstName": "Sean",
+            "surname": "Gelael",
+            "nationality": {
+              "name": "Indonezja",
+              "flagIcon": "/img/flagi/ino2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:05.5320000",
+          "status": "Classified",
+          "points": 6
+        },
+        {
+          "finishPosition": 8,
+          "number": "11",
+          "teamName": "Arden International",
+          "driver": {
+            "id": 1938,
+            "firstName": "Maximilian",
+            "surname": "Gunther",
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:08.7790000",
+          "status": "Classified",
+          "points": 4
+        },
+        {
+          "finishPosition": 9,
+          "number": "7",
+          "teamName": "ART Grand Prix",
+          "driver": {
+            "id": 2005,
+            "firstName": "Jack",
+            "surname": "Aitken",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:14.7650000",
+          "status": "Classified",
+          "points": 2
+        },
+        {
+          "finishPosition": 10,
+          "number": "10",
+          "teamName": "MP Motorsport",
+          "driver": {
+            "id": 1909,
+            "firstName": "Ralph",
+            "surname": "Boschung",
+            "nationality": {
+              "name": "Szwajcaria",
+              "flagIcon": "/img/flagi/sui2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:17.7910000",
+          "status": "Classified",
+          "points": 1
+        },
+        {
+          "finishPosition": 11,
+          "number": "6",
+          "teamName": "DAMS",
+          "driver": {
+            "id": 1458,
+            "firstName": "Nicholas",
+            "surname": "Latifi",
+            "nationality": {
+              "name": "Kanada",
+              "flagIcon": "/img/flagi/can2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:21.7200000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 12,
+          "number": "14",
+          "teamName": "Campos Racing",
+          "driver": {
+            "id": 1751,
+            "firstName": "Luca",
+            "surname": "Ghiotto",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:30.4790000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 13,
+          "number": "20",
+          "teamName": "Charouz Racing System ",
+          "driver": {
+            "id": 1972,
+            "firstName": "Louis",
+            "surname": "Deletraz",
+            "nationality": {
+              "name": "Szwajcaria",
+              "flagIcon": "/img/flagi/sui2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:35.6350000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 14,
+          "number": "17",
+          "teamName": "Trident",
+          "driver": {
+            "id": 1754,
+            "firstName": "Santino",
+            "surname": "Ferrucci",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:41.6300000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 15,
+          "number": "16",
+          "teamName": "Trident",
+          "driver": {
+            "id": 1923,
+            "firstName": "Arjun",
+            "surname": "Maini",
+            "nationality": {
+              "name": "Indie",
+              "flagIcon": "/img/flagi/ind2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:58:43.6590000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 16,
+          "number": "15",
+          "teamName": "Campos Racing",
+          "driver": {
+            "id": 1450,
+            "firstName": "Roy",
+            "surname": "Nissany",
+            "nationality": {
+              "name": "Izrael",
+              "flagIcon": "/img/flagi/isr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:59:13.6420000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 17,
+          "number": "21",
+          "teamName": "Charouz Racing System ",
+          "driver": {
+            "id": 1748,
+            "firstName": "Antonio",
+            "surname": "Fuoco",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:59:33.3750000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 18,
+          "number": "12",
+          "teamName": "Arden International",
+          "driver": {
+            "id": 2003,
+            "firstName": "Nirei",
+            "surname": "Fukuzumi",
+            "nationality": {
+              "name": "Japonia",
+              "flagIcon": "/img/flagi/jpn2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 31,
+          "time": "00:59:36.6680000",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 19,
+          "number": "2",
+          "teamName": "Russian Time",
+          "driver": {
+            "id": 2068,
+            "firstName": "Tadasuke",
+            "surname": "Makino",
+            "nationality": {
+              "name": "Japonia",
+              "flagIcon": "/img/flagi/jpn2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 30,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 0
+        },
+        {
+          "finishPosition": 20,
+          "number": "9",
+          "teamName": "MP Motorsport",
+          "driver": {
+            "id": 231,
+            "firstName": "Roberto",
+            "surname": "Merhi",
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara F2 2018"
+          },
+          "finishedLaps": 0,
+          "time": "00:00:00",
+          "status": "DidNotStart",
+          "points": 0
+        }
+      ],
+      "fastestLapResult": {
+        "points": 2,
+        "car": {
+          "name": "Dallara F2 2018"
+        },
+        "lapNumber": 19,
+        "driver": {
+          "id": 2059,
+          "firstName": "Lando",
+          "surname": "Norris",
+          "nationality": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          }
+        },
+        "time": "00:01:48.0720000"
+      },
+      "polePositionLapResult": {
+        "points": 4,
+        "driver": {
+          "id": 2059,
+          "firstName": "Lando",
+          "surname": "Norris",
+          "nationality": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          }
+        },
+        "time": "00:01:41.7610000"
+      },
+      "additionalPoints": []
+    }
+  },
+  {
+    "eventId": 3191,
+    "why": "series with custom additional points and two-drivers results",
+    "expected": {
+      "eventId": 3191,
+      "eventName": "GP of Long Beach",
+      "series": {
+        "id": 6,
+        "name": "IndyCar Series"
+      },
+      "results": [
+        {
+          "finishPosition": 1,
+          "number": "27",
+          "teamName": "Andretti Autosport",
+          "driver": {
+            "id": 615,
+            "firstName": "Alexander",
+            "surname": "Rossi",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:15.2430000",
+          "status": "Classified",
+          "points": 50
+        },
+        {
+          "finishPosition": 2,
+          "number": "12",
+          "teamName": "Team Penske",
+          "driver": {
+            "id": 240,
+            "firstName": "Will",
+            "surname": "Power",
+            "nationality": {
+              "name": "Australia",
+              "flagIcon": "/img/flagi/aus2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:16.4850000",
+          "status": "Classified",
+          "points": 40
+        },
+        {
+          "finishPosition": 3,
+          "number": "10",
+          "teamName": "Chip Ganassi Racing",
+          "driver": {
+            "id": 2066,
+            "firstName": "Ed",
+            "surname": "Jones",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:24.5340000",
+          "status": "Classified",
+          "points": 35
+        },
+        {
+          "finishPosition": 4,
+          "number": "26",
+          "teamName": "Andretti Autosport",
+          "driver": {
+            "id": 2074,
+            "firstName": "Zach",
+            "surname": "Veach",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:25.3480000",
+          "status": "Classified",
+          "points": 32
+        },
+        {
+          "finishPosition": 5,
+          "number": "15",
+          "teamName": "Rahal Letterman Lanigan Racing",
+          "driver": {
+            "id": 249,
+            "firstName": "Graham",
+            "surname": "Rahal",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:25.9900000",
+          "status": "Classified",
+          "points": 30
+        },
+        {
+          "finishPosition": 6,
+          "number": "98",
+          "teamName": "Andretti Herta Autosport with Curb-Agajanian",
+          "driver": {
+            "id": 74,
+            "firstName": "Marco",
+            "surname": "Andretti",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:26.7950000",
+          "status": "Classified",
+          "points": 28
+        },
+        {
+          "finishPosition": 7,
+          "number": "1",
+          "teamName": "Team Penske",
+          "driver": {
+            "id": 766,
+            "firstName": "Josef",
+            "surname": "Newgarden",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:27.4610000",
+          "status": "Classified",
+          "points": 26
+        },
+        {
+          "finishPosition": 8,
+          "number": "14",
+          "teamName": "A.J. Foyt Enterprises",
+          "driver": {
+            "id": 245,
+            "firstName": "Tony",
+            "surname": "Kanaan",
+            "nationality": {
+              "name": "Brazylia",
+              "flagIcon": "/img/flagi/bra2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:31.3480000",
+          "status": "Classified",
+          "points": 24
+        },
+        {
+          "finishPosition": 9,
+          "number": "5",
+          "teamName": "Schmidt Peterson Motorsports",
+          "driver": {
+            "id": 389,
+            "firstName": "James",
+            "surname": "Hinchcliffe",
+            "nationality": {
+              "name": "Kanada",
+              "flagIcon": "/img/flagi/can2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:31.7190000",
+          "status": "Classified",
+          "points": 22
+        },
+        {
+          "finishPosition": 10,
+          "number": "23",
+          "teamName": "Carlin",
+          "driver": {
+            "id": 136,
+            "firstName": "Charlie",
+            "surname": "Kimball",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:32.2550000",
+          "status": "Classified",
+          "points": 20
+        },
+        {
+          "finishPosition": 11,
+          "number": "9",
+          "teamName": "Chip Ganassi Racing",
+          "driver": {
+            "id": 242,
+            "firstName": "Scott",
+            "surname": "Dixon",
+            "nationality": {
+              "name": "Nowa Zelandia",
+              "flagIcon": "/img/flagi/nzl2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:32.5740000",
+          "status": "Classified",
+          "points": 19
+        },
+        {
+          "finishPosition": 12,
+          "number": "60",
+          "teamName": "Michael Shank Racing with Schmidt Peterson",
+          "driver": {
+            "id": 1222,
+            "firstName": "Jack",
+            "surname": "Harvey",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:33.5900000",
+          "status": "Classified",
+          "points": 18
+        },
+        {
+          "finishPosition": 13,
+          "number": "18",
+          "teamName": "Dale Coyne Racing with Vasser-Sullivan",
+          "driver": {
+            "id": 78,
+            "firstName": "Sebastien",
+            "surname": "Bourdais",
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:34.1880000",
+          "status": "Classified",
+          "points": 17
+        },
+        {
+          "finishPosition": 14,
+          "number": "4",
+          "teamName": "A.J. Foyt Enterprises",
+          "driver": {
+            "id": 1976,
+            "firstName": "Matheus",
+            "surname": "Leist",
+            "nationality": {
+              "name": "Brazylia",
+              "flagIcon": "/img/flagi/bra2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 85,
+          "time": "01:53:34.1900000",
+          "status": "Classified",
+          "points": 16
+        },
+        {
+          "finishPosition": 15,
+          "number": "21",
+          "teamName": "Ed Carpenter Racing",
+          "driver": {
+            "id": 2011,
+            "firstName": "Spencer",
+            "surname": "Pigot",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 84,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 15
+        },
+        {
+          "finishPosition": 16,
+          "number": "32",
+          "teamName": "Juncos Racing",
+          "driver": {
+            "id": 2092,
+            "firstName": "Kyle",
+            "surname": "Kaiser",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 84,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 14
+        },
+        {
+          "finishPosition": 17,
+          "number": "59",
+          "teamName": "Carlin",
+          "driver": {
+            "id": 505,
+            "firstName": "Max",
+            "surname": "Chilton",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 84,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 13
+        },
+        {
+          "finishPosition": 18,
+          "number": "20",
+          "teamName": "Ed Carpenter Racing",
+          "driver": {
+            "id": 1209,
+            "firstName": "Jordan",
+            "surname": "King",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 84,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 12
+        },
+        {
+          "finishPosition": 19,
+          "number": "88",
+          "teamName": "Harding Racing",
+          "driver": {
+            "id": 1144,
+            "firstName": "Gabby",
+            "surname": "Chaves",
+            "nationality": {
+              "name": "Kolumbia",
+              "flagIcon": "/img/flagi/col2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 83,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 11
+        },
+        {
+          "finishPosition": 20,
+          "number": "28",
+          "teamName": "Andretti Autosport",
+          "driver": {
+            "id": 353,
+            "firstName": "Ryan",
+            "surname": "Hunter-Reay",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 81,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 10
+        },
+        {
+          "finishPosition": 21,
+          "number": "30",
+          "teamName": "Rahal Letterman Lanigan Racing",
+          "driver": {
+            "id": 64,
+            "firstName": "Takuma",
+            "surname": "Sato",
+            "nationality": {
+              "name": "Japonia",
+              "flagIcon": "/img/flagi/jpn2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 74,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 9
+        },
+        {
+          "finishPosition": 22,
+          "number": "6",
+          "teamName": "Schmidt Peterson Motorsports",
+          "driver": {
+            "id": 204,
+            "firstName": "Robert",
+            "surname": "Wickens",
+            "nationality": {
+              "name": "Kanada",
+              "flagIcon": "/img/flagi/can2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 73,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 8
+        },
+        {
+          "finishPosition": 23,
+          "number": "19",
+          "teamName": "Dale Coyne Racing",
+          "driver": {
+            "id": 2091,
+            "firstName": "Zachary",
+            "surname": "Claman",
+            "nationality": {
+              "name": "Kanada",
+              "flagIcon": "/img/flagi/can2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Honda"
+          },
+          "finishedLaps": 58,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 7
+        },
+        {
+          "finishPosition": 24,
+          "number": "22",
+          "teamName": "Team Penske",
+          "driver": {
+            "id": 829,
+            "firstName": "Simon",
+            "surname": "Pagenaud",
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            }
+          },
+          "car": {
+            "name": "Dallara DW12 Chevrolet"
+          },
+          "finishedLaps": 0,
+          "time": "00:00:00",
+          "status": "Classified",
+          "points": 6
+        }
+      ],
+      "fastestLapResult": {
+        "points": 0,
+        "car": {
+          "name": "Dallara DW12 Chevrolet"
+        },
+        "lapNumber": 30,
+        "driver": {
+          "id": 766,
+          "firstName": "Josef",
+          "surname": "Newgarden",
+          "nationality": {
+            "name": "USA",
+            "flagIcon": "/img/flagi/usa2.gif"
+          }
+        },
+        "time": "00:01:07.5510000"
+      },
+      "polePositionLapResult": {
+        "points": 1,
+        "driver": {
+          "id": 615,
+          "firstName": "Alexander",
+          "surname": "Rossi",
+          "nationality": {
+            "name": "USA",
+            "flagIcon": "/img/flagi/usa2.gif"
+          }
+        },
+        "time": "00:01:06.5530000"
+      },
+      "additionalPoints": [
+        {
+          "points": 3,
+          "reason": "prowadzenie przez najwięcej okrążeń",
+          "driver": {
+            "id": 615,
+            "firstName": "Alexander",
+            "surname": "Rossi",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          }
+        },
+        {
+          "points": 1,
+          "reason": "najszybsze okrążenie w Top 10",
+          "driver": {
+            "id": 766,
+            "firstName": "Josef",
+            "surname": "Newgarden",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          }
+        }
+      ]
+    }
+  }
+]

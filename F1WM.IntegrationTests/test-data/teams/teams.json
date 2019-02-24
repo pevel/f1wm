@@ -1,0 +1,308 @@
+[{
+    "letter": "a",
+    "expected": {
+      "teamsList": [{
+          "id": 2,
+          "name": "A.T.S.",
+          "logo": "/img/ikony/2_ats.gif"
+        },
+        {
+          "id": 3,
+          "name": "AAW-Finland Racing Team",
+          "logo": "/img/ikony/2_aaw.gif"
+        },
+        {
+          "id": 4,
+          "name": "Ace Garage - Rotherham",
+          "logo": "/img/ikony/2_ace.gif"
+        },
+        {
+          "id": 5,
+          "name": "Adolf Brudes",
+          "logo": "/img/ikony/2_abr.gif"
+        },
+        {
+          "id": 6,
+          "name": "AE Dean",
+          "logo": "/img/ikony/2_aed.gif"
+        },
+        {
+          "id": 7,
+          "name": "AFM",
+          "logo": "/img/ikony/2_afm.gif"
+        },
+        {
+          "id": 8,
+          "name": "AGS",
+          "logo": "/img/ikony/2_ags.gif"
+        },
+        {
+          "id": 9,
+          "name": "Ahrens Racing",
+          "logo": "/img/ikony/2_ahr.gif"
+        },
+        {
+          "id": 10,
+          "name": "AJ Watson",
+          "logo": "/img/ikony/2_ajw.gif"
+        },
+        {
+          "id": 11,
+          "name": "Alan Brown Equipe",
+          "logo": "/img/ikony/2_abe.gif"
+        },
+        {
+          "id": 12,
+          "name": "Alberto Uria",
+          "logo": "/img/ikony/2_aur.gif"
+        },
+        {
+          "id": 13,
+          "name": "Alex Blignaut",
+          "logo": "/img/ikony/2_abl.gif"
+        },
+        {
+          "id": 14,
+          "name": "Alfa Romeo",
+          "logo": "/img/ikony/2_alf.gif"
+        },
+        {
+          "id": 15,
+          "name": "Alfred Dattner",
+          "logo": "/img/ikony/2_ada.gif"
+        },
+        {
+          "id": 16,
+          "name": "Allied Polymer Group",
+          "logo": "/img/ikony/2_apg.gif"
+        },
+        {
+          "id": 17,
+          "name": "Andre Guelfi",
+          "logo": "/img/ikony/2_and.gif"
+        },
+        {
+          "id": 18,
+          "name": "Andre Pilette",
+          "logo": "/img/ikony/2_api.gif"
+        },
+        {
+          "id": 19,
+          "name": "Andre Simon",
+          "logo": "/img/ikony/2_asi.gif"
+        },
+        {
+          "id": 20,
+          "name": "Andrea Moda",
+          "logo": "/img/ikony/2_amo.gif"
+        },
+        {
+          "id": 21,
+          "name": "Anglo American Racers",
+          "logo": "/img/ikony/2_aar.gif"
+        },
+        {
+          "id": 22,
+          "name": "Anglo-American Equipe",
+          "logo": "/img/ikony/2_aae.gif"
+        },
+        {
+          "id": 23,
+          "name": "Ansted Rotary Corp",
+          "logo": "/img/ikony/2_arc.gif"
+        },
+        {
+          "id": 24,
+          "name": "Antonio Branca",
+          "logo": "/img/ikony/2_abc.gif"
+        },
+        {
+          "id": 25,
+          "name": "Antonio Creus",
+          "logo": "/img/ikony/2_acr.gif"
+        },
+        {
+          "id": 26,
+          "name": "Apollon",
+          "logo": "/img/ikony/2_apo.gif"
+        },
+        {
+          "id": 27,
+          "name": "Archie Bryde",
+          "logo": "/img/ikony/2_aby.gif"
+        },
+        {
+          "id": 28,
+          "name": "Arrows",
+          "logo": "/img/ikony/2_arr.gif"
+        },
+        {
+          "id": 29,
+          "name": "Arthur Legat",
+          "logo": "/img/ikony/2_ale.gif"
+        },
+        {
+          "id": 30,
+          "name": "Arthur Owen",
+          "logo": "/img/ikony/2_aow.gif"
+        },
+        {
+          "id": 31,
+          "name": "Aston",
+          "logo": "/img/ikony/2_ast.gif"
+        },
+        {
+          "id": 32,
+          "name": "Aston Martin",
+          "logo": "/img/ikony/2_asm.gif"
+        },
+        {
+          "id": 33,
+          "name": "Atlantic Stable",
+          "logo": "/img/ikony/2_atl.gif"
+        },
+        {
+          "id": 34,
+          "name": "ATS",
+          "logo": "/img/ikony/2_at2.gif"
+        },
+        {
+          "id": 35,
+          "name": "Autosport Team Wolfgang Seidel",
+          "logo": "/img/ikony/2_atw.gif"
+        }
+      ]
+    }
+  },
+  {
+    "letter": "f",
+    "expected": {
+      "teamsList": [{
+          "id": 156,
+          "name": "F&S Properties",
+          "logo": "/img/ikony/2_fsp.gif"
+        },
+        {
+          "id": 157,
+          "name": "Fabre Urbain",
+          "logo": "/img/ikony/2_fur.gif"
+        },
+        {
+          "id": 158,
+          "name": "Federal Auto Associates",
+          "logo": "/img/ikony/2_faa.gif"
+        },
+        {
+          "id": 159,
+          "name": "Federal Engineering Association",
+          "logo": "/img/ikony/2_fea.gif"
+        },
+        {
+          "id": 160,
+          "name": "Felday Engineering Ltd.",
+          "logo": "/img/ikony/2_fel.gif"
+        },
+        {
+          "id": 161,
+          "name": "Ferrari",
+          "logo": "/img/ikony/2_fer.gif"
+        },
+        {
+          "id": 162,
+          "name": "FISA",
+          "logo": "/img/ikony/2_fis.gif"
+        },
+        {
+          "id": 163,
+          "name": "Fondmetal",
+          "logo": "/img/ikony/2_fon.gif"
+        },
+        {
+          "id": 510,
+          "name": "Footwork",
+          "logo": "/img/ikony/2_foo.gif"
+        },
+        {
+          "id": 505,
+          "name": "Force India",
+          "logo": "/img/ikony/2_ind.gif"
+        },
+        {
+          "id": 164,
+          "name": "Forti Corse",
+          "logo": "/img/ikony/2_for.gif"
+        },
+        {
+          "id": 165,
+          "name": "FR Gerard Cars",
+          "logo": "/img/ikony/2_fgc.gif"
+        },
+        {
+          "id": 166,
+          "name": "Francis Bardazon",
+          "logo": "/img/ikony/2_fba.gif"
+        },
+        {
+          "id": 167,
+          "name": "Francisco Godia-Sales",
+          "logo": "/img/ikony/2_fgo.gif"
+        },
+        {
+          "id": 168,
+          "name": "Frank Dochnal",
+          "logo": "/img/ikony/2_fdo.gif"
+        },
+        {
+          "id": 169,
+          "name": "Fred & Richard Sommer",
+          "logo": "/img/ikony/2_frs.gif"
+        },
+        {
+          "id": 170,
+          "name": "Fred Armbruster",
+          "logo": "/img/ikony/2_far.gif"
+        },
+        {
+          "id": 171,
+          "name": "Fred Gerhardt",
+          "logo": "/img/ikony/2_fge.gif"
+        },
+        {
+          "id": 172,
+          "name": "Fred Sclavi",
+          "logo": "/img/ikony/2_fsc.gif"
+        },
+        {
+          "id": 173,
+          "name": "Fred Somers",
+          "logo": "/img/ikony/2_fso.gif"
+        },
+        {
+          "id": 174,
+          "name": "Fred Tuck Cars",
+          "logo": "/img/ikony/2_fts.gif"
+        },
+        {
+          "id": 175,
+          "name": "Fritz Riess",
+          "logo": "/img/ikony/2_fri.gif"
+        },
+        {
+          "id": 176,
+          "name": "Fry",
+          "logo": "/img/ikony/2_fry.gif"
+        }
+      ]
+    }
+  },
+  {
+    "letter": "z",
+    "expected": {
+      "teamsList": [{
+        "id": 503,
+        "name": "Zakspeed",
+        "logo": "/img/ikony/2_zak.gif"
+      }]
+    }
+  }
+]
