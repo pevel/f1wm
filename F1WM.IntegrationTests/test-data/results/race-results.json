@@ -4,6 +4,7 @@
     "why": "race in the old format",
     "expected": {
       "raceId": 7,
+      "raceNewsId": null,
       "distance": 504,
       "results": [
         {
@@ -636,6 +637,7 @@
     "why": "race in the new format, with various statuses",
     "expected": {
       "raceId": 1040,
+      "raceNewsId": 43837,
       "distance": 307.471,
       "results": [
         {

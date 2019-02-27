@@ -27,7 +27,11 @@ namespace F1WM.Repositories
 					.Include(r => r.Entry).ThenInclude(e => e.Car)
 					.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
 				model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
-				model.Distance = await GetRaceDistance(raceId);
+				(model.Distance, model.RaceNewsId) = GetDbRaces(raceId)
+					.Select(r => new { r.Distance, r.RaceNews.Id })
+					.AsEnumerable()
+					.Select(r => ( r.Distance, r.Id ))
+					.FirstOrDefault();
 				return model;
 			}
 			else
@@ -136,10 +140,12 @@ namespace F1WM.Repositories
 				.Include(r => r.Entry).ThenInclude(e => e.Grid);
 		}
 
-		private async Task<double> GetRaceDistance(int raceId)
+		private IQueryable<Race> GetDbRaces(int raceId)
 		{
-			var dbResult = await context.Races.SingleOrDefaultAsync(r => r.Id == raceId);
-			return dbResult.Distance;
+			var dbResult = context.Races
+				.Include(r => r.RaceNews)
+				.Where(r => r.Id == raceId);
+			return dbResult;
 		}
 	}
 }
