@@ -61,7 +61,9 @@ public static class Constants
 		{ ">", c => c.Writer.Write($"<h3>{c.CurrentLine.Substring(1)}</h3><br/>") },
 		{ "=", c => c.Writer.Write($"<span class=\"news-text-title\">{c.CurrentLine.Substring(1)}</span><br/>") },
 		{ "@", c => c.Writer.Write(c.CurrentLine.ParseImageInformation()) },
-		{ "%", c => c.ParseTable() }
+		{ "%", c => c.ParseTable() },
+		{ "^", c => c.ParseResultsOrVideo() },
+		{ "$", c => c.ParsePracticeResults() }
 	};
 
 	public readonly static Dictionary<Database.ResultType, ResultLinkType> ResultTypeToLinkType =

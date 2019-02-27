@@ -167,5 +167,22 @@
       "title": "Lista startowa na sezon 2019",
       "subtitle": "Znamy już całą stawkę na przyszłoroczne mistrzostwa"
     }
+  },
+  {
+    "newsId": 5979,
+    "why": "news with embedded video",
+    "expected": {
+      "posterName": "Marek Roczniak",
+      "views": 3016,
+      "text": "<img src=\"/img/news/_schumacher_f2004.jpg\"><br/>Siedmiokrotny mistrz świata <a href=\"../kierowcy/?id=msch\">Michael Schumacher</a> powrócił wczoraj za kierownicę bolidu Formuły 1 na torze Fiorano po raz pierwszy od zakończenia swojej kariery w październiku 2006 roku. Niemiec uświetnił dobiegające końca obchody 60. rocznicy powstania firmy <a href=\"../zespoly/?id=fer\">Ferrari</a>, przejeżdżając kilka pokazowych okrążeń za kierownicą bolidu F2004, w którym zdobył swój ostatni tytuł mistrzowski.<br/><br/>Po zakończeniu jazdy Schumacher powiedział, że w jego odczuciu tegoroczne obchody 60. urodzin Ferrari różniły się znacząco od świętowania 50 rocznicy powstania firmy z Maranello. <q>Wtedy, w 1997 roku byłem kierowcą wyścigowym i mój umysł był skupiony tylko na następnym wyścigu. Jednakże dzisiaj mogłem w pełni nacieszyć się tą chwilą z Ferrari.</q> - powiedział zdobywca pięciu tytułów mistrzowskich dla włoskiej stajni.<br/><br/>W obchodach na prywatnym torze Fiorano wzięli także udział inni - byli oraz obecni - kierowcy Ferrari, którzy poprowadzili historyczne bolidy F1: <a href=\"../kierowcy/?id=icap\">Ivan Capelli</a> (1932 Alfa Romeo P3), <a href=\"../kierowcy/?id=nvac\">Nino Vaccarella</a> (1040 Auto Avio Costruzioni 815), <a href=\"../kierowcy/?id=lbad\">Luca Badoer</a> (375 F1), <a href=\"../kierowcy/?id=gber\">Gerhard Berger</a> (500 F2), <a href=\"../kierowcy/?id=adea\">Andrea de Adamich</a> (Dino 166 F2), <a href=\"../kierowcy/?id=fmas\">Felipe Massa</a> (312 T), <a href=\"../kierowcy/?id=jsch\">Jody Scheckter</a> (312 T4), <a href=\"rarn\">René Arnoux</a> (126 C4), <a href=\"../kierowcy/?id=jale\">Jean Alesi</a> (F1-90), <a href=\"../kierowcy/?id=krai\">Kimi Raikkonen</a> (F2007). Ponadto Schumacher poprowadził model FXX, natomiast syn Enzo Ferrari - Piero przejechał kilka okrążeń w 125 S - pierwszym samochodzie wyprodukowanym w Maranello w 1947 roku.<br/><br/><span class=\"news-text-red\">Źródło:</span> <a href=\"http://www.ferrari.com\">Ferrari.com</a><br/><br/><div class=\"news-video\"><iframe src=\"https://www.youtube.com/embed/JzoSTstxVOA\" frameborder=\"0\" allowfullscreen></iframe></div>",
+      "nextNewsId": 5980,
+      "previousNewsId": 5978,
+      "resultLink": null,
+      "redirect": null,
+      "id": 5979,
+      "date": "2007-06-25T20:10:43",
+      "title": "Schumacher uświetnił obchody 60. urodzin Ferrari",
+      "subtitle": "Siedmiokrotny mistrz świata powrócił wczoraj za kierownicę bolidu Formuły 1 na torze Fiorano"
+    }
   }
 ]

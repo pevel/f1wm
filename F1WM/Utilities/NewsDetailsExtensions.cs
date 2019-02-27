@@ -20,84 +20,26 @@ namespace F1WM.Utilities
 					while (reader.Peek() != -1)
 					{
 						var line = reader.ReadLine();
-						if (line.TryGetEventId(out ResultLink otherLink))
+						var token = line.Length > 0 ? $"{line[0]}" : "";
+						if (Constants.TokenToParser.TryGetValue(token, out var parse))
 						{
-							news.ResultLink = otherLink;
-						}
-						else if (line.TryGetPracticeResultLink(out ResultLink practiceLink))
-						{
-							news.ResultLink = practiceLink;
+							parse(new NewsParserContext()
+							{
+								CurrentLine = line,
+								Reader = reader,
+								Writer = writer,
+								News = news
+							});
 						}
 						else
 						{
-							var token = line.Length > 0 ? $"{line[0]}" : "";
-							if (Constants.TokenToParser.ContainsKey(token))
-							{
-								Constants.TokenToParser[token](new NewsParserContext()
-								{
-									CurrentLine = line,
-									Reader = reader,
-									Writer = writer
-								});
-							}
-							else
-							{
-								writer.Write(line + "<br/>");
-							}
+							writer.Write(line + "<br/>");
 						}
 					}
 					news.Text = writer.ToString();
 				}
-				return news;
 			}
-			else
-			{
-				return news;
-			}
-		}
-
-		private static bool TryGetEventId(this string line, out ResultLink resultLink)
-		{
-			if (!string.IsNullOrEmpty(line) && line.StartsWith("^"))
-			{
-				var preparedLine = line;
-				if (line.StartsWith("^rezultat,"))
-				{
-					preparedLine = line.Replace("rezultat,", "");
-				}
-				if (int.TryParse(preparedLine.Replace("^", ""), out int eventId))
-				{
-					resultLink = new ResultLink()
-					{
-						Type = ResultLinkType.Other,
-						EventId = eventId
-					};
-					return true;
-				}
-			}
-			resultLink = null;
-			return false;
-		}
-
-		private static bool TryGetPracticeResultLink(this string line, out ResultLink resultLink)
-		{
-			if (!string.IsNullOrEmpty(line) && line.StartsWith("$^"))
-			{
-				var regex = new Regex(@"\$\^([\d]+)\$(t[\d]+)");
-				var match = regex.Match(line);
-				if (match.Groups.Count == 3)
-				{
-					resultLink = new ResultLink()
-					{
-						Type = ResultLinkType.Practice,
-							RaceId = Int32.Parse(match.Groups[1].Value),
-							Session = match.Groups[2].Value
-					};
-					return true;
-				}
-			}
-			resultLink = null;
-			return false;
+			return news;
 		}
 
 		public static bool TryParseResultRedirect(this NewsDetails news, out ResultRedirectLink link)
