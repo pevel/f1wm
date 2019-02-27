@@ -9,6 +9,6 @@ namespace F1WM.ApiModel
 		public uint? RaceNewsId { get; set; }
 		public double Distance { get; set; }
 		public IEnumerable<RaceResultPosition> Results { get; set; }
-		public FastestLapResultSummary FastestLap { get; set; }
+		public FastestLapResultBase FastestLap { get; set; }
 	}
 }

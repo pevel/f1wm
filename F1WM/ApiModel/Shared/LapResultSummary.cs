@@ -4,7 +4,7 @@ namespace F1WM.ApiModel
 {
 	public class LapResultSummary
 	{
-		public DriverSummary Driver { get; set; }
+		public DriverBase Driver { get; set; }
 		public TimeSpan Time { get; set; }
 	}
 }

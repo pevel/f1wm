@@ -22,11 +22,9 @@ namespace F1WM.Repositories
 			model.Results = GetRaceResultPositions(dbResults);
 			if (model.Results.Any())
 			{
-				var dbFastestLap = await context.FastestLaps
-					.Include(r => r.Entry).ThenInclude(e => e.Driver)
-					.Include(r => r.Entry).ThenInclude(e => e.Car)
-					.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
-				model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
+				model.FastestLap = await mapper.ProjectTo<FastestLapResultSummary>(context.FastestLaps
+						.Where(f => f.RaceId == raceId && f.PositionOrStatus == "1")
+					).FirstOrDefaultAsync();
 				(model.Distance, model.RaceNewsId) = GetDbRaces(raceId)
 					.Select(r => new { r.Distance, r.RaceNews.Id })
 					.AsEnumerable()
@@ -75,14 +73,10 @@ namespace F1WM.Repositories
 		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			var model = new PracticeSessionResult() { RaceId = raceId, Session = session };
-			var dbResults = await context.OtherSessions
-				.Where(s => s.RaceId == raceId && s.Session == session)
-				.Include(s => s.Entry).ThenInclude(e => e.Driver)
-				.Include(s => s.Entry).ThenInclude(e => e.Tyres)
-				.Include(s => s.Entry).ThenInclude(e => e.Car)
+			model.Results = await mapper.ProjectTo<PracticeSessionResultPosition>(context.OtherSessions
+					.Where(s => s.RaceId == raceId && s.Session == session))
+					.OrderBy(s => s.FinishPosition)
 				.ToListAsync();
-			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
-				.OrderBy(r => r.FinishPosition);
 			return model.Results.Any() ? model : null;
 		}
 
