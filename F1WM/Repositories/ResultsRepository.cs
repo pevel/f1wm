@@ -19,14 +19,21 @@ namespace F1WM.Repositories
 		{
 			var model = new RaceResult() { RaceId = raceId };
 			var dbResults = await GetDbRaceResults(raceId).ToListAsync();
-			var dbFastestLap = await context.FastestLaps
-				.Include(r => r.Entry).ThenInclude(e => e.Driver)
-				.Include(r => r.Entry).ThenInclude(e => e.Car)
-				.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
-			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
 			model.Results = GetRaceResultPositions(dbResults);
-			model.Distance = await GetRaceDistance(raceId);
-			return model.Results.Any() ? model : null;
+			if (model.Results.Any())
+			{
+				var dbFastestLap = await context.FastestLaps
+					.Include(r => r.Entry).ThenInclude(e => e.Driver)
+					.Include(r => r.Entry).ThenInclude(e => e.Car)
+					.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
+				model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
+				model.Distance = await GetRaceDistance(raceId);
+				return model;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public async Task<IEnumerable<RaceResultPosition>> GetShortRaceResult(int raceId)
