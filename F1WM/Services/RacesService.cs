@@ -27,6 +27,11 @@ namespace F1WM.Services
 			return racesRepository.GetRaceFastestLaps(raceId);
 		}
 
+		public Task<RaceNews> GetRaceNews(int raceId)
+		{
+			return racesRepository.GetRaceNews(raceId);
+		}
+
 		public RacesService(
 			IRacesRepository racesRepository,
 			IResultsRepository resultsRepository,

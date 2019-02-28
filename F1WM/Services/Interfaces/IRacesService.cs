@@ -9,5 +9,6 @@ namespace F1WM.Services
 		Task<NextRaceSummary> GetNextRace();
 		Task<LastRaceSummary> GetLastRace();
 		Task<RaceFastestLaps> GetRaceFastestLaps(int raceId);
+		Task<RaceNews> GetRaceNews(int raceId);
 	}
 }
