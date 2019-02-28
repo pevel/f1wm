@@ -25,10 +25,8 @@ namespace F1WM.Repositories
 				model.FastestLap = await mapper.ProjectTo<FastestLapResultSummary>(context.FastestLaps
 						.Where(f => f.RaceId == raceId && f.PositionOrStatus == "1")
 					).FirstOrDefaultAsync();
-				(model.Distance, model.RaceNewsId) = GetDbRaces(raceId)
-					.Select(r => new { r.Distance, r.RaceNews.Id })
-					.AsEnumerable()
-					.Select(r => ( r.Distance, r.Id ))
+				model.Distance = GetDbRaces(raceId)
+					.Select(r => r.Distance)
 					.FirstOrDefault();
 				return model;
 			}
