@@ -53,6 +53,19 @@ namespace F1WM.UnitTests.Services
 		}
 
 		[Fact]
+		public async Task ShouldGetRaceNews()
+		{
+			var raceId = 999;
+			var fastestLaps = fixture.Create<RaceNews>();
+			racesRepositoryMock.Setup(r => r.GetRaceNews(raceId)).ReturnsAsync(fastestLaps);
+
+			var actual = await service.GetRaceNews(raceId);
+
+			racesRepositoryMock.Verify(r => r.GetRaceNews(raceId), Times.Once);
+			actual.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
 		public async Task ShouldGetRaceFastestLaps()
 		{
 			var raceId = 888;

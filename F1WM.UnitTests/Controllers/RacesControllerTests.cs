@@ -69,6 +69,32 @@ namespace F1WM.UnitTests.Controllers
 		}
 
 		[Fact]
+		public async Task ShouldReturnRaceNews()
+		{
+			var raceId = 1024;
+			var fastestLaps = fixture.Create<RaceNews>();
+			serviceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetRaceNews(raceId);
+
+			serviceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfRaceNewsNotFound()
+		{
+			var raceId = 2048;
+			serviceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync((RaceNews)null);
+
+			var result = await controller.GetRaceNews(raceId);
+
+			serviceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
 		public async Task ShouldReturnRaceFastestLaps()
 		{
 			var raceId = 256;
