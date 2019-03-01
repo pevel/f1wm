@@ -12,6 +12,7 @@ namespace F1WM.Mapping
 		{
 			CreateMap<Constructor, ConstructorSummary>();
 			CreateMap<Driver, DriverSummary>();
+			CreateMap<Driver, DriverBase>();
 			CreateMap<DatabaseModel.Country, ApiModel.Country>()
 				.ForMember(api => api.FlagIcon, o => o.MapFrom(db => db.Key.GetFlagIconPath()));
 			CreateMap<DatabaseModel.Track, TrackSummary>()

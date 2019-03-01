@@ -80,12 +80,20 @@ namespace F1WM.IntegrationTests
 				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
 				Assert.NotNull(result.Driver);
 				Assert.NotEqual((uint)0, result.Driver.Id);
-				Assert.Null(result.Driver.Nationality);
 				Assert.True(0 <= result.FinishedLaps);
 				Assert.True(0 < result.Number);
 				Assert.True(0 <= result.PitStopVisits);
 				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
 			});
+		}
+
+		[Theory]
+		[JsonData("races", "race-news.json")]
+		public async Task ShouldGetRaceNews(RaceNewsTestData data)
+		{
+			await TestResponse<RaceNews>(
+				$"{baseAddress}/races/{data.RaceId}/news",
+				data.Expected);
 		}
 
 		[Theory]
@@ -101,6 +109,12 @@ namespace F1WM.IntegrationTests
 		{
 			public int RaceId { get; set; }
 			public RaceFastestLaps Expected { get; set; }
+		}
+
+		public class RaceNewsTestData
+		{
+			public int RaceId { get; set; }
+			public RaceNews Expected { get; set; }
 		}
 	}
 }
