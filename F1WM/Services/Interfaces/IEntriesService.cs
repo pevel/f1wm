@@ -6,5 +6,6 @@ namespace F1WM.Services
 	public interface IEntriesService
 	{
 		Task<RaceEntriesInformation> GetRaceEntries(int raceId);
+		Task<SeasonEntriesInformation> GetSeasonEntries(int year);
 	}
 }
