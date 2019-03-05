@@ -19,7 +19,8 @@ namespace F1WM.Repositories
 		{
 			var model = new RaceResult() { RaceId = raceId };
 			var dbResults = await GetDbRaceResults(raceId)
-				.OrderBy(r => r.Ord).ToListAsync();
+				.OrderBy(r => r.Order)
+				.ToListAsync();
 			model.Results = GetRaceResultPositions(dbResults);
 			if (model.Results.Any())
 			{
