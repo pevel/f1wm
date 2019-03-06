@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel
 		public string Status { get; set; }
 		public byte FinishedLaps { get; set; }
 		public string Information { get; set; }
-		public byte Ord { get; set; }
+		public byte Order { get; set; }
 		public byte? PitStopVisits { get; set; }
 		public TimeSpan Time { get; set; }
 		public virtual Entry Entry { get; set; }

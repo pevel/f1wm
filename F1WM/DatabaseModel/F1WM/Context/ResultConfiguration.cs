@@ -44,7 +44,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("laps")
 				.HasDefaultValueSql("'0'");
 
-			builder.Property(e => e.Ord)
+			builder.Property(e => e.Order)
 				.HasColumnName("ord")
 				.HasDefaultValueSql("'0'");
 

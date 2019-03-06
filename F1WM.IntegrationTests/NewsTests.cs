@@ -18,7 +18,7 @@ namespace F1WM.IntegrationTests
 			await TestResponse<NewsDetails>(
 				$"{baseAddress}/news/{data.NewsId}",
 				data.Expected,
-				n => n.Views,
+				c => c.Excluding(n => n.Views),
 				data.Why);
 		}
 
@@ -28,7 +28,8 @@ namespace F1WM.IntegrationTests
 		{
 			await TestResponse<PagedResult<NewsSummary>>(
 				$"{baseAddress}/news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
-				data.Expected);
+				data.Expected,
+				c => c.WithStrictOrderingFor(n => n.Result));
 		}
 
 		[Theory]
