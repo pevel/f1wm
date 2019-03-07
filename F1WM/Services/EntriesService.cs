@@ -15,7 +15,7 @@ namespace F1WM.Services
 
 		public Task<SeasonEntriesInformation> GetSeasonEntries(int year)
 		{
-			throw new System.NotImplementedException();
+			return repository.GetSeasonEntries(year);
 		}
 
 		public EntriesService(IEntriesRepository repository)

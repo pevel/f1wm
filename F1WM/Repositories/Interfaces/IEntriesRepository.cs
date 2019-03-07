@@ -7,5 +7,6 @@ namespace F1WM.Repositories
 	public interface IEntriesRepository
 	{
 		Task<RaceEntriesInformation> GetRaceEntries(int raceId);
+		Task<SeasonEntriesInformation> GetSeasonEntries(int year);
 	}
 }

@@ -4,7 +4,7 @@ namespace F1WM.ApiModel
 {
 	public class SeasonEntriesInformation
 	{
-		public SeasonSummary Season { get; set; }
+		public int SeasonYear { get; set; }
 		public IEnumerable<SeasonEntry> Entries { get; set; }
 	}
 }
