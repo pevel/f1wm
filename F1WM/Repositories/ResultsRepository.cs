@@ -18,7 +18,9 @@ namespace F1WM.Repositories
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			var model = new RaceResult() { RaceId = raceId };
-			var dbResults = await GetDbRaceResults(raceId).ToListAsync();
+			var dbResults = await GetDbRaceResults(raceId)
+				.OrderBy(r => r.Order)
+				.ToListAsync();
 			model.Results = GetRaceResultPositions(dbResults);
 			if (model.Results.Any())
 			{
