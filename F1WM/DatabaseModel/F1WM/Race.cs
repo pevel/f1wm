@@ -29,5 +29,6 @@ namespace F1WM.DatabaseModel
 		public virtual IEnumerable<Qualifying> Qualifying { get; set; }
 		public virtual IEnumerable<BroadcastedSession> BroadcastedSessions { get; set; }
 		public virtual IEnumerable<Entry> Entries { get; set; }
+		public virtual Season Season { get; set; }
 	}
 }

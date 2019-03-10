@@ -9,21 +9,33 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class SeasonsController : ControllerBase
 	{
-		private readonly ISeasonsService service;
+		private readonly ISeasonsService seasonsService;
+		private readonly IEntriesService entriesService;
 
 		[HttpGet("rules")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<SeasonRules>> GetSeasonRules(
-			[FromQuery(Name = "year")] int? year)
+			[FromQuery] int? year)
 		{
-			var seasonRules = await service.GetSeasonRules(year);
+			var seasonRules = await seasonsService.GetSeasonRules(year);
 			return this.NotFoundResultIfNull(seasonRules);
 		}
 
-		public SeasonsController(ISeasonsService service)
+		[HttpGet("entries")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<SeasonEntriesInformation>> GetSeasonEntries(
+			[FromQuery] int year)
 		{
-			this.service = service;
+			var entries = await entriesService.GetSeasonEntries(year);
+			return this.NotFoundResultIfNull(entries);
+		}
+
+		public SeasonsController(ISeasonsService seasonsService, IEntriesService entriesService)
+		{
+			this.seasonsService = seasonsService;
+			this.entriesService = entriesService;
 		}
 	}
 }

@@ -11,23 +11,25 @@ namespace F1WM.UnitTests.Controllers
 	public class SeasonsControllerTests
 	{
 		private SeasonsController controller;
-		private Mock<ISeasonsService> serviceMock;
+		private Mock<ISeasonsService> seasonsServiceMock;
+		private Mock<IEntriesService> entriesServiceMock;
 
 		public SeasonsControllerTests()
 		{
-			serviceMock = new Mock<ISeasonsService>();
-			controller = new SeasonsController(serviceMock.Object);
+			seasonsServiceMock = new Mock<ISeasonsService>();
+			entriesServiceMock = new Mock<IEntriesService>();
+			controller = new SeasonsController(seasonsServiceMock.Object, entriesServiceMock.Object);
 		}
 
 		[Fact]
 		public async Task ShouldReturnSeasonRules()
 		{
 			int year = 2048;
-			serviceMock.Setup(s => s.GetSeasonRules(year)).ReturnsAsync(new SeasonRules());
+			seasonsServiceMock.Setup(s => s.GetSeasonRules(year)).ReturnsAsync(new SeasonRules());
 
 			var result = await controller.GetSeasonRules(year);
 
-			serviceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
+			seasonsServiceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -35,11 +37,39 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturn404IfSeasonRulesNotFound()
 		{
 			int year = 2049;
-			serviceMock.Setup(s => s.GetSeasonRules(year)).ReturnsAsync((SeasonRules)null);
+			seasonsServiceMock.Setup(s => s.GetSeasonRules(year)).ReturnsAsync((SeasonRules)null);
 
 			var result = await controller.GetSeasonRules(year);
 
-			serviceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
+			seasonsServiceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnSeasonEntries()
+		{
+			int year = 1024;
+			entriesServiceMock
+				.Setup(s => s.GetSeasonEntries(year))
+				.ReturnsAsync(new SeasonEntriesInformation());
+
+			var result = await controller.GetSeasonEntries(year);
+
+			entriesServiceMock.Verify(s => s.GetSeasonEntries(year), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfSeasonEntriesNotFound()
+		{
+			int year = 1025;
+			entriesServiceMock
+				.Setup(s => s.GetSeasonEntries(year))
+				.ReturnsAsync((SeasonEntriesInformation)null);
+
+			var result = await controller.GetSeasonEntries(year);
+
+			entriesServiceMock.Verify(s => s.GetSeasonEntries(year), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}

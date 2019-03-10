@@ -15,7 +15,7 @@ namespace F1WM.Controllers
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<RaceEntriesInformation>> GetRaceEntries(
-			[FromQuery(Name = "raceId")] int raceId)
+			[FromQuery] int raceId)
 		{
 			var entries = await service.GetRaceEntries(raceId);
 			return this.NotFoundResultIfNull(entries);

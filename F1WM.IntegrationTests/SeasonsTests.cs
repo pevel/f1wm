@@ -14,6 +14,13 @@ namespace F1WM.IntegrationTests
 			await TestResponse<SeasonRules>($"{baseAddress}/Seasons/rules?year={data.Year}", data.Expected);
 		}
 
+		[Theory]
+		[JsonData("seasons", "season-entries.json")]
+		public async Task ShouldGetSeasonEntries(SeasonEntriesTestData data)
+		{
+			await TestResponse<SeasonEntriesInformation>($"{baseAddress}/Seasons/entries?year={data.Year}", data.Expected);
+		}
+
 		[Fact]
 		public async Task ShouldGetSeasonRulesWithNoYearSpecified()
 		{
@@ -31,6 +38,12 @@ namespace F1WM.IntegrationTests
 		{
 			public uint Year { get; set; }
 			public SeasonRules Expected { get; set; }
+		}
+
+		public class SeasonEntriesTestData
+		{
+			public int Year { get; set; }
+			public SeasonEntriesInformation Expected { get; set; }
 		}
 	}
 }
