@@ -44,5 +44,33 @@ namespace F1WM.UnitTests.Controllers
 			seasonsServiceMock.Verify(s => s.GetSeasonRules(year), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnSeasonEntries()
+		{
+			int year = 1024;
+			entriesServiceMock
+				.Setup(s => s.GetSeasonEntries(year))
+				.ReturnsAsync(new SeasonEntriesInformation());
+
+			var result = await controller.GetSeasonEntries(year);
+
+			entriesServiceMock.Verify(s => s.GetSeasonEntries(year), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfSeasonEntriesNotFound()
+		{
+			int year = 1025;
+			entriesServiceMock
+				.Setup(s => s.GetSeasonEntries(year))
+				.ReturnsAsync((SeasonEntriesInformation)null);
+
+			var result = await controller.GetSeasonEntries(year);
+
+			entriesServiceMock.Verify(s => s.GetSeasonEntries(year), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
 	}
 }
