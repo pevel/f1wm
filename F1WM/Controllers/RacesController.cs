@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -45,6 +46,23 @@ namespace F1WM.Controllers
 		{
 			var fastestLaps = await service.GetRaceFastestLaps(raceId);
 			return this.NotFoundResultIfNull(fastestLaps);
+		}
+
+		[HttpGet("{raceId}/standings/constructors")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<ConstructorsStandingsAfterRace>> GetConstructorsStandingsAfterRace(int raceId)
+		{
+			throw new NotImplementedException();
+		}
+
+
+		[HttpGet("{raceId}/standings/drivers")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<DriversStandingsAfterRace>> GetDriversStandingsAfterRace(int raceId)
+		{
+			throw new NotImplementedException();
 		}
 
 		public RacesController(IRacesService service)
