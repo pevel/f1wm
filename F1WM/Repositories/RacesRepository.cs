@@ -41,6 +41,23 @@ namespace F1WM.Repositories
 			return apiLastRace;
 		}
 
+		public Task<ApiModel.RaceNews> GetRaceNews(int raceId)
+		{
+			return mapper.ProjectTo<ApiModel.RaceNews>(context.RaceNews
+					.Where(n => n.RaceId == raceId))
+				.FirstOrDefaultAsync();
+		}
+
+		public async Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
+		{
+			var apiFastestLaps = new RaceFastestLaps() { RaceId = raceId };
+			apiFastestLaps.Results = await mapper.ProjectTo<RaceFastestLap>(context.FastestLaps
+					.Where(f => f.RaceId == raceId)
+					.OrderBy(f => f.Time))
+				.ToListAsync();
+			return apiFastestLaps.Results.Any() ? apiFastestLaps : null;
+		}
+
 		public RacesRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
@@ -99,16 +116,6 @@ namespace F1WM.Repositories
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
-		}
-
-		public async Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
-		{
-			var apiFastestLaps = new RaceFastestLaps() { RaceId = raceId };
-			apiFastestLaps.Results = await mapper.ProjectTo<RaceFastestLap>(context.FastestLaps
-					.Where(f => f.RaceId == raceId)
-					.OrderBy(f => f.Time))
-				.ToListAsync();
-			return apiFastestLaps.Results.Any() ? apiFastestLaps : null;
 		}
 	}
 }

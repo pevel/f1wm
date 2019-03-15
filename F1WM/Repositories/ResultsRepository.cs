@@ -18,15 +18,24 @@ namespace F1WM.Repositories
 		public async Task<RaceResult> GetRaceResult(int raceId)
 		{
 			var model = new RaceResult() { RaceId = raceId };
-			var dbResults = await GetDbRaceResults(raceId).ToListAsync();
-			var dbFastestLap = await context.FastestLaps
-				.Include(r => r.Entry).ThenInclude(e => e.Driver)
-				.Include(r => r.Entry).ThenInclude(e => e.Car)
-				.SingleOrDefaultAsync(f => f.RaceId == raceId && f.PositionOrStatus == "1");
-			model.FastestLap = mapper.Map<FastestLapResultSummary>(dbFastestLap);
+			var dbResults = await GetDbRaceResults(raceId)
+				.OrderBy(r => r.Order)
+				.ToListAsync();
 			model.Results = GetRaceResultPositions(dbResults);
-			model.Distance = await GetRaceDistance(raceId);
-			return model.Results.Any() ? model : null;
+			if (model.Results.Any())
+			{
+				model.FastestLap = await mapper.ProjectTo<FastestLapResultSummary>(context.FastestLaps
+						.Where(f => f.RaceId == raceId && f.PositionOrStatus == "1")
+					).FirstOrDefaultAsync();
+				model.Distance = GetDbRaces(raceId)
+					.Select(r => r.Distance)
+					.FirstOrDefault();
+				return model;
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public async Task<IEnumerable<RaceResultPosition>> GetShortRaceResult(int raceId)
@@ -64,14 +73,10 @@ namespace F1WM.Repositories
 		public async Task<PracticeSessionResult> GetPracticeSessionResult(int raceId, string session)
 		{
 			var model = new PracticeSessionResult() { RaceId = raceId, Session = session };
-			var dbResults = await context.OtherSessions
-				.Where(s => s.RaceId == raceId && s.Session == session)
-				.Include(s => s.Entry).ThenInclude(e => e.Driver)
-				.Include(s => s.Entry).ThenInclude(e => e.Tyres)
-				.Include(s => s.Entry).ThenInclude(e => e.Car)
+			model.Results = await mapper.ProjectTo<PracticeSessionResultPosition>(context.OtherSessions
+					.Where(s => s.RaceId == raceId && s.Session == session))
+					.OrderBy(s => s.FinishPosition)
 				.ToListAsync();
-			model.Results = mapper.Map<IEnumerable<PracticeSessionResultPosition>>(dbResults)
-				.OrderBy(r => r.FinishPosition);
 			return model.Results.Any() ? model : null;
 		}
 
@@ -129,10 +134,12 @@ namespace F1WM.Repositories
 				.Include(r => r.Entry).ThenInclude(e => e.Grid);
 		}
 
-		private async Task<double> GetRaceDistance(int raceId)
+		private IQueryable<Race> GetDbRaces(int raceId)
 		{
-			var dbResult = await context.Races.SingleOrDefaultAsync(r => r.Id == raceId);
-			return dbResult.Distance;
+			var dbResult = context.Races
+				.Include(r => r.RaceNews)
+				.Where(r => r.Id == raceId);
+			return dbResult;
 		}
 	}
 }

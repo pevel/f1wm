@@ -29,6 +29,15 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(lastRace);
 		}
 
+		[HttpGet("{raceId}/news")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<RaceNews>> GetRaceNews(int raceId)
+		{
+			var raceNews = await service.GetRaceNews(raceId);
+			return this.NotFoundResultIfNull(raceNews);
+		}
+
 		[HttpGet("{raceId}/fastest-laps")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]

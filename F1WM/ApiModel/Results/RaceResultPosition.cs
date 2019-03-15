@@ -8,13 +8,13 @@ namespace F1WM.ApiModel
 	{
 		public int? FinishPosition { get; set; }
 		public int? StartPosition { get; set; }
-		public int Number { get; set; }
-		public DriverSummary Driver { get; set; }
+		public byte Number { get; set; }
+		public DriverBase Driver { get; set; }
 		public CarSummary Car { get; set; }
 		public string Tyres { get; set; }
-		public int FinishedLaps { get; set; }
+		public byte FinishedLaps { get; set; }
 		public TimeSpan Time { get; set; }
-		public int PitStopVisits { get; set; }
+		public byte PitStopVisits { get; set; }
 		public string Information { get; set; }
 
 		[JsonConverter(typeof(StringEnumConverter))]

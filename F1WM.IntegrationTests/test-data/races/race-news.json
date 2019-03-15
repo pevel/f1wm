@@ -1,0 +1,46 @@
+[
+  {
+    "raceId": 1030,
+    "expected": {
+      "raceId": 1030,
+      "training1NewsId": 42922,
+      "training2NewsId": 42924,
+      "training3NewsId": 42931,
+      "tyresNewsId": 42945,
+      "commentsAfterQualifyingResultsNewsId": 42932,
+      "qualifyingNewsId": 42933,
+      "commentsAfterRaceResultsNewsId": 42949,
+      "fastestLapsNewsId": 42944,
+      "pitStopsNewsId": null,
+      "id": 42948,
+      "commentsAfterQualifyingNewsId": null,
+      "commentsAfterRaceNewsId": null,
+      "commentsAfterTrainingNewsId": null,
+      "pressConferenceNewsId": null,
+      "galleryNewsId": 838,
+      "maneuversNewsId": null
+    }
+  },
+  {
+    "raceId": 1,
+    "expected": {
+      "raceId": 1,
+      "training1NewsId": null,
+      "training2NewsId": null,
+      "training3NewsId": null,
+      "tyresNewsId": null,
+      "commentsAfterQualifyingResultsNewsId": null,
+      "qualifyingNewsId": null,
+      "commentsAfterRaceResultsNewsId": null,
+      "fastestLapsNewsId": null,
+      "pitStopsNewsId": null,
+      "id": null,
+      "commentsAfterQualifyingNewsId": null,
+      "commentsAfterRaceNewsId": null,
+      "commentsAfterTrainingNewsId": null,
+      "pressConferenceNewsId": null,
+      "galleryNewsId": null,
+      "maneuversNewsId": null
+    }
+  }
+]

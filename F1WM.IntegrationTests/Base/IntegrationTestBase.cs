@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Net.Http;
 using System.Threading.Tasks;
 using FluentAssertions;
+using FluentAssertions.Equivalency;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.Extensions.Configuration;
@@ -19,26 +20,18 @@ namespace F1WM.IntegrationTests
 
 		protected async Task TestResponse<T>(string url, T expected, string why = "")
 		{
-			Assert.NotNull(expected);
-			var response = await client.GetAsync(url);
-			response.EnsureSuccessStatusCode();
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var actual = JsonConvert.DeserializeObject<T>(responseContent);
+			T actual = await GetResponse(url, expected);
 			actual.Should().BeEquivalentTo(expected, why);
 		}
 
 		protected async Task TestResponse<T>(
 			string url,
 			T expected,
-			Expression<Func<T, object>> exclude,
+			Func<EquivalencyAssertionOptions<T>, EquivalencyAssertionOptions<T>> config,
 			string why = "")
 		{
-			Assert.NotNull(expected);
-			var response = await client.GetAsync(url);
-			response.EnsureSuccessStatusCode();
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var actual = JsonConvert.DeserializeObject<T>(responseContent);
-			actual.Should().BeEquivalentTo(expected, o => o.Excluding(exclude), why);
+			T actual = await GetResponse(url, expected);
+			actual.Should().BeEquivalentTo(expected, config, why);
 		}
 
 		protected IntegrationTestBase()
@@ -47,6 +40,16 @@ namespace F1WM.IntegrationTests
 				.ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
 				.UseStartup<Startup>());
 			client = server.CreateClient();
+		}
+
+		private async Task<T> GetResponse<T>(string url, T expected)
+		{
+			Assert.NotNull(expected);
+			var response = await client.GetAsync(url);
+			response.EnsureSuccessStatusCode();
+			var responseContent = await response.Content.ReadAsStringAsync();
+			var actual = JsonConvert.DeserializeObject<T>(responseContent);
+			return actual;
 		}
 	}
 }

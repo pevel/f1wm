@@ -13,6 +13,11 @@ namespace F1WM.Services
 			return repository.GetRaceEntries(raceId);
 		}
 
+		public Task<SeasonEntriesInformation> GetSeasonEntries(int year)
+		{
+			return repository.GetSeasonEntries(year);
+		}
+
 		public EntriesService(IEntriesRepository repository)
 		{
 			this.repository = repository;

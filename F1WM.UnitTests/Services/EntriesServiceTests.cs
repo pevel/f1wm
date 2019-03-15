@@ -35,5 +35,18 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetRaceEntries(raceId), Times.Once);
 			actual.Should().BeEquivalentTo(entries);
 		}
+
+		[Fact]
+		public async Task ShouldGetSeasonEntries()
+		{
+			var raceId = 9000;
+			var entries = fixture.Create<SeasonEntriesInformation>();
+			repositoryMock.Setup(r => r.GetSeasonEntries(raceId)).ReturnsAsync(entries);
+
+			var actual = await service.GetSeasonEntries(raceId);
+
+			repositoryMock.Verify(r => r.GetSeasonEntries(raceId), Times.Once);
+			actual.Should().BeEquivalentTo(entries);
+		}
 	}
 }

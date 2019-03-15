@@ -13,6 +13,7 @@ namespace F1WM.IntegrationTests
 			await TestResponse<RaceResult>(
 				$"{baseAddress}/results/race/{data.RaceId}",
 				data.Expected,
+				c => c.WithStrictOrderingFor(r => r.Results),
 				data.Why);
 		}
 
