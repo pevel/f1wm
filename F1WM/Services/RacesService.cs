@@ -11,13 +11,13 @@ namespace F1WM.Services
 		private readonly IResultsRepository resultsRepository;
 		private readonly ITimeService time;
 
-		public Task<NextRaceSummary> GetNextRace(DateTime? after)
+		public Task<NextRaceSummary> GetNextRace(DateTime? after = null)
 		{
 			after = after ?? time.Now;
 			return racesRepository.GetFirstRaceAfter(after.Value);
 		}
 
-		public async Task<LastRaceSummary> GetLastRace(DateTime? before)
+		public async Task<LastRaceSummary> GetLastRace(DateTime? before = null)
 		{
 			before = before ?? time.Now;
 			var model = await racesRepository.GetMostRecentRaceBefore(before.Value);

@@ -33,7 +33,7 @@ namespace F1WM.UnitTests.Services
 			var now = new DateTime(1992, 10, 14);
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
 
-			await service.GetNextRace(null);
+			await service.GetNextRace();
 
 			racesRepositoryMock.Verify(r => r.GetFirstRaceAfter(now), Times.Once);
 		}
@@ -46,7 +46,7 @@ namespace F1WM.UnitTests.Services
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
 			racesRepositoryMock.Setup(r => r.GetMostRecentRaceBefore(now)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
 
-			await service.GetLastRace(null);
+			await service.GetLastRace();
 
 			racesRepositoryMock.Verify(r => r.GetMostRecentRaceBefore(now), Times.Once);
 			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);

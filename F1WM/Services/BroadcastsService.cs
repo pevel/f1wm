@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -28,9 +29,10 @@ namespace F1WM.Services
 			return broadcasters;
 		}
 
-		public Task<BroadcastsInformation> GetNextBroadcasts()
+		public Task<BroadcastsInformation> GetNextBroadcasts(DateTime? after = null)
 		{
-			return repository.GetBroadcastsAfter(time.Now);
+			after = after ?? time.Now;
+			return repository.GetBroadcastsAfter(after.Value);
 		}
 
 		public Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()

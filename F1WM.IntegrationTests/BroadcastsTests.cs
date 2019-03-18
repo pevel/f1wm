@@ -45,37 +45,13 @@ namespace F1WM.IntegrationTests
 			});
 		}
 
-		[Fact]
-		public async Task ShouldGetNextBroadcasts()
+		[Theory]
+		[JsonData("broadcasts", "next-broadcasts.json")]
+		public async Task ShouldGetNextBroadcasts(NextBroadcastsTestData data)
 		{
-			var nowAtRequestTime = DateTime.Now;
-			var response = await client.GetAsync($"{baseAddress}/broadcasts/next");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<BroadcastsInformation>(responseContent);
-			Assert.NotNull(result);
-			Assert.NotEqual(0, result.RaceId);
-			Assert.NotEmpty(result.Sessions);
-			Assert.All(result.Sessions, session =>
-			{
-				Assert.NotEqual(0, session.Id);
-				Assert.False(string.IsNullOrWhiteSpace(session.TypeName));
-				Assert.True(session.Start > nowAtRequestTime);
-			});
-			Assert.NotEmpty(result.Broadcasters);
-			Assert.All(result.Broadcasters, broadcaster =>
-			{
-				Assert.NotEqual(0, broadcaster.Id);
-				Assert.False(string.IsNullOrWhiteSpace(broadcaster.Name));
-				Assert.False(string.IsNullOrWhiteSpace(broadcaster.Icon));
-				Assert.False(string.IsNullOrWhiteSpace(broadcaster.Url));
-				Assert.All(broadcaster.Broadcasts, broadcast =>
-				{
-					Assert.NotEqual(0, broadcast.Id);
-					Assert.True(broadcast.Start > nowAtRequestTime);
-				});
-			});
+			await TestResponse<BroadcastsInformation>(
+				$"{baseAddress}/broadcasts/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				data.Expected);
 		}
 
 		[Fact]
@@ -97,6 +73,12 @@ namespace F1WM.IntegrationTests
 		{
 			var response = await client.PostAsync($"{baseAddress}/broadcasts", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+		}
+
+		public class NextBroadcastsTestData
+		{
+			public DateTime After { get; set; }
+			public BroadcastsInformation Expected { get; set; }
 		}
 	}
 }

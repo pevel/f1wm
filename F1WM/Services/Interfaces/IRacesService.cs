@@ -7,8 +7,8 @@ namespace F1WM.Services
 {
 	public interface IRacesService
 	{
-		Task<NextRaceSummary> GetNextRace(DateTime? after);
-		Task<LastRaceSummary> GetLastRace(DateTime? before);
+		Task<NextRaceSummary> GetNextRace(DateTime? after = null);
+		Task<LastRaceSummary> GetLastRace(DateTime? before = null);
 		Task<RaceFastestLaps> GetRaceFastestLaps(int raceId);
 		Task<RaceNews> GetRaceNews(int raceId);
 	}

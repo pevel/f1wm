@@ -1,0 +1,177 @@
+[
+  {
+    "after": "2019-01-01T00:00:00",
+    "expected": {
+      "raceId": 1045,
+      "sessions": [
+        {
+          "id": 21,
+          "typeName": "Trening 1",
+          "start": "2019-03-15T01:00:00"
+        },
+        {
+          "id": 22,
+          "typeName": "Trening 2",
+          "start": "2019-03-15T05:00:00"
+        },
+        {
+          "id": 23,
+          "typeName": "Trening 3",
+          "start": "2019-03-16T03:00:00"
+        },
+        {
+          "id": 24,
+          "typeName": "Kwalifikacje",
+          "start": "2019-03-16T06:00:00"
+        },
+        {
+          "id": 25,
+          "typeName": "Wyścig",
+          "start": "2019-03-17T05:00:00"
+        }
+      ],
+      "broadcasters": [
+        {
+          "id": 3,
+          "url": "https://www.elevensports.pl/",
+          "name": "Eleven",
+          "icon": "/img/tv/eleven_sports_network_wide.png",
+          "broadcasts": [
+            {
+              "id": 51,
+              "broadcastedSessionId": 21,
+              "broadcasterId": 3,
+              "start": "2019-03-15T01:00:00"
+            },
+            {
+              "id": 64,
+              "broadcastedSessionId": 22,
+              "broadcasterId": 3,
+              "start": "2019-03-15T05:00:00"
+            },
+            {
+              "id": 61,
+              "broadcastedSessionId": 23,
+              "broadcasterId": 3,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 57,
+              "broadcastedSessionId": 24,
+              "broadcasterId": 3,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 53,
+              "broadcastedSessionId": 25,
+              "broadcasterId": 3,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        },
+        {
+          "id": 6,
+          "url": "https://www.elevensports.pl/",
+          "name": "Sky F1",
+          "icon": "/img/tv/f1tvpro.png",
+          "broadcasts": [
+            {
+              "id": 65,
+              "broadcastedSessionId": 21,
+              "broadcasterId": 6,
+              "start": "2019-03-15T01:00:00"
+            },
+            {
+              "id": 62,
+              "broadcastedSessionId": 22,
+              "broadcasterId": 6,
+              "start": "2019-03-15T05:00:00"
+            },
+            {
+              "id": 59,
+              "broadcastedSessionId": 23,
+              "broadcasterId": 6,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 55,
+              "broadcastedSessionId": 24,
+              "broadcasterId": 6,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 67,
+              "broadcastedSessionId": 25,
+              "broadcasterId": 6,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "url": "https://www.elevensports.pl/",
+          "name": "F1 TV",
+          "icon": "/img/tv/eleven_sports_network_wide.png",
+          "broadcasts": [
+            {
+              "id": 66,
+              "broadcastedSessionId": 21,
+              "broadcasterId": 5,
+              "start": "2019-03-15T01:00:00"
+            },
+            {
+              "id": 63,
+              "broadcastedSessionId": 22,
+              "broadcasterId": 5,
+              "start": "2019-03-15T05:00:00"
+            },
+            {
+              "id": 60,
+              "broadcastedSessionId": 23,
+              "broadcasterId": 5,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 56,
+              "broadcastedSessionId": 24,
+              "broadcasterId": 5,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 52,
+              "broadcastedSessionId": 25,
+              "broadcasterId": 5,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "url": "https://www.elevensports.pl/",
+          "name": "RTL",
+          "icon": "/img/tv/rtl.gif",
+          "broadcasts": [
+            {
+              "id": 58,
+              "broadcastedSessionId": 23,
+              "broadcasterId": 4,
+              "start": "2019-03-16T05:00:00"
+            },
+            {
+              "id": 54,
+              "broadcastedSessionId": 24,
+              "broadcasterId": 4,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 68,
+              "broadcastedSessionId": 25,
+              "broadcasterId": 4,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
