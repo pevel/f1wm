@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
@@ -14,18 +15,18 @@ namespace F1WM.Controllers
 		[HttpGet("next")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<NextRaceSummary>> GetNextRace()
+		public async Task<ActionResult<NextRaceSummary>> GetNextRace([FromQuery] DateTime? after)
 		{
-			var nextRace = await service.GetNextRace();
+			var nextRace = await service.GetNextRace(after);
 			return this.NotFoundResultIfNull(nextRace);
 		}
 
 		[HttpGet("last")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<LastRaceSummary>> GetLastRace()
+		public async Task<ActionResult<LastRaceSummary>> GetLastRace([FromQuery] DateTime? before)
 		{
-			var lastRace = await service.GetLastRace();
+			var lastRace = await service.GetLastRace(before);
 			return this.NotFoundResultIfNull(lastRace);
 		}
 
