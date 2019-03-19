@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,12 +49,22 @@ namespace F1WM.Repositories
 			return model;
 		}
 
-		public Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId)
+		public async Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId)
 		{
-			throw new System.NotImplementedException();
+			var constraints = await context.Races
+				.Where(r => r.Id == raceId)
+				.Select(r => new { r.SeasonId, r.Date })
+				.SingleOrDefaultAsync();
+			if (constraints != null)
+			{
+				var model = new ConstructorsStandingsAfterRace() { RaceId = raceId };
+				model.Positions = await GetConstructorsStandingsAfterRace(constraints.SeasonId, constraints.Date);
+				return model;
+			}
+			return null;
 		}
 
-		public Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId)
+		public async Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -86,6 +97,28 @@ namespace F1WM.Repositories
 				.Take(count)
 				.ToListAsync();
 			return mapper.Map<IEnumerable<DriverPosition>>(dbStandings);
+		}
+
+		private async Task<IEnumerable<ConstructorPositionAfterRace>> GetConstructorsStandingsAfterRace(uint seasonId, DateTime date)
+		{
+			var positions = await context.ConstructorPoints
+				.Where(c => c.SeasonId == seasonId && c.Race.Date <= date)
+				.Include(c => c.Constructor).ThenInclude(c => c.Nationality)
+				.Select(c => new { c, c.Constructor })
+				.GroupBy(c => c.c.ConstructorId, (key, result) => new ConstructorPositionAfterRace() 
+				{
+					Id = key,
+					Constructor = mapper.Map<ConstructorSummary>(result.FirstOrDefault().Constructor),
+					NotCountedTowardsChampionshipPoints = result.Sum(c => c.c.NotCountedTowardsChampionshipPoints ?? 0),
+					Points = result.Sum(c => c.c.Points ?? 0)
+				})
+				.OrderByDescending(c => c.Points)
+				.ToListAsync();
+			foreach (var pair in positions.Select((position, index) => new { position, index }))
+			{
+				pair.position.Position = pair.index + 1;
+			}
+			return positions;
 		}
 	}
 }
