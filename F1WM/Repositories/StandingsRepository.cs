@@ -48,6 +48,16 @@ namespace F1WM.Repositories
 			return model;
 		}
 
+		public Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId)
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId)
+		{
+			throw new System.NotImplementedException();
+		}
+
 		public StandingsRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
