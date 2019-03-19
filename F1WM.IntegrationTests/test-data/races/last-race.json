@@ -1,0 +1,749 @@
+[
+  {
+    "before": "2019-01-01T00:00:00",
+    "expected": {
+      "raceNewsId": 44207,
+      "polePositionLapResult": {
+        "driver": {
+          "id": 806,
+          "firstName": "Lewis",
+          "surname": "Hamilton"
+        },
+        "time": "00:01:34.7940000"
+      },
+      "fastestLapResult": {
+        "raceDate": "2018-11-25T00:00:00",
+        "car": {
+          "id": 1094,
+          "name": "Ferrari SF71H"
+        },
+        "lapNumber": 54,
+        "driver": {
+          "id": 808,
+          "firstName": "Sebastian",
+          "surname": "Vettel"
+        },
+        "time": "00:01:40.8670000"
+      },
+      "shortResults": [
+        {
+          "finishPosition": 1,
+          "startPosition": 1,
+          "number": 44,
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:39:40.3820000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 2,
+          "startPosition": 3,
+          "number": 5,
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:39:42.9630000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 3,
+          "startPosition": 6,
+          "number": 33,
+          "driver": {
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:39:53.0880000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 4,
+          "startPosition": 5,
+          "number": 3,
+          "driver": {
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:39:55.7610000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 5,
+          "startPosition": 2,
+          "number": 77,
+          "driver": {
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:40:28.3390000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 6,
+          "startPosition": 11,
+          "number": 55,
+          "driver": {
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:40:52.9300000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 7,
+          "startPosition": 8,
+          "number": 16,
+          "driver": {
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:41:11.1710000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 8,
+          "startPosition": 14,
+          "number": 11,
+          "driver": {
+            "id": 836,
+            "firstName": "Sergio",
+            "surname": "Perez"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 55,
+          "time": "01:41:11.6570000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 9,
+          "startPosition": 7,
+          "number": 8,
+          "driver": {
+            "id": 814,
+            "firstName": "Romain",
+            "surname": "Grosjean"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 54,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 10,
+          "startPosition": 13,
+          "number": 20,
+          "driver": {
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 54,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        }
+      ],
+      "id": 1044,
+      "name": "Etihad Airways Abu Dhabi Grand Prix",
+      "translatedName": "Grand Prix Abu Zabi",
+      "date": "2018-11-25T00:00:00",
+      "track": {
+        "id": 70,
+        "name": "Yas Marina Circuit",
+        "trackIcon": "/img/tory/abu_dhabi_m2.png"
+      }
+    }
+  },
+  {
+    "before": "2018-11-25T00:00:00",
+    "expected": {
+      "raceNewsId": 44101,
+      "polePositionLapResult": {
+        "driver": {
+          "id": 806,
+          "firstName": "Lewis",
+          "surname": "Hamilton"
+        },
+        "time": "00:01:07.2810000"
+      },
+      "fastestLapResult": {
+        "raceDate": "2018-11-11T00:00:00",
+        "car": {
+          "id": 1093,
+          "name": "Mercedes W09 EQ Power+"
+        },
+        "lapNumber": 65,
+        "driver": {
+          "id": 828,
+          "firstName": "Valtteri",
+          "surname": "Bottas"
+        },
+        "time": "00:01:10.5400000"
+      },
+      "shortResults": [
+        {
+          "finishPosition": 1,
+          "startPosition": 1,
+          "number": 44,
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:09.0660000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 2,
+          "startPosition": 5,
+          "number": 33,
+          "driver": {
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:10.5350000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 3,
+          "startPosition": 4,
+          "number": 7,
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:13.8300000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 4,
+          "startPosition": 11,
+          "number": 3,
+          "driver": {
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:14.2590000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 5,
+          "startPosition": 3,
+          "number": 77,
+          "driver": {
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:32.0090000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 6,
+          "startPosition": 2,
+          "number": 5,
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:36.0630000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 7,
+          "startPosition": 7,
+          "number": 16,
+          "driver": {
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:27:53.2650000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 8,
+          "startPosition": 8,
+          "number": 8,
+          "driver": {
+            "id": 814,
+            "firstName": "Romain",
+            "surname": "Grosjean"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:28:00.2960000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 9,
+          "startPosition": 10,
+          "number": 20,
+          "driver": {
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          },
+          "car": {
+            "id": 1087,
+            "name": "Haas VF-18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:28:01.9230000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 10,
+          "startPosition": 12,
+          "number": 11,
+          "driver": {
+            "id": 836,
+            "firstName": "Sergio",
+            "surname": "Perez"
+          },
+          "car": {
+            "id": 1096,
+            "name": "Force India VJM11"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 70,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        }
+      ],
+      "id": 1043,
+      "name": "Grande Pr&#234;mio Heineken do Brasil",
+      "translatedName": "Grand Prix Brazylii",
+      "date": "2018-11-11T00:00:00",
+      "track": {
+        "id": 25,
+        "name": "Autódromo José Carlos Pace",
+        "trackIcon": "/img/tory/interlagos_m2.png"
+      }
+    }
+  },
+  {
+    "before": "2018-11-11T00:00:00",
+    "expected": {
+      "raceNewsId": 44006,
+      "polePositionLapResult": {
+        "driver": {
+          "id": 827,
+          "firstName": "Daniel",
+          "surname": "Ricciardo"
+        },
+        "time": "00:01:14.7590000"
+      },
+      "fastestLapResult": {
+        "raceDate": "2018-10-28T00:00:00",
+        "car": {
+          "id": 1093,
+          "name": "Mercedes W09 EQ Power+"
+        },
+        "lapNumber": 65,
+        "driver": {
+          "id": 828,
+          "firstName": "Valtteri",
+          "surname": "Bottas"
+        },
+        "time": "00:01:18.7410000"
+      },
+      "shortResults": [
+        {
+          "finishPosition": 1,
+          "startPosition": 2,
+          "number": 33,
+          "driver": {
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          },
+          "car": {
+            "id": 1089,
+            "name": "Red Bull RB14"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:38:28.8510000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 2,
+          "startPosition": 4,
+          "number": 5,
+          "driver": {
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:38:46.1670000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 3,
+          "startPosition": 6,
+          "number": 7,
+          "driver": {
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          },
+          "car": {
+            "id": 1094,
+            "name": "Ferrari SF71H"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:39:18.7650000",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 4,
+          "startPosition": 3,
+          "number": 44,
+          "driver": {
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 71,
+          "time": "01:39:47.5890000",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 5,
+          "startPosition": 5,
+          "number": 77,
+          "driver": {
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          },
+          "car": {
+            "id": 1093,
+            "name": "Mercedes W09 EQ Power+"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 70,
+          "time": "00:00:00",
+          "pitStopVisits": 3,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 6,
+          "startPosition": 7,
+          "number": 27,
+          "driver": {
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          },
+          "car": {
+            "id": 1091,
+            "name": "Renault R.S.18"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 69,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 7,
+          "startPosition": 9,
+          "number": 16,
+          "driver": {
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 69,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 8,
+          "startPosition": 15,
+          "number": 2,
+          "driver": {
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          },
+          "car": {
+            "id": 1095,
+            "name": "McLaren MCL33"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 69,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 9,
+          "startPosition": 10,
+          "number": 9,
+          "driver": {
+            "id": 860,
+            "firstName": "Marcus",
+            "surname": "Ericsson"
+          },
+          "car": {
+            "id": 1090,
+            "name": "Sauber C37"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 69,
+          "time": "00:00:00",
+          "pitStopVisits": 1,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        },
+        {
+          "finishPosition": 10,
+          "startPosition": 20,
+          "number": 10,
+          "driver": {
+            "id": 880,
+            "firstName": "Pierre",
+            "surname": "Gasly"
+          },
+          "car": {
+            "id": 1092,
+            "name": "Toro Rosso STR13"
+          },
+          "tyres": "Pirelli",
+          "finishedLaps": 69,
+          "time": "00:00:00",
+          "pitStopVisits": 2,
+          "information": "",
+          "status": "Classified",
+          "startStatus": "FromGrid"
+        }
+      ],
+      "id": 1042,
+      "name": "Gran Premio de Mexico",
+      "translatedName": "Grand Prix Meksyku",
+      "date": "2018-10-28T00:00:00",
+      "track": {
+        "id": 35,
+        "name": "Autódromo Hermanos Rodríguez",
+        "trackIcon": "/img/tory/mexico_city_m2.png"
+      }
+    }
+  }
+]
