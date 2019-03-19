@@ -70,8 +70,8 @@ namespace F1WM.Repositories
 				.Include(f => f.Entry).ThenInclude(f => f.Race)
 				.Include(f => f.Entry).ThenInclude(e => e.Car)
 				.Include(f => f.Entry).ThenInclude(e => e.Driver)
-				.OrderByDescending(r => r.Entry.Race.Date)
-				.Where(r => r.Entry.Race.Date < beforeDate)
+				.OrderByDescending(f => f.Entry.Race.Date)
+				.Where(f => f.Entry.Race.Date < beforeDate && f.PositionOrStatus == "1")
 				.FirstOrDefaultAsync();
 		}
 
@@ -114,8 +114,8 @@ namespace F1WM.Repositories
 			var dbPolePositionResult = await context.Grids
 				.Include(g => g.Race)
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
-				.SingleAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
-			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult.Entry);
+				.SingleOrDefaultAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
+			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult?.Entry);
 		}
 	}
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -14,9 +15,10 @@ namespace F1WM.Controllers
 		private readonly IBroadcastsService service;
 
 		[HttpGet("next")]
-		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts()
+		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts(
+			[FromQuery] DateTime? after)
 		{
-			var broadcasts = await service.GetNextBroadcasts();
+			var broadcasts = await service.GetNextBroadcasts(after);
 			return this.NotFoundResultIfNull(broadcasts);
 		}
 
