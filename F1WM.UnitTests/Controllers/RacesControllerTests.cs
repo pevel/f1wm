@@ -27,44 +27,44 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnNextRace()
 		{
-			serviceMock.Setup(s => s.GetNextRace()).ReturnsAsync(new NextRaceSummary());
+			serviceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync(new NextRaceSummary());
 
-			var result = await controller.GetNextRace();
+			var result = await controller.GetNextRace(null);
 
-			serviceMock.Verify(s => s.GetNextRace(), Times.Once);
+			serviceMock.Verify(s => s.GetNextRace(null), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturn404IfNextRaceNotFound()
 		{
-			serviceMock.Setup(s => s.GetNextRace()).ReturnsAsync((NextRaceSummary)null);
+			serviceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync((NextRaceSummary)null);
 
-			var result = await controller.GetNextRace();
+			var result = await controller.GetNextRace(null);
 
-			serviceMock.Verify(s => s.GetNextRace(), Times.Once);
+			serviceMock.Verify(s => s.GetNextRace(null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturnLastRace()
 		{
-			serviceMock.Setup(s => s.GetLastRace()).ReturnsAsync(new LastRaceSummary());
+			serviceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync(new LastRaceSummary());
 
-			var result = await controller.GetLastRace();
+			var result = await controller.GetLastRace(null);
 
-			serviceMock.Verify(s => s.GetLastRace(), Times.Once);
+			serviceMock.Verify(s => s.GetLastRace(null), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturn404IfLastRaceNotFound()
 		{
-			serviceMock.Setup(s => s.GetLastRace()).ReturnsAsync((LastRaceSummary)null);
+			serviceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync((LastRaceSummary)null);
 
-			var result = await controller.GetLastRace();
+			var result = await controller.GetLastRace(null);
 
-			serviceMock.Verify(s => s.GetLastRace(), Times.Once);
+			serviceMock.Verify(s => s.GetLastRace(null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 

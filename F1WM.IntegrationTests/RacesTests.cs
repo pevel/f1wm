@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Controllers;
@@ -11,80 +12,22 @@ namespace F1WM.IntegrationTests
 {
 	public class RacesTests : IntegrationTestBase
 	{
-		[Fact]
-		public async Task ShouldGetNextRace()
+		[Theory]
+		[JsonData("races", "next-race.json")]
+		public async Task ShouldGetNextRace(NextRaceTestData data)
 		{
-			var nowAtRequestTime = DateTime.Now;
-			var response = await client.GetAsync($"{baseAddress}/races/next");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var nextRace = JsonConvert.DeserializeObject<NextRaceSummary>(responseContent);
-			Assert.NotNull(nextRace);
-			Assert.NotNull(nextRace.Track);
-			Assert.NotEqual(0, nextRace.Id);
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.Name));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.Track.TrackIcon));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.Name));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.TranslatedName));
-			Assert.NotNull(nextRace.LastFastestLapResult);
-			Assert.NotEqual(0, nextRace.LastFastestLapResult.Time.TotalMilliseconds);
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastFastestLapResult.Driver.FirstName));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastFastestLapResult.Driver.Surname));
-			Assert.NotNull(nextRace.LastPolePositionLapResult);
-			Assert.NotEqual(0, nextRace.LastPolePositionLapResult.Time.TotalMilliseconds);
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastPolePositionLapResult.Driver.FirstName));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastPolePositionLapResult.Driver.Surname));
-			Assert.NotNull(nextRace.LastWinnerRaceResult);
-			Assert.NotEqual(0, nextRace.LastWinnerRaceResult.Time.TotalMilliseconds);
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastWinnerRaceResult.Driver.FirstName));
-			Assert.False(string.IsNullOrWhiteSpace(nextRace.LastWinnerRaceResult.Driver.Surname));
-			Assert.True(nextRace.Date > nowAtRequestTime);
+			await TestResponse<NextRaceSummary>(
+				$"{baseAddress}/races/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				data.Expected);
 		}
 
-		[Fact]
-		public async Task ShouldGetLastRace()
+		[Theory]
+		[JsonData("races", "last-race.json")]
+		public async Task ShouldGetLastRace(LastRaceTestData data)
 		{
-			var nowAtRequestTime = DateTime.Now;
-			var response = await client.GetAsync($"{baseAddress}/races/last");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var lastRace = JsonConvert.DeserializeObject<LastRaceSummary>(responseContent);
-			Assert.NotNull(lastRace);
-			Assert.NotNull(lastRace.Track);
-			Assert.NotEqual(0, lastRace.Id);
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.Name));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.Track.TrackIcon));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.Name));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.TranslatedName));
-			Assert.NotNull(lastRace.FastestLapResult);
-			Assert.NotEqual(0, lastRace.FastestLapResult.Time.TotalMilliseconds);
-			Assert.NotEqual(0, lastRace.FastestLapResult.LapNumber);
-			Assert.NotNull(lastRace.FastestLapResult.Car);
-			Assert.NotEqual(0, lastRace.FastestLapResult.Car.Id);
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Car.Name));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Driver.FirstName));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.FastestLapResult.Driver.Surname));
-			Assert.NotNull(lastRace.PolePositionLapResult);
-			Assert.NotEqual(0, lastRace.PolePositionLapResult.Time.TotalMilliseconds);
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.PolePositionLapResult.Driver.FirstName));
-			Assert.False(string.IsNullOrWhiteSpace(lastRace.PolePositionLapResult.Driver.Surname));
-			Assert.True(lastRace.Date < nowAtRequestTime);
-			Assert.NotNull(lastRace.ShortResults);
-			Assert.Equal(10, lastRace.ShortResults.Count());
-			Assert.All(lastRace.ShortResults, result =>
-			{
-				Assert.NotNull(result.Car);
-				Assert.NotEqual(0, result.Car.Id);
-				Assert.False(string.IsNullOrWhiteSpace(result.Car.Name));
-				Assert.NotNull(result.Driver);
-				Assert.NotEqual((uint)0, result.Driver.Id);
-				Assert.True(0 <= result.FinishedLaps);
-				Assert.True(0 < result.Number);
-				Assert.True(0 <= result.PitStopVisits);
-				Assert.False(string.IsNullOrWhiteSpace(result.Tyres));
-			});
+			await TestResponse<LastRaceSummary>(
+				$"{baseAddress}/races/last?before={WebUtility.UrlEncode(data.Before.ToLongDateString())}",
+				data.Expected);
 		}
 
 		[Theory]
@@ -115,6 +58,18 @@ namespace F1WM.IntegrationTests
 		{
 			public int RaceId { get; set; }
 			public RaceNews Expected { get; set; }
+		}
+
+		public class NextRaceTestData
+		{
+			public DateTime After { get; set; }
+			public NextRaceSummary Expected { get; set; }
+		}
+
+		public class LastRaceTestData
+		{
+			public DateTime Before { get; set; }
+			public LastRaceSummary Expected { get; set; }
 		}
 	}
 }

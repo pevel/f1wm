@@ -27,11 +27,11 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnNextBroadcasts()
 		{
 			var broadcasts = fixture.Create<BroadcastsInformation>();
-			serviceMock.Setup(s => s.GetNextBroadcasts()).ReturnsAsync(broadcasts);
+			serviceMock.Setup(s => s.GetNextBroadcasts(null)).ReturnsAsync(broadcasts);
 
-			var result = await controller.GetNextBroadcasts();
+			var result = await controller.GetNextBroadcasts(null);
 
-			serviceMock.Verify(s => s.GetNextBroadcasts(), Times.Once);
+			serviceMock.Verify(s => s.GetNextBroadcasts(null), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 			broadcasts.Should().BeEquivalentTo(okResult.Value);
 		}
@@ -40,11 +40,11 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturn404IfNextRaceNotFound()
 		{
 			var broadcasts = fixture.Create<BroadcastsInformation>();
-			serviceMock.Setup(s => s.GetNextBroadcasts()).ReturnsAsync((BroadcastsInformation)null);
+			serviceMock.Setup(s => s.GetNextBroadcasts(null)).ReturnsAsync((BroadcastsInformation)null);
 
-			var result = await controller.GetNextBroadcasts();
+			var result = await controller.GetNextBroadcasts(null);
 
-			serviceMock.Verify(s => s.GetNextBroadcasts(), Times.Once);
+			serviceMock.Verify(s => s.GetNextBroadcasts(null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 

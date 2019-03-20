@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Repositories;
@@ -10,14 +11,16 @@ namespace F1WM.Services
 		private readonly IResultsRepository resultsRepository;
 		private readonly ITimeService time;
 
-		public Task<NextRaceSummary> GetNextRace()
+		public Task<NextRaceSummary> GetNextRace(DateTime? after = null)
 		{
-			return racesRepository.GetFirstRaceAfter(time.Now);
+			after = after ?? time.Now;
+			return racesRepository.GetFirstRaceAfter(after.Value);
 		}
 
-		public async Task<LastRaceSummary> GetLastRace()
+		public async Task<LastRaceSummary> GetLastRace(DateTime? before = null)
 		{
-			var model = await racesRepository.GetMostRecentRaceBefore(time.Now);
+			before = before ?? time.Now;
+			var model = await racesRepository.GetMostRecentRaceBefore(before.Value);
 			model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
 			return model;
 		}
