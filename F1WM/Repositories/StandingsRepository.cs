@@ -15,7 +15,6 @@ namespace F1WM.Repositories
 
 		public async Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId = null)
 		{
-			
 			var model = new ConstructorsStandings();
 			if (seasonId == null)
 			{
@@ -59,7 +58,7 @@ namespace F1WM.Repositories
 			{
 				var model = new ConstructorsStandingsAfterRace() { RaceId = raceId };
 				model.Positions = await GetConstructorsStandingsAfterRace(constraints.SeasonId, constraints.Date);
-				return model;
+				return model.Positions.Any() ? model : null;
 			}
 			return null;
 		}
@@ -114,10 +113,30 @@ namespace F1WM.Repositories
 				})
 				.OrderByDescending(c => c.Points)
 				.ToListAsync();
-			foreach (var pair in positions.Select((position, index) => new { position, index }))
-			{
-				pair.position.Position = pair.index + 1;
-			}
+			var positionsBefore = await context.ConstructorPoints
+				.Where(c => c.SeasonId == seasonId && c.Race.Date < date)
+				.GroupBy(c => c.ConstructorId, (key, result) => new 
+				{
+					Id = key,
+					Points = result.Sum(c => c.Points ?? 0)
+				})
+				.OrderByDescending(c => c.Points)
+				.ToListAsync();
+			positions = positionsBefore
+				.Select((position, index) => new { Id = position.Id, index })
+				.Join(positions.Select((position, index) => new { Value = position, index }),
+					before => before.Id,
+					after => after.Value.Id,
+					(before, after) => new ConstructorPositionAfterRace()
+					{
+						Id = after.Value.Id,
+						Constructor = after.Value.Constructor,
+						NotCountedTowardsChampionshipPoints = after.Value.NotCountedTowardsChampionshipPoints,
+						Points = after.Value.Points,
+						Position = after.index + 1,
+						Change = (after.index + 1) - (before.index + 1)
+					})
+				.ToList();
 			return positions;
 		}
 	}
