@@ -32,7 +32,6 @@ namespace F1WM.Repositories
 
 		public async Task<DriversStandings> GetDriversStandings(int count, int? seasonId = null)
 		{
-			
 			var model = new DriversStandings();
 			if (seasonId == null)
 			{
@@ -65,7 +64,17 @@ namespace F1WM.Repositories
 
 		public async Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId)
 		{
-			throw new System.NotImplementedException();
+			var constraints = await context.Races
+				.Where(r => r.Id == raceId)
+				.Select(r => new { r.SeasonId, r.Date })
+				.SingleOrDefaultAsync();
+			if (constraints != null)
+			{
+				var model = new DriversStandingsAfterRace() { RaceId = raceId };
+				model.Positions = await GetDriversStandingsAfterRace(constraints.SeasonId, constraints.Date);
+				return model.Positions.Any() ? model : null;
+			}
+			return null;
 		}
 
 		public StandingsRepository(F1WMContext context, IMapper mapper)
@@ -100,7 +109,7 @@ namespace F1WM.Repositories
 
 		private async Task<IEnumerable<ConstructorPositionAfterRace>> GetConstructorsStandingsAfterRace(uint seasonId, DateTime date)
 		{
-			var positions = await context.ConstructorPoints
+			var positionsAfter = await context.ConstructorPoints
 				.Where(c => c.SeasonId == seasonId && c.Race.Date <= date)
 				.Include(c => c.Constructor).ThenInclude(c => c.Nationality)
 				.Select(c => new { c, c.Constructor })
@@ -122,9 +131,9 @@ namespace F1WM.Repositories
 				})
 				.OrderByDescending(c => c.Points)
 				.ToListAsync();
-			positions = positionsBefore
+			positionsAfter = positionsBefore
 				.Select((position, index) => new { Id = position.Id, index })
-				.Join(positions.Select((position, index) => new { Value = position, index }),
+				.Join(positionsAfter.Select((position, index) => new { Value = position, index }),
 					before => before.Id,
 					after => after.Value.Id,
 					(before, after) => new ConstructorPositionAfterRace()
@@ -136,8 +145,52 @@ namespace F1WM.Repositories
 						Position = after.index + 1,
 						Change = (after.index + 1) - (before.index + 1)
 					})
+				.OrderBy(c => c.Position)
 				.ToList();
-			return positions;
+			return positionsAfter;
+		}
+
+		private async Task<IEnumerable<DriverPositionAfterRace>> GetDriversStandingsAfterRace(uint seasonId, DateTime date)
+		{
+			var positionsAfter = await context.DriverPoints
+				.Where(d => d.SeasonId == seasonId && d.Race.Date <= date)
+				.Include(d => d.Driver).ThenInclude(c => c.Nationality)
+				.Select(d => new { d, d.Driver })
+				.GroupBy(d => d.d.DriverId, (key, result) => new DriverPositionAfterRace() 
+				{
+					Id = key,
+					Driver = mapper.Map<DriverSummary>(result.FirstOrDefault().Driver),
+					NotCountedTowardsChampionshipPoints = result.Sum(d => d.d.NotCountedTowardsChampionshipPoints ?? 0),
+					Points = result.Sum(d => d.d.Points ?? 0)
+				})
+				.OrderByDescending(c => c.Points)
+				.ToListAsync();
+			var positionsBefore = await context.DriverPoints
+				.Where(d => d.SeasonId == seasonId && d.Race.Date < date)
+				.GroupBy(d => d.DriverId, (key, result) => new 
+				{
+					Id = key,
+					Points = result.Sum(c => c.Points ?? 0)
+				})
+				.OrderByDescending(d => d.Points)
+				.ToListAsync();
+			positionsAfter = positionsBefore
+				.Select((position, index) => new { Id = position.Id, index })
+				.Join(positionsAfter.Select((position, index) => new { Value = position, index }),
+					before => before.Id,
+					after => after.Value.Id,
+					(before, after) => new DriverPositionAfterRace()
+					{
+						Id = after.Value.Id,
+						Driver = after.Value.Driver,
+						NotCountedTowardsChampionshipPoints = after.Value.NotCountedTowardsChampionshipPoints,
+						Points = after.Value.Points,
+						Position = after.index + 1,
+						Change = (after.index + 1) - (before.index + 1)
+					})
+				.OrderBy(d => d.Position)
+				.ToList();
+			return positionsAfter;
 		}
 	}
 }
