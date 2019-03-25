@@ -1,0 +1,379 @@
+[
+  {
+    "raceId": 1024,
+    "why": "first race in the season",
+    "expected": {
+      "raceId": 1024,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 51,
+          "position": 1,
+          "points": 40,
+          "constructor": {
+            "name": "Ferrari",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 94,
+          "position": 2,
+          "points": 22,
+          "constructor": {
+            "name": "Mercedes",
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 118,
+          "position": 3,
+          "points": 20,
+          "constructor": {
+            "name": "Red Bull",
+            "nationality": {
+              "name": "Austria",
+              "flagIcon": "/img/flagi/aut2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 93,
+          "position": 4,
+          "points": 12,
+          "constructor": {
+            "name": "McLaren",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 120,
+          "position": 5,
+          "points": 7,
+          "constructor": {
+            "name": "Renault",
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1040,
+    "why": "race in the middle of the season",
+    "expected": {
+      "raceId": 1040,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 94,
+          "position": 1,
+          "points": 538,
+          "constructor": {
+            "name": "Mercedes",
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 51,
+          "position": 2,
+          "points": 460,
+          "constructor": {
+            "name": "Ferrari",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 118,
+          "position": 3,
+          "points": 319,
+          "constructor": {
+            "name": "Red Bull",
+            "nationality": {
+              "name": "Austria",
+              "flagIcon": "/img/flagi/aut2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 159,
+          "position": 4,
+          "points": 101,
+          "constructor": {
+            "name": "Force India",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 120,
+          "position": 5,
+          "points": 92,
+          "constructor": {
+            "name": "Renault",
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 168,
+          "position": 6,
+          "points": 84,
+          "constructor": {
+            "name": "Haas",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 93,
+          "position": 7,
+          "points": 58,
+          "constructor": {
+            "name": "McLaren",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 126,
+          "position": 8,
+          "points": 30,
+          "constructor": {
+            "name": "STR",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 122,
+          "position": 9,
+          "points": 27,
+          "constructor": {
+            "name": "Sauber",
+            "nationality": {
+              "name": "Szwajcaria",
+              "flagIcon": "/img/flagi/sui2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 154,
+          "position": 10,
+          "points": 7,
+          "constructor": {
+            "name": "Williams",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1044,
+    "why": "last race in the season",
+    "expected": {
+      "raceId": 1044,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 94,
+          "position": 1,
+          "points": 655,
+          "constructor": {
+            "name": "Mercedes",
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 51,
+          "position": 2,
+          "points": 571,
+          "constructor": {
+            "name": "Ferrari",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 118,
+          "position": 3,
+          "points": 419,
+          "constructor": {
+            "name": "Red Bull",
+            "nationality": {
+              "name": "Austria",
+              "flagIcon": "/img/flagi/aut2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 120,
+          "position": 4,
+          "points": 122,
+          "constructor": {
+            "name": "Renault",
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 159,
+          "position": 5,
+          "points": 110,
+          "constructor": {
+            "name": "Force India",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 168,
+          "position": 6,
+          "points": 93,
+          "constructor": {
+            "name": "Haas",
+            "nationality": {
+              "name": "USA",
+              "flagIcon": "/img/flagi/usa2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 93,
+          "position": 7,
+          "points": 62,
+          "constructor": {
+            "name": "McLaren",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 122,
+          "position": 8,
+          "points": 48,
+          "constructor": {
+            "name": "Sauber",
+            "nationality": {
+              "name": "Szwajcaria",
+              "flagIcon": "/img/flagi/sui2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 126,
+          "position": 9,
+          "points": 33,
+          "constructor": {
+            "name": "STR",
+            "nationality": {
+              "name": "Włochy",
+              "flagIcon": "/img/flagi/ita2.gif"
+            }
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 154,
+          "position": 10,
+          "points": 7,
+          "constructor": {
+            "name": "Williams",
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            }
+          }
+        }
+      ]
+    }
+  }
+]

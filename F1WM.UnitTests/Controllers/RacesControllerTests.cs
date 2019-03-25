@@ -121,5 +121,57 @@ namespace F1WM.UnitTests.Controllers
 			racesServiceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnConstructorsStandingsAfterRace()
+		{
+			var raceId = 3;
+			var fastestLaps = fixture.Create<ConstructorsStandingsAfterRace>();
+			standingsServiceMock.Setup(s => s.GetConstructorsStandingsAfterRace(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetConstructorsStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetConstructorsStandingsAfterRace(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfConstructorsStandingsAfterRaceNotFound()
+		{
+			var raceId = 4;
+			standingsServiceMock.Setup(s => s.GetConstructorsStandingsAfterRace(raceId)).ReturnsAsync((ConstructorsStandingsAfterRace)null);
+
+			var result = await controller.GetConstructorsStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetConstructorsStandingsAfterRace(raceId), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnDriversStandingsAfterRace()
+		{
+			var raceId = 5;
+			var fastestLaps = fixture.Create<DriversStandingsAfterRace>();
+			standingsServiceMock.Setup(s => s.GetDriversStandingsAfterRace(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetDriversStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetDriversStandingsAfterRace(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfDriversStandingsAfterRaceNotFound()
+		{
+			var raceId = 6;
+			standingsServiceMock.Setup(s => s.GetDriversStandingsAfterRace(raceId)).ReturnsAsync((DriversStandingsAfterRace)null);
+
+			var result = await controller.GetDriversStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetDriversStandingsAfterRace(raceId), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
 	}
 }
