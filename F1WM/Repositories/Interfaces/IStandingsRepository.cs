@@ -8,5 +8,7 @@ namespace F1WM.Repositories
 	{
 		Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId = null);
 		Task<DriversStandings> GetDriversStandings(int count, int? seasonId = null);
+		Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId);
+		Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId);
 	}
 }

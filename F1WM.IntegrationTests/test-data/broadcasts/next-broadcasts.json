@@ -5,167 +5,129 @@
       "raceId": 1045,
       "sessions": [
         {
-          "id": 21,
+          "id": 1,
           "typeName": "Trening 1",
           "start": "2019-03-15T01:00:00"
         },
         {
-          "id": 22,
+          "id": 2,
           "typeName": "Trening 2",
           "start": "2019-03-15T05:00:00"
         },
         {
-          "id": 23,
+          "id": 3,
           "typeName": "Trening 3",
           "start": "2019-03-16T03:00:00"
         },
         {
-          "id": 24,
+          "id": 4,
           "typeName": "Kwalifikacje",
           "start": "2019-03-16T06:00:00"
         },
         {
-          "id": 25,
+          "id": 5,
           "typeName": "Wyścig",
-          "start": "2019-03-17T05:00:00"
+          "start": "2019-03-17T05:10:00"
         }
       ],
       "broadcasters": [
         {
-          "id": 3,
-          "url": "https://www.elevensports.pl/",
+          "id": 2,
+          "url": "http://www1.skysports.com/f1/live-on-sky",
+          "name": "sky F1",
+          "icon": "/img/tv/skyf1n.png",
+          "broadcasts": [
+            {
+              "id": 2,
+              "broadcastedSessionId": 1,
+              "broadcasterId": 2,
+              "start": "2019-03-15T01:00:00"
+            },
+            {
+              "id": 4,
+              "broadcastedSessionId": 2,
+              "broadcasterId": 2,
+              "start": "2019-03-15T05:00:00"
+            },
+            {
+              "id": 6,
+              "broadcastedSessionId": 3,
+              "broadcasterId": 2,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 9,
+              "broadcastedSessionId": 4,
+              "broadcasterId": 2,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 12,
+              "broadcastedSessionId": 5,
+              "broadcasterId": 2,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        },
+        {
+          "id": 1,
+          "url": "http://www.elevensports.pl/guide",
           "name": "Eleven",
           "icon": "/img/tv/eleven_sports_network_wide.png",
           "broadcasts": [
             {
-              "id": 51,
-              "broadcastedSessionId": 21,
-              "broadcasterId": 3,
+              "id": 1,
+              "broadcastedSessionId": 1,
+              "broadcasterId": 1,
               "start": "2019-03-15T01:00:00"
             },
             {
-              "id": 64,
-              "broadcastedSessionId": 22,
-              "broadcasterId": 3,
+              "id": 3,
+              "broadcastedSessionId": 2,
+              "broadcasterId": 1,
               "start": "2019-03-15T05:00:00"
             },
             {
-              "id": 61,
-              "broadcastedSessionId": 23,
-              "broadcasterId": 3,
+              "id": 5,
+              "broadcastedSessionId": 3,
+              "broadcasterId": 1,
               "start": "2019-03-16T03:00:00"
             },
             {
-              "id": 57,
-              "broadcastedSessionId": 24,
-              "broadcasterId": 3,
+              "id": 8,
+              "broadcastedSessionId": 4,
+              "broadcasterId": 1,
               "start": "2019-03-16T06:00:00"
             },
             {
-              "id": 53,
-              "broadcastedSessionId": 25,
-              "broadcasterId": 3,
-              "start": "2019-03-17T05:10:00"
-            }
-          ]
-        },
-        {
-          "id": 6,
-          "url": "https://www.elevensports.pl/",
-          "name": "Sky F1",
-          "icon": "/img/tv/f1tvpro.png",
-          "broadcasts": [
-            {
-              "id": 65,
-              "broadcastedSessionId": 21,
-              "broadcasterId": 6,
-              "start": "2019-03-15T01:00:00"
-            },
-            {
-              "id": 62,
-              "broadcastedSessionId": 22,
-              "broadcasterId": 6,
-              "start": "2019-03-15T05:00:00"
-            },
-            {
-              "id": 59,
-              "broadcastedSessionId": 23,
-              "broadcasterId": 6,
-              "start": "2019-03-16T03:00:00"
-            },
-            {
-              "id": 55,
-              "broadcastedSessionId": 24,
-              "broadcasterId": 6,
-              "start": "2019-03-16T06:00:00"
-            },
-            {
-              "id": 67,
-              "broadcastedSessionId": 25,
-              "broadcasterId": 6,
-              "start": "2019-03-17T05:10:00"
-            }
-          ]
-        },
-        {
-          "id": 5,
-          "url": "https://www.elevensports.pl/",
-          "name": "F1 TV",
-          "icon": "/img/tv/eleven_sports_network_wide.png",
-          "broadcasts": [
-            {
-              "id": 66,
-              "broadcastedSessionId": 21,
-              "broadcasterId": 5,
-              "start": "2019-03-15T01:00:00"
-            },
-            {
-              "id": 63,
-              "broadcastedSessionId": 22,
-              "broadcasterId": 5,
-              "start": "2019-03-15T05:00:00"
-            },
-            {
-              "id": 60,
-              "broadcastedSessionId": 23,
-              "broadcasterId": 5,
-              "start": "2019-03-16T03:00:00"
-            },
-            {
-              "id": 56,
-              "broadcastedSessionId": 24,
-              "broadcasterId": 5,
-              "start": "2019-03-16T06:00:00"
-            },
-            {
-              "id": 52,
-              "broadcastedSessionId": 25,
-              "broadcasterId": 5,
+              "id": 11,
+              "broadcastedSessionId": 5,
+              "broadcasterId": 1,
               "start": "2019-03-17T05:10:00"
             }
           ]
         },
         {
           "id": 4,
-          "url": "https://www.elevensports.pl/",
+          "url": "http://www.rtl.de/fernsehprogramm",
           "name": "RTL",
           "icon": "/img/tv/rtl.gif",
           "broadcasts": [
             {
-              "id": 58,
-              "broadcastedSessionId": 23,
+              "id": 7,
+              "broadcastedSessionId": 3,
               "broadcasterId": 4,
               "start": "2019-03-16T05:00:00"
             },
             {
-              "id": 54,
-              "broadcastedSessionId": 24,
+              "id": 10,
+              "broadcastedSessionId": 4,
               "broadcasterId": 4,
               "start": "2019-03-16T06:00:00"
             },
             {
-              "id": 68,
-              "broadcastedSessionId": 25,
+              "id": 13,
+              "broadcastedSessionId": 5,
               "broadcasterId": 4,
               "start": "2019-03-17T05:10:00"
             }
