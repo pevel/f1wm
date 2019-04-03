@@ -16,13 +16,18 @@ namespace F1WM.UnitTests.Services
 		private Fixture fixture;
 		private Mock<IRacesRepository> racesRepositoryMock;
 		private Mock<IResultsRepository> resultsRepositoryMock;
+		private Mock<ITimeService> timeServiceMock;
 
 		public RacesServiceTests()
 		{
 			fixture = new Fixture();
 			racesRepositoryMock = new Mock<IRacesRepository>();
 			resultsRepositoryMock = new Mock<IResultsRepository>();
-			service = new RacesService(racesRepositoryMock.Object, resultsRepositoryMock.Object);
+			timeServiceMock = new Mock<ITimeService>();
+			service = new RacesService(
+				racesRepositoryMock.Object,
+				resultsRepositoryMock.Object,
+				timeServiceMock.Object);
 		}
 
 		[Fact]
@@ -49,22 +54,27 @@ namespace F1WM.UnitTests.Services
 		}
 
 		[Fact]
-		public async Task ShouldGetNextRace()
+		public async Task ShouldGetNextRaceAfterNow()
 		{
+			var now = new DateTime(1992, 10, 14);
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+
 			await service.GetNextRace();
 
-			racesRepositoryMock.Verify(r => r.GetNextRace(), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetNextRace(now), Times.Once);
 		}
 
 		[Fact]
-		public async Task ShouldGetLastRaceWithResults()
+		public async Task ShouldGetLastRaceBeforeNowWithResults()
 		{
 			var raceId = 111;
-			racesRepositoryMock.Setup(r => r.GetMostRecentRace()).ReturnsAsync(new LastRaceSummary() { Id = raceId });
+			var now = new DateTime(1992, 10, 14);
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			racesRepositoryMock.Setup(r => r.GetMostRecentRace(now)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
 
 			await service.GetLastRace();
 
-			racesRepositoryMock.Verify(r => r.GetMostRecentRace(), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetMostRecentRace(now), Times.Once);
 			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
 		}
 

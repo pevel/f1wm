@@ -7,7 +7,7 @@ namespace F1WM.DatabaseModel
 		public uint Id { get; set; }
 		public ushort Year { get; set; }
 		public byte RaceCount { get; set; }
-		public byte Lastrace { get; set; }
+		public byte LastRaceNumber { get; set; }
 		public string Reviewnews { get; set; }
 		public string Reviewarts { get; set; }
 		public string PointsSystem { get; set; }

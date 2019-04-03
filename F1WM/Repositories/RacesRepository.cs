@@ -1,9 +1,11 @@
 using System;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.DomainModel;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -12,14 +14,68 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public Task<NextRaceSummary> GetNextRace()
+		public async Task<NextRaceSummary> GetNextRace(DateTime now)
 		{
-			throw new NotImplementedException();
+			SeasonRaces currentSeason = await GetCurrentSeason(now);
+			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != currentSeason.RaceCount;
+			if (currentSeason != null)
+			{
+				Expression<Func<Race, bool>> filter;
+				if (shouldSearchInCurrentSeason)
+				{
+					filter = r => r.SeasonId == currentSeason.Id && r.OrderInSeason == currentSeason.LastRaceNumber + 1;
+				}
+				else
+				{
+					filter = r => r.Season.Year == now.Year + 1 && r.OrderInSeason == 1;
+				}
+				var dbNextRace = await context.Races
+					.OrderBy(r => r.Date)
+					.Include(r => r.Track)
+					.Include(r => r.Country)
+					.FirstOrDefaultAsync(filter);
+				if (dbNextRace != null)
+				{
+					var apiNextRace = mapper.Map<NextRaceSummary>(dbNextRace);
+					await IncludeLastPolePositionResult(dbNextRace, apiNextRace);
+					await IncludeLastWinnerResult(dbNextRace, apiNextRace);
+					await IncludeLastFastestResult(dbNextRace, apiNextRace);
+					return apiNextRace;
+				}
+			}
+			return null;
 		}
 
-		public Task<LastRaceSummary> GetMostRecentRace()
+		public async Task<LastRaceSummary> GetMostRecentRace(DateTime now)
 		{
-			throw new NotImplementedException();
+			SeasonRaces currentSeason = await GetCurrentSeason(now);
+			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != 0;
+			if (currentSeason != null)
+			{
+				Expression<Func<Race, bool>> filter;
+				if (shouldSearchInCurrentSeason)
+				{
+					filter = r => r.SeasonId == currentSeason.Id && r.OrderInSeason == currentSeason.LastRaceNumber;
+				}
+				else
+				{
+					filter = r => r.Season.Year == now.Year - 1 && r.OrderInSeason == r.Season.RaceCount;
+				}
+				var dbLastRace = await context.Races
+					.OrderByDescending(r => r.Date)
+					.Include(r => r.Track)
+					.Include(r => r.Country)
+					.Include(r => r.RaceNews)
+					.FirstOrDefaultAsync(filter);
+				if (dbLastRace != null)
+				{
+					await IncludeFastestLap(dbLastRace.Date.AddSeconds(1));
+					var apiLastRace = mapper.Map<LastRaceSummary>(dbLastRace);
+					await IncludePolePositionResult(dbLastRace, apiLastRace);
+					return apiLastRace;
+				}
+			}
+			return null;
 		}
 
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
@@ -44,7 +100,6 @@ namespace F1WM.Repositories
 				.Include(r => r.Country)
 				.Include(r => r.RaceNews)
 				.FirstOrDefaultAsync(r => r.Date < beforeDate);
-
 			await IncludeFastestLap(beforeDate);
 			var apiLastRace = mapper.Map<LastRaceSummary>(dbLastRace);
 			await IncludePolePositionResult(dbLastRace, apiLastRace);
@@ -92,8 +147,8 @@ namespace F1WM.Repositories
 				.Where(r => r.Race.TrackId == dbNextRace.TrackId && r.Race.Date < dbNextRace.Date && r.PositionOrStatus == "1")
 				.Include(r => r.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(r => r.Race.Date)
-				.FirstAsync();
-			apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult.Entry);
+				.FirstOrDefaultAsync();
+			apiNextRace.LastWinnerRaceResult = mapper.Map<RaceResultSummary>(dbLastWinnerResult?.Entry);
 		}
 
 		private async Task IncludeLastPolePositionResult(Race dbNextRace, NextRaceSummary apiNextRace)
@@ -103,8 +158,8 @@ namespace F1WM.Repositories
 				.Where(g => g.Race.TrackId == dbNextRace.TrackId && g.Race.Date < dbNextRace.Date && g.StartPositionOrStatus == "1")
 				.Include(g => g.Entry).ThenInclude(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(g => g.Race.Date)
-				.FirstAsync();
-			apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult.Entry);
+				.FirstOrDefaultAsync();
+			apiNextRace.LastPolePositionLapResult = mapper.Map<LapResultSummary>(dbLastPolePositionResult?.Entry);
 		}
 
 		private async Task IncludeLastFastestResult(Race dbNextRace, NextRaceSummary apiNextRace)
@@ -115,7 +170,7 @@ namespace F1WM.Repositories
 				.Where(e => e.Race.TrackId == dbNextRace.TrackId && e.Race.Date < dbNextRace.Date && e.FastestLap.PositionOrStatus == "1")
 				.Include(e => e.Driver).ThenInclude(d => d.Nationality)
 				.OrderByDescending(e => e.Race.Date)
-				.FirstAsync();
+				.FirstOrDefaultAsync();
 			apiNextRace.LastFastestLapResult = mapper.Map<LapResultSummary>(dbFastestResult);
 		}
 
@@ -126,6 +181,13 @@ namespace F1WM.Repositories
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleOrDefaultAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult?.Entry);
+		}
+
+		private async Task<SeasonRaces> GetCurrentSeason(DateTime now)
+		{
+			return await mapper.ProjectTo<SeasonRaces>(context.Seasons
+					.Where(s => s.Year == now.Year))
+				.FirstOrDefaultAsync();
 		}
 	}
 }
