@@ -9,20 +9,25 @@ namespace F1WM.Services
 	{
 		private readonly IRacesRepository racesRepository;
 		private readonly IResultsRepository resultsRepository;
-		private readonly ITimeService time;
 
 		public Task<NextRaceSummary> GetNextRace(DateTime? after = null)
 		{
-			after = after ?? time.Now;
-			return racesRepository.GetFirstRaceAfter(after.Value);
+			return after != null
+				? racesRepository.GetFirstRaceAfter(after.Value)
+				: racesRepository.GetNextRace();
 		}
 
 		public async Task<LastRaceSummary> GetLastRace(DateTime? before = null)
 		{
-			before = before ?? time.Now;
-			var model = await racesRepository.GetMostRecentRaceBefore(before.Value);
-			model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
-			return model;
+			var model = before != null
+				? await racesRepository.GetMostRecentRaceBefore(before.Value)
+				: await racesRepository.GetMostRecentRace();
+			if (model != null)
+			{
+				model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
+				return model;
+			}
+			return null;
 		}
 
 		public Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
@@ -37,12 +42,10 @@ namespace F1WM.Services
 
 		public RacesService(
 			IRacesRepository racesRepository,
-			IResultsRepository resultsRepository,
-			ITimeService time)
+			IResultsRepository resultsRepository)
 		{
 			this.racesRepository = racesRepository;
 			this.resultsRepository = resultsRepository;
-			this.time = time;
 		}
 	}
 }

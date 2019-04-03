@@ -12,6 +12,16 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
+		public Task<NextRaceSummary> GetNextRace()
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<LastRaceSummary> GetMostRecentRace()
+		{
+			throw new NotImplementedException();
+		}
+
 		public async Task<NextRaceSummary> GetFirstRaceAfter(DateTime afterDate)
 		{
 			var dbNextRace = await context.Races

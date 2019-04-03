@@ -16,39 +16,55 @@ namespace F1WM.UnitTests.Services
 		private Fixture fixture;
 		private Mock<IRacesRepository> racesRepositoryMock;
 		private Mock<IResultsRepository> resultsRepositoryMock;
-		private Mock<ITimeService> timeServiceMock;
 
 		public RacesServiceTests()
 		{
 			fixture = new Fixture();
 			racesRepositoryMock = new Mock<IRacesRepository>();
 			resultsRepositoryMock = new Mock<IResultsRepository>();
-			timeServiceMock = new Mock<ITimeService>();
-			service = new RacesService(racesRepositoryMock.Object, resultsRepositoryMock.Object, timeServiceMock.Object);
+			service = new RacesService(racesRepositoryMock.Object, resultsRepositoryMock.Object);
 		}
 
 		[Fact]
-		public async Task ShouldGetNextRaceAfterToday()
+		public async Task ShouldGetNextRaceAfterDate()
 		{
-			var now = new DateTime(1992, 10, 14);
-			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			var date = new DateTime(1992, 10, 14);
 
+			await service.GetNextRace(date);
+
+			racesRepositoryMock.Verify(r => r.GetFirstRaceAfter(date), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetLastRaceBeforeDateWithResults()
+		{
+			var date = new DateTime(1992, 10, 14);
+			var raceId = 777;
+			racesRepositoryMock.Setup(r => r.GetMostRecentRaceBefore(date)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
+
+			await service.GetLastRace(date);
+
+			racesRepositoryMock.Verify(r => r.GetMostRecentRaceBefore(date), Times.Once);
+			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetNextRace()
+		{
 			await service.GetNextRace();
 
-			racesRepositoryMock.Verify(r => r.GetFirstRaceAfter(now), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetNextRace(), Times.Once);
 		}
 
 		[Fact]
-		public async Task ShouldGetLastRaceBeforeTodayWithResults()
+		public async Task ShouldGetLastRaceWithResults()
 		{
-			var now = new DateTime(1992, 10, 14);
-			var raceId = 777;
-			timeServiceMock.SetupGet(t => t.Now).Returns(now);
-			racesRepositoryMock.Setup(r => r.GetMostRecentRaceBefore(now)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
+			var raceId = 111;
+			racesRepositoryMock.Setup(r => r.GetMostRecentRace()).ReturnsAsync(new LastRaceSummary() { Id = raceId });
 
 			await service.GetLastRace();
 
-			racesRepositoryMock.Verify(r => r.GetMostRecentRaceBefore(now), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetMostRecentRace(), Times.Once);
 			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
 		}
 
