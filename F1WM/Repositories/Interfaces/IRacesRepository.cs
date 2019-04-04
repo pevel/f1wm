@@ -10,5 +10,7 @@ namespace F1WM.Repositories
 		Task<LastRaceSummary> GetMostRecentRaceBefore(DateTime beforeDate);
 		Task<RaceFastestLaps> GetRaceFastestLaps(int raceId);
 		Task<RaceNews> GetRaceNews(int raceId);
+		Task<NextRaceSummary> GetNextRace(DateTime now);
+		Task<LastRaceSummary> GetMostRecentRace(DateTime now);
 	}
 }

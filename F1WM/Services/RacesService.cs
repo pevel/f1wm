@@ -13,16 +13,22 @@ namespace F1WM.Services
 
 		public Task<NextRaceSummary> GetNextRace(DateTime? after = null)
 		{
-			after = after ?? time.Now;
-			return racesRepository.GetFirstRaceAfter(after.Value);
+			return after != null
+				? racesRepository.GetFirstRaceAfter(after.Value)
+				: racesRepository.GetNextRace(time.Now);
 		}
 
 		public async Task<LastRaceSummary> GetLastRace(DateTime? before = null)
 		{
-			before = before ?? time.Now;
-			var model = await racesRepository.GetMostRecentRaceBefore(before.Value);
-			model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
-			return model;
+			var model = before != null
+				? await racesRepository.GetMostRecentRaceBefore(before.Value)
+				: await racesRepository.GetMostRecentRace(time.Now);
+			if (model != null)
+			{
+				model.ShortResults = await resultsRepository.GetShortRaceResult(model.Id);
+				return model;
+			}
+			return null;
 		}
 
 		public Task<RaceFastestLaps> GetRaceFastestLaps(int raceId)
