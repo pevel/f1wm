@@ -48,6 +48,24 @@ namespace F1WM.IntegrationTests
 				data.Expected);
 		}
 
+		[Theory]
+		[JsonData("races", "constructors-standings-after-race.json")]
+		public async Task ShouldGetConstructorsStandingsAfterRace(ConstructorsStandingsTestData data)
+		{
+			await TestResponse<ConstructorsStandingsAfterRace>(
+				$"{baseAddress}/races/{data.RaceId}/standings/constructors",
+				data.Expected);
+		}
+
+		[Theory]
+		[JsonData("races", "drivers-standings-after-race.json")]
+		public async Task ShouldGetDriversStandingsAfterRace(DriversStandingsTestData data)
+		{
+			await TestResponse<DriversStandingsAfterRace>(
+				$"{baseAddress}/races/{data.RaceId}/standings/drivers",
+				data.Expected);
+		}
+
 		public class RaceFastestLapsTestData
 		{
 			public int RaceId { get; set; }
@@ -70,6 +88,20 @@ namespace F1WM.IntegrationTests
 		{
 			public DateTime Before { get; set; }
 			public LastRaceSummary Expected { get; set; }
+		}
+
+		public class ConstructorsStandingsTestData
+		{
+			public int RaceId { get; set; }
+			public string Why { get; set; }
+			public ConstructorsStandingsAfterRace Expected { get; set; }
+		}
+
+		public class DriversStandingsTestData
+		{
+			public int RaceId { get; set; }
+			public string Why { get; set; }
+			public DriversStandingsAfterRace Expected { get; set; }
 		}
 	}
 }

@@ -10,14 +10,15 @@ namespace F1WM.Controllers
 	[Route("api/[controller]")]
 	public class RacesController : ControllerBase
 	{
-		private readonly IRacesService service;
+		private readonly IRacesService racesService;
+		private readonly IStandingsService standingsService;
 
 		[HttpGet("next")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<NextRaceSummary>> GetNextRace([FromQuery] DateTime? after)
 		{
-			var nextRace = await service.GetNextRace(after);
+			var nextRace = await racesService.GetNextRace(after);
 			return this.NotFoundResultIfNull(nextRace);
 		}
 
@@ -26,7 +27,7 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<LastRaceSummary>> GetLastRace([FromQuery] DateTime? before)
 		{
-			var lastRace = await service.GetLastRace(before);
+			var lastRace = await racesService.GetLastRace(before);
 			return this.NotFoundResultIfNull(lastRace);
 		}
 
@@ -35,7 +36,7 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<RaceNews>> GetRaceNews(int raceId)
 		{
-			var raceNews = await service.GetRaceNews(raceId);
+			var raceNews = await racesService.GetRaceNews(raceId);
 			return this.NotFoundResultIfNull(raceNews);
 		}
 
@@ -44,13 +45,33 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<RaceFastestLaps>> GetRaceFastestLaps(int raceId)
 		{
-			var fastestLaps = await service.GetRaceFastestLaps(raceId);
+			var fastestLaps = await racesService.GetRaceFastestLaps(raceId);
 			return this.NotFoundResultIfNull(fastestLaps);
 		}
 
-		public RacesController(IRacesService service)
+		[HttpGet("{raceId}/standings/constructors")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<ConstructorsStandingsAfterRace>> GetConstructorsStandingsAfterRace(int raceId)
 		{
-			this.service = service;
+			var standings = await standingsService.GetConstructorsStandingsAfterRace(raceId);
+			return this.NotFoundResultIfNull(standings);
+		}
+
+
+		[HttpGet("{raceId}/standings/drivers")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<DriversStandingsAfterRace>> GetDriversStandingsAfterRace(int raceId)
+		{
+			var standings = await standingsService.GetDriversStandingsAfterRace(raceId);
+			return this.NotFoundResultIfNull(standings);
+		}
+
+		public RacesController(IRacesService racesService, IStandingsService standingsService)
+		{
+			this.racesService = racesService;
+			this.standingsService = standingsService;
 		}
 	}
 }

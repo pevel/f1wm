@@ -39,5 +39,25 @@ namespace F1WM.UnitTests.Services
 
 			repositoryMock.Verify(r => r.GetDriversStandings(count, seasonId), Times.Once);
 		}
+
+		[Fact]
+		public async Task ShouldGetConstructorsStandingsAfterRace()
+		{
+			int raceId = 101;
+
+			await service.GetConstructorsStandingsAfterRace(raceId);
+
+			repositoryMock.Verify(r => r.GetConstructorsStandingsAfterRace(raceId), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldGetDriversStandingsAfterRace()
+		{
+			int raceId = 202;
+
+			await service.GetDriversStandingsAfterRace(raceId);
+
+			repositoryMock.Verify(r => r.GetDriversStandingsAfterRace(raceId), Times.Once);
+		}
 	}
 }

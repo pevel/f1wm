@@ -1,0 +1,733 @@
+[
+  {
+    "raceId": 1024,
+    "why": "first race in the season",
+    "expected": {
+      "raceId": 1024,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 808,
+          "position": 1,
+          "points": 25,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 806,
+          "position": 2,
+          "points": 18,
+          "driver": {
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            },
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 588,
+          "position": 3,
+          "points": 15,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 827,
+          "position": 4,
+          "points": 12,
+          "driver": {
+            "nationality": {
+              "name": "Australia",
+              "flagIcon": "/img/flagi/aus2.gif"
+            },
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 13,
+          "position": 5,
+          "points": 10,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 869,
+          "position": 6,
+          "points": 8,
+          "driver": {
+            "nationality": {
+              "name": "Holandia",
+              "flagIcon": "/img/flagi/ned2.gif"
+            },
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 815,
+          "position": 7,
+          "points": 6,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 828,
+          "position": 8,
+          "points": 4,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 861,
+          "position": 9,
+          "points": 2,
+          "driver": {
+            "nationality": {
+              "name": "Belgia",
+              "flagIcon": "/img/flagi/bel2.gif"
+            },
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 873,
+          "position": 10,
+          "points": 1,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1025,
+    "why": "race in the middle of the season",
+    "expected": {
+      "raceId": 1025,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 808,
+          "position": 1,
+          "points": 50,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 806,
+          "position": 2,
+          "points": 33,
+          "driver": {
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            },
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          }
+        },
+        {
+          "change": 5,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 828,
+          "position": 3,
+          "points": 22,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          }
+        },
+        {
+          "change": 1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 13,
+          "position": 4,
+          "points": 16,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          }
+        },
+        {
+          "change": -2,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 588,
+          "position": 5,
+          "points": 15,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          }
+        },
+        {
+          "change": 1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 815,
+          "position": 6,
+          "points": 14,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          }
+        },
+        {
+          "change": -3,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 827,
+          "position": 7,
+          "points": 12,
+          "driver": {
+            "nationality": {
+              "name": "Australia",
+              "flagIcon": "/img/flagi/aus2.gif"
+            },
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 880,
+          "position": 8,
+          "points": 12,
+          "driver": {
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            },
+            "id": 880,
+            "firstName": "Pierre",
+            "surname": "Gasly"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 855,
+          "position": 9,
+          "points": 10,
+          "driver": {
+            "nationality": {
+              "name": "Dania",
+              "flagIcon": "/img/flagi/den2.gif"
+            },
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          }
+        },
+        {
+          "change": -4,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 869,
+          "position": 10,
+          "points": 8,
+          "driver": {
+            "nationality": {
+              "name": "Holandia",
+              "flagIcon": "/img/flagi/ned2.gif"
+            },
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          }
+        },
+        {
+          "change": -2,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 861,
+          "position": 11,
+          "points": 6,
+          "driver": {
+            "nationality": {
+              "name": "Belgia",
+              "flagIcon": "/img/flagi/bel2.gif"
+            },
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 860,
+          "position": 12,
+          "points": 2,
+          "driver": {
+            "nationality": {
+              "name": "Szwecja",
+              "flagIcon": "/img/flagi/swe2.gif"
+            },
+            "id": 860,
+            "firstName": "Marcus",
+            "surname": "Ericsson"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 871,
+          "position": 13,
+          "points": 1,
+          "driver": {
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            },
+            "id": 871,
+            "firstName": "Esteban",
+            "surname": "Ocon"
+          }
+        },
+        {
+          "change": -4,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 873,
+          "position": 14,
+          "points": 1,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          }
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1044,
+    "why": "last race in the season",
+    "expected": {
+      "raceId": 1044,
+      "positions": [
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 806,
+          "position": 1,
+          "points": 408,
+          "driver": {
+            "nationality": {
+              "name": "Wielka Brytania",
+              "flagIcon": "/img/flagi/gbr2.gif"
+            },
+            "id": 806,
+            "firstName": "Lewis",
+            "surname": "Hamilton"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 808,
+          "position": 2,
+          "points": 320,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 808,
+            "firstName": "Sebastian",
+            "surname": "Vettel"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 588,
+          "position": 3,
+          "points": 251,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 588,
+            "firstName": "Kimi",
+            "surname": "Raikkonen"
+          }
+        },
+        {
+          "change": 1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 869,
+          "position": 4,
+          "points": 249,
+          "driver": {
+            "nationality": {
+              "name": "Holandia",
+              "flagIcon": "/img/flagi/ned2.gif"
+            },
+            "id": 869,
+            "firstName": "Max",
+            "surname": "Verstappen"
+          }
+        },
+        {
+          "change": -1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 828,
+          "position": 5,
+          "points": 247,
+          "driver": {
+            "nationality": {
+              "name": "Finlandia",
+              "flagIcon": "/img/flagi/fin2.gif"
+            },
+            "id": 828,
+            "firstName": "Valtteri",
+            "surname": "Bottas"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 827,
+          "position": 6,
+          "points": 170,
+          "driver": {
+            "nationality": {
+              "name": "Australia",
+              "flagIcon": "/img/flagi/aus2.gif"
+            },
+            "id": 827,
+            "firstName": "Daniel",
+            "surname": "Ricciardo"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 815,
+          "position": 7,
+          "points": 69,
+          "driver": {
+            "nationality": {
+              "name": "Niemcy",
+              "flagIcon": "/img/flagi/ger2.gif"
+            },
+            "id": 815,
+            "firstName": "Nico",
+            "surname": "Hulkenberg"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 836,
+          "position": 8,
+          "points": 62,
+          "driver": {
+            "nationality": {
+              "name": "Meksyk",
+              "flagIcon": "/img/flagi/mex2.gif"
+            },
+            "id": 836,
+            "firstName": "Sergio",
+            "surname": "Perez"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 855,
+          "position": 9,
+          "points": 56,
+          "driver": {
+            "nationality": {
+              "name": "Dania",
+              "flagIcon": "/img/flagi/den2.gif"
+            },
+            "id": 855,
+            "firstName": "Kevin",
+            "surname": "Magnussen"
+          }
+        },
+        {
+          "change": 2,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 873,
+          "position": 10,
+          "points": 53,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 873,
+            "firstName": "Carlos",
+            "surname": "Sainz"
+          }
+        },
+        {
+          "change": -1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 13,
+          "position": 11,
+          "points": 50,
+          "driver": {
+            "nationality": {
+              "name": "Hiszpania",
+              "flagIcon": "/img/flagi/esp2.gif"
+            },
+            "id": 13,
+            "firstName": "Fernando",
+            "surname": "Alonso"
+          }
+        },
+        {
+          "change": -1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 871,
+          "position": 12,
+          "points": 49,
+          "driver": {
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            },
+            "id": 871,
+            "firstName": "Esteban",
+            "surname": "Ocon"
+          }
+        },
+        {
+          "change": 1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 886,
+          "position": 13,
+          "points": 39,
+          "driver": {
+            "nationality": {
+              "name": "Monako",
+              "flagIcon": "/img/flagi/mon2.gif"
+            },
+            "id": 886,
+            "firstName": "Charles",
+            "surname": "Leclerc"
+          }
+        },
+        {
+          "change": -1,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 814,
+          "position": 14,
+          "points": 37,
+          "driver": {
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            },
+            "id": 814,
+            "firstName": "Romain",
+            "surname": "Grosjean"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 880,
+          "position": 15,
+          "points": 29,
+          "driver": {
+            "nationality": {
+              "name": "Francja",
+              "flagIcon": "/img/flagi/fra2.gif"
+            },
+            "id": 880,
+            "firstName": "Pierre",
+            "surname": "Gasly"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 861,
+          "position": 16,
+          "points": 12,
+          "driver": {
+            "nationality": {
+              "name": "Belgia",
+              "flagIcon": "/img/flagi/bel2.gif"
+            },
+            "id": 861,
+            "firstName": "Stoffel",
+            "surname": "Vandoorne"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 860,
+          "position": 17,
+          "points": 9,
+          "driver": {
+            "nationality": {
+              "name": "Szwecja",
+              "flagIcon": "/img/flagi/swe2.gif"
+            },
+            "id": 860,
+            "firstName": "Marcus",
+            "surname": "Ericsson"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 882,
+          "position": 18,
+          "points": 6,
+          "driver": {
+            "nationality": {
+              "name": "Kanada",
+              "flagIcon": "/img/flagi/can2.gif"
+            },
+            "id": 882,
+            "firstName": "Lance",
+            "surname": "Stroll"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 821,
+          "position": 19,
+          "points": 4,
+          "driver": {
+            "nationality": {
+              "name": "Nowa Zelandia",
+              "flagIcon": "/img/flagi/nzl2.gif"
+            },
+            "id": 821,
+            "firstName": "Brendon",
+            "surname": "Hartley"
+          }
+        },
+        {
+          "change": 0,
+          "notCountedTowardsChampionshipPoints": 0,
+          "id": 859,
+          "position": 20,
+          "points": 1,
+          "driver": {
+            "nationality": {
+              "name": "Rosja",
+              "flagIcon": "/img/flagi/rus2.gif"
+            },
+            "id": 859,
+            "firstName": "Siergiej",
+            "surname": "Sirotkin"
+          }
+        }
+      ]
+    }
+  }
+]

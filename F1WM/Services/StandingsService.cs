@@ -19,6 +19,16 @@ namespace F1WM.Services
 			return repository.GetDriversStandings(count, seasonId);
 		}
 
+		public Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId)
+		{
+			return repository.GetConstructorsStandingsAfterRace(raceId);
+		}
+
+		public Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId)
+		{
+			return repository.GetDriversStandingsAfterRace(raceId);
+		}
+
 		public StandingsService(IStandingsRepository repository)
 		{
 			this.repository = repository;

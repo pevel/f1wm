@@ -15,56 +15,58 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private RacesController controller;
 		private Fixture fixture;
-		private Mock<IRacesService> serviceMock;
+		private Mock<IRacesService> racesServiceMock;
+		private Mock<IStandingsService> standingsServiceMock;
 
 		public RacesControllerTests()
 		{
 			fixture = new Fixture();
-			serviceMock = new Mock<IRacesService>();
-			controller = new RacesController(serviceMock.Object);
+			racesServiceMock = new Mock<IRacesService>();
+			standingsServiceMock = new Mock<IStandingsService>();
+			controller = new RacesController(racesServiceMock.Object, standingsServiceMock.Object);
 		}
 
 		[Fact]
 		public async Task ShouldReturnNextRace()
 		{
-			serviceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync(new NextRaceSummary());
+			racesServiceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync(new NextRaceSummary());
 
 			var result = await controller.GetNextRace(null);
 
-			serviceMock.Verify(s => s.GetNextRace(null), Times.Once);
+			racesServiceMock.Verify(s => s.GetNextRace(null), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturn404IfNextRaceNotFound()
 		{
-			serviceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync((NextRaceSummary)null);
+			racesServiceMock.Setup(s => s.GetNextRace(null)).ReturnsAsync((NextRaceSummary)null);
 
 			var result = await controller.GetNextRace(null);
 
-			serviceMock.Verify(s => s.GetNextRace(null), Times.Once);
+			racesServiceMock.Verify(s => s.GetNextRace(null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturnLastRace()
 		{
-			serviceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync(new LastRaceSummary());
+			racesServiceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync(new LastRaceSummary());
 
 			var result = await controller.GetLastRace(null);
 
-			serviceMock.Verify(s => s.GetLastRace(null), Times.Once);
+			racesServiceMock.Verify(s => s.GetLastRace(null), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
 		[Fact]
 		public async Task ShouldReturn404IfLastRaceNotFound()
 		{
-			serviceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync((LastRaceSummary)null);
+			racesServiceMock.Setup(s => s.GetLastRace(null)).ReturnsAsync((LastRaceSummary)null);
 
 			var result = await controller.GetLastRace(null);
 
-			serviceMock.Verify(s => s.GetLastRace(null), Times.Once);
+			racesServiceMock.Verify(s => s.GetLastRace(null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
@@ -73,11 +75,11 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var raceId = 1024;
 			var fastestLaps = fixture.Create<RaceNews>();
-			serviceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync(fastestLaps);
+			racesServiceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync(fastestLaps);
 
 			var result = await controller.GetRaceNews(raceId);
 
-			serviceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
+			racesServiceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 			okResult.Value.Should().BeEquivalentTo(fastestLaps);
 		}
@@ -86,11 +88,11 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturn404IfRaceNewsNotFound()
 		{
 			var raceId = 2048;
-			serviceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync((RaceNews)null);
+			racesServiceMock.Setup(s => s.GetRaceNews(raceId)).ReturnsAsync((RaceNews)null);
 
 			var result = await controller.GetRaceNews(raceId);
 
-			serviceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
+			racesServiceMock.Verify(s => s.GetRaceNews(raceId), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 
@@ -99,11 +101,11 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var raceId = 256;
 			var fastestLaps = fixture.Create<RaceFastestLaps>();
-			serviceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync(fastestLaps);
+			racesServiceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync(fastestLaps);
 
 			var result = await controller.GetRaceFastestLaps(raceId);
 
-			serviceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
+			racesServiceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 			okResult.Value.Should().BeEquivalentTo(fastestLaps);
 		}
@@ -112,11 +114,63 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturn404IfRaceFastestLapsNotFound()
 		{
 			var raceId = 512;
-			serviceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync((RaceFastestLaps)null);
+			racesServiceMock.Setup(s => s.GetRaceFastestLaps(raceId)).ReturnsAsync((RaceFastestLaps)null);
 
 			var result = await controller.GetRaceFastestLaps(raceId);
 
-			serviceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
+			racesServiceMock.Verify(s => s.GetRaceFastestLaps(raceId), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnConstructorsStandingsAfterRace()
+		{
+			var raceId = 3;
+			var fastestLaps = fixture.Create<ConstructorsStandingsAfterRace>();
+			standingsServiceMock.Setup(s => s.GetConstructorsStandingsAfterRace(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetConstructorsStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetConstructorsStandingsAfterRace(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfConstructorsStandingsAfterRaceNotFound()
+		{
+			var raceId = 4;
+			standingsServiceMock.Setup(s => s.GetConstructorsStandingsAfterRace(raceId)).ReturnsAsync((ConstructorsStandingsAfterRace)null);
+
+			var result = await controller.GetConstructorsStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetConstructorsStandingsAfterRace(raceId), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnDriversStandingsAfterRace()
+		{
+			var raceId = 5;
+			var fastestLaps = fixture.Create<DriversStandingsAfterRace>();
+			standingsServiceMock.Setup(s => s.GetDriversStandingsAfterRace(raceId)).ReturnsAsync(fastestLaps);
+
+			var result = await controller.GetDriversStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetDriversStandingsAfterRace(raceId), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(fastestLaps);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfDriversStandingsAfterRaceNotFound()
+		{
+			var raceId = 6;
+			standingsServiceMock.Setup(s => s.GetDriversStandingsAfterRace(raceId)).ReturnsAsync((DriversStandingsAfterRace)null);
+
+			var result = await controller.GetDriversStandingsAfterRace(raceId);
+
+			standingsServiceMock.Verify(s => s.GetDriversStandingsAfterRace(raceId), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
 	}

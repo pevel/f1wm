@@ -11,7 +11,7 @@ namespace F1WM.DatabaseModel.Context
 
 			builder.ToTable("f1seasons");
 
-			builder.HasIndex(e => e.Lastrace)
+			builder.HasIndex(e => e.LastRaceNumber)
 				.HasName("lastrace");
 
 			builder.HasIndex(e => e.RaceCount)
@@ -38,7 +38,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("enginerules")
 				.HasMaxLength(255);
 
-			builder.Property(e => e.Lastrace)
+			builder.Property(e => e.LastRaceNumber)
 				.HasColumnName("lastrace")
 				.HasDefaultValueSql("'0'");
 

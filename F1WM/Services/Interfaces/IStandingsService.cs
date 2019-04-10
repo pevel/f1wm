@@ -8,5 +8,7 @@ namespace F1WM.Services
 	{
 		Task<ConstructorsStandings> GetConstructorsStandings(int count, int? seasonId);
 		Task<DriversStandings> GetDriversStandings(int count, int? seasonId);
+		Task<ConstructorsStandingsAfterRace> GetConstructorsStandingsAfterRace(int raceId);
+		Task<DriversStandingsAfterRace> GetDriversStandingsAfterRace(int raceId);
 	}
 }
