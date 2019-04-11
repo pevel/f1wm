@@ -32,7 +32,12 @@ namespace F1WM.Services
 		{
 			var now = time.Now;
 			return repository.GetTrackRecords(trackId, trackVersion, beforeYear ?? now.Year);
-		}	
+		}
+
+		public Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int? beforeYear)
+		{
+			throw new System.NotImplementedException();
+		}
 
 		public TracksService(ITracksRepository repository, ITimeService time)
 		{

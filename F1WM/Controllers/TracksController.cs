@@ -40,6 +40,17 @@ namespace F1WM.Controllers
 			return this.NotFoundResultIfNull(track);
 		}
 
+		[HttpGet("{trackId}/short-results")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<TrackShortResultsByYears>> GetShortResultsByYears(
+			[FromRoute]int trackId,
+			[FromQuery]int? beforeYear)
+		{
+			var shortResults = await service.GetShortResultsByYears(trackId, beforeYear);
+			return this.NotFoundResultIfNull(shortResults);
+		}
+
 		[HttpGet("{trackId}/versions/{trackVersion}/records")]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
