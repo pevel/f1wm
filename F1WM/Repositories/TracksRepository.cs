@@ -83,13 +83,13 @@ namespace F1WM.Repositories
 
 		public async Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int untilYear)
 		{
-			var years = await GetTrackYears(trackId);
+			var years = await GetTrackYears(trackId, untilYear);
 			if (years.Any())
 			{
 				var raceIds = years.Select(y => y.RaceId);
-				var polePositions = await GetPolePositions(raceIds);
-				var fastestLaps = await GetFastestLaps(raceIds);
-				var winners = await GetWinnersResults(raceIds);
+				var polePositions = await GetPolePositions(raceIds, untilYear);
+				var fastestLaps = await GetFastestLaps(raceIds, untilYear);
+				var winners = await GetWinnersResults(raceIds, untilYear);
 				var results = new TrackShortResultsByYears()
 				{
 					TrackId = trackId,
@@ -115,10 +115,10 @@ namespace F1WM.Repositories
 			this.context = context;
 		}
 
-		private async Task<IEnumerable<TrackYearSummary>> GetTrackYears(int trackId)
+		private async Task<IEnumerable<TrackYearSummary>> GetTrackYears(int trackId, int untilYear)
 		{
 			return await context.Races
-				.Where(r => r.TrackId == trackId)
+				.Where(r => r.TrackId == trackId && r.Date.Year <= untilYear)
 				.Select(r => new TrackYearSummary()
 				{
 					Id = r.TrackId,
@@ -129,24 +129,27 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private Task<List<TrackRaceResultSummaryByYear>> GetWinnersResults(IEnumerable<uint> raceIds)
+		private Task<List<TrackRaceResultSummaryByYear>> GetWinnersResults(IEnumerable<uint> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackRaceResultSummaryByYear>(context.Results
-					.Where(r => r.PositionOrStatus == "1" && raceIds.Contains(r.RaceId)))
+					.Where(r => r.PositionOrStatus == "1" && raceIds.Contains(r.RaceId))
+					.Where(r => r.Race.Date.Year <= untilYear))
 				.ToListAsync();
 		}
 
-		private Task<List<TrackLapResultSummaryByYear>> GetFastestLaps(IEnumerable<uint> raceIds)
+		private Task<List<TrackLapResultSummaryByYear>> GetFastestLaps(IEnumerable<uint> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.FastestLaps
-					.Where(f => f.PositionOrStatus == "1" && raceIds.Contains(f.RaceId)))
+					.Where(f => f.PositionOrStatus == "1" && raceIds.Contains(f.RaceId))
+					.Where(r => r.Race.Date.Year <= untilYear))
 				.ToListAsync();
 		}
 
-		private Task<List<TrackLapResultSummaryByYear>> GetPolePositions(IEnumerable<uint> raceIds)
+		private Task<List<TrackLapResultSummaryByYear>> GetPolePositions(IEnumerable<uint> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.Grids
-					.Where(g => g.StartPositionOrStatus == "1" && raceIds.Contains(g.RaceId)))
+					.Where(g => g.StartPositionOrStatus == "1" && raceIds.Contains(g.RaceId))
+					.Where(r => r.Race.Date.Year <= untilYear))
 				.ToListAsync();
 		}
 
