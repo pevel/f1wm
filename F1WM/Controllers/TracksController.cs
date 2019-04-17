@@ -45,9 +45,9 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<TrackShortResultsByYears>> GetShortResultsByYears(
 			[FromRoute]int trackId,
-			[FromQuery]int? beforeYear)
+			[FromQuery]int? untilYear)
 		{
-			var shortResults = await service.GetShortResultsByYears(trackId, beforeYear);
+			var shortResults = await service.GetShortResultsByYears(trackId, untilYear);
 			return this.NotFoundResultIfNull(shortResults);
 		}
 

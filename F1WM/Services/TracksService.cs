@@ -36,7 +36,8 @@ namespace F1WM.Services
 
 		public Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int? beforeYear)
 		{
-			throw new System.NotImplementedException();
+			var now = time.Now;
+			return repository.GetShortResultsByYears(trackId, beforeYear ?? now.Year);
 		}
 
 		public TracksService(ITracksRepository repository, ITimeService time)

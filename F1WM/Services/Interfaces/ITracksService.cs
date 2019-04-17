@@ -10,6 +10,6 @@ namespace F1WM.Services
 		Task<PagedResult<Track>> GetTracks(uint page, uint countPerPage);
 		Task<PagedResult<Track>> GetTracksByStatus(byte statusId, uint page, uint countPerPage);
 		Task<TrackDetails> GetTrack(int id, int? atYear);
-		Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int? beforeYear);
+		Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int? untilYear);
 	}
 }

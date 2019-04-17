@@ -8,6 +8,8 @@ using AutoMapper;
 using System.Linq.Expressions;
 using F1WM.DatabaseModel.Constants;
 using F1WM.Utilities;
+using F1WM.DomainModel;
+using System.Collections.Generic;
 
 namespace F1WM.Repositories
 {
@@ -79,10 +81,73 @@ namespace F1WM.Repositories
 			return dbTracks.GetPagedResult<DatabaseModel.Track, ApiModel.Track>(mapper, page, countPerPage);
 		}
 
+		public async Task<TrackShortResultsByYears> GetShortResultsByYears(int trackId, int untilYear)
+		{
+			var years = await GetTrackYears(trackId);
+			if (years.Any())
+			{
+				var raceIds = years.Select(y => y.RaceId);
+				var polePositions = await GetPolePositions(raceIds);
+				var fastestLaps = await GetFastestLaps(raceIds);
+				var winners = await GetWinnersResults(raceIds);
+				var results = new TrackShortResultsByYears()
+				{
+					TrackId = trackId,
+					CurrentTrackVersion = years.OrderByDescending(y => y.Year).First().TrackVersion
+				};
+				results.Results = years.Select(y => new TrackShortResultsByYear()
+				{
+					Year = y.Year,
+					TrackVersion = y.TrackVersion,
+					PolePositionLapResult = polePositions.SingleOrDefault(p => p.Year == y.Year),
+					WinnerRaceResult = winners.SingleOrDefault(w => w.Year == y.Year),
+					FastestLapResults = fastestLaps.Where(f => f.Year == y.Year)
+				})
+				.Where(r => r.FastestLapResults.Any() || r.PolePositionLapResult != null || r.WinnerRaceResult != null);
+				return results;
+			}
+			return null;
+		}
+
 		public TracksRepository(F1WMContext context, IMapper mapper)
 		{
 			this.mapper = mapper;
 			this.context = context;
+		}
+
+		private async Task<IEnumerable<TrackYearSummary>> GetTrackYears(int trackId)
+		{
+			return await context.Races
+				.Where(r => r.TrackId == trackId)
+				.Select(r => new TrackYearSummary()
+				{
+					Id = r.TrackId,
+					RaceId = r.Id,
+					Year = r.Season.Year,
+					TrackVersion = r.TrackVersion
+				})
+				.ToListAsync();
+		}
+
+		private Task<List<TrackRaceResultSummaryByYear>> GetWinnersResults(IEnumerable<uint> raceIds)
+		{
+			return mapper.ProjectTo<TrackRaceResultSummaryByYear>(context.Results
+					.Where(r => r.PositionOrStatus == "1" && raceIds.Contains(r.RaceId)))
+				.ToListAsync();
+		}
+
+		private Task<List<TrackLapResultSummaryByYear>> GetFastestLaps(IEnumerable<uint> raceIds)
+		{
+			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.FastestLaps
+					.Where(f => f.PositionOrStatus == "1" && raceIds.Contains(f.RaceId)))
+				.ToListAsync();
+		}
+
+		private Task<List<TrackLapResultSummaryByYear>> GetPolePositions(IEnumerable<uint> raceIds)
+		{
+			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.Grids
+					.Where(g => g.StartPositionOrStatus == "1" && raceIds.Contains(g.RaceId)))
+				.ToListAsync();
 		}
 
 		private FastestQualifyingLapResultSummary GetFastestQualifyingLap(Qualifying newFormat, Grid oldFormat)
@@ -96,6 +161,7 @@ namespace F1WM.Repositories
 				return mapper.Map<FastestQualifyingLapResultSummary>(newFormat);
 			}
 		}
+
 		private async Task<FastestLap> GetFastestLap(int trackId, int trackVersion, int beforeYear)
 		{
 			return await context.FastestLaps
