@@ -161,5 +161,31 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.GetTrack(id, null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
 		}
+
+		[Fact]
+		public async Task ShouldReturnTrackShortResultsByYears()
+		{
+			int id = 12345;
+			var results = fixture.Create<TrackShortResultsByYears>();
+			serviceMock.Setup(s => s.GetShortResultsByYears(id, null)).ReturnsAsync(results);
+
+			var result = await controller.GetShortResultsByYears(id, null);
+
+			serviceMock.Verify(s => s.GetShortResultsByYears(id, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(results);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfTrackResultsNotFound()
+		{
+			int id = 54321;
+			serviceMock.Setup(s => s.GetShortResultsByYears(id, null)).ReturnsAsync((TrackShortResultsByYears)null);
+
+			var result = await controller.GetShortResultsByYears(id, null);
+
+			serviceMock.Verify(s => s.GetShortResultsByYears(id, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
 	}
 }
