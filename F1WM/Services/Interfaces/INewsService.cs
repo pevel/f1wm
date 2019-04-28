@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -16,5 +17,6 @@ namespace F1WM.Services
 		Task<IEnumerable<NewsTagCategory>> GetNewsTagCategories();
 		Task<IEnumerable<ImportantNewsSummary>> GetImportantNews();
 		Task<bool> IncrementViews(int id);
+		Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime? before, int? count);
 	}
 }

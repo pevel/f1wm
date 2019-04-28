@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -91,6 +92,11 @@ namespace F1WM.Services
 		{
 			var success = await newsRepository.IncrementViews(id);
 			return success;
+		}
+
+		public async Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime? before, int? count)
+		{
+			return await newsRepository.GetRelatedNews(newsId, before ?? DateTime.Now, count ?? 5);
 		}
 
 		public NewsService(INewsRepository newsRepository, IConfigTextRepository configTextRepository, IBBCodeParser bbCodeParser)
