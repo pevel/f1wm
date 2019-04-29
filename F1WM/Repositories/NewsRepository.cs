@@ -135,21 +135,21 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime before, int count)
 		{
-			var tags = await context.News
-				.Include(x => x.Tags)
+			var tagId = await context.News
 				.Where(x => (int)x.Id == newsId)
-				.OrderByDescending(x => x.Date)
+				.Select(x=>x.MainTagId)
+				.SingleAsync();
+			
+			var result = await mapper.ProjectTo<NewsSummary>(
+					context.News
+						.Where(x => x.Date < before
+						            && x.MainTagId == tagId
+						            && x.Id != newsId)
+						.OrderByDescending(x => x.Date)
+						.Take(count))
 				.ToListAsync();
-
-			var test = tags.Select(x => x.Tags);
-			var news = await context.News
-				.Include(x=>x.Tags)
-				.Where(x => test.Contains(x.Tags) && x.Date < before)
-				.Select(x=>x.Date)
-				.Distinct()
-				.Take(count)
-				.ToListAsync();
-			return new List<NewsSummary>();
+			
+			return result.Count > 0 ? result : null;
 		}
 
 		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)
