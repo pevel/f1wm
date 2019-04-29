@@ -30,7 +30,11 @@ namespace F1WM.UnitTests.Services
 			configTextRepositoryMock = new Mock<IConfigTextRepository>();
 			parserMock = new Mock<IBBCodeParser>();
 			timeServiceMock = new Mock<ITimeService>();
-			service = new NewsService(newsRepositoryMock.Object, configTextRepositoryMock.Object, parserMock.Object);
+			service = new NewsService(
+				newsRepositoryMock.Object,
+				configTextRepositoryMock.Object,
+				parserMock.Object,
+				timeServiceMock.Object);
 		}
 
 		[Fact]

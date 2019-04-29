@@ -18,6 +18,7 @@ namespace F1WM.Services
 		private readonly INewsRepository newsRepository;
 		private readonly IConfigTextRepository configTextRepository;
 		private readonly IBBCodeParser bBCodeParser;
+		private readonly ITimeService time;
 
 		public Task<PagedResult<NewsSummary>> GetLatestNews(int? firstId, uint page, uint countPerPage)
 		{
@@ -41,7 +42,7 @@ namespace F1WM.Services
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
-				using (StringReader reader = new StringReader(configText.Value))
+				using(StringReader reader = new StringReader(configText.Value))
 				{
 					string line;
 					while ((line = reader.ReadLine()) != null)
@@ -49,7 +50,7 @@ namespace F1WM.Services
 						summaries.Add(line.ParseImportantNews());
 					}
 				}
-				foreach (var news in await newsRepository.GetNews(summaries.Select(s => (uint)s.Id).ToList()))
+				foreach (var news in await newsRepository.GetNews(summaries.Select(s => (uint) s.Id).ToList()))
 				{
 					summaries.First(s => s.Id == news.Id).Title = news.Title;
 				}
@@ -96,14 +97,19 @@ namespace F1WM.Services
 
 		public async Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime? before, int? count)
 		{
-			return await newsRepository.GetRelatedNews(newsId, before ?? DateTime.Now, count ?? 5);
+			return await newsRepository.GetRelatedNews(newsId, before ?? time.Now, count ?? 5);
 		}
 
-		public NewsService(INewsRepository newsRepository, IConfigTextRepository configTextRepository, IBBCodeParser bbCodeParser)
+		public NewsService(
+			INewsRepository newsRepository,
+			IConfigTextRepository configTextRepository,
+			IBBCodeParser bbCodeParser,
+			ITimeService time)
 		{
 			this.newsRepository = newsRepository;
 			this.configTextRepository = configTextRepository;
 			this.bBCodeParser = bbCodeParser;
+			this.time = time;
 		}
 	}
 }
