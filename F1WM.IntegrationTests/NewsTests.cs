@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -50,7 +51,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-related.json")]
 		public async Task ShouldGetRelatedNews(RelatedNewsTestData data)
 		{
-			await TestResponse<IEnumerable<NewsSummary>>($"{baseAddress}/news/related/44757?before=2019-04-28?count=5", data.Expected);
+			await TestResponse<IEnumerable<NewsSummary>>($"{baseAddress}/news/related/{data.NewsId}?before={data.Before}?count={data.Count}", data.Expected);
 		}
 		
 		[Fact]
@@ -206,6 +207,9 @@ namespace F1WM.IntegrationTests
 
 		public class RelatedNewsTestData
 		{
+			public int NewsId { get; set; }
+			public DateTime Before { get; set; }
+			public int Count { get; set; }
 			public IEnumerable<NewsSummary> Expected { get; set; }
 		}
 

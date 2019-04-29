@@ -1,57 +1,64 @@
 [
   {
-    "commentCount": 0,
-    "isHighlighted": false,
-    "typeId": 1,
-    "mainTagId": 122,
-    "mainTagIcon": "/img/ikony/5_wil.gif",
-    "id": 44678,
-    "date": "2019-03-07T18:23:03",
-    "title": "AMuS: Williams otrzymał zgodę na budowę \"próbnego\" bolidu dla Pirelli",
-    "subtitle": "Włoski dostawca chce jak najlepiej przygotować się do zmian w regulaminie na sezon 2021."
-  },
-  {
-    "commentCount": 0,
-    "isHighlighted": false,
-    "typeId": 1,
-    "mainTagId": 122,
-    "mainTagIcon": "/img/ikony/5_wil.gif",
-    "id": 44676,
-    "date": "2019-03-07T12:42:16",
-    "title": "Rob Smedley zostanie nowym dyrektorem technicznym Williamsa?",
-    "subtitle": "W środę zespół potwierdził, że tuż przed startem sezonu Paddy Lowe udał się na urlop"
-  },
-  {
-    "commentCount": 0,
-    "isHighlighted": true,
-    "typeId": 1,
-    "mainTagId": 122,
-    "mainTagIcon": "/img/ikony/5_wil.gif",
-    "id": 44671,
-    "date": "2019-03-06T21:41:21",
-    "title": "Paddy Lowe znalazł się na urlopie tuż przed startem sezonu 2019",
-    "subtitle": "Williams potwierdził, że dyrektor techniczny zdecydował się na ten krok z przyczyn osobistych."
-  },
-  {
-    "commentCount": 34,
-    "isHighlighted": false,
-    "typeId": 1,
-    "mainTagId": 122,
-    "mainTagIcon": "/img/ikony/5_wil.gif",
-    "id": 44644,
-    "date": "2019-03-01T19:32:12",
-    "title": "Lowe: Zużycie części uniemożliwiło realizację popołudniowego programu",
-    "subtitle": "\"Generalnie bolid nie jest w najlepszej formie. To wpłynęło na nasze wyniki\"."
-  },
-  {
-    "commentCount": 3,
-    "isHighlighted": true,
-    "typeId": 1,
-    "mainTagId": 122,
-    "mainTagIcon": "/img/ikony/5_wil.gif",
-    "id": 44593,
-    "date": "2019-02-22T09:09:20",
-    "title": "Williams zorganizuje w piątek dzień filmowy z bolidem FW42",
-    "subtitle": "Na torze pojawią się także konstrukcje McLarena i Racing Point."
+    "newsId": 44757,
+    "before": "2019-04-28",
+    "count": 5,
+    "expected": [
+      {
+        "commentCount": 0,
+        "isHighlighted": false,
+        "typeId": 1,
+        "mainTagId": 122,
+        "mainTagIcon": "/img/ikony/5_wil.gif",
+        "id": 44678,
+        "date": "2019-03-07T18:23:03",
+        "title": "AMuS: Williams otrzymał zgodę na budowę \"próbnego\" bolidu dla Pirelli",
+        "subtitle": "Włoski dostawca chce jak najlepiej przygotować się do zmian w regulaminie na sezon 2021."
+      },
+      {
+        "commentCount": 0,
+        "isHighlighted": false,
+        "typeId": 1,
+        "mainTagId": 122,
+        "mainTagIcon": "/img/ikony/5_wil.gif",
+        "id": 44676,
+        "date": "2019-03-07T12:42:16",
+        "title": "Rob Smedley zostanie nowym dyrektorem technicznym Williamsa?",
+        "subtitle": "W środę zespół potwierdził, że tuż przed startem sezonu Paddy Lowe udał się na urlop"
+      },
+      {
+        "commentCount": 0,
+        "isHighlighted": true,
+        "typeId": 1,
+        "mainTagId": 122,
+        "mainTagIcon": "/img/ikony/5_wil.gif",
+        "id": 44671,
+        "date": "2019-03-06T21:41:21",
+        "title": "Paddy Lowe znalazł się na urlopie tuż przed startem sezonu 2019",
+        "subtitle": "Williams potwierdził, że dyrektor techniczny zdecydował się na ten krok z przyczyn osobistych."
+      },
+      {
+        "commentCount": 34,
+        "isHighlighted": false,
+        "typeId": 1,
+        "mainTagId": 122,
+        "mainTagIcon": "/img/ikony/5_wil.gif",
+        "id": 44644,
+        "date": "2019-03-01T19:32:12",
+        "title": "Lowe: Zużycie części uniemożliwiło realizację popołudniowego programu",
+        "subtitle": "\"Generalnie bolid nie jest w najlepszej formie. To wpłynęło na nasze wyniki\"."
+      },
+      {
+        "commentCount": 3,
+        "isHighlighted": true,
+        "typeId": 1,
+        "mainTagId": 122,
+        "mainTagIcon": "/img/ikony/5_wil.gif",
+        "id": 44593,
+        "date": "2019-02-22T09:09:20",
+        "title": "Williams zorganizuje w piątek dzień filmowy z bolidem FW42",
+        "subtitle": "Na torze pojawią się także konstrukcje McLarena i Racing Point."
+      }
+    ]
   }
 ]
