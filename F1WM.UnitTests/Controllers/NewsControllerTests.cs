@@ -1,9 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.Controllers;
 using F1WM.Services;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -14,11 +16,13 @@ namespace F1WM.UnitTests.Controllers
 	{
 		private NewsController controller;
 		private Mock<INewsService> serviceMock;
+		private Fixture fixture;
 
 		public NewsControllerTests()
 		{
 			serviceMock = new Mock<INewsService>();
 			controller = new NewsController(serviceMock.Object);
+			fixture = new Fixture();
 		}
 
 		[Fact]
@@ -243,5 +247,30 @@ namespace F1WM.UnitTests.Controllers
 			Assert.Empty(result.Result);
 		}
 
+		[Fact]
+		public async Task ShouldReturnRelatedById()
+		{
+			int id = 12345;
+			var results = fixture.Create<IEnumerable<NewsSummary>>();
+			serviceMock.Setup(s => s.GetRelatedNews(id, null, null)).ReturnsAsync(results);
+
+			var result = await controller.GetRelatedNews(id, null, null);
+
+			serviceMock.Verify(s => s.GetRelatedNews(id, null, null), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(results);
+		}
+
+		[Fact]
+		public async Task ShouldReturn404IfRelatedNewsNotFound()
+		{
+			var id = 54321;
+			serviceMock.Setup(s => s.GetRelatedNews(id, null, null)).ReturnsAsync((IEnumerable<NewsSummary>) null);
+
+			var result = await controller.GetRelatedNews(id, null, null);
+
+			serviceMock.Verify(s => s.GetRelatedNews(id, null, null), Times.Once);
+			Assert.IsType<NotFoundResult>(result.Result);
+		}
 	}
 }

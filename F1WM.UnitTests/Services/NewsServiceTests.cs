@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace F1WM.UnitTests.Services
  		private Mock<INewsRepository> newsRepositoryMock;
 		private Mock<IConfigTextRepository> configTextRepositoryMock;
 		private Mock<IBBCodeParser> parserMock;
+		private Mock<ITimeService> timeServiceMock;
 
 		public NewsServiceTests()
 		{
@@ -27,7 +29,12 @@ namespace F1WM.UnitTests.Services
 			newsRepositoryMock = new Mock<INewsRepository>();
 			configTextRepositoryMock = new Mock<IConfigTextRepository>();
 			parserMock = new Mock<IBBCodeParser>();
-			service = new NewsService(newsRepositoryMock.Object, configTextRepositoryMock.Object, parserMock.Object);
+			timeServiceMock = new Mock<ITimeService>();
+			service = new NewsService(
+				newsRepositoryMock.Object,
+				configTextRepositoryMock.Object,
+				parserMock.Object,
+				timeServiceMock.Object);
 		}
 
 		[Fact]
@@ -143,5 +150,22 @@ namespace F1WM.UnitTests.Services
 
 			newsRepositoryMock.Verify(r => r.IncrementViews(id), Times.Once);
 		}
+		
+		[Fact]
+		public async Task ShouldGetRelatedNews()
+		{
+			var id = 44757;
+			var now = new DateTime(1992, 10, 14);
+			var count = 5;
+			
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			var news = fixture.Create<IEnumerable<NewsSummary>>();
+			newsRepositoryMock.Setup(r => r.GetRelatedNews(id, now, count)).ReturnsAsync(news);
+			
+			await service.GetRelatedNews(id, now, count);
+
+			newsRepositoryMock.Verify(r => r.GetRelatedNews(id, now, count), Times.Once);
+		}
+
 	}
 }
