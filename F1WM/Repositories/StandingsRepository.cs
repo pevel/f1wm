@@ -51,9 +51,16 @@ namespace F1WM.Repositories
 		{
 			var constraints = context.Races
 				.Where(r => r.Id == raceId)
-				.Select(r => new { r.SeasonId, r.Date, IsFirst = r.OrderInSeason == 1 })
+				.Include(r => r.Entries)
+				.Select(r => new
+				{
+					r.SeasonId,
+					r.Date,
+					IsFirst = r.OrderInSeason == 1,
+					HasResults = r.Entries.Any()
+				})
 				.SingleOrDefault();
-			if (constraints != null)
+			if (constraints != null && constraints.HasResults)
 			{
 				var model = new ConstructorsStandingsAfterRace() { RaceId = raceId };
 				model.Positions = await GetConstructorsStandingsAfterRace(
@@ -67,9 +74,16 @@ namespace F1WM.Repositories
 		{
 			var constraints = await context.Races
 				.Where(r => r.Id == raceId)
-				.Select(r => new { r.SeasonId, r.Date, IsFirst = r.OrderInSeason == 1 })
+				.Include(r => r.Entries)
+				.Select(r => new
+				{
+					r.SeasonId,
+					r.Date,
+					IsFirst = r.OrderInSeason == 1,
+					HasResults = r.Entries.Any()
+				})
 				.SingleOrDefaultAsync();
-			if (constraints != null)
+			if (constraints != null && constraints.HasResults)
 			{
 				var model = new DriversStandingsAfterRace() { RaceId = raceId };
 				model.Positions = await GetDriversStandingsAfterRace(
