@@ -9,45 +9,51 @@ namespace F1WM.Services
 {
 	public class BroadcastsService : IBroadcastsService
 	{
-		private readonly IBroadcastsRepository repository;
+		private readonly IBroadcastsRepository broadcastsRepository;
+		private readonly ISeasonsRepository seasonsRepository;
 		private readonly ITimeService time;
 
 		public Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request)
 		{
-			return repository.AddBroadcasts(request);
+			return broadcastsRepository.AddBroadcasts(request);
 		}
 
 		public Task<Broadcaster> AddBroadcaster(BroadcasterAddRequest request)
 		{
-			return repository.AddBroadcaster(request);
+			return broadcastsRepository.AddBroadcaster(request);
 		}
 
 		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
-			var broadcasters = await repository.GetBroadcasters();
+			var broadcasters = await broadcastsRepository.GetBroadcasters();
 			broadcasters.ToList().ForEach(b => b.Broadcasts = null);
 			return broadcasters;
 		}
 
-		public Task<BroadcastsInformation> GetNextBroadcasts(DateTime? after = null)
+		public async Task<BroadcastsInformation> GetNextBroadcasts(DateTime? after = null)
 		{
-			after = after ?? time.Now;
-			return repository.GetBroadcastsAfter(after.Value);
+			return after != null
+				? await broadcastsRepository.GetBroadcastsAfter(after.Value)
+				: await broadcastsRepository.GetNextBroadcasts(await seasonsRepository.GetCurrentSeasonRaces(time.Now));
 		}
 
 		public Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
-			return repository.GetSessionTypes();
+			return broadcastsRepository.GetSessionTypes();
 		}
 
 		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request)
 		{
-			return repository.AddSessionType(request);
+			return broadcastsRepository.AddSessionType(request);
 		}
 
-		public BroadcastsService(IBroadcastsRepository repository, ITimeService time)
+		public BroadcastsService(
+			IBroadcastsRepository broadcastsRepository,
+			ISeasonsRepository seasonsRepository,
+			ITimeService time)
 		{
-			this.repository = repository;
+			this.broadcastsRepository = broadcastsRepository;
+			this.seasonsRepository = seasonsRepository;
 			this.time = time;
 		}
 	}
