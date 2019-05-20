@@ -14,9 +14,8 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public async Task<NextRaceSummary> GetNextRace(DateTime now)
+		public async Task<NextRaceSummary> GetNextRace(SeasonRaces currentSeason)
 		{
-			SeasonRaces currentSeason = await GetCurrentSeason(now);
 			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != currentSeason.RaceCount;
 			if (currentSeason != null)
 			{
@@ -27,7 +26,7 @@ namespace F1WM.Repositories
 				}
 				else
 				{
-					filter = r => r.Season.Year == now.Year + 1 && r.OrderInSeason == 1;
+					filter = r => r.Season.Year == currentSeason.Year + 1 && r.OrderInSeason == 1;
 				}
 				var dbNextRace = await context.Races
 					.OrderBy(r => r.Date)
@@ -46,9 +45,8 @@ namespace F1WM.Repositories
 			return null;
 		}
 
-		public async Task<LastRaceSummary> GetMostRecentRace(DateTime now)
+		public async Task<LastRaceSummary> GetMostRecentRace(SeasonRaces currentSeason)
 		{
-			SeasonRaces currentSeason = await GetCurrentSeason(now);
 			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != 0;
 			if (currentSeason != null)
 			{
@@ -59,7 +57,7 @@ namespace F1WM.Repositories
 				}
 				else
 				{
-					filter = r => r.Season.Year == now.Year - 1 && r.OrderInSeason == r.Season.RaceCount;
+					filter = r => r.Season.Year == currentSeason.Year - 1 && r.OrderInSeason == r.Season.RaceCount;
 				}
 				var dbLastRace = await context.Races
 					.OrderByDescending(r => r.Date)
@@ -181,13 +179,6 @@ namespace F1WM.Repositories
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleOrDefaultAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult?.Entry);
-		}
-
-		private async Task<SeasonRaces> GetCurrentSeason(DateTime now)
-		{
-			return await mapper.ProjectTo<SeasonRaces>(context.Seasons
-					.Where(s => s.Year == now.Year))
-				.FirstOrDefaultAsync();
 		}
 	}
 }
