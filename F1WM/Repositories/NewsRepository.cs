@@ -133,6 +133,25 @@ namespace F1WM.Repositories
 			return true;
 		}
 
+		public async Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime before, int count)
+		{
+			var tagId = await context.News
+				.Where(x => (int)x.Id == newsId)
+				.Select(x=>x.MainTagId)
+				.SingleAsync();
+			
+			var result = await mapper.ProjectTo<NewsSummary>(
+					context.News
+						.Where(x => x.Date < before
+						            && x.MainTagId == tagId
+						            && x.Id != newsId)
+						.OrderByDescending(x => x.Date)
+						.Take(count))
+				.ToListAsync();
+			
+			return result.Count > 0 ? result : null;
+		}
+
 		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)
 		{
 			var resultType = Constants.ResultTypeToLinkType[link.ResultType];

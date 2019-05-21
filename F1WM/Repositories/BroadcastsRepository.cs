@@ -1,8 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using F1WM.DatabaseModel;
+using F1WM.DomainModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 using Api = F1WM.ApiModel;
 using Database = F1WM.DatabaseModel;
@@ -48,6 +52,21 @@ namespace F1WM.Repositories
 				.OrderBy(r => r.Date)
 				.FirstOrDefaultAsync(r => r.Date > now);
 			return mapper.Map<Api.BroadcastsInformation>(dbRace);
+		}
+
+		public async Task<Api.BroadcastsInformation> GetNextBroadcasts(SeasonRaces currentSeason)
+		{
+			if (currentSeason != null)
+			{
+				Expression<Func<Race, bool>> filter = currentSeason.GetNextRaceFilter();
+				var dbRace = await context.Races
+					.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
+					.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Type)
+					.OrderBy(r => r.Date)
+					.FirstOrDefaultAsync(filter);
+				return mapper.Map<Api.BroadcastsInformation>(dbRace);
+			}
+			return null;
 		}
 
 		public async Task<IEnumerable<Api.BroadcastSessionType>> GetSessionTypes()

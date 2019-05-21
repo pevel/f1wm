@@ -42,6 +42,15 @@ namespace F1WM.IntegrationTests
 				data.Expected);
 		}
 
+		[Theory]
+		[JsonData("tracks", "track-short-results-by-years.json")]
+		public async Task ShouldGetTrackShortResultsByYears(TrackShortResultsByYearsTestData data)
+		{
+			await TestResponse<TrackShortResultsByYears>(
+				$"{baseAddress}/tracks/{data.TrackId}/short-results?untilYear={data.UntilYear}",
+				data.Expected);
+		}
+
 		public class TrackRecordsTestData
 		{
 			public int TrackId { get; set; }
@@ -63,6 +72,13 @@ namespace F1WM.IntegrationTests
 			public int TrackId { get; set; }
 			public int AtYear { get; set; }
 			public TrackDetails Expected { get; set; }
+		}
+
+		public class TrackShortResultsByYearsTestData
+		{
+			public int TrackId { get; set; }
+			public int UntilYear { get; set; }
+			public TrackShortResultsByYears Expected { get; set; }
 		}
 	}
 }

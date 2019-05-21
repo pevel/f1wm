@@ -98,5 +98,34 @@ namespace F1WM.UnitTests.Services
 			repositoryMock.Verify(r => r.GetTrack(id, year), Times.Once);
 			actual.Should().BeEquivalentTo(track);
 		}
+
+		[Fact]
+		public async Task ShouldGetTrackShortResultsUntilCurrentYear()
+		{
+			var trackId = 1111;
+			var year = 1992;
+			var results = fixture.Create<TrackShortResultsByYears>();
+			timeServiceMock.SetupGet(t => t.Now).Returns(new DateTime(year, 1, 1));
+			repositoryMock.Setup(r => r.GetShortResultsByYears(trackId, year)).ReturnsAsync(results);
+
+			var actual = await service.GetShortResultsByYears(trackId, null);
+
+			repositoryMock.Verify(r => r.GetShortResultsByYears(trackId, year), Times.Once);
+			actual.Should().BeEquivalentTo(results);
+		}
+
+		[Fact]
+		public async Task ShouldGetTrackShortResultsUntilSpecifiedYear()
+		{
+			var trackId = 3333;
+			var year = 1992;
+			var results = fixture.Create<TrackShortResultsByYears>();
+			repositoryMock.Setup(r => r.GetShortResultsByYears(trackId, year)).ReturnsAsync(results);
+
+			var actual = await service.GetShortResultsByYears(trackId, year);
+
+			repositoryMock.Verify(r => r.GetShortResultsByYears(trackId, year), Times.Once);
+			actual.Should().BeEquivalentTo(results);
+		}
 	}
 }

@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using AutoFixture;
 using F1WM.ApiModel;
+using F1WM.DomainModel;
 using F1WM.Repositories;
 using F1WM.Services;
 using FluentAssertions;
@@ -16,6 +17,7 @@ namespace F1WM.UnitTests.Services
 		private Fixture fixture;
 		private Mock<IRacesRepository> racesRepositoryMock;
 		private Mock<IResultsRepository> resultsRepositoryMock;
+		private Mock<ISeasonsRepository> seasonsRepositoryMock;
 		private Mock<ITimeService> timeServiceMock;
 
 		public RacesServiceTests()
@@ -23,10 +25,12 @@ namespace F1WM.UnitTests.Services
 			fixture = new Fixture();
 			racesRepositoryMock = new Mock<IRacesRepository>();
 			resultsRepositoryMock = new Mock<IResultsRepository>();
+			seasonsRepositoryMock = new Mock<ISeasonsRepository>();
 			timeServiceMock = new Mock<ITimeService>();
 			service = new RacesService(
 				racesRepositoryMock.Object,
 				resultsRepositoryMock.Object,
+				seasonsRepositoryMock.Object,
 				timeServiceMock.Object);
 		}
 
@@ -57,11 +61,13 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetNextRaceAfterNow()
 		{
 			var now = new DateTime(1992, 10, 14);
+			var seasonRaces = fixture.Create<SeasonRaces>();
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			seasonsRepositoryMock.Setup(s => s.GetCurrentSeasonRaces(now)).ReturnsAsync(seasonRaces);
 
 			await service.GetNextRace();
 
-			racesRepositoryMock.Verify(r => r.GetNextRace(now), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetNextRace(seasonRaces), Times.Once);
 		}
 
 		[Fact]
@@ -69,12 +75,14 @@ namespace F1WM.UnitTests.Services
 		{
 			var raceId = 111;
 			var now = new DateTime(1992, 10, 14);
+			var seasonRaces = fixture.Create<SeasonRaces>();
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
-			racesRepositoryMock.Setup(r => r.GetMostRecentRace(now)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
+			seasonsRepositoryMock.Setup(s => s.GetCurrentSeasonRaces(now)).ReturnsAsync(seasonRaces);
+			racesRepositoryMock.Setup(r => r.GetMostRecentRace(seasonRaces)).ReturnsAsync(new LastRaceSummary() { Id = raceId });
 
 			await service.GetLastRace();
 
-			racesRepositoryMock.Verify(r => r.GetMostRecentRace(now), Times.Once);
+			racesRepositoryMock.Verify(r => r.GetMostRecentRace(seasonRaces), Times.Once);
 			resultsRepositoryMock.Verify(r => r.GetShortRaceResult(raceId), Times.Once);
 		}
 

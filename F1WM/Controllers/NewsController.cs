@@ -87,5 +87,15 @@ namespace F1WM.Controllers
 		{
 			this.service = service;
 		}
+
+		[HttpGet("related/{newsId}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<IEnumerable<NewsSummary>>> GetRelatedNews(int newsId, [FromQuery] DateTime? before, [FromQuery] int? count)
+		{
+			var news = await service.GetRelatedNews(newsId, before, count);
+			return this.NotFoundResultIfNull(news);
+		}
+
 	}
 }

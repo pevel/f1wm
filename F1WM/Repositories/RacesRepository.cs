@@ -6,6 +6,7 @@ using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DomainModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -14,21 +15,11 @@ namespace F1WM.Repositories
 	{
 		private readonly IMapper mapper;
 
-		public async Task<NextRaceSummary> GetNextRace(DateTime now)
+		public async Task<NextRaceSummary> GetNextRace(SeasonRaces currentSeason)
 		{
-			SeasonRaces currentSeason = await GetCurrentSeason(now);
-			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != currentSeason.RaceCount;
 			if (currentSeason != null)
 			{
-				Expression<Func<Race, bool>> filter;
-				if (shouldSearchInCurrentSeason)
-				{
-					filter = r => r.SeasonId == currentSeason.Id && r.OrderInSeason == currentSeason.LastRaceNumber + 1;
-				}
-				else
-				{
-					filter = r => r.Season.Year == now.Year + 1 && r.OrderInSeason == 1;
-				}
+				Expression<Func<Race, bool>> filter = currentSeason.GetNextRaceFilter();
 				var dbNextRace = await context.Races
 					.OrderBy(r => r.Date)
 					.Include(r => r.Track)
@@ -46,21 +37,11 @@ namespace F1WM.Repositories
 			return null;
 		}
 
-		public async Task<LastRaceSummary> GetMostRecentRace(DateTime now)
+		public async Task<LastRaceSummary> GetMostRecentRace(SeasonRaces currentSeason)
 		{
-			SeasonRaces currentSeason = await GetCurrentSeason(now);
-			bool shouldSearchInCurrentSeason = currentSeason.LastRaceNumber != 0;
 			if (currentSeason != null)
 			{
-				Expression<Func<Race, bool>> filter;
-				if (shouldSearchInCurrentSeason)
-				{
-					filter = r => r.SeasonId == currentSeason.Id && r.OrderInSeason == currentSeason.LastRaceNumber;
-				}
-				else
-				{
-					filter = r => r.Season.Year == now.Year - 1 && r.OrderInSeason == r.Season.RaceCount;
-				}
+				Expression<Func<Race, bool>> filter = currentSeason.GetMostRecentRaceFilter();
 				var dbLastRace = await context.Races
 					.OrderByDescending(r => r.Date)
 					.Include(r => r.Track)
@@ -181,13 +162,6 @@ namespace F1WM.Repositories
 				.Include(g => g.Entry).ThenInclude(e => e.Driver)
 				.SingleOrDefaultAsync(g => g.Race.Id == dbLastRace.Id && g.StartPositionOrStatus == "1");
 			apiLastRace.PolePositionLapResult = mapper.Map<LapResultSummary>(dbPolePositionResult?.Entry);
-		}
-
-		private async Task<SeasonRaces> GetCurrentSeason(DateTime now)
-		{
-			return await mapper.ProjectTo<SeasonRaces>(context.Seasons
-					.Where(s => s.Year == now.Year))
-				.FirstOrDefaultAsync();
 		}
 	}
 }
