@@ -14,15 +14,20 @@ namespace F1WM.UnitTests.Services
 	{
 		private BroadcastsService service;
 		private Fixture fixture;
-		private Mock<IBroadcastsRepository> repositoryMock;
+		private Mock<IBroadcastsRepository> broadcastsRepositoryMock;
+		private Mock<ISeasonsRepository> seasonsRepositoryMock;
 		private Mock<ITimeService> timeServiceMock;
 
 		public BroadcastsServiceTests()
 		{
 			fixture = new Fixture();
-			repositoryMock = new Mock<IBroadcastsRepository>();
+			broadcastsRepositoryMock = new Mock<IBroadcastsRepository>();
+			seasonsRepositoryMock = new Mock<ISeasonsRepository>();
 			timeServiceMock = new Mock<ITimeService>();
-			service = new BroadcastsService(repositoryMock.Object, timeServiceMock.Object);
+			service = new BroadcastsService(
+				broadcastsRepositoryMock.Object,
+				seasonsRepositoryMock.Object,
+				timeServiceMock.Object);
 		}
 
 		[Fact]
@@ -32,18 +37,18 @@ namespace F1WM.UnitTests.Services
 
 			await service.AddBroadcaster(request);
 
-			repositoryMock.Verify(r => r.AddBroadcaster(request), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.AddBroadcaster(request), Times.Once);
 		}
 
 		[Fact]
 		public async Task ShouldGetBroadcasters()
 		{
 			var broadcasters = fixture.CreateMany<Broadcaster>();
-			repositoryMock.Setup(r => r.GetBroadcasters()).ReturnsAsync(broadcasters);
+			broadcastsRepositoryMock.Setup(r => r.GetBroadcasters()).ReturnsAsync(broadcasters);
 
 			var actual = await service.GetBroadcasters();
 
-			repositoryMock.Verify(r => r.GetBroadcasters(), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.GetBroadcasters(), Times.Once);
 			actual.Should().BeEquivalentTo(broadcasters);
 		}
 
@@ -54,7 +59,7 @@ namespace F1WM.UnitTests.Services
 
 			await service.AddBroadcasts(request);
 
-			repositoryMock.Verify(r => r.AddBroadcasts(request), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.AddBroadcasts(request), Times.Once);
 		}
 
 		[Fact]
@@ -63,11 +68,11 @@ namespace F1WM.UnitTests.Services
 			var broadcasts = fixture.Create<BroadcastsInformation>();
 			var now = new DateTime(2001, 2, 9, 1, 2, 3);
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
-			repositoryMock.Setup(r => r.GetBroadcastsAfter(now)).ReturnsAsync(broadcasts);
+			broadcastsRepositoryMock.Setup(r => r.GetBroadcastsAfter(now)).ReturnsAsync(broadcasts);
 
-			var actual = await service.GetNextBroadcasts();
+			var actual = await service.GetNextBroadcasts(now);
 
-			repositoryMock.Verify(r => r.GetBroadcastsAfter(now), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.GetBroadcastsAfter(now), Times.Once);
 			actual.Should().BeEquivalentTo(broadcasts);
 		}
 
@@ -78,18 +83,18 @@ namespace F1WM.UnitTests.Services
 
 			await service.AddSessionType(request);
 
-			repositoryMock.Verify(r => r.AddSessionType(request), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.AddSessionType(request), Times.Once);
 		}
 
 		[Fact]
 		public async Task ShouldGetBroadcastTypes()
 		{
 			var types = fixture.CreateMany<BroadcastSessionType>();
-			repositoryMock.Setup(r => r.GetSessionTypes()).ReturnsAsync(types);
+			broadcastsRepositoryMock.Setup(r => r.GetSessionTypes()).ReturnsAsync(types);
 
 			var actual = await service.GetSessionTypes();
 
-			repositoryMock.Verify(r => r.GetSessionTypes(), Times.Once);
+			broadcastsRepositoryMock.Verify(r => r.GetSessionTypes(), Times.Once);
 			actual.Should().BeEquivalentTo(types);
 		}
 	}

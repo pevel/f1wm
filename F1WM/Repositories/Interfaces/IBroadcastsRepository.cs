@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.DomainModel;
 
 namespace F1WM.Repositories
 {
@@ -14,5 +15,6 @@ namespace F1WM.Repositories
 		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
 		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
+		Task<BroadcastsInformation> GetNextBroadcasts(SeasonRaces currentSeason);
 	}
 }
