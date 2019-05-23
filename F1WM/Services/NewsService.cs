@@ -100,6 +100,11 @@ namespace F1WM.Services
 			return await newsRepository.GetRelatedNews(newsId, before ?? time.Now, count ?? 5);
 		}
 
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime? before)
+		{
+			return await newsRepository.SearchNews(term, before ?? time.Now, page, countPerPage);
+		}
+
 		public NewsService(
 			INewsRepository newsRepository,
 			IConfigTextRepository configTextRepository,

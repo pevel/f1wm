@@ -96,6 +96,18 @@ namespace F1WM.Controllers
 			var news = await service.GetRelatedNews(newsId, before, count);
 			return this.NotFoundResultIfNull(news);
 		}
+		
+		[HttpGet("search/{term}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term,
+			[FromQuery(Name = "before")] DateTime? before = null,
+			[FromQuery(Name = "page")] uint page = defaultPage,
+			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+		{
+			var news = await service.SearchNews(term, page, countPerPage, before);
+			return news;
+		}
 
 	}
 }
