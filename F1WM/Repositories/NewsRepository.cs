@@ -144,7 +144,8 @@ namespace F1WM.Repositories
 					context.News
 						.Where(x => x.Date < before
 						            && x.MainTagId == tagId
-						            && x.Id != newsId)
+						            && x.Id != newsId
+						            && x.NewsHidden != true)
 						.OrderByDescending(x => x.Date)
 						.Take(count))
 				.ToListAsync();
