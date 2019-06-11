@@ -2,12 +2,16 @@
   {
     "expected": [
       {
+        "id": 6,
+        "title": "Inne sporty motorowe"
+      },
+      {
         "id": 1,
         "title": "Kierowcy"
       },
       {
-        "id": 2,
-        "title": "Zespoły/dostawcy"
+        "id": 5,
+        "title": "Ludzie"
       },
       {
         "id": 3,
@@ -18,12 +22,8 @@
         "title": "Tory F1"
       },
       {
-        "id": 5,
-        "title": "Ludzie"
-      },
-      {
-        "id": 6,
-        "title": "Inne sporty motorowe"
+        "id": 2,
+        "title": "Zespoły/dostawcy"
       }
     ]
   }
