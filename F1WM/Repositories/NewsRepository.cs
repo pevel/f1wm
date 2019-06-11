@@ -99,7 +99,7 @@ namespace F1WM.Repositories
 
 		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(uint page, uint countPerPage)
 		{
-			var dbNewsTags = context.NewsTags.OrderBy(nt => nt.Id);
+			var dbNewsTags = context.NewsTags.OrderBy(nt => nt.Title);
 			return dbNewsTags.GetPagedResult<DatabaseModel.NewsTag, ApiModel.NewsTag>(mapper, page, countPerPage);
 		}
 
