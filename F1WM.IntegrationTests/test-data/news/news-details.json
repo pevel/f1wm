@@ -10,6 +10,18 @@
       "previousNewsId": null,
       "resultLink": null,
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        },
+        {
+          "id": 158,
+          "title": "Albert Park",
+          "categoryId": 4
+        }
+      ],
       "id": 1,
       "date": "1999-03-06T00:00:00",
       "title": "Podsumowanie kwalifikacji do wyścigu o Grand Prix Australii",
@@ -27,6 +39,18 @@
       "previousNewsId": 41999,
       "resultLink": null,
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 101,
+          "title": "Ferrari",
+          "categoryId": 2
+        },
+        {
+          "id": 384,
+          "title": "Costa A.",
+          "categoryId": 5
+        }
+      ],
       "id": 42000,
       "date": "2017-12-08T10:07:50",
       "title": "Aldo Costa nie jest zainteresowany powrotem do Ferrari",
@@ -44,6 +68,18 @@
       "previousNewsId": 42280,
       "resultLink": null,
       "redirect": "artykuly/art_id-526.html",
+      "relatedTags": [
+        {
+          "id": 156,
+          "title": "F1WM",
+          "categoryId": 3
+        },
+        {
+          "id": 146,
+          "title": "Przepisy",
+          "categoryId": 3
+        }
+      ],
       "id": 42281,
       "date": "2018-02-24T17:00:00",
       "title": "Sezon 2018: Co nowego nas czeka w Formule 1?",
@@ -65,6 +101,18 @@
         "session": "t3"
       },
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 158,
+          "title": "Albert Park",
+          "categoryId": 4
+        },
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        }
+      ],
       "id": 42422,
       "date": "2018-03-24T05:07:04",
       "title": "Vettel najszybszy w mokrym trzecim treningu",
@@ -85,6 +133,18 @@
         "raceId": 748
       },
       "redirect": "php/rel_gen.php?rok=2005&nr=17&dzial=11",
+      "relatedTags": [
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        },
+        {
+          "id": 170,
+          "title": "Interlagos",
+          "categoryId": 4
+        }
+      ],
       "id": 2468,
       "date": "2005-09-25T21:06:29",
       "title": "Montoya odniósł trzecie zwycięstwo w tym sezonie",
@@ -105,6 +165,18 @@
         "raceId": 748
       },
       "redirect": "php/rel_gen.php?rok=2005&nr=17&dzial=8",
+      "relatedTags": [
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        },
+        {
+          "id": 170,
+          "title": "Interlagos",
+          "categoryId": 4
+        }
+      ],
       "id": 2464,
       "date": "2005-09-24T18:48:00",
       "title": "Piąte pole position dla Fernando Alonso w tym sezonie",
@@ -125,6 +197,28 @@
         "eventId": 1004
       },
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 46,
+          "title": "Kubica R.",
+          "categoryId": 1
+        },
+        {
+          "id": 129,
+          "title": "F3 ES",
+          "categoryId": 6
+        },
+        {
+          "id": 259,
+          "title": "F3 Trophy",
+          "categoryId": 6
+        },
+        {
+          "id": 456,
+          "title": "Polacy",
+          "categoryId": 6
+        }
+      ],
       "id": 1010,
       "date": "2003-11-16T00:00:00",
       "title": "Lapierre zwycięzcą prestiżowego wyścigu o Grand Prix Makau",
@@ -145,6 +239,13 @@
         "raceId": 1044
       },
       "redirect": "php/rel_gen.php?rok=2018&nr=21&dzial=13",
+      "relatedTags": [
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        }
+      ],
       "id": 44199,
       "date": "2018-11-25T16:11:08",
       "title": "GP Abu Zabi: najszybsze okrążenia wyścigu",
@@ -162,6 +263,13 @@
       "previousNewsId": 44154,
       "resultLink": null,
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 128,
+          "title": "F1 ogólnie",
+          "categoryId": 3
+        }
+      ],
       "id": 43237,
       "date": "2018-11-30T15:48:02",
       "title": "Lista startowa na sezon 2019",
@@ -179,6 +287,18 @@
       "previousNewsId": 5978,
       "resultLink": null,
       "redirect": null,
+      "relatedTags": [
+        {
+          "id": 78,
+          "title": "Schumacher M.",
+          "categoryId": 1
+        },
+        {
+          "id": 101,
+          "title": "Ferrari",
+          "categoryId": 2
+        }
+      ],
       "id": 5979,
       "date": "2007-06-25T20:10:43",
       "title": "Schumacher uświetnił obchody 60. urodzin Ferrari",

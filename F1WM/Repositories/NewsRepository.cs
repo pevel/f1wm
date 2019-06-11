@@ -63,6 +63,10 @@ namespace F1WM.Repositories
 				{
 					await IncludeResultLink(news, link);
 				}
+				var newsTags = context.NewsTagMatches
+					.Where(tm => tm.NewsId == id)
+					.Select(t => t.Tag);
+				news.RelatedTags = await mapper.ProjectTo<ApiModel.NewsTag>(newsTags).ToListAsync();
 			}
 			return news;
 		}

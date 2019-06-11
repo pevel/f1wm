@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace F1WM.ApiModel
 {
 	public class NewsDetails : NewsBase
@@ -9,5 +11,6 @@ namespace F1WM.ApiModel
 		public int? PreviousNewsId { get; set; }
 		public ResultLink ResultLink { get; set; }
 		public string Redirect { get; set; }
+		public IEnumerable<NewsTag> RelatedTags { get; set; }
 	}
 }
