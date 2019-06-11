@@ -113,7 +113,6 @@
           "categoryId": 3
         }
       ],
-      "\"id": null,
       "id": 42422,
       "date": "2018-03-24T05:07:04",
       "title": "Vettel najszybszy w mokrym trzecim treningu",
@@ -134,6 +133,18 @@
         "raceId": 748
       },
       "redirect": "php/rel_gen.php?rok=2005&nr=17&dzial=11",
+      "relatedTags": [
+        {
+          "id": 133,
+          "title": "Grand Prix F1",
+          "categoryId": 3
+        },
+        {
+          "id": 170,
+          "title": "Interlagos",
+          "categoryId": 4
+        }
+      ],
       "id": 2468,
       "date": "2005-09-25T21:06:29",
       "title": "Montoya odniósł trzecie zwycięstwo w tym sezonie",
@@ -208,7 +219,6 @@
           "categoryId": 6
         }
       ],
-      "\"id": null,
       "id": 1010,
       "date": "2003-11-16T00:00:00",
       "title": "Lapierre zwycięzcą prestiżowego wyścigu o Grand Prix Makau",
