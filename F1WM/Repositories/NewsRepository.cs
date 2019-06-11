@@ -65,8 +65,7 @@ namespace F1WM.Repositories
 				}
 				var newsTags = context.NewsTagMatches
 					.Where(tm => tm.NewsId == id)
-					.Include(t => t.Tag)
-					.Select(nt => new { nt.Tag.Id, nt.Tag.Title, nt.Tag.CategoryId });
+					.Select(t => t.Tag);
 				news.RelatedTags = await mapper.ProjectTo<ApiModel.NewsTag>(newsTags).ToListAsync();
 			}
 			return news;
