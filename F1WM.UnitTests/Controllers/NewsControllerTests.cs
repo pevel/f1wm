@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -271,6 +272,39 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetRelatedNews(id, null, null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnSearchResults()
+		{
+			var term = "maldonado";
+
+			await controller.SearchNews(term, null, 1, 20);
+
+			serviceMock.Verify(s => s.SearchNews(term, 1, 20, null), Times.Once);
+		}
+
+		[Fact]
+		public async Task ShouldReturnEmptySearchResults()
+		{
+			var term = "mydli mydli";
+			DateTime before = new DateTime(2017, 9, 19);
+			IEnumerable<NewsSummary> emptyResult = Enumerable.Empty<NewsSummary>();
+			PagedResult<NewsSummary> emptyResponse = new PagedResult<NewsSummary>
+			{
+				CurrentPage = 1,
+				PageCount = 0,
+				PageSize = 0,
+				RowCount = 0,
+				Result = emptyResult
+			};
+
+			serviceMock.Setup(s => s.SearchNews(term, 1, 20, before)).ReturnsAsync(emptyResponse);
+
+			var result = await controller.SearchNews(term, before, 1, 20);
+
+			serviceMock.Verify(s => s.SearchNews(term, 1, 20, before), Times.Once);
+			Assert.Empty(result.Result);
 		}
 	}
 }

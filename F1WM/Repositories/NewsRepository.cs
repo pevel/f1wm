@@ -156,8 +156,10 @@ namespace F1WM.Repositories
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term, DateTime before, uint page, uint countPerPage)
 		{
 			var result = context.News
-				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) && x.Date < before)
-				.OrderBy(x => x.Id);
+				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 
+				            && x.Date < before
+				            && !x.NewsHidden)
+				.OrderByDescending(x => x.Date);
 
 			return await result.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}

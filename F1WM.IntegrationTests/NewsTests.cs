@@ -54,6 +54,13 @@ namespace F1WM.IntegrationTests
 			await TestResponse<IEnumerable<NewsSummary>>($"{baseAddress}/news/related/{data.NewsId}?before={data.Before}?count={data.Count}", data.Expected);
 		}
 		
+		[Theory]
+		[JsonData("news", "search-news.json")]
+		public async Task ShouldGetSearchResults(SearchNewsTestData data)
+		{
+			await TestResponse<PagedResult<NewsSummary>>($"{baseAddress}/news/search/{data.Term}?before={data.Before}&page={data.Page}&countPerPage={data.CountPerPage}", data.Expected);
+		}
+		
 		[Fact]
 		public async Task ShouldGetImportantNews()
 		{
@@ -211,6 +218,15 @@ namespace F1WM.IntegrationTests
 			public DateTime Before { get; set; }
 			public int Count { get; set; }
 			public IEnumerable<NewsSummary> Expected { get; set; }
+		}
+
+		public class SearchNewsTestData
+		{
+			public DateTime Before { get; set; }
+			public int CountPerPage { get; set; }
+			public string Term { get; set; }
+			public int Page { get; set; }
+			public PagedResult<NewsSummary> Expected { get; set; }
 		}
 
 		public class NewsTypesTestData

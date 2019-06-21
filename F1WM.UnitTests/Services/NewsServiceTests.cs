@@ -167,5 +167,19 @@ namespace F1WM.UnitTests.Services
 			newsRepositoryMock.Verify(r => r.GetRelatedNews(id, now, count), Times.Once);
 		}
 
+		[Fact]
+		public async Task ShouldGetSearchResults()
+		{
+			var term = "maldonado";
+			var news = fixture.Create<PagedResult<NewsSummary>>();
+			var now = new DateTime(2017, 9, 19);
+
+			timeServiceMock.SetupGet(t => t.Now).Returns(now);
+			newsRepositoryMock.Setup(r => r.SearchNews(term, now, 1, 20)).ReturnsAsync(news);
+
+			await service.SearchNews(term, 1, 20, now);
+
+			newsRepositoryMock.Verify(r => r.SearchNews(term, now, 1, 20), Times.Once);
+		}
 	}
 }

@@ -1,0 +1,71 @@
+[
+  {
+    "term": "maldonado",
+    "before": "2017-09-19",
+    "countPerPage": 5,
+    "page": 1,
+    "expected": {
+      "currentPage": 1,
+      "pageCount": 58,
+      "pageSize": 5,
+      "rowCount": 289,
+      "result": [
+        {
+          "commentCount": 12,
+          "isHighlighted": false,
+          "typeId": 1,
+          "mainTagId": 372,
+          "mainTagIcon": "/img/ikony/3_rgro.gif",
+          "id": 40993,
+          "date": "2017-07-10T18:54:28",
+          "title": "Grosjean: Magnussen jest moim najlepszym partnerem od czasu Alonso",
+          "subtitle": "Francuz wyżej ceni sobie rywalizację z Duńczykiem niż z Raikkonenem czy Maldonado"
+        },
+        {
+          "commentCount": 10,
+          "isHighlighted": false,
+          "typeId": 1,
+          "mainTagId": 349,
+          "mainTagIcon": "/img/ikony/1_pmal.gif",
+          "id": 39502,
+          "date": "2016-12-13T11:40:48",
+          "title": "Maldonado nadal pracuje nad powrotem do Formuły 1",
+          "subtitle": "Wenezuelczyk przyznał, że prowadzi rozmowy z kilkoma zespołami."
+        },
+        {
+          "commentCount": 4,
+          "isHighlighted": false,
+          "typeId": 1,
+          "mainTagId": 552,
+          "mainTagIcon": "/img/ikony/stroll.gif",
+          "id": 39262,
+          "date": "2016-11-10T16:00:54",
+          "title": "Villeneuve: Stroll nie jest jak Maldonado",
+          "subtitle": "Nowy kierowca Williamsa jest porównywany do Wenezuelczyka przez lukratywne wsparcie sponsorów"
+        },
+        {
+          "commentCount": 2,
+          "isHighlighted": false,
+          "typeId": 5,
+          "mainTagId": 349,
+          "mainTagIcon": "/img/ikony/1_pmal.gif",
+          "id": 38535,
+          "date": "2016-08-12T10:30:29",
+          "title": "Maldonado bliski powrotu do startów w wyścigach",
+          "subtitle": "Wiele wskazuje na to, że Wenezuelczyk dołączy do ekipy Manor startującej w WEC"
+        },
+        {
+          "commentCount": 11,
+          "isHighlighted": false,
+          "typeId": 1,
+          "mainTagId": 349,
+          "mainTagIcon": "/img/ikony/1_pmal.gif",
+          "id": 38314,
+          "date": "2016-07-13T12:37:57",
+          "title": "Maldonado celuje w \"bardzo dobry\" wyścigowy fotel w F1",
+          "subtitle": "Wenezuelczyk sugeruje, że wzrasta w nim także zainteresowanie serią IndyCar."
+        }
+      ]
+    }
+  }
+]
