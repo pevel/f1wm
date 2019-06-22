@@ -18,6 +18,6 @@ namespace F1WM.Repositories
 		Task<IEnumerable<NewsTagCategory>> GetNewsTagCategories();
 		Task<bool> IncrementViews(int id);
 		Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime before, int count);
-		Task<PagedResult<NewsSummary>> SearchNews(string term, DateTime before, uint page, uint countPerPage);
+		Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage,  DateTime before);
 	}
 }

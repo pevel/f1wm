@@ -99,11 +99,10 @@ namespace F1WM.Controllers
 		
 		[HttpGet("search/{term}")]
 		[ProducesResponseType(200)]
-		[ProducesResponseType(404)]
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term,
-			[FromQuery(Name = "before")] DateTime? before = null,
 			[FromQuery(Name = "page")] uint page = defaultPage,
-			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage,
+			[FromQuery(Name = "before")] DateTime? before = null)
 		{
 			var news = await service.SearchNews(term, page, countPerPage, before);
 			return news;

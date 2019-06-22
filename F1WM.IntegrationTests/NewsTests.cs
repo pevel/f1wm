@@ -58,7 +58,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "search-news.json")]
 		public async Task ShouldGetSearchResults(SearchNewsTestData data)
 		{
-			await TestResponse<PagedResult<NewsSummary>>($"{baseAddress}/news/search/{data.Term}?before={data.Before}&page={data.Page}&countPerPage={data.CountPerPage}", data.Expected);
+			await TestResponse<PagedResult<NewsSummary>>($"{baseAddress}/news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before}", data.Expected);
 		}
 		
 		[Fact]

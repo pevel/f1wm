@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Xml.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -153,7 +152,7 @@ namespace F1WM.Repositories
 			return result.Count > 0 ? result : null;
 		}
 
-		public async Task<PagedResult<NewsSummary>> SearchNews(string term, DateTime before, uint page, uint countPerPage)
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime before)
 		{
 			var result = context.News
 				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 

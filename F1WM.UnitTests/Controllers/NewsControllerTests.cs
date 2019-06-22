@@ -279,7 +279,7 @@ namespace F1WM.UnitTests.Controllers
 		{
 			var term = "maldonado";
 
-			await controller.SearchNews(term, null, 1, 20);
+			await controller.SearchNews(term, 1, 20, null);
 
 			serviceMock.Verify(s => s.SearchNews(term, 1, 20, null), Times.Once);
 		}
@@ -301,7 +301,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Setup(s => s.SearchNews(term, 1, 20, before)).ReturnsAsync(emptyResponse);
 
-			var result = await controller.SearchNews(term, before, 1, 20);
+			var result = await controller.SearchNews(term, 1, 20, before);
 
 			serviceMock.Verify(s => s.SearchNews(term, 1, 20, before), Times.Once);
 			Assert.Empty(result.Result);

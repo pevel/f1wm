@@ -102,7 +102,7 @@ namespace F1WM.Services
 
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime? before)
 		{
-			return await newsRepository.SearchNews(term, before ?? time.Now, page, countPerPage);
+			return await newsRepository.SearchNews(term, page, countPerPage, before ?? time.Now);
 		}
 
 		public NewsService(

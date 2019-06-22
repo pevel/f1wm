@@ -175,11 +175,11 @@ namespace F1WM.UnitTests.Services
 			var now = new DateTime(2017, 9, 19);
 
 			timeServiceMock.SetupGet(t => t.Now).Returns(now);
-			newsRepositoryMock.Setup(r => r.SearchNews(term, now, 1, 20)).ReturnsAsync(news);
+			newsRepositoryMock.Setup(r => r.SearchNews(term, 1, 20, now)).ReturnsAsync(news);
 
-			await service.SearchNews(term, 1, 20, now);
+			await service.SearchNews(term, 1, 20, null);
 
-			newsRepositoryMock.Verify(r => r.SearchNews(term, now, 1, 20), Times.Once);
+			newsRepositoryMock.Verify(r => r.SearchNews(term, 1, 20, now), Times.Once);
 		}
 	}
 }
