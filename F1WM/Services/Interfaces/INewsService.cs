@@ -18,5 +18,6 @@ namespace F1WM.Services
 		Task<IEnumerable<ImportantNewsSummary>> GetImportantNews();
 		Task<bool> IncrementViews(int id);
 		Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime? before, int? count);
+		Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime? before);
 	}
 }

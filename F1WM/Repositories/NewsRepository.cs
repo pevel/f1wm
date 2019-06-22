@@ -157,6 +157,17 @@ namespace F1WM.Repositories
 			return result.Count > 0 ? result : null;
 		}
 
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime before)
+		{
+			var result = context.News
+				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 
+				            && x.Date < before
+				            && !x.NewsHidden)
+				.OrderByDescending(x => x.Date);
+
+			return await result.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
+		}
+
 		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)
 		{
 			var resultType = Constants.ResultTypeToLinkType[link.ResultType];
