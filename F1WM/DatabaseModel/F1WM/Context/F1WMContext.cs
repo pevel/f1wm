@@ -156,20 +156,6 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<ConfigSection>(entity =>
-			{
-				entity.ToTable("f1_config_sections");
-
-				entity.Property(e => e.Id)
-					.HasColumnName("id")
-					.ValueGeneratedOnAdd();
-
-				entity.Property(e => e.Name)
-					.IsRequired()
-					.HasColumnName("name")
-					.HasMaxLength(45);
-			});
-
 			modelBuilder.Entity<F1ConfigVarchar>(entity =>
 			{
 				entity.ToTable("f1_config_varchar");
