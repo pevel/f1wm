@@ -55,6 +55,7 @@ namespace F1WM
 					.AddFormatterMappings()
 					.AddCustomCors()
 					.AddJsonFormatters()
+					.AddXmlSerializerFormatters()
 					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			}
 			catch (Exception ex)
