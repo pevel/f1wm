@@ -16,7 +16,7 @@ namespace F1WM.DatabaseModel
 		public virtual DbSet<Constructor> Constructors { get; set; }
 		public virtual DbSet<Car> Cars { get; set; }
 		public virtual DbSet<F1carsspecs> F1carsspecs { get; set; }
-		public virtual DbSet<F1ConfigSections> F1ConfigSections { get; set; }
+		public virtual DbSet<ConfigSection> ConfigSections { get; set; }
 		public virtual DbSet<ConfigText> ConfigTexts { get; set; }
 		public virtual DbSet<F1ConfigVarchar> F1ConfigVarchar { get; set; }
 		public virtual DbSet<ConstructorStandingsPosition> ConstructorStandingsPositions { get; set; }
@@ -156,7 +156,7 @@ namespace F1WM.DatabaseModel
 					.HasColumnType("text");
 			});
 
-			modelBuilder.Entity<F1ConfigSections>(entity =>
+			modelBuilder.Entity<ConfigSection>(entity =>
 			{
 				entity.ToTable("f1_config_sections");
 

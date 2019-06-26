@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.HasIndex(e => e.Name)
 				.HasName("name");
 
-			builder.HasIndex(e => e.Section)
+			builder.HasIndex(e => e.SectionId)
 				.HasName("section");
 
 			builder.Property(e => e.Id)
@@ -29,7 +29,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("name")
 				.HasMaxLength(45);
 
-			builder.Property(e => e.Section)
+			builder.Property(e => e.SectionId)
 				.HasColumnName("section")
 				.HasDefaultValueSql("'0'");
 

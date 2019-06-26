@@ -25,8 +25,13 @@ namespace F1WM.Repositories
 			return dbConfigTexts;
 		}
 
-		public async Task<IEnumerable<ConfigText>> AddConfigTexts(IEnumerable<ConfigText> configs)
+		public async Task<IEnumerable<ConfigText>> AddConfigTexts(string sectionName, IEnumerable<ConfigText> configs)
 		{
+			var section = await context.ConfigSections.SingleOrDefaultAsync(c => c.Name == sectionName);
+			foreach (var c in configs)
+			{
+				c.SectionId = section.Id;
+			}
 			context.ConfigTexts.AddRange(configs);
 			await context.SaveChangesAsync();
 			return configs;

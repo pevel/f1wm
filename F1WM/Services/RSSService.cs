@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
+using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DatabaseModel.Constants;
@@ -15,25 +16,30 @@ namespace F1WM.Services
 		private readonly ITimeService time;
 		private readonly IConfigRepository config;
 		private readonly INewsRepository news;
+		private readonly IMapper mapper;
 
 		public Task<SyndicationFeed> GetFeed(DateTime? before = null)
 		{
 			return GetEmptyFeedWithMetadata();
 		}
 
-		public Task<RSSFeedConfiguration> AddConfiguration(RSSFeedConfigurationAddRequest request)
+		public async Task<RSSFeedConfiguration> AddConfiguration(RSSFeedConfigurationAddRequest request)
 		{
-			throw new NotImplementedException();
+			var configs = mapper.Map<IEnumerable<ConfigText>>(request);
+			configs = await config.AddConfigTexts(ConfigSectionName.RSS, configs);
+			return mapper.Map<RSSFeedConfiguration>(configs);
 		}
 
 		public RSSService(
 			ITimeService time,
 			IConfigRepository config,
-			INewsRepository news)
+			INewsRepository news,
+			IMapper mapper)
 		{
 			this.time = time;
 			this.config = config;
 			this.news = news;
+			this.mapper = mapper;
 		}
 
 		private async Task<SyndicationFeed> GetEmptyFeedWithMetadata()
