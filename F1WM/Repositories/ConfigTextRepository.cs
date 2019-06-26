@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.DatabaseModel;
@@ -12,7 +14,22 @@ namespace F1WM.Repositories
 		public async Task<ConfigText> GetConfigText(string name)
 		{
 			var dbConfigText = await context.ConfigTexts.FirstOrDefaultAsync(c => c.Name == name);
-			return mapper.Map<ConfigText>(dbConfigText);
+			return dbConfigText;
+		}
+
+		public async Task<IEnumerable<ConfigText>> GetConfigTexts(ICollection<string> names)
+		{
+			var dbConfigTexts = await context.ConfigTexts
+				.Where(c => names.Contains(c.Name))
+				.ToListAsync();
+			return dbConfigTexts;
+		}
+
+		public async Task<IEnumerable<ConfigText>> AddConfigTexts(IEnumerable<ConfigText> configs)
+		{
+			context.ConfigTexts.AddRange(configs);
+			await context.SaveChangesAsync();
+			return configs;
 		}
 
 		public ConfigTextRepository(F1WMContext context, IMapper mapper)
