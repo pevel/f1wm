@@ -19,7 +19,7 @@ namespace F1WM.UnitTests.Services
 		private NewsService service;
 		private Fixture fixture;
  		private Mock<INewsRepository> newsRepositoryMock;
-		private Mock<IConfigTextRepository> configTextRepositoryMock;
+		private Mock<IConfigRepository> configTextRepositoryMock;
 		private Mock<IBBCodeParser> parserMock;
 		private Mock<ITimeService> timeServiceMock;
 
@@ -27,7 +27,7 @@ namespace F1WM.UnitTests.Services
 		{
 			fixture = new Fixture();
 			newsRepositoryMock = new Mock<INewsRepository>();
-			configTextRepositoryMock = new Mock<IConfigTextRepository>();
+			configTextRepositoryMock = new Mock<IConfigRepository>();
 			parserMock = new Mock<IBBCodeParser>();
 			timeServiceMock = new Mock<ITimeService>();
 			service = new NewsService(

@@ -13,7 +13,7 @@ namespace F1WM.Services
 	public class RSSService : IRSSService
 	{
 		private readonly ITimeService time;
-		private readonly IConfigTextRepository config;
+		private readonly IConfigRepository config;
 		private readonly INewsRepository news;
 
 		public Task<SyndicationFeed> GetFeed(DateTime? before = null)
@@ -28,7 +28,7 @@ namespace F1WM.Services
 
 		public RSSService(
 			ITimeService time,
-			IConfigTextRepository config,
+			IConfigRepository config,
 			INewsRepository news)
 		{
 			this.time = time;

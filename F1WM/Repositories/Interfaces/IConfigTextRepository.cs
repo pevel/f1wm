@@ -4,7 +4,7 @@ using F1WM.DatabaseModel;
 
 namespace F1WM.Repositories
 {
-	public interface IConfigTextRepository
+	public interface IConfigRepository
 	{
 		Task<ConfigText> GetConfigText(string name);
 		Task<IEnumerable<ConfigText>> GetConfigTexts(ICollection<string> names);

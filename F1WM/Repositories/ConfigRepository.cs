@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
 {
-	public class ConfigTextRepository : RepositoryBase, IConfigTextRepository
+	public class ConfigRepository : RepositoryBase, IConfigRepository
 	{
 		private readonly IMapper mapper;
 
@@ -32,7 +32,7 @@ namespace F1WM.Repositories
 			return configs;
 		}
 
-		public ConfigTextRepository(F1WMContext context, IMapper mapper)
+		public ConfigRepository(F1WMContext context, IMapper mapper)
 		{
 			this.context = context;
 			this.mapper = mapper;
