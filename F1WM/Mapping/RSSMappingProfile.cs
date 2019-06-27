@@ -13,11 +13,36 @@ namespace F1WM.Mapping
 			CreateMap<RSSFeedConfigurationAddRequest, IEnumerable<ConfigText>>()
 				.ConstructUsing(api => new List<ConfigText>()
 				{
-					new ConfigText() { Name = ConfigTextName.RssCopyright, Value = api.Copyright },
-					new ConfigText() { Name = ConfigTextName.RssDescription, Value = api.Description },
-					new ConfigText() { Name = ConfigTextName.RssLanguage, Value = api.Language },
-					new ConfigText() { Name = ConfigTextName.RssLink, Value = api.Link },
-					new ConfigText() { Name = ConfigTextName.RssTitle, Value = api.Title } 
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssCopyright,
+						Value = api.Copyright,
+						Description = "RSS - notka copyright"
+					},
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssDescription,
+						Value = api.Description,
+						Description = "RSS - opis kanału"
+					},
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssLanguage,
+						Value = api.Language,
+						Description = "RSS - język"
+					},
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssLink,
+						Value = api.Link,
+						Description = "RSS - link do strony"
+					},
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssTitle,
+						Value = api.Title,
+						Description = "RSS - tytuł kanału"
+					}
 				});
 			CreateMap<IEnumerable<ConfigText>, RSSFeedConfiguration>()
 				.ConstructUsing(db => new RSSFeedConfiguration()
@@ -26,7 +51,7 @@ namespace F1WM.Mapping
 					Description = db.Get(ConfigTextName.RssDescription),
 					Language = db.Get(ConfigTextName.RssLanguage),
 					Link = db.Get(ConfigTextName.RssLink),
-					Title = db.Get(ConfigTextName.RssTitle) 
+					Title = db.Get(ConfigTextName.RssTitle)
 				});
 		}
 	}
