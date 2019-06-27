@@ -8,6 +8,7 @@ using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DatabaseModel.Constants;
 using F1WM.Repositories;
+using F1WM.Utilities;
 
 namespace F1WM.Services
 {
@@ -17,10 +18,13 @@ namespace F1WM.Services
 		private readonly IConfigRepository config;
 		private readonly INewsRepository news;
 		private readonly IMapper mapper;
+		private const int itemsCount = 20;
 
-		public Task<SyndicationFeed> GetFeed(DateTime? before = null)
+		public async Task<SyndicationFeed> GetFeed(int? firstId = null)
 		{
-			return GetEmptyFeedWithMetadata();
+			var feed = await GetEmptyFeedWithMetadata();
+			feed.Items = await GetNewsItems(firstId, feed.Links.First().Uri.ToString());
+			return feed;
 		}
 
 		public async Task<RSSFeedConfiguration> AddConfiguration(RSSFeedConfigurationAddRequest request)
@@ -58,15 +62,30 @@ namespace F1WM.Services
 				var feed = new SyndicationFeed();
 				feed.Title = new TextSyndicationContent(metadata.Get(ConfigTextName.RssTitle));
 				feed.Description = new TextSyndicationContent(metadata.Get(ConfigTextName.RssDescription));
-				feed.Copyright = new TextSyndicationContent(metadata.Get(ConfigTextName.RssCopyright));
-				feed.Links.Add(new SyndicationLink(new Uri(ConfigTextName.RssLink)));
+				feed.Copyright = new TextSyndicationContent(String.Format(metadata.Get(ConfigTextName.RssCopyright), time.Now.Year));
+				feed.Links.Add(new SyndicationLink(new Uri(metadata.Get(ConfigTextName.RssLink))));
 				feed.Language = metadata.Get(ConfigTextName.RssLanguage);
+				feed.LastUpdatedTime = time.Now;
 				return feed;
 			}
 			else
 			{
 				throw new Exception("Misconfigured RSS");
 			}
+		}
+
+		private async Task<IEnumerable<SyndicationItem>> GetNewsItems(int? firstId, string baseUrl)
+		{
+			var latestNews = await news.GetLatestNews(firstId, 1, itemsCount);
+			return latestNews.Result.Select(news =>
+			{
+				var item = new SyndicationItem();
+				item.Title = new TextSyndicationContent(news.Title);
+				item.Summary = new TextSyndicationContent(news.Subtitle);
+				item.PublishDate = news.Date;
+				item.Links.Add(news.GetLink(baseUrl));
+				return item;
+			});
 		}
 	}
 }

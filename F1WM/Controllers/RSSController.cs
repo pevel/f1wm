@@ -19,10 +19,10 @@ namespace F1WM.Controllers
 		[ResponseCache(Duration = 60 * 5)]
 		[Produces(rssContentType)]
 		[ProducesResponseType(200)]
-		public async Task<Rss20FeedFormatter> GetFeed([FromQuery] DateTime? before = null)
+		public async Task<Rss20FeedFormatter> GetFeed([FromQuery] int? firstId = null)
 		{
 			Response.ContentType = rssContentType;
-			var feed = await rssService.GetFeed(before);
+			var feed = await rssService.GetFeed(firstId);
 			return new Rss20FeedFormatter(feed);
 		}
 

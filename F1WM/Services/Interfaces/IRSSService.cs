@@ -7,7 +7,7 @@ namespace F1WM.Services
 {
 	public interface IRSSService
 	{
-		Task<SyndicationFeed> GetFeed(DateTime? before = null);
+		Task<SyndicationFeed> GetFeed(int? firstId = null);
 		Task<RSSFeedConfiguration> AddConfiguration(RSSFeedConfigurationAddRequest request);
 	}
 }
