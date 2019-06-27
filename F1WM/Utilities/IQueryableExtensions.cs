@@ -14,6 +14,7 @@ namespace F1WM.Utilities
 			uint page,
 			uint countPerPage)
 		{
+			page = page == 0 ? 1 : page;
 			var skipRows = (page - 1) * countPerPage;
 			PagedResult<TResult> pagedResult = new PagedResult<TResult>
 			{
