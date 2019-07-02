@@ -1,4 +1,3 @@
-using System;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -16,7 +15,7 @@ namespace F1WM.Controllers
 		private readonly IRSSService rssService;
 
 		[HttpGet]
-		[ResponseCache(Duration = 60 * 5)]
+		[ResponseCache(Duration = Constants.DefaultCacheDurationInSeconds)]
 		[Produces(rssContentType)]
 		[ProducesResponseType(200)]
 		public async Task<Rss20FeedFormatter> GetFeed([FromQuery] int? firstId = null)

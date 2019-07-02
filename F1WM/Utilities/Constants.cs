@@ -11,6 +11,8 @@ using Database = F1WM.DatabaseModel.Constants;
 
 public static class Constants
 {
+	public const int DefaultCacheDurationInSeconds = 60 * 5;
+
 	public readonly static Dictionary<string, ResultStatus> TextToResultStatus =
 		new Dictionary<string, ResultStatus>()
 	{
