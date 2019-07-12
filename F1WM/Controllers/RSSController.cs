@@ -1,9 +1,11 @@
+using System;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace F1WM.Controllers
 {
@@ -13,15 +15,20 @@ namespace F1WM.Controllers
 		private const string rssContentType = "application/xml";
 		private const string rssCacheKey = "rssFeed";
 		private readonly IRSSService rssService;
+		private readonly ICachingService cache;
 
 		[HttpGet]
-		[ResponseCache(Duration = Constants.DefaultCacheDurationInSeconds)]
 		[Produces(rssContentType)]
 		[ProducesResponseType(200)]
 		public async Task<Rss20FeedFormatter> GetFeed([FromQuery] int? firstId = null)
 		{
 			Response.ContentType = rssContentType;
-			var feed = await rssService.GetFeed(firstId);
+			SyndicationFeed feed = this.cache.Get<SyndicationFeed>(rssCacheKey);
+			if (feed == null)
+			{
+				feed = await rssService.GetFeed(firstId);
+				this.cache.Set(rssCacheKey, feed, GetMemoryCacheEntryOptions());
+			}
 			return new Rss20FeedFormatter(feed);
 		}
 
@@ -36,9 +43,18 @@ namespace F1WM.Controllers
 			return Ok(configuration);
 		}
 
-		public RSSController(IRSSService rssService)
+		public RSSController(IRSSService rssService, ICachingService cache)
 		{
 			this.rssService = rssService;
+			this.cache = cache;
+		}
+
+		private MemoryCacheEntryOptions GetMemoryCacheEntryOptions()
+		{
+			return new MemoryCacheEntryOptions()
+			{
+				AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
+			};
 		}
 	}
 }
