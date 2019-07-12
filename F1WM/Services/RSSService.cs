@@ -54,17 +54,20 @@ namespace F1WM.Services
 				ConfigTextName.RssDescription,
 				ConfigTextName.RssLanguage,
 				ConfigTextName.RssLink,
-				ConfigTextName.RssTitle
+				ConfigTextName.RssTitle,
+				ConfigTextName.RssImageUrl
 			};
 			var metadata = await config.GetConfigTexts(metadataKeys);
 			if (metadata.Any(m => m.Value != null))
 			{
-				var feed = new SyndicationFeed();
-				feed.Title = new TextSyndicationContent(metadata.Get(ConfigTextName.RssTitle));
-				feed.Description = new TextSyndicationContent(metadata.Get(ConfigTextName.RssDescription));
+				var feed = new SyndicationFeed(
+					metadata.Get(ConfigTextName.RssTitle),
+					metadata.Get(ConfigTextName.RssDescription),
+					new Uri(metadata.Get(ConfigTextName.RssLink))
+				);
 				feed.Copyright = new TextSyndicationContent(String.Format(metadata.Get(ConfigTextName.RssCopyright), time.Now.Year));
-				feed.Links.Add(new SyndicationLink(new Uri(metadata.Get(ConfigTextName.RssLink))));
 				feed.Language = metadata.Get(ConfigTextName.RssLanguage);
+				feed.ImageUrl = new Uri(metadata.Get(ConfigTextName.RssImageUrl));
 				feed.LastUpdatedTime = time.Now;
 				return feed;
 			}
