@@ -25,15 +25,15 @@ namespace F1WM.Controllers
 			return new Rss20FeedFormatter(feed);
 		}
 
-		[HttpPost("configuration")]
+		[HttpPut("configuration")]
 		[Authorize]
-		[ProducesResponseType(201)]
+		[ProducesResponseType(200)]
 		[ProducesResponseType(401)]
-		public async Task<ActionResult<RSSFeedConfiguration>> AddConfiguration(
-			[FromBody] RSSFeedConfigurationAddRequest request)
+		public async Task<ActionResult<RSSFeedConfiguration>> UpdateConfiguration(
+			[FromBody] RSSFeedConfigurationEditRequest request)
 		{
-			var configuration = await rssService.AddConfiguration(request);
-			return CreatedAtAction(nameof(AddConfiguration), configuration);
+			var configuration = await rssService.UpdateOrAddConfiguration(request);
+			return Ok(configuration);
 		}
 
 		public RSSController(IRSSService rssService)

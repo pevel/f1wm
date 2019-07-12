@@ -27,10 +27,10 @@ namespace F1WM.Services
 			return feed;
 		}
 
-		public async Task<RSSFeedConfiguration> AddConfiguration(RSSFeedConfigurationAddRequest request)
+		public async Task<RSSFeedConfiguration> UpdateOrAddConfiguration(RSSFeedConfigurationEditRequest request)
 		{
 			var configs = mapper.Map<IEnumerable<ConfigText>>(request);
-			configs = await config.AddConfigTexts(ConfigSectionName.RSS, configs);
+			configs = await config.UpdateOrAddConfigTexts(ConfigSectionName.RSS, configs);
 			return mapper.Map<RSSFeedConfiguration>(configs);
 		}
 

@@ -8,6 +8,6 @@ namespace F1WM.Repositories
 	{
 		Task<ConfigText> GetConfigText(string name);
 		Task<IEnumerable<ConfigText>> GetConfigTexts(ICollection<string> names);
-		Task<IEnumerable<ConfigText>> AddConfigTexts(string sectionName, IEnumerable<ConfigText> configs);
+		Task<IEnumerable<ConfigText>> UpdateOrAddConfigTexts(string sectionName, IEnumerable<ConfigText> configs);
 	}
 }

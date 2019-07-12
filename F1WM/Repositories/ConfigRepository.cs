@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.DatabaseModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -25,14 +26,22 @@ namespace F1WM.Repositories
 			return dbConfigTexts;
 		}
 
-		public async Task<IEnumerable<ConfigText>> AddConfigTexts(string sectionName, IEnumerable<ConfigText> configs)
+		public async Task<IEnumerable<ConfigText>> UpdateOrAddConfigTexts(string sectionName, IEnumerable<ConfigText> configs)
 		{
-			var section = await context.ConfigSections.SingleOrDefaultAsync(c => c.Name == sectionName);
-			foreach (var c in configs)
+			await AddSection(sectionName, configs);
+			foreach (var config in configs)
 			{
-				c.SectionId = section.Id;
+				var existing = context.ConfigTexts.SingleOrDefault(c => c.Name == config.Name && c.SectionId == config.SectionId);
+				if (existing != null)
+				{
+					config.Id = existing.Id;
+					context.Entry(existing).CurrentValues.SetValues(config);
+				}
+				else
+				{
+					context.ConfigTexts.Add(config);
+				}
 			}
-			context.ConfigTexts.AddRange(configs);
 			await context.SaveChangesAsync();
 			return configs;
 		}
@@ -41,6 +50,15 @@ namespace F1WM.Repositories
 		{
 			this.context = context;
 			this.mapper = mapper;
+		}
+
+		private async Task AddSection(string sectionName, IEnumerable<ConfigText> configs)
+		{
+			var section = await context.ConfigSections.SingleOrDefaultAsync(c => c.Name == sectionName);
+			foreach (var c in configs)
+			{
+				c.SectionId = section.Id;
+			}
 		}
 	}
 }

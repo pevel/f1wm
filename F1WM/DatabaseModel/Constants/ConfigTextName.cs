@@ -8,5 +8,6 @@ namespace F1WM.DatabaseModel.Constants
 		public const string RssDescription = "rss_description";
 		public const string RssLanguage = "rss_language";
 		public const string RssCopyright = "rss_copyright";
+		public const string RssImageUrl = "rss_image";
 	}
 }

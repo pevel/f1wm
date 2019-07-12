@@ -10,7 +10,7 @@ namespace F1WM.Mapping
 	{
 		public RSSMappingProfile()
 		{
-			CreateMap<RSSFeedConfigurationAddRequest, IEnumerable<ConfigText>>()
+			CreateMap<RSSFeedConfiguration, IEnumerable<ConfigText>>()
 				.ConstructUsing(api => new List<ConfigText>()
 				{
 					new ConfigText()
@@ -42,6 +42,12 @@ namespace F1WM.Mapping
 						Name = ConfigTextName.RssTitle,
 						Value = api.Title,
 						Description = "RSS - tytuł kanału"
+					},
+					new ConfigText()
+					{
+						Name = ConfigTextName.RssImageUrl,
+						Value = api.ImageUrl,
+						Description = "RSS - link do obrazka"
 					}
 				});
 			CreateMap<IEnumerable<ConfigText>, RSSFeedConfiguration>()
@@ -51,7 +57,8 @@ namespace F1WM.Mapping
 					Description = db.Get(ConfigTextName.RssDescription),
 					Language = db.Get(ConfigTextName.RssLanguage),
 					Link = db.Get(ConfigTextName.RssLink),
-					Title = db.Get(ConfigTextName.RssTitle)
+					Title = db.Get(ConfigTextName.RssTitle),
+					ImageUrl = db.Get(ConfigTextName.RssImageUrl)
 				});
 		}
 	}
