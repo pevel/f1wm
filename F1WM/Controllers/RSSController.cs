@@ -23,11 +23,15 @@ namespace F1WM.Controllers
 		public async Task<Rss20FeedFormatter> GetFeed([FromQuery] int? firstId = null)
 		{
 			Response.ContentType = rssContentType;
-			SyndicationFeed feed = this.cache.Get<SyndicationFeed>(rssCacheKey);
+			var shouldUseCache = !firstId.HasValue;
+			SyndicationFeed feed = shouldUseCache ? this.cache.Get<SyndicationFeed>(rssCacheKey) : null;
 			if (feed == null)
 			{
 				feed = await rssService.GetFeed(firstId);
-				this.cache.Set(rssCacheKey, feed, GetMemoryCacheEntryOptions());
+				if (shouldUseCache)
+				{
+					this.cache.Set(rssCacheKey, feed, GetMemoryCacheEntryOptions());
+				}
 			}
 			return new Rss20FeedFormatter(feed);
 		}
