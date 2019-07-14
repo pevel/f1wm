@@ -1,4 +1,6 @@
 using System.IO;
+using System.Net;
+using System.Net.Http;
 using System.ServiceModel.Syndication;
 using System.Threading.Tasks;
 using System.Xml;
@@ -19,6 +21,13 @@ namespace F1WM.IntegrationTests
 			var expected = Read(File.ReadAllText(TestUtilities.GetTestDataFilePath("RSS", "feed.xml")));
 			var actual = Read(responseContent);
 			actual.Should().BeEquivalentTo(expected, o => o.Excluding(f => f.LastUpdatedTime));
+		}
+
+		[Fact]
+		public async Task ShouldNotUpdateRSSConfiguration()
+		{
+			var response = await client.PutAsync($"{baseAddress}/rss/configuration", new StringContent(""));
+			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
 		private SyndicationFeed Read(string from)
