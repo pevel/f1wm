@@ -15,7 +15,6 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
-    <PackageReference Include="Microsoft.SyndicationFeed.ReaderWriter" Version="1.0.2" />
     <PackageReference Include="MySqlConnector" Version="0.48.2" />
     <PackageReference Include="MySqlConnector.Logging.Microsoft.Extensions.Logging" Version="0.40.0" />
     <PackageReference Include="Narochno.BBCode" Version="2.0.1" />
