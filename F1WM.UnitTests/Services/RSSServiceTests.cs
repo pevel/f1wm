@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,7 +11,6 @@ using F1WM.DatabaseModel.Constants;
 using F1WM.Mapping;
 using F1WM.Repositories;
 using F1WM.Services;
-using FluentAssertions;
 using Moq;
 using Xunit;
 
