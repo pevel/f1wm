@@ -68,7 +68,7 @@ namespace F1WM.Services
 				feed.Copyright = new TextSyndicationContent(String.Format(metadata.Get(ConfigTextName.RssCopyright), time.Now.Year));
 				feed.Language = metadata.Get(ConfigTextName.RssLanguage);
 				feed.ImageUrl = new Uri(metadata.Get(ConfigTextName.RssImageUrl));
-				feed.LastUpdatedTime = time.Now;
+				feed.LastUpdatedTime = time.Now.ToUniversalTime();
 				return feed;
 			}
 			else
@@ -85,7 +85,7 @@ namespace F1WM.Services
 				var item = new SyndicationItem();
 				item.Title = new TextSyndicationContent(news.Title);
 				item.Summary = new TextSyndicationContent(news.Subtitle);
-				item.PublishDate = news.Date;
+				item.PublishDate = news.Date.ToUniversalTime();
 				item.Links.Add(news.GetLink(baseUrl));
 				return item;
 			});

@@ -10,7 +10,6 @@ namespace F1WM.IntegrationTests
 {
 	public class JsonDataAttribute : DataAttribute
 	{
-		private const string testDataRoot = "test-data";
 		private readonly string filePath;
 
 		public override IEnumerable<object[]> GetData(MethodInfo testMethod)
@@ -33,8 +32,7 @@ namespace F1WM.IntegrationTests
 
 		public JsonDataAttribute(params string[] pathParts)
 		{
-			var combined = Path.Combine(pathParts.Prepend(testDataRoot).ToArray());
-			filePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), combined);
+			filePath = TestUtilities.GetTestDataFilePath(pathParts);
 		}
 
 		private void CheckFile()
