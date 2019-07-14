@@ -67,7 +67,8 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldAddOrUpdateRSSConfiguration()
 		{
 			var request = fixture.Create<RSSFeedConfigurationEditRequest>();
-			var response = new RSSFeedConfiguration();
+			var response = fixture.Create<RSSFeedConfiguration>();
+			serviceMock.Setup(s => s.UpdateOrAddConfiguration(request)).ReturnsAsync(response);
 
 			var result = await controller.UpdateConfiguration(request);
 
