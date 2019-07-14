@@ -39,7 +39,6 @@ namespace F1WM
 					.AddSwagger()
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
 					.AddMemoryCache()
-					.AddResponseCaching()
 					.ConfigureRepositories(configuration)
 					.ConfigureLogicServices()
 					.AddIdentity<F1WMUser, IdentityRole>()
@@ -83,7 +82,6 @@ namespace F1WM
 				application
 					.UseMiddleware<ExceptionMiddleware>()
 					.UseCustomForwardedHeaders()
-					.UseResponseCaching()
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)
 					.UseAuthentication()
