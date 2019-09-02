@@ -7,8 +7,12 @@ using System.Threading.Tasks;
 namespace F1WM.Controllers
 {
 	[Route("api/[controller]")]
-	public class DriversController : ControllerBase
+
+	public class DriversController : ControllerBase, IAcceptingFilters<DriverSummary>
 	{
+		private const int defaultPage = 1;
+		private const int defaultCountPerPage = 20;
+
 		private readonly IDriversService service;
 
 		[HttpGet]
@@ -32,6 +36,15 @@ namespace F1WM.Controllers
 		{
 			var driver = await service.GetDriver(id, atYear);
 			return this.NotFoundResultIfNull(driver);
+		}
+
+		[HttpGet("search")]
+		public async Task<ActionResult<PagedResult<DriverSummary>>> Search(
+			[FromQuery]string filter,
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
+		{
+			return await service.Search(filter, page, countPerPage);
 		}
 
 		public DriversController(IDriversService service)

@@ -33,6 +33,7 @@ namespace F1WM.Startups
 				.AddTransient<IEntriesService, EntriesService>()
 				.AddTransient<IEnginesService, EnginesService>()
 				.AddTransient<IStatisticsService, StatisticsService>()
+				.AddTransient<ISearchService, SearchService>()
 				.AddTransient<IRSSService, RSSService>();
 		}
 

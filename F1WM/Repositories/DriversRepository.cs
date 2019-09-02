@@ -1,22 +1,25 @@
+using System.Linq;
+using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.Services;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace F1WM.Repositories
 {
 	public class DriversRepository : RepositoryBase, IDriversRepository
 	{
 		private readonly IMapper mapper;
+		private readonly ISearchService searchService;
 
 		public async Task<Drivers> GetDrivers(char letter)
 		{
 			Drivers result = new Drivers();
 
 			result.DriversList = await mapper.ProjectTo<DriverSummary>(
-				context.Drivers
+					context.Drivers
 					.Where(d => d.Litera == letter.ToString())
 					.OrderBy(d => d.Surname))
 				.ToListAsync();
@@ -36,10 +39,21 @@ namespace F1WM.Repositories
 			return apiDriver;
 		}
 
-		public DriversRepository(F1WMContext context, IMapper mapper)
+		public Task<PagedResult<DriverSummary>> Search(string filter, uint page, uint countPerPage)
+		{
+			var expression = searchService.BuildExpressionFrom<Driver>(filter);
+			var dbDrivers = context.Drivers
+				.Where(expression)
+				.OrderBy(d => d.Surname);
+
+			return dbDrivers.GetPagedResult<Driver, DriverSummary>(mapper, page, countPerPage);
+		}
+
+		public DriversRepository(F1WMContext context, IMapper mapper, ISearchService searchService)
 		{
 			this.context = context;
 			this.mapper = mapper;
+			this.searchService = searchService;
 		}
 
 		private async Task IncludeLastEntryInfo(int id, int atYear, DriverDetails apiDriver)
