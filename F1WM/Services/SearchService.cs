@@ -25,6 +25,10 @@ namespace F1WM.Services
 			{
 				typeof(TokenAnalyzerException),
 				ex => (ex as TokenAnalyzerException).Message
+			},
+			{
+				typeof(ExpressionTreeBuilderException),
+				ex => (ex as ExpressionTreeBuilderException).Message
 			}
 		};
 

@@ -11,78 +11,116 @@ namespace F1WM.Services.Search
 
 		private Func<ParserContext, ParserContext> BuildAndExpression = (c) =>
 		{
-			var firstOperand = c.LeftExpressions.Dequeue();
-			if (c.LeftExpressions.TryDequeue(out var secondOperand))
+			try
 			{
-				c.FinalExpression = Expression.AndAlso(firstOperand, secondOperand);
+				var firstOperand = c.LeftExpressions.Dequeue();
+				if (c.LeftExpressions.TryDequeue(out var secondOperand))
+				{
+					c.FinalExpression = Expression.AndAlso(firstOperand, secondOperand);
+					return c;
+				}
+				else if (c.FinalExpression != null)
+				{
+					c.FinalExpression = Expression.AndAlso(firstOperand, c.FinalExpression);
+					return c;
+				}
+				throw new ExpressionTreeBuilderException("Cannot apply 'and' operator. The order of filter tokens is incorrect.");
 			}
-			else if (c.FinalExpression != null)
+			catch (Exception ex)
 			{
-				c.FinalExpression = Expression.AndAlso(firstOperand, c.FinalExpression);
+				throw new ExpressionTreeBuilderException("Cannot apply 'and' operator.", ex);
 			}
-			else
-			{
-
-			}
-			return c;
 		};
 
 		private Func<ParserContext, ParserContext> BuildOrExpression = (c) =>
 		{
-			var firstOperand = c.LeftExpressions.Dequeue();
-			if (c.LeftExpressions.TryDequeue(out var secondOperand))
+			try
 			{
-				c.FinalExpression = Expression.OrElse(firstOperand, secondOperand);
+				var firstOperand = c.LeftExpressions.Dequeue();
+				if (c.LeftExpressions.TryDequeue(out var secondOperand))
+				{
+					c.FinalExpression = Expression.OrElse(firstOperand, secondOperand);
+					return c;
+				}
+				else if (c.FinalExpression != null)
+				{
+					c.FinalExpression = Expression.OrElse(firstOperand, c.FinalExpression);
+					return c;
+				}
+				throw new ExpressionTreeBuilderException("Cannot apply 'or' operator. The order of filter tokens is incorrect.");
 			}
-			else if (c.FinalExpression != null)
+			catch (Exception ex)
 			{
-				c.FinalExpression = Expression.OrElse(firstOperand, c.FinalExpression);
+				throw new ExpressionTreeBuilderException("Cannot apply 'or' operator.", ex);
 			}
-			else
-			{
-
-			}
-			return c;
 		};
 
 		private Func<ParserContext, ParserContext> BuildEqualExpression = (c) =>
 		{
-			var leftOperand = c.LeftExpressions.Dequeue();
-			var rightOperand = c.RightExpressions.Dequeue();
-			var expression = Expression.Equal(leftOperand, rightOperand);
-			c.LeftExpressions.Enqueue(expression);
-			return c;
+			try
+			{
+				var leftOperand = c.LeftExpressions.Dequeue();
+				var rightOperand = c.RightExpressions.Dequeue();
+				var expression = Expression.Equal(leftOperand, rightOperand);
+				c.LeftExpressions.Enqueue(expression);
+				return c;
+			}
+			catch (Exception ex)
+			{
+				throw new ExpressionTreeBuilderException("Cannot apply equality operator.", ex);
+			}
 		};
 
 		private Func<ParserContext, ParserContext> BuildLikeExpression = (c) =>
 		{
-			var leftOperand = c.LeftExpressions.Dequeue();
-			var rightOperand = c.RightExpressions.Dequeue();
-			var expression = Expression.Call(
-				leftOperand,
-				typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) }),
-				new Expression[] { rightOperand }
-			);
-			c.LeftExpressions.Enqueue(expression);
-			return c;
+			try
+			{
+				var leftOperand = c.LeftExpressions.Dequeue();
+				var rightOperand = c.RightExpressions.Dequeue();
+				var expression = Expression.Call(
+					leftOperand,
+					typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) }),
+					new Expression[] { rightOperand }
+				);
+				c.LeftExpressions.Enqueue(expression);
+				return c;
+			}
+			catch (Exception ex)
+			{
+				throw new ExpressionTreeBuilderException("Cannot apply 'like' operator.", ex);
+			}
 		};
 
 		private Func<ParserContext, ParserContext> BuildGreaterThanExpression = (c) =>
 		{
-			var leftOperand = c.LeftExpressions.Dequeue();
-			var rightOperand = c.RightExpressions.Dequeue();
-			var expression = Expression.GreaterThan(leftOperand, rightOperand);
-			c.LeftExpressions.Enqueue(expression);
-			return c;
+			try
+			{
+				var leftOperand = c.LeftExpressions.Dequeue();
+				var rightOperand = c.RightExpressions.Dequeue();
+				var expression = Expression.GreaterThan(leftOperand, rightOperand);
+				c.LeftExpressions.Enqueue(expression);
+				return c;
+			}
+			catch (Exception ex)
+			{
+				throw new ExpressionTreeBuilderException("Cannot apply greater than operator.", ex);
+			}
 		};
 
 		private Func<ParserContext, ParserContext> BuildLessThanExpression = (c) =>
 		{
-			var leftOperand = c.LeftExpressions.Dequeue();
-			var rightOperand = c.RightExpressions.Dequeue();
-			var expression = Expression.LessThan(leftOperand, rightOperand);
-			c.LeftExpressions.Enqueue(expression);
-			return c;
+			try
+			{
+				var leftOperand = c.LeftExpressions.Dequeue();
+				var rightOperand = c.RightExpressions.Dequeue();
+				var expression = Expression.LessThan(leftOperand, rightOperand);
+				c.LeftExpressions.Enqueue(expression);
+				return c;
+			}
+			catch (Exception ex)
+			{
+				throw new ExpressionTreeBuilderException("Cannot apply less than operator.", ex);
+			}
 		};
 
 		public Expression BuildExpressionFrom(ParserContext context)
