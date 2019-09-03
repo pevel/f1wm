@@ -11,16 +11,46 @@ namespace F1WM.Services.Search
 
 		private Func<ParserContext, ParserContext> BuildAndExpression = (c) =>
 		{
+			var firstOperand = c.LeftExpressions.Dequeue();
+			if (c.LeftExpressions.TryDequeue(out var secondOperand))
+			{
+				c.FinalExpression = Expression.AndAlso(firstOperand, secondOperand);
+			}
+			else if (c.FinalExpression != null)
+			{
+				c.FinalExpression = Expression.AndAlso(firstOperand, c.FinalExpression);
+			}
+			else
+			{
+
+			}
 			return c;
 		};
 
 		private Func<ParserContext, ParserContext> BuildOrExpression = (c) =>
 		{
+			var firstOperand = c.LeftExpressions.Dequeue();
+			if (c.LeftExpressions.TryDequeue(out var secondOperand))
+			{
+				c.FinalExpression = Expression.OrElse(firstOperand, secondOperand);
+			}
+			else if (c.FinalExpression != null)
+			{
+				c.FinalExpression = Expression.OrElse(firstOperand, c.FinalExpression);
+			}
+			else
+			{
+
+			}
 			return c;
 		};
 
 		private Func<ParserContext, ParserContext> BuildEqualExpression = (c) =>
 		{
+			var leftOperand = c.LeftExpressions.Dequeue();
+			var rightOperand = c.RightExpressions.Dequeue();
+			var expression = Expression.Equal(leftOperand, rightOperand);
+			c.LeftExpressions.Enqueue(expression);
 			return c;
 		};
 
@@ -39,11 +69,19 @@ namespace F1WM.Services.Search
 
 		private Func<ParserContext, ParserContext> BuildGreaterThanExpression = (c) =>
 		{
+			var leftOperand = c.LeftExpressions.Dequeue();
+			var rightOperand = c.RightExpressions.Dequeue();
+			var expression = Expression.GreaterThan(leftOperand, rightOperand);
+			c.LeftExpressions.Enqueue(expression);
 			return c;
 		};
 
 		private Func<ParserContext, ParserContext> BuildLessThanExpression = (c) =>
 		{
+			var leftOperand = c.LeftExpressions.Dequeue();
+			var rightOperand = c.RightExpressions.Dequeue();
+			var expression = Expression.LessThan(leftOperand, rightOperand);
+			c.LeftExpressions.Enqueue(expression);
 			return c;
 		};
 
@@ -60,7 +98,7 @@ namespace F1WM.Services.Search
 				var logicalOperator = context.LogicalOperators.Dequeue();
 				context = logicalBuilderMapping[logicalOperator](context);
 			}
-			expression = context.LeftExpressions.Dequeue();
+			expression = context.FinalExpression;
 			if (expression == null)
 			{
 

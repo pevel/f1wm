@@ -9,6 +9,7 @@ namespace F1WM.Services.Search
 		public ParserState State { get; set; } = ParserState.Initial;
 		public Queue<Expression> LeftExpressions { get; set; } = new Queue<Expression>();
 		public Queue<Expression> RightExpressions { get; set; } = new Queue<Expression>();
+		public Expression FinalExpression { get; set; }
 		public Queue<LogicalOperator> LogicalOperators { get; set; } = new Queue<LogicalOperator>();
 		public Queue<ComparisonOperator> ComparisonOperators { get; set; } = new Queue<ComparisonOperator>();
 	}
