@@ -39,14 +39,14 @@ namespace F1WM.Repositories
 			return apiDriver;
 		}
 
-		public Task<PagedResult<DriverSummary>> Search(string filter, uint page, uint countPerPage)
+		public Task<PagedResult<DriverSummary>> Search(string filter, int page, int countPerPage)
 		{
 			var expression = searchService.BuildExpressionFrom<Driver>(filter);
 			var dbDrivers = context.Drivers
 				.Where(expression)
 				.OrderBy(d => d.Surname);
 
-			return dbDrivers.GetPagedResult<Driver, DriverSummary>(mapper, page, countPerPage);
+			return dbDrivers.GetPagedResult<Driver, DriverSummary>(mapper, (uint)page, (uint)countPerPage);
 		}
 
 		public DriversRepository(F1WMContext context, IMapper mapper, ISearchService searchService)
