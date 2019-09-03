@@ -136,10 +136,10 @@ namespace F1WM.Services.Search
 				var logicalOperator = context.LogicalOperators.Dequeue();
 				context = logicalBuilderMapping[logicalOperator](context);
 			}
-			expression = context.FinalExpression;
+			expression = context.FinalExpression ?? context.LeftExpressions.Dequeue();
 			if (expression == null)
 			{
-
+				throw new ExpressionTreeBuilderException("Cannot build expression. The order of filter tokens is incorrect.");
 			}
 			return expression;
 		}

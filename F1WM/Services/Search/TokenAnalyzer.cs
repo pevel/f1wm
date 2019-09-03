@@ -35,7 +35,7 @@ namespace F1WM.Services.Search
 			catch (ArgumentException expressionException)
 			{
 				throw new TokenAnalyzerException(
-					$"Property '{token}' does not exist in entity of type '{context.EntityParameter.Type}'.",
+					$"Property '{token}' does not exist in entity of type '{context.EntityParameter.Type.Name}'.",
 					expressionException
 				);
 			}
