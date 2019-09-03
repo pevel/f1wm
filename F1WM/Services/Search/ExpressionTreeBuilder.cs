@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq.Expressions;
 
 namespace F1WM.Services.Search
@@ -13,15 +14,15 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var firstOperand = c.LeftExpressions.Dequeue();
-				if (c.LeftExpressions.TryDequeue(out var secondOperand))
+				var left = c.LeftExpressions.Dequeue();
+				if (c.LeftExpressions.TryDequeue(out var right))
 				{
-					c.FinalExpression = Expression.AndAlso(firstOperand, secondOperand);
+					c.FinalExpression = Expression.AndAlso(left, right);
 					return c;
 				}
 				else if (c.FinalExpression != null)
 				{
-					c.FinalExpression = Expression.AndAlso(firstOperand, c.FinalExpression);
+					c.FinalExpression = Expression.AndAlso(left, c.FinalExpression);
 					return c;
 				}
 				throw new ExpressionTreeBuilderException("Cannot apply 'and' operator. The order of filter tokens is incorrect.");
@@ -36,15 +37,15 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var firstOperand = c.LeftExpressions.Dequeue();
-				if (c.LeftExpressions.TryDequeue(out var secondOperand))
+				var left = c.LeftExpressions.Dequeue();
+				if (c.LeftExpressions.TryDequeue(out var right))
 				{
-					c.FinalExpression = Expression.OrElse(firstOperand, secondOperand);
+					c.FinalExpression = Expression.OrElse(left, right);
 					return c;
 				}
 				else if (c.FinalExpression != null)
 				{
-					c.FinalExpression = Expression.OrElse(firstOperand, c.FinalExpression);
+					c.FinalExpression = Expression.OrElse(left, c.FinalExpression);
 					return c;
 				}
 				throw new ExpressionTreeBuilderException("Cannot apply 'or' operator. The order of filter tokens is incorrect.");
@@ -59,9 +60,9 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var leftOperand = c.LeftExpressions.Dequeue();
-				var rightOperand = c.RightExpressions.Dequeue();
-				var expression = Expression.Equal(leftOperand, rightOperand);
+				var left = c.LeftExpressions.Dequeue();
+				var right = c.RightExpressions.Dequeue();
+				var expression = Expression.Equal(left, right);
 				c.LeftExpressions.Enqueue(expression);
 				return c;
 			}
@@ -75,12 +76,12 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var leftOperand = c.LeftExpressions.Dequeue();
-				var rightOperand = c.RightExpressions.Dequeue();
+				var left = c.LeftExpressions.Dequeue();
+				var right = c.RightExpressions.Dequeue();
 				var expression = Expression.Call(
-					leftOperand,
+					left,
 					typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) }),
-					new Expression[] { rightOperand }
+					new Expression[] { right }
 				);
 				c.LeftExpressions.Enqueue(expression);
 				return c;
@@ -95,9 +96,9 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var leftOperand = c.LeftExpressions.Dequeue();
-				var rightOperand = c.RightExpressions.Dequeue();
-				var expression = Expression.GreaterThan(leftOperand, rightOperand);
+				var left = c.LeftExpressions.Dequeue();
+				var right = c.RightExpressions.Dequeue();
+				var expression = Expression.GreaterThan(left, AdjustExpressionType(left as MemberExpression, right as ConstantExpression));
 				c.LeftExpressions.Enqueue(expression);
 				return c;
 			}
@@ -111,9 +112,9 @@ namespace F1WM.Services.Search
 		{
 			try
 			{
-				var leftOperand = c.LeftExpressions.Dequeue();
-				var rightOperand = c.RightExpressions.Dequeue();
-				var expression = Expression.LessThan(leftOperand, rightOperand);
+				var left = c.LeftExpressions.Dequeue();
+				var right = c.RightExpressions.Dequeue();
+				var expression = Expression.LessThan(left, AdjustExpressionType(left as MemberExpression, right as ConstantExpression));
 				c.LeftExpressions.Enqueue(expression);
 				return c;
 			}
@@ -158,6 +159,17 @@ namespace F1WM.Services.Search
 				{ ComparisonOperator.GreaterThan, BuildGreaterThanExpression },
 				{ ComparisonOperator.LessThan, BuildLessThanExpression }
 			};
+		}
+
+		private static ConstantExpression AdjustExpressionType(MemberExpression m, ConstantExpression c)
+		{
+			var converter = TypeDescriptor.GetConverter(m.Type);
+			if (converter.CanConvertFrom(c.Type))
+			{
+				var adjusted = converter.ConvertFrom(c.Value);
+				return Expression.Constant(adjusted);
+			}
+			return null;
 		}
 
 		private bool ShouldBuildComparisonExpression(ParserContext c)
