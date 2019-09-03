@@ -19,7 +19,7 @@ namespace F1WM.Services
 			return repository.GetDriver(id, atYear ?? time.Now.Year);
 		}
 
-		public Task<PagedResult<DriverSummary>> Search(string filter, int page, int countPerPage)
+		public Task<SearchResult<DriverSummary>> Search(string filter, int page, int countPerPage)
 		{
 			return this.repository.Search(filter, page, countPerPage);
 		}

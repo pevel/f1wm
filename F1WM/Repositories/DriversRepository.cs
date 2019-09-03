@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -39,14 +40,24 @@ namespace F1WM.Repositories
 			return apiDriver;
 		}
 
-		public Task<PagedResult<DriverSummary>> Search(string filter, int page, int countPerPage)
+		public async Task<SearchResult<DriverSummary>> Search(string filter, int page, int countPerPage)
 		{
-			var expression = searchService.BuildExpressionFrom<Driver>(filter);
-			var dbDrivers = context.Drivers
-				.Where(expression)
-				.OrderBy(d => d.Surname);
-
-			return dbDrivers.GetPagedResult<Driver, DriverSummary>(mapper, (uint)page, (uint)countPerPage);
+			try
+			{
+				var expression = searchService.BuildExpressionFrom<Driver>(filter);
+				var dbDrivers = context.Drivers
+					.Where(expression)
+					.OrderBy(d => d.Surname);
+				return await dbDrivers.GetSearchResult<Driver, DriverSummary>(mapper, (uint)page, (uint)countPerPage);
+			}
+			catch (Exception exception)
+			{
+				if (searchService.TryBuildError(exception, out var humanReadableError))
+				{
+					return new SearchResult<DriverSummary>() { Error = humanReadableError };
+				}
+				throw;
+			}
 		}
 
 		public DriversRepository(F1WMContext context, IMapper mapper, ISearchService searchService)

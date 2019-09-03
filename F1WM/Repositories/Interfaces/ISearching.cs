@@ -5,6 +5,6 @@ namespace F1WM.Repositories
 {
 	public interface ISearching<T>
 	{
-		Task<PagedResult<T>> Search(string filter, int page, int countPerPage);
+		Task<SearchResult<T>> Search(string filter, int page, int countPerPage);
 	}
 }

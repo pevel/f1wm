@@ -39,7 +39,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("search")]
-		public async Task<ActionResult<PagedResult<DriverSummary>>> Search(
+		public async Task<ActionResult<SearchResult<DriverSummary>>> Search(
 			[FromQuery]string filter,
 			[FromQuery(Name = "page")] int page = defaultPage,
 			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)

@@ -6,6 +6,6 @@ namespace F1WM.Controllers
 {
 	public interface IAcceptingFilters<T>
 	{
-		Task<ActionResult<PagedResult<T>>> Search(string filter, int page, int countPerPage);
+		Task<ActionResult<SearchResult<T>>> Search(string filter, int page, int countPerPage);
 	}
 }

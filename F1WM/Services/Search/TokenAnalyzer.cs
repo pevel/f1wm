@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 
 namespace F1WM.Services.Search
@@ -24,31 +25,70 @@ namespace F1WM.Services.Search
 		
 		private Func<ParserContext, string, ParserContext> ParsePropertyName = (context, token) =>
 		{
-			var expression = Expression.Property(context.EntityParameter, token);
-			context.LeftExpressions.Enqueue(expression);
-			context.State = ParserState.HasReadPropertyName;
-			return context;
+			try
+			{
+				var expression = Expression.Property(context.EntityParameter, token);
+				context.LeftExpressions.Enqueue(expression);
+				context.State = ParserState.HasReadPropertyName;
+				return context;
+			}
+			catch (ArgumentException expressionException)
+			{
+				throw new TokenAnalyzerException(
+					$"Property '{token}' does not exist in entity of type '{context.EntityParameter.Type}'.",
+					expressionException
+				);
+			}
+			catch (Exception otherException)
+			{
+				throw new TokenAnalyzerException($"Cannot parse property name: '{token}'.", otherException);
+			}
 		};
 
 		private Func<ParserContext, string, ParserContext> ParseComparisonOperator = (context, token) => {
-			var comparisonOperator = comparisonOperatorMapping[token];
-			context.ComparisonOperators.Enqueue(comparisonOperator);
-			context.State = ParserState.HasReadComparisonOperator;
-			return context;
+			try
+			{
+				var comparisonOperator = comparisonOperatorMapping[token];
+				context.ComparisonOperators.Enqueue(comparisonOperator);
+				context.State = ParserState.HasReadComparisonOperator;
+				return context;
+			}
+			catch
+			{
+				var expectedOperators = string.Join("', '", comparisonOperatorMapping.Keys.ToArray());
+				throw new TokenAnalyzerException(
+					$"Cannot parse: '{token}'. Expected any of comparison operators: '{expectedOperators}'.");
+			}
 		};
 
 		private Func<ParserContext, string, ParserContext> ParseValue = (context, token) => {
-			var expression = Expression.Constant(token);
-			context.RightExpressions.Enqueue(expression);
-			context.State = ParserState.HasReadValue;
-			return context;
+			try
+			{
+				var expression = Expression.Constant(token);
+				context.RightExpressions.Enqueue(expression);
+				context.State = ParserState.HasReadValue;
+				return context;
+			}
+			catch
+			{
+				throw new TokenAnalyzerException($"Cannot parse: '{token}'. Expected a value to compare to.");
+			}
 		};
 
 		private Func<ParserContext, string, ParserContext> ParseLogicalOperator = (context, token) => {
-			var logicalOperator = logicalOperatorMapping[token];
-			context.LogicalOperators.Enqueue(logicalOperator);
-			context.State = ParserState.HasReadLogicalOperator;
-			return context;
+			try
+			{
+				var logicalOperator = logicalOperatorMapping[token];
+				context.LogicalOperators.Enqueue(logicalOperator);
+				context.State = ParserState.HasReadLogicalOperator;
+				return context;
+			}
+			catch
+			{
+				var expectedOperators = string.Join("', '", logicalOperatorMapping.Keys.ToArray());
+				throw new TokenAnalyzerException(
+					$"Cannot parse: '{token}'. Expected any of logical operators: '{expectedOperators}'.");
+			}
 		};
 
 		public ParserContext Analyze(ParserContext context, string token)
