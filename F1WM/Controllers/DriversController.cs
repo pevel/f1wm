@@ -44,7 +44,7 @@ namespace F1WM.Controllers
 			[FromQuery(Name = "page")] int page = defaultPage,
 			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
-			return await service.Search(filter, page, countPerPage);
+			return Ok(await service.Search(filter, page, countPerPage));
 		}
 
 		public DriversController(IDriversService service)
