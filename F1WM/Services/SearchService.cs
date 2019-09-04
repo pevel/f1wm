@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using F1WM.Services.Search;
 
@@ -9,6 +10,8 @@ namespace F1WM.Services
 	{
 		private const int costLimit = 40;
 		private const int filterCharLimit = 500;
+		private const char tokenSplitter = ' ';
+		private const char escaper = '"';
 		private ParserContext context = new ParserContext();
 		private TokenAnalyzer analyzer = new TokenAnalyzer();
 		private ExpressionTreeBuilder expressionBuilder = new ExpressionTreeBuilder();
@@ -64,12 +67,25 @@ namespace F1WM.Services
 			{
 				throw new FilterTooLongException();
 			}
-			var tokens = filter.ToLower().Split(' ');
-			if (tokens.Length < 3)
+			var preliminaryTokens = filter.Split(escaper).Where(t => !string.IsNullOrEmpty(t));
+			var tokens = new List<string>();
+			foreach (var p in preliminaryTokens.Select((token, index) => new { token, index }))
+			{
+				if (p.index % 2 == 0)
+				{
+					tokens.AddRange(p.token.Split(tokenSplitter).Where(t => !string.IsNullOrEmpty(t)));
+				}
+				else
+				{
+					tokens.Add(p.token);
+				}
+			}
+			
+			if (tokens.Count < 3)
 			{
 				throw new FilterTooShortException();
 			}
-			if (tokens.Length > costLimit)
+			if (tokens.Count > costLimit)
 			{
 				throw new FilterTooLongException();
 			}

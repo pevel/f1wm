@@ -89,6 +89,28 @@
     }
   },
   {
+    "filter": "surname like \"ahrens jr\"",
+    "why": "simple correct filter with escaped space",
+    "expected": {
+      "error": null,
+      "currentPage": 1,
+      "pageCount": 1,
+      "pageSize": 1,
+      "rowCount": 1,
+      "result": [
+        {
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          },
+          "id": 7,
+          "firstName": "Kurt",
+          "surname": "Ahrens Jr"
+        }
+      ]
+    }
+  },
+  {
     "filter": "firstname like kimi or surname eq kubica or firstname like ewi",
     "why": "advanced correct filter with logical operators",
     "expected": {
