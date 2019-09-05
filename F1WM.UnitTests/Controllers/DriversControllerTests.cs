@@ -3,6 +3,7 @@ using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.Controllers;
 using F1WM.Services;
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -79,6 +80,20 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetDriver(driverId, null), Times.Once);
 			Assert.IsType<NotFoundResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldSearchDrivers()
+		{
+			var filter = "test filter";
+			var searchResult = fixture.Create<SearchResult<DriverSummary>>();
+			serviceMock.Setup(s => s.Search(filter, 1, 20)).ReturnsAsync(searchResult);
+
+			var result = await controller.Search(filter);
+
+			serviceMock.Verify(s => s.Search(filter, 1, 20), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			okResult.Value.Should().BeEquivalentTo(searchResult);
 		}
 	}
 }

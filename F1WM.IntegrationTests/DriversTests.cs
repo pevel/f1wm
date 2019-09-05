@@ -23,6 +23,16 @@ namespace F1WM.IntegrationTests
 				data.Why);
 		}
 
+		[Theory]
+		[JsonData("drivers", "drivers-search.json")]
+		public async Task ShouldSearchDrivers(DriversSearchTestData data)
+		{
+			await TestResponse<SearchResult<DriverSummary>>(
+				$"{baseAddress}/Drivers/Search?filter={data.Filter}",
+				data.Expected,
+				data.Why);
+		}
+
 		public class DriversTestData
 		{
 			public char Letter { get; set; }
@@ -35,6 +45,13 @@ namespace F1WM.IntegrationTests
 			public uint AtYear { get; set; }
 			public string Why { get; set; }
 			public DriverDetails Expected { get; set; }
+		}
+
+		public class DriversSearchTestData
+		{
+			public string Filter { get; set; }
+			public string Why { get; set; }
+			public SearchResult<DriverSummary> Expected { get; set; }
 		}
 	}
 }

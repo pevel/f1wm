@@ -1,0 +1,225 @@
+[
+  {
+    "filter": "surname like milt",
+    "why": "simple correct filter with LIKE operator",
+    "expected": {
+      "error": null,
+      "currentPage": 1,
+      "pageCount": 2,
+      "pageSize": 2,
+      "rowCount": 2,
+      "result": [
+        {
+          "nationality": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          },
+          "id": 323,
+          "firstName": "Duncan",
+          "surname": "Hamilton"
+        },
+        {
+          "nationality": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          },
+          "id": 806,
+          "firstName": "Lewis",
+          "surname": "Hamilton"
+        }
+      ]
+    }
+  },
+  {
+    "filter": "firstname eq michael",
+    "why": "simple correct filter with EQ operator",
+    "expected": {
+      "error": null,
+      "currentPage": 1,
+      "pageCount": 5,
+      "pageSize": 5,
+      "rowCount": 5,
+      "result": [
+        {
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          },
+          "id": 797,
+          "firstName": "Michael",
+          "surname": "Ammermuller"
+        },
+        {
+          "nationality": {
+            "name": "USA",
+            "flagIcon": "/img/flagi/usa2.gif"
+          },
+          "id": 20,
+          "firstName": "Michael",
+          "surname": "Andretti"
+        },
+        {
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          },
+          "id": 48,
+          "firstName": "Michael",
+          "surname": "Bartels"
+        },
+        {
+          "nationality": {
+            "name": "Holandia",
+            "flagIcon": "/img/flagi/ned2.gif"
+          },
+          "id": 79,
+          "firstName": "Michael",
+          "surname": "Bleekemolen"
+        },
+        {
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          },
+          "id": 652,
+          "firstName": "Michael",
+          "surname": "Schumacher"
+        }
+      ]
+    }
+  },
+  {
+    "filter": "surname like \"ahrens jr\"",
+    "why": "simple correct filter with escaped space",
+    "expected": {
+      "error": null,
+      "currentPage": 1,
+      "pageCount": 1,
+      "pageSize": 1,
+      "rowCount": 1,
+      "result": [
+        {
+          "nationality": {
+            "name": "Niemcy",
+            "flagIcon": "/img/flagi/ger2.gif"
+          },
+          "id": 7,
+          "firstName": "Kurt",
+          "surname": "Ahrens Jr"
+        }
+      ]
+    }
+  },
+  {
+    "filter": "firstname like kimi or surname eq kubica or firstname like ewi",
+    "why": "advanced correct filter with logical operators",
+    "expected": {
+      "error": null,
+      "currentPage": 1,
+      "pageCount": 3,
+      "pageSize": 3,
+      "rowCount": 3,
+      "result": [
+        {
+          "nationality": {
+            "name": "Wielka Brytania",
+            "flagIcon": "/img/flagi/gbr2.gif"
+          },
+          "id": 806,
+          "firstName": "Lewis",
+          "surname": "Hamilton"
+        },
+        {
+          "nationality": {
+            "name": "Polska",
+            "flagIcon": "/img/flagi/pol2.gif"
+          },
+          "id": 403,
+          "firstName": "Robert",
+          "surname": "Kubica"
+        },
+        {
+          "nationality": {
+            "name": "Finlandia",
+            "flagIcon": "/img/flagi/fin2.gif"
+          },
+          "id": 588,
+          "firstName": "Kimi",
+          "surname": "Raikkonen"
+        }
+      ]
+    }
+  },
+  {
+    "filter": "blabla dD",
+    "why": "incorrect filter - too short",
+    "expected": {
+      "error": "Provided filter is too short. Minimal viable filter has 3 tokens.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  },
+  {
+    "filter": "blabla eq zzzz",
+    "why": "incorrect filter - property doesn't exist",
+    "expected": {
+      "error": "Property 'blabla' does not exist in entity of type 'Driver'.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  },
+  {
+    "filter": "surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob and surname like rob",
+    "why": "incorrect filter - too long",
+    "expected": {
+      "error": "Provided filter is too long. Number of tokens is limited to 40 and number of characters is limited to 500.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  },
+  {
+    "filter": "firstname aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa xd",
+    "why": "incorrect filter - operator doesn't exist",
+    "expected": {
+      "error": "Cannot parse: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa'. Expected any of comparison operators: 'eq', 'like', 'gt', 'lt'.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  },
+  {
+    "filter": "firstname gt 0",
+    "why": "incorrect filter - operator cannot be applied to the property of string type",
+    "expected": {
+      "error": "Cannot apply greater than operator.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  },
+  {
+    "filter": "or firstname like and",
+    "why": "incorrect filter - tokens placed in wrong order",
+    "expected": {
+      "error": "Property 'or' does not exist in entity of type 'Driver'.",
+      "currentPage": 0,
+      "pageCount": 0,
+      "pageSize": 0,
+      "rowCount": 0,
+      "result": null
+    }
+  }
+]
