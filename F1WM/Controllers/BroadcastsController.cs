@@ -25,6 +25,7 @@ namespace F1WM.Controllers
 		[Authorize]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		[ProducesResponseType(422)]
 		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
 			[FromBody]BroadcastsAddRequest request)
@@ -43,8 +44,9 @@ namespace F1WM.Controllers
 		[HttpPatch]
 		[Authorize]
 		[ProducesResponseType(200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<ActionResult<BroadcastsInformation>> UpdateBroadcasts(
 			[FromBody]BroadcastsUpdateRequest request)
 		{
@@ -59,6 +61,8 @@ namespace F1WM.Controllers
 		[HttpDelete]
 		[Authorize]
 		[ProducesResponseType(204)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<ActionResult> DeleteBroadcasts([FromQuery] int raceId)
 		{
 			await service.DeleteBroadcasts(raceId);
@@ -101,8 +105,9 @@ namespace F1WM.Controllers
 		[HttpPatch("broadcasters")]
 		[Authorize]
 		[ProducesResponseType(200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<IEnumerable<Broadcaster>> UpdateBroadcaster(
 			[FromBody]BroadcasterUpdateRequest request)
 		{
@@ -112,6 +117,8 @@ namespace F1WM.Controllers
 		[HttpDelete("broadcasters/{id}")]
 		[Authorize]
 		[ProducesResponseType(204)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<ActionResult> DeleteBroadcaster(int id)
 		{
 			await service.DeleteBroadcaster(id);
@@ -138,8 +145,9 @@ namespace F1WM.Controllers
 		[HttpPatch("types")]
 		[Authorize]
 		[ProducesResponseType(200)]
-		[ProducesResponseType(401)]
 		[ProducesResponseType(400)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<IEnumerable<Broadcaster>> UpdateSessionType(
 			[FromBody]BroadcastSessionTypeUpdateRequest request)
 		{
@@ -149,6 +157,8 @@ namespace F1WM.Controllers
 		[HttpDelete("types/{id}")]
 		[Authorize]
 		[ProducesResponseType(204)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(404)]
 		public async Task<ActionResult> DeleteSessionType(int id)
 		{
 			await service.DeleteSessionType(id);
