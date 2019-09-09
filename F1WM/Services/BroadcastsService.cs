@@ -47,6 +47,31 @@ namespace F1WM.Services
 			return broadcastsRepository.AddSessionType(request);
 		}
 
+		public Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task DeleteBroadcasts(int raceId)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task DeleteBroadcaster(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public Task DeleteSessionType(int id)
+		{
+			throw new NotImplementedException();
+		}
+
 		public BroadcastsService(
 			IBroadcastsRepository broadcastsRepository,
 			ISeasonsRepository seasonsRepository,

@@ -13,5 +13,10 @@ namespace F1WM.Services
 		Task<Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
 		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
+		Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null);
+		Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request);
+		Task DeleteBroadcasts(int raceId);
+		Task DeleteBroadcaster(int id);
+		Task DeleteSessionType(int id);
 	}
 }

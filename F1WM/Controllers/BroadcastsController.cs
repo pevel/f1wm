@@ -14,6 +14,57 @@ namespace F1WM.Controllers
 	{
 		private readonly IBroadcastsService service;
 
+		[HttpGet]
+		public async Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(
+			[FromQuery] int? raceId)
+		{
+			return await service.GetBroadcasts(raceId);
+		}
+
+		[HttpPost]
+		[Authorize]
+		[ProducesResponseType(201)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(422)]
+		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
+			[FromBody]BroadcastsAddRequest request)
+		{
+			var broadcasts = await service.AddBroadcasts(request);
+			if (broadcasts != null)
+			{
+				return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
+			}
+			else
+			{
+				return UnprocessableEntity();
+			}
+		}
+
+		[HttpPatch]
+		[Authorize]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(400)]
+		public async Task<ActionResult<BroadcastsInformation>> UpdateBroadcasts(
+			[FromBody]BroadcastsUpdateRequest request)
+		{
+			if (!ModelState.IsValid)
+			{
+				return BadRequest();
+			}
+			var broadcast = await service.UpdateBroadcasts(request);
+			return Ok(broadcast);
+		}
+
+		[HttpDelete]
+		[Authorize]
+		[ProducesResponseType(204)]
+		public async Task<ActionResult> DeleteBroadcasts([FromQuery] int raceId)
+		{
+			await service.DeleteBroadcasts(raceId);
+			return NoContent();
+		}
+
 		[HttpGet("next")]
 		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts(
 			[FromQuery] DateTime? after)
@@ -26,23 +77,6 @@ namespace F1WM.Controllers
 		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
 			return await service.GetBroadcasters();
-		}
-
-		[HttpGet("types")]
-		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
-		{
-			return await service.GetSessionTypes();
-		}
-
-		[HttpPost("types")]
-		[Authorize]
-		[ProducesResponseType(201)]
-		[ProducesResponseType(401)]
-		public async Task<ActionResult<BroadcastSessionType>> AddSessionType(
-			[FromBody]BroadcastSessionTypeAddRequest request)
-		{
-			var type = await service.AddSessionType(request);
-			return CreatedAtAction(nameof(GetSessionTypes), type);
 		}
 
 		[HttpPost("broadcasters")]
@@ -64,23 +98,61 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPost]
+		[HttpPatch("broadcasters")]
+		[Authorize]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(400)]
+		public async Task<IEnumerable<Broadcaster>> UpdateBroadcaster(
+			[FromBody]BroadcasterUpdateRequest request)
+		{
+			return await service.GetBroadcasters();
+		}
+
+		[HttpDelete("broadcasters/{id}")]
+		[Authorize]
+		[ProducesResponseType(204)]
+		public async Task<ActionResult> DeleteBroadcaster(int id)
+		{
+			await service.DeleteBroadcaster(id);
+			return NoContent();
+		}
+
+		[HttpGet("types")]
+		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
+		{
+			return await service.GetSessionTypes();
+		}
+
+		[HttpPost("types")]
 		[Authorize]
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
-		[ProducesResponseType(422)]
-		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
-			[FromBody]BroadcastsAddRequest request)
+		public async Task<ActionResult<BroadcastSessionType>> AddSessionType(
+			[FromBody]BroadcastSessionTypeAddRequest request)
 		{
-			var broadcasts = await service.AddBroadcasts(request);
-			if (broadcasts != null)
-			{
-				return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
-			}
-			else
-			{
-				return UnprocessableEntity();
-			}
+			var type = await service.AddSessionType(request);
+			return CreatedAtAction(nameof(GetSessionTypes), type);
+		}
+
+		[HttpPatch("types")]
+		[Authorize]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(401)]
+		[ProducesResponseType(400)]
+		public async Task<IEnumerable<Broadcaster>> UpdateSessionType(
+			[FromBody]BroadcastSessionTypeUpdateRequest request)
+		{
+			return await service.GetBroadcasters();
+		}
+
+		[HttpDelete("types/{id}")]
+		[Authorize]
+		[ProducesResponseType(204)]
+		public async Task<ActionResult> DeleteSessionType(int id)
+		{
+			await service.DeleteSessionType(id);
+			return NoContent();
 		}
 
 		public BroadcastsController(IBroadcastsService service)
