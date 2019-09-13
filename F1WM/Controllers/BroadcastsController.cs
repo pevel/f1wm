@@ -52,7 +52,7 @@ namespace F1WM.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return BadRequest();
+				return BadRequest(ModelState);
 			}
 			var broadcast = await service.UpdateBroadcasts(request);
 			return Ok(broadcast);

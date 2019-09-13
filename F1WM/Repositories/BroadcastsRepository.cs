@@ -83,6 +83,11 @@ namespace F1WM.Repositories
 			return mapper.Map<Api.BroadcastSessionType>(dbType);
 		}
 
+		public async Task<Api.BroadcastsInformation> UpdateBroadcasts(Api.BroadcastsUpdateRequest request)
+		{
+			throw new NotImplementedException();
+		}
+
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
 		{
 			this.context = context;

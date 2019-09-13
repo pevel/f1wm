@@ -54,7 +54,7 @@ namespace F1WM.Services
 
 		public Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			return broadcastsRepository.UpdateBroadcasts(request);
 		}
 
 		public Task DeleteBroadcasts(int raceId)
