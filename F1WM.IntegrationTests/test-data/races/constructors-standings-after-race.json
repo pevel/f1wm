@@ -189,7 +189,7 @@
           "position": 8,
           "points": 30,
           "constructor": {
-            "name": "STR",
+            "name": "Toro Rosso",
             "nationality": {
               "name": "Włochy",
               "flagIcon": "/img/flagi/ita2.gif"
@@ -352,7 +352,7 @@
           "position": 9,
           "points": 33,
           "constructor": {
-            "name": "STR",
+            "name": "Toro Rosso",
             "nationality": {
               "name": "Włochy",
               "flagIcon": "/img/flagi/ita2.gif"

@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -51,7 +50,8 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-related.json")]
 		public async Task ShouldGetRelatedNews(RelatedNewsTestData data)
 		{
-			await TestResponse<IEnumerable<NewsSummary>>($"{baseAddress}/news/related/{data.NewsId}?before={data.Before}?count={data.Count}", data.Expected);
+			await TestResponse<IEnumerable<NewsSummary>>(
+				$"{baseAddress}/news/related/{data.NewsId}?before={data.Before.ToString("yyyy-MM-dd")}&count={data.Count}", data.Expected);
 		}
 		
 		[Theory]
