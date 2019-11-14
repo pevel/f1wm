@@ -50,7 +50,7 @@
           "startYear": 2018,
           "endYear": 2018,
           "picture": "/kierowcy/kariera/lham_2018.jpg",
-          "text": "Po raz pierwszy w hybrydowej erze Mercedes musi uznać wyższość konkurenta, którym jest Ferrari. Mimo to swoim talentem udaje mu się maskować niedoskonałości modelu W09, co udowodnił sięgając po pole position na Silverstone, Hungaroringu czy Marina Bay, a także wygrywając w Niemczech po starcie dopiero z czternastego pola. Po letniej przerwie Mercedes odzyskuje mistrzowską formę, a Hamilton bezlitośnie wykorzystuje liczne błędy Sebastiana Vettela, który znów walczy z nim o mistrzowską koronę. Podobnie jak przed rokiem wygrywa tytuł w Meksyku, zrównując się z Juanem Manuelem Fangio. W całym sezonie jedenastokrotnie ustawia się na pierwszym polu i tryumfuje, a także jako pierwszy kierowca w historii przekracza próg czterystu punktów. Przedłuża umowę z zespołem do końca 2020 roku."
+          "text": "Po raz pierwszy w hybrydowej erze Mercedes musi nadrabiać straty do Ferrari. Mimo to swoim talentem udaje mu się maskować niedoskonałości modelu W09, co udowodnił sięgając po pole position na Silverstone, Hungaroringu czy Marina Bay, a także wygrywając w Niemczech po starcie dopiero z czternastego pola. Po letniej przerwie Mercedes odzyskuje mistrzowską formę, a Hamilton bezlitośnie wykorzystuje liczne błędy Sebastiana Vettela, który znów walczy z nim o mistrzowską koronę. Podobnie jak przed rokiem wygrywa tytuł w Meksyku, zrównując się z Juanem Manuelem Fangio. W całym sezonie jedenastokrotnie ustawia się na pierwszym polu i tryumfuje, a także jako pierwszy kierowca w historii przekracza próg czterystu punktów. Przedłuża umowę z zespołem do końca 2020 roku."
         },
         {
           "startYear": 2017,
@@ -74,7 +74,7 @@
           "startYear": 2014,
           "endYear": 2014,
           "picture": "/kierowcy/kariera/lham_2014.jpg",
-          "text": "Mercedes przygotowuje genialny bolid na sezon 2014, który tylko trzykrotnie musiał uznać wyższość rywali. Za jego kierownicą Hamilton wygrywa aż jedenaście wyścigów i podczas kończącego sezon Grand Prix Abu Zabi przypieczętowuje swój drugi tytuł mistrza świata. W trakcie zmagań toczy pasjonujące pojedynki z zespołowym partnerem, dwukrotnie przebija się z samego końca stawki na podium, odpada przez awarie podzespołów, a w Belgii zalicza kontakt z Rosbergiem. Przez te problemy oraz podwójną liczbę punktów w ostatnim wyścigu, musi być czujny do samego końca, aczkolwiek w końcu udaje mu się powtórzyć wyczyn z 2008 roku."
+          "text": "Mercedes przygotowuje genialny bolid na sezon 2014, który tylko trzykrotnie musiał uznać wyższość rywali. Za jego kierownicą Hamilton wygrywa aż jedenaście wyścigów i podczas kończącego sezon Grand Prix Abu Zabi przypieczętowuje swój drugi tytuł mistrza świata. W trakcie mistrzostw toczy pasjonujące pojedynki z zespołowym partnerem czy dwukrotnie przebija się z samego końca stawki na podium. Mimo to zdarza mu się odpaść przez awarie podzespołów, a w Belgii zalicza kontakt z Rosbergiem. Przez te problemy oraz podwójną liczbę punktów w ostatnim wyścigu, musi być czujny do samego końca, aczkolwiek w końcu udaje mu się powtórzyć wyczyn z 2008 roku."
         },
         {
           "startYear": 2013,
@@ -179,13 +179,13 @@
           "text": "Rozpoczyna karierę od pierwszych jazd gokartem na specjalnym torze Rye House."
         }
       ],
-      "id": 806,
-      "firstName": "Lewis",
-      "surname": "Hamilton",
       "nationality": {
         "name": "Wielka Brytania",
         "flagIcon": "/img/flagi/gbr2.gif"
-      }
+      },
+      "id": 806,
+      "firstName": "Lewis",
+      "surname": "Hamilton"
     }
   },
   {
