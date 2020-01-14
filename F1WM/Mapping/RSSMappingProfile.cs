@@ -3,6 +3,7 @@ using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DatabaseModel.Constants;
+using F1WM.Utilities;
 
 namespace F1WM.Mapping
 {

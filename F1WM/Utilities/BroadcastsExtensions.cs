@@ -1,17 +1,19 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using F1WM.DatabaseModel;
 
-public static class BroadcastsExtensions
+namespace F1WM.Utilities
 {
-	public static IEnumerable<Broadcaster> GetBroadcasters(this IEnumerable<BroadcastedSession> sessions)
+	public static class BroadcastsExtensions
 	{
-		var broadcasters = sessions
-			.SelectMany(s => s.Broadcasts)
-			.Select(b => b.Broadcaster)
-			.GroupBy(b => b.Id)
-			.Select(x => x.First());
-		return broadcasters;
+		public static IEnumerable<Broadcaster> GetBroadcasters(this IEnumerable<BroadcastedSession> sessions)
+		{
+			var broadcasters = sessions
+				.SelectMany(s => s.Broadcasts)
+				.Select(b => b.Broadcaster)
+				.GroupBy(b => b.Id)
+				.Select(x => x.First());
+			return broadcasters;
+		}
 	}
 }
