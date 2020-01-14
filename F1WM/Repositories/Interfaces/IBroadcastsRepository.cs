@@ -16,5 +16,6 @@ namespace F1WM.Repositories
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
 		Task<BroadcastsInformation> GetNextBroadcasts(SeasonRaces currentSeason);
 		Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request);
+		Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null);
 	}
 }

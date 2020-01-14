@@ -49,7 +49,7 @@ namespace F1WM.Services
 
 		public Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null)
 		{
-			throw new NotImplementedException();
+			return broadcastsRepository.GetBroadcasts(raceId);
 		}
 
 		public Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request)

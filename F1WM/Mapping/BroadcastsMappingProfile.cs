@@ -19,7 +19,7 @@ namespace F1WM.Mapping
 			CreateMap<DatabaseModel.BroadcastedSessionType, ApiModel.BroadcastSessionType>().ReverseMap();
 			CreateMap<DatabaseModel.BroadcastedSessionType, ApiModel.BroadcastSessionTypeAddRequest>().ReverseMap();
 			CreateMap<Race, ApiModel.BroadcastsInformation>()
-				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
+				.ForMember(api => api.RaceId, o => o.MapFrom(db => (int)db.Id))
 				.ForMember(api => api.Sessions, o => o.MapFrom(db => db.BroadcastedSessions))
 				.ForMember(api => api.Broadcasters, o => o.MapFrom(db => db.BroadcastedSessions.GetBroadcasters()));
 		}
