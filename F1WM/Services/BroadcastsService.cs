@@ -59,17 +59,27 @@ namespace F1WM.Services
 
 		public Task DeleteBroadcasts(int raceId)
 		{
-			throw new NotImplementedException();
+			return broadcastsRepository.DeleteBroadcasts(raceId);
 		}
 
 		public Task DeleteBroadcaster(int id)
 		{
-			throw new NotImplementedException();
+			return broadcastsRepository.DeleteBroadcaster(id);
 		}
 
 		public Task DeleteSessionType(int id)
 		{
-			throw new NotImplementedException();
+			return broadcastsRepository.DeleteSessionType(id);
+		}
+
+		public Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request)
+		{
+			return broadcastsRepository.UpdateSessionType(request);
+		}
+
+		public Task<Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
+		{
+			return broadcastsRepository.UpdateBroadcaster(request);
 		}
 
 		public BroadcastsService(

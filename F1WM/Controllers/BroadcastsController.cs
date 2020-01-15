@@ -112,10 +112,11 @@ namespace F1WM.Controllers
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
-		public async Task<IEnumerable<Broadcaster>> UpdateBroadcaster(
+		public async Task<ActionResult<Broadcaster>> UpdateBroadcaster(
 			[FromBody]BroadcasterUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			var broadcaster = await service.UpdateBroadcaster(request);
+			return Ok(broadcaster);
 		}
 
 		[HttpDelete("broadcasters/{id}")]
@@ -153,10 +154,11 @@ namespace F1WM.Controllers
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
-		public async Task<IEnumerable<Broadcaster>> UpdateSessionType(
+		public async Task<ActionResult<BroadcastSessionType>> UpdateSessionType(
 			[FromBody]BroadcastSessionTypeUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			var type = await service.UpdateSessionType(request);
+			return Ok(type);
 		}
 
 		[HttpDelete("types/{id}")]
