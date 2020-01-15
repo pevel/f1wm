@@ -15,6 +15,7 @@ namespace F1WM.Controllers
 		private readonly IBroadcastsService service;
 
 		[HttpGet]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(
 			[FromQuery] int? raceId)
 		{
@@ -70,6 +71,8 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("next")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
 		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts(
 			[FromQuery] DateTime? after)
 		{
@@ -78,6 +81,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("broadcasters")]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<Broadcaster>> GetBroadcasters()
 		{
 			return await service.GetBroadcasters();
@@ -111,7 +115,7 @@ namespace F1WM.Controllers
 		public async Task<IEnumerable<Broadcaster>> UpdateBroadcaster(
 			[FromBody]BroadcasterUpdateRequest request)
 		{
-			return await service.GetBroadcasters();
+			throw new NotImplementedException();
 		}
 
 		[HttpDelete("broadcasters/{id}")]
@@ -126,6 +130,7 @@ namespace F1WM.Controllers
 		}
 
 		[HttpGet("types")]
+		[ProducesResponseType(200)]
 		public async Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
 		{
 			return await service.GetSessionTypes();
@@ -151,7 +156,7 @@ namespace F1WM.Controllers
 		public async Task<IEnumerable<Broadcaster>> UpdateSessionType(
 			[FromBody]BroadcastSessionTypeUpdateRequest request)
 		{
-			return await service.GetBroadcasters();
+			throw new NotImplementedException();
 		}
 
 		[HttpDelete("types/{id}")]
