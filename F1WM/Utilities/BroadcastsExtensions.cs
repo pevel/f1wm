@@ -8,12 +8,19 @@ namespace F1WM.Utilities
 	{
 		public static IEnumerable<Broadcaster> GetBroadcasters(this IEnumerable<BroadcastedSession> sessions)
 		{
-			var broadcasters = sessions
-				.SelectMany(s => s.Broadcasts)
+			var broadcasts = sessions.SelectMany(s => s.Broadcasts);
+			var broadcasters = broadcasts
 				.Select(b => b.Broadcaster)
 				.GroupBy(b => b.Id)
 				.Select(x => x.First());
-			return broadcasters;
+			return broadcasters.Select(broadcaster => new Broadcaster()
+			{
+				Id = broadcaster.Id,
+				Url = broadcaster.Url,
+				Name = broadcaster.Name,
+				Icon = broadcaster.Icon,
+				Broadcasts = broadcasts.Where(broadcast => broadcast.BroadcasterId == broadcaster.Id)
+			});
 		}
 	}
 }

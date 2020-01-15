@@ -4,7 +4,6 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DomainModel;
@@ -92,15 +91,15 @@ namespace F1WM.Repositories
 
 		public async Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null)
 		{
-			var raceIdFilter = raceId.HasValue ? (Expression<Func<Race, bool>>)(r => r.Id == raceId.Value) : r => true;
-			var dbRaces = await context.Races
+			var raceIdFilter = raceId.HasValue ? (Expression<Func<Database.BroadcastedSession, bool>>)(b => b.RaceId == raceId.Value) : r => true;
+			var dbBroadcastedSessions = await context.BroadcastedSessions
 				.Where(raceIdFilter)
-				.Where(r => r.BroadcastedSessions.Any())
-				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
-				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Type)
-				.OrderBy(r => r.Date)
+				.Include(s => s.Type)
+				.Include(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
+				.OrderBy(s => s.RaceId)
+				.GroupBy(s => s.RaceId)
 				.ToListAsync();
-			return mapper.Map<IEnumerable<Api.BroadcastsInformation>>(dbRaces);
+			return mapper.Map<IEnumerable<Api.BroadcastsInformation>>(dbBroadcastedSessions);
 		}
 
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
