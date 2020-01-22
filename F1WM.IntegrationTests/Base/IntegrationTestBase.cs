@@ -73,6 +73,7 @@ namespace F1WM.IntegrationTests
 					var loginRequestBody = TestUtilities.GetLoginRequestBody();
 					var tokens = await Post<Tokens, Login>($"{baseAddress}/auth/login", loginRequestBody);
 					loginFixture.AccessToken = tokens.AccessToken;
+					SetAuthorization();
 				}
 				else
 				{
@@ -95,16 +96,24 @@ namespace F1WM.IntegrationTests
 			client.DefaultRequestHeaders.Authorization = null;
 		}
 
-		private async Task<T> Get<T>(string url)
+		protected async Task<T> Get<T>(string url)
 		{
 			var response = await client.GetAsync(url);
+			response.EnsureSuccessStatusCode();
 			return await ReadResponse<T>(response);
 		}
 
-		private async Task<T> Post<T, V>(string url, V body)
+		protected async Task<T> Post<T, V>(string url, V body)
 		{
 			var response = await client.PostAsJsonAsync(url, body);
+			response.EnsureSuccessStatusCode();
 			return await ReadResponse<T>(response);
+		}
+
+		protected async Task Delete(string url)
+		{
+			var response = await client.DeleteAsync(url);
+			response.EnsureSuccessStatusCode();
 		}
 
 		private async Task<T> ReadResponse<T>(HttpResponseMessage response)

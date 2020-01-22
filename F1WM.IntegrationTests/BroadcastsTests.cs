@@ -70,18 +70,13 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcaster()
 		{
-			await Login();
-			SetAuthorization();
 			var broadcaster = generalFixture.Build<Broadcaster>()
 				.Without(b => b.Broadcasts)
 				.Without(b => b.Id)
 				.Create();
-			var addResponse = await client.PostAsJsonAsync($"{baseAddress}/broadcasts/broadcasters", broadcaster);
-			addResponse.EnsureSuccessStatusCode();
-			var responseContent = await addResponse.Content.ReadAsStringAsync();
-			var addedBroadcaster = JsonConvert.DeserializeObject<Broadcaster>(responseContent);
-			var deleteResponse = await client.DeleteAsync($"{baseAddress}/broadcasts/broadcasters/{addedBroadcaster.Id}");
-			deleteResponse.EnsureSuccessStatusCode();
+			await Login();
+			var addedBroadcaster = await Post<Broadcaster, Broadcaster>($"{baseAddress}/broadcasts/broadcasters", broadcaster);
+			await Delete($"{baseAddress}/broadcasts/broadcasters/{addedBroadcaster.Id}");
 		}
 
 		[Fact]
