@@ -87,6 +87,16 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
+		[RunOnlyIfCredentialsProvided]
+		public async Task ShouldAddAndDeleteBroadcastSessionType()
+		{
+			var url = $"{baseAddress}/broadcasts/types";
+			var sessionType = generalFixture.Build<BroadcastSessionType>().Without(t => t.Id).Create();
+			await Login();
+			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionType>(url, sessionType);
+			await Delete($"{url}/{addedSessionType.Id}");
+		}
+
 		[Fact]
 		public async Task ShouldNotAddBroadcasts()
 		{
