@@ -20,7 +20,7 @@ namespace F1WM.IntegrationTests
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var expected = Read(File.ReadAllText(TestUtilities.GetTestDataFilePath("RSS", "feed.xml")));
 			var actual = Read(responseContent);
-			actual.Should().BeEquivalentTo(expected, o => o.Excluding(f => f.LastUpdatedTime));
+			actual.Should().BeEquivalentTo(expected, o => o.Excluding(f => f.LastUpdatedTime).Excluding(f => f.Copyright));
 		}
 
 		[Fact]
