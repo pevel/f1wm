@@ -1,22 +1,22 @@
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
 {
+	[Collection(SharedLogin.CollectionName)]
 	public class AuthTests : IntegrationTestBase
 	{
+		public AuthTests(SharedLogin.Fixture fixture) : base(fixture)
+		{ }
+
 		[Fact]
-		public async Task ShouldLogin()
+		public async Task ShouldNotLogin()
 		{
 			var request = new ObjectContent(
 				typeof(Login),
@@ -26,8 +26,14 @@ namespace F1WM.IntegrationTests
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
+		[RunOnlyIfCredentialsProvided]
+		public async Task ShouldLogin()
+		{
+			await Login();
+		}
+
 		[Fact]
-		public async Task ShouldRegister()
+		public async Task ShouldNotRegister()
 		{
 			var request = new ObjectContent(
 				typeof(RegisterRequest),
@@ -38,7 +44,7 @@ namespace F1WM.IntegrationTests
 		}
 
 		[Fact]
-		public async Task ShouldRefreshAccessToken()
+		public async Task ShouldNotRefreshAccessToken()
 		{
 			var request = new ObjectContent(
 				typeof(Tokens),
