@@ -20,5 +20,5 @@ Alternatively you can use environment variables with the same keys as User Secre
 ## running integration tests
 
 In order to run integration tests that require credentials (e.g. POST requests tests), you need to create a separate file with your test credentials.
-The file needs to conform to schema specified in `F1WM.IntegrationTests/test-data/auth/test-credentials.template.json`. The file itselfneeds to be named `test-credentials.json`
+The file needs to conform to schema specified in `F1WM.IntegrationTests/test-data/auth/test-credentials.template.json`. The file itself needs to be named `test-credentials.json`
 and placed in the same folder. If the test credentials file doesn't exist, tests that require credentials are simply skipped.
