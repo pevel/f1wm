@@ -15,6 +15,12 @@ namespace F1WM.IntegrationTests
 		public AuthTests(SharedLogin.Fixture fixture) : base(fixture)
 		{ }
 
+		[RunOnlyIfCredentialsProvided]
+		public async Task ShouldLogin()
+		{
+			await Login();
+		}
+
 		[Fact]
 		public async Task ShouldNotLogin()
 		{
@@ -24,12 +30,6 @@ namespace F1WM.IntegrationTests
 				new JsonMediaTypeFormatter());
 			var response = await client.PostAsync($"{baseAddress}/auth/login", request);
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-		}
-
-		[RunOnlyIfCredentialsProvided]
-		public async Task ShouldLogin()
-		{
-			await Login();
 		}
 
 		[Fact]
