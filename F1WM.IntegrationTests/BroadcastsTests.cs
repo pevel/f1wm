@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
 {
+	[Collection(SharedLogin.CollectionName)]
 	public class BroadcastsTests : IntegrationTestBase
 	{
+		public BroadcastsTests(SharedLogin.Fixture fixture) : base(fixture)
+		{ }
+
 		[Fact]
 		public async Task ShouldGetBroadcasters()
 		{
@@ -57,13 +62,32 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotAddBroadcaster()
 		{
+			UnsetAuthorization();
 			var response = await client.PostAsync($"{baseAddress}/broadcasts/broadcasters", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+		}
+
+		[RunOnlyIfCredentialsProvided]
+		public async Task ShouldAddAndDeleteBroadcaster()
+		{
+			await Login();
+			SetAuthorization();
+			var broadcaster = generalFixture.Build<Broadcaster>()
+				.Without(b => b.Broadcasts)
+				.Without(b => b.Id)
+				.Create();
+			var addResponse = await client.PostAsJsonAsync($"{baseAddress}/broadcasts/broadcasters", broadcaster);
+			addResponse.EnsureSuccessStatusCode();
+			var responseContent = await addResponse.Content.ReadAsStringAsync();
+			var addedBroadcaster = JsonConvert.DeserializeObject<Broadcaster>(responseContent);
+			var deleteResponse = await client.DeleteAsync($"{baseAddress}/broadcasts/broadcasters/{addedBroadcaster.Id}");
+			deleteResponse.EnsureSuccessStatusCode();
 		}
 
 		[Fact]
 		public async Task ShouldNotAddBroadcastSessionType()
 		{
+			UnsetAuthorization();
 			var response = await client.PostAsync($"{baseAddress}/broadcasts/types", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
@@ -71,6 +95,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotAddBroadcasts()
 		{
+			UnsetAuthorization();
 			var response = await client.PostAsync($"{baseAddress}/broadcasts", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}

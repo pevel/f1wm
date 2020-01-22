@@ -1,6 +1,8 @@
 using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using AutoFixture;
 using F1WM.ApiModel;
 using FluentAssertions;
 using FluentAssertions.Equivalency;
@@ -12,12 +14,20 @@ using Xunit;
 
 namespace F1WM.IntegrationTests
 {
-	public abstract class IntegrationTestBase
+	public abstract class IntegrationTestBase : IDisposable
 	{
 		protected readonly SharedLogin.Fixture loginFixture;
+		protected readonly Fixture generalFixture;
 		protected readonly TestServer server;
 		protected readonly HttpClient client;
 		protected readonly string baseAddress = "/api";
+
+		private readonly string noFixtureMessage = $"Login fixture not found. Make sure tests class is decorated with {nameof(CollectionAttribute)} and proper constructor is called.";
+
+		public void Dispose()
+		{
+			UnsetAuthorization();
+		}
 
 		protected async Task TestResponse<T>(string url, T expected, string why = "")
 		{
@@ -41,6 +51,7 @@ namespace F1WM.IntegrationTests
 				.ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
 				.UseStartup<Startup>());
 			client = server.CreateClient();
+			generalFixture = new Fixture();
 		}
 
 		protected IntegrationTestBase(SharedLogin.Fixture fixture) : this()
@@ -52,7 +63,7 @@ namespace F1WM.IntegrationTests
 		{
 			if (loginFixture == null)
 			{
-				throw new Exception($"Login fixture not found. Make sure tests class is decorated with ${nameof(CollectionAttribute)} and proper constructor is called.");
+				throw new Exception(noFixtureMessage);
 			}
 			if (loginFixture.AccessToken == null)
 			{
@@ -68,6 +79,20 @@ namespace F1WM.IntegrationTests
 					throw new Exception("Attempted to login with no credentials setup. Create test credentials file to login within test runs.");
 				}
 			}
+		}
+
+		protected void SetAuthorization()
+		{
+			if (loginFixture == null)
+			{
+				throw new Exception(noFixtureMessage);
+			}
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginFixture.AccessToken);
+		}
+
+		protected void UnsetAuthorization()
+		{
+			client.DefaultRequestHeaders.Authorization = null;
 		}
 
 		private async Task<T> Get<T>(string url)

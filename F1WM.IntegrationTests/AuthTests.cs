@@ -24,6 +24,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotLogin()
 		{
+			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(Login),
 				new Login() { Email = "invalidEmail@nowhere.com", Password = "anyPassword" },
@@ -35,6 +36,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotRegister()
 		{
+			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(RegisterRequest),
 				new RegisterRequest() { Email = "email@nowhere.com", Password = "anyPassword", Key = "wrongKey" },
@@ -46,6 +48,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotRefreshAccessToken()
 		{
+			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(Tokens),
 				new Tokens()
