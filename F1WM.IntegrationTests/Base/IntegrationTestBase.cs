@@ -73,13 +73,13 @@ namespace F1WM.IntegrationTests
 					var loginRequestBody = TestUtilities.GetLoginRequestBody();
 					var tokens = await Post<Tokens, Login>($"{baseAddress}/auth/login", loginRequestBody);
 					loginFixture.AccessToken = tokens.AccessToken;
-					SetAuthorization();
 				}
 				else
 				{
 					throw new Exception("Attempted to login with no credentials setup. Create test credentials file to login within test runs.");
 				}
 			}
+			SetAuthorization();
 		}
 
 		protected void SetAuthorization()
