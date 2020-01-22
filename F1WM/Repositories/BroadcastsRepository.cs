@@ -102,12 +102,12 @@ namespace F1WM.Repositories
 			return mapper.Map<IEnumerable<Api.BroadcastsInformation>>(dbBroadcastedSessions);
 		}
 
-		public Task<Api.Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
+		public async Task<Api.Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
 		{
 			throw new NotImplementedException();
 		}
 
-		public Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request)
+		public async Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request)
 		{
 			throw new NotImplementedException();
 		}
@@ -119,12 +119,16 @@ namespace F1WM.Repositories
 
 		public Task DeleteBroadcaster(int id)
 		{
-			throw new NotImplementedException();
+			var dbBroadcaster = context.Broadcasters.SingleOrDefault(b => b.Id == id);
+			context.Broadcasters.Remove(dbBroadcaster);
+			return context.SaveChangesAsync();
 		}
 
 		public Task DeleteSessionType(int id)
 		{
-			throw new NotImplementedException();
+			var dbSessionType = context.BroadcastedSessionTypes.SingleOrDefault(t => t.Id == id);
+			context.BroadcastedSessionTypes.Remove(dbSessionType);
+			return context.SaveChangesAsync();
 		}
 
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
