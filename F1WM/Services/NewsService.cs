@@ -16,7 +16,7 @@ namespace F1WM.Services
 	public class NewsService : INewsService
 	{
 		private readonly INewsRepository newsRepository;
-		private readonly IConfigTextRepository configTextRepository;
+		private readonly IConfigRepository config;
 		private readonly IBBCodeParser bBCodeParser;
 		private readonly ITimeService time;
 
@@ -38,7 +38,7 @@ namespace F1WM.Services
 
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
-			var configText = await configTextRepository.GetConfigText(ConfigTextName.ImportantNews);
+			var configText = await config.GetConfigText(ConfigTextName.ImportantNews);
 			if (configText != null && !string.IsNullOrWhiteSpace(configText.Value))
 			{
 				var summaries = new List<ImportantNewsSummary>();
@@ -100,14 +100,19 @@ namespace F1WM.Services
 			return await newsRepository.GetRelatedNews(newsId, before ?? time.Now, count ?? 5);
 		}
 
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime? before)
+		{
+			return await newsRepository.SearchNews(term, page, countPerPage, before ?? time.Now);
+		}
+
 		public NewsService(
 			INewsRepository newsRepository,
-			IConfigTextRepository configTextRepository,
+			IConfigRepository config,
 			IBBCodeParser bbCodeParser,
 			ITimeService time)
 		{
 			this.newsRepository = newsRepository;
-			this.configTextRepository = configTextRepository;
+			this.config = config;
 			this.bBCodeParser = bbCodeParser;
 			this.time = time;
 		}

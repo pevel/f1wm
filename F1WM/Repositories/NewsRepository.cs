@@ -63,6 +63,10 @@ namespace F1WM.Repositories
 				{
 					await IncludeResultLink(news, link);
 				}
+				var newsTags = context.NewsTagMatches
+					.Where(tm => tm.NewsId == id)
+					.Select(t => t.Tag);
+				news.RelatedTags = await mapper.ProjectTo<ApiModel.NewsTag>(newsTags).ToListAsync();
 			}
 			return news;
 		}
@@ -95,7 +99,7 @@ namespace F1WM.Repositories
 
 		public Task<PagedResult<ApiModel.NewsTag>> GetNewsTags(uint page, uint countPerPage)
 		{
-			var dbNewsTags = context.NewsTags.OrderBy(nt => nt.Id);
+			var dbNewsTags = context.NewsTags.OrderBy(nt => nt.Title);
 			return dbNewsTags.GetPagedResult<DatabaseModel.NewsTag, ApiModel.NewsTag>(mapper, page, countPerPage);
 		}
 
@@ -151,6 +155,17 @@ namespace F1WM.Repositories
 				.ToListAsync();
 			
 			return result.Count > 0 ? result : null;
+		}
+
+		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime before)
+		{
+			var result = context.News
+				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 
+				            && x.Date < before
+				            && !x.NewsHidden)
+				.OrderByDescending(x => x.Date);
+
+			return await result.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}
 
 		private async Task IncludeResultLink(NewsDetails news, ResultRedirectLink link)

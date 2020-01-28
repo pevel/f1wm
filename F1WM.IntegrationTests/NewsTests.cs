@@ -4,7 +4,6 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using F1WM.Controllers;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -51,7 +50,15 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-related.json")]
 		public async Task ShouldGetRelatedNews(RelatedNewsTestData data)
 		{
-			await TestResponse<IEnumerable<NewsSummary>>($"{baseAddress}/news/related/{data.NewsId}?before={data.Before}?count={data.Count}", data.Expected);
+			await TestResponse<IEnumerable<NewsSummary>>(
+				$"{baseAddress}/news/related/{data.NewsId}?before={data.Before.ToString("yyyy-MM-dd")}&count={data.Count}", data.Expected);
+		}
+		
+		[Theory]
+		[JsonData("news", "search-news.json")]
+		public async Task ShouldGetSearchResults(SearchNewsTestData data)
+		{
+			await TestResponse<PagedResult<NewsSummary>>($"{baseAddress}/news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before}", data.Expected);
 		}
 		
 		[Fact]
@@ -211,6 +218,15 @@ namespace F1WM.IntegrationTests
 			public DateTime Before { get; set; }
 			public int Count { get; set; }
 			public IEnumerable<NewsSummary> Expected { get; set; }
+		}
+
+		public class SearchNewsTestData
+		{
+			public DateTime Before { get; set; }
+			public int CountPerPage { get; set; }
+			public string Term { get; set; }
+			public int Page { get; set; }
+			public PagedResult<NewsSummary> Expected { get; set; }
 		}
 
 		public class NewsTypesTestData

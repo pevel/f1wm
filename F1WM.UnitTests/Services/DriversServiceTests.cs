@@ -41,5 +41,17 @@ namespace F1WM.UnitTests.Services
 
 			driversRepositoryMock.Verify(r => r.GetDriver(driverId, currentYear), Times.Once);
 		}
+
+		[Fact]
+		public async Task ShouldSearchDrivers()
+		{
+			var filter = "test filter";
+			var page = 6666;
+			var countPerPage = 9999;
+
+			await service.Search(filter, page, countPerPage);
+
+			driversRepositoryMock.Verify(r => r.Search(filter, page, countPerPage), Times.Once);
+		}
 	}
 }
