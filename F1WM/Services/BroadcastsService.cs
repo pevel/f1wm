@@ -32,9 +32,11 @@ namespace F1WM.Services
 
 		public async Task<BroadcastsInformation> GetNextBroadcasts(DateTime? after = null)
 		{
-			return after != null
+			var broadcasts = after != null
 				? await broadcastsRepository.GetBroadcastsAfter(after.Value)
 				: await broadcastsRepository.GetNextBroadcasts(await seasonsRepository.GetCurrentSeasonRaces(time.Now));
+			broadcasts.Sessions.ToList().ForEach(s => s.Broadcasts = null);
+			return broadcasts;
 		}
 
 		public Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
@@ -52,7 +54,7 @@ namespace F1WM.Services
 			return broadcastsRepository.GetBroadcasts(raceId);
 		}
 
-		public Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request)
+		public Task<BroadcastedRace> UpdateBroadcasts(BroadcastsUpdateRequest request)
 		{
 			return broadcastsRepository.UpdateBroadcasts(request);
 		}
@@ -80,6 +82,11 @@ namespace F1WM.Services
 		public Task<Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
 		{
 			return broadcastsRepository.UpdateBroadcaster(request);
+		}
+
+		public Task<BroadcastedRace> GetBroadcastedRace(int raceId)
+		{
+			return broadcastsRepository.GetBroadcastedRace(raceId);
 		}
 
 		public BroadcastsService(

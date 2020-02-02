@@ -14,9 +14,10 @@ namespace F1WM.Repositories
 		Task<BroadcastsInformation> GetNextBroadcasts(SeasonRaces currentSeason);
 		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
 		Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null);
+		Task<BroadcastedRace> GetBroadcastedRace(int raceId);
 		Task<IEnumerable<ApiModel.Broadcaster>> GetBroadcasters();
 		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
-		Task<BroadcastsInformation> UpdateBroadcasts(BroadcastsUpdateRequest request);
+		Task<BroadcastedRace> UpdateBroadcasts(BroadcastsUpdateRequest request);
 		Task<Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request);
 		Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request);
 		Task DeleteBroadcasts(int raceId);

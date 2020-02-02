@@ -5,6 +5,8 @@ using F1WM.ApiModel;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace F1WM.Controllers
@@ -29,7 +31,7 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		[ProducesResponseType(422)]
 		public async Task<ActionResult<BroadcastsInformation>> AddBroadcasts(
-			[FromBody]BroadcastsAddRequest request)
+			[FromBody] BroadcastsAddRequest request)
 		{
 			var broadcasts = await service.AddBroadcasts(request);
 			if (broadcasts != null)
@@ -42,29 +44,38 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPatch]
+		[HttpGet("broadcasted-races/{raceId}")]
+		[ProducesResponseType(200)]
+		[ProducesResponseType(404)]
+		public async Task<ActionResult<BroadcastedRace>> GetBroadcastedRace([FromRoute] int raceId)
+		{
+			var race = await service.GetBroadcastedRace(raceId);
+			return this.NotFoundResultIfNull(race);
+		}
+
+		[HttpPatch("broadcasted-races/{raceId}")]
 		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<BroadcastsInformation>> UpdateBroadcasts(
-			[FromBody]BroadcastsUpdateRequest request)
+			[FromBody] JsonPatchDocument<BroadcastedRaceUpdate> patchDocument, [FromRoute] int raceId)
 		{
-			if (!ModelState.IsValid)
+			if (patchDocument == null)
 			{
 				return BadRequest(ModelState);
 			}
-			var broadcast = await service.UpdateBroadcasts(request);
-			return Ok(broadcast);
+			var broadcasts = await service.UpdateBroadcasts(new BroadcastsUpdateRequest() { RaceId = raceId, PatchDocument = patchDocument });
+			return Ok(broadcasts);
 		}
 
-		[HttpDelete]
+		[HttpDelete("broadcasted-races/{raceId}")]
 		[Authorize]
 		[ProducesResponseType(204)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult> DeleteBroadcasts([FromQuery] int raceId)
+		public async Task<ActionResult> DeleteBroadcasts([FromRoute] int raceId)
 		{
 			await service.DeleteBroadcasts(raceId);
 			return NoContent();
@@ -93,7 +104,7 @@ namespace F1WM.Controllers
 		[ProducesResponseType(401)]
 		[ProducesResponseType(422)]
 		public async Task<ActionResult<Broadcaster>> AddBroadcaster(
-			[FromBody]BroadcasterAddRequest request)
+			[FromBody] BroadcasterAddRequest request)
 		{
 			var broadcaster = await service.AddBroadcaster(request);
 			if (broadcaster != null)
@@ -106,17 +117,25 @@ namespace F1WM.Controllers
 			}
 		}
 
-		[HttpPatch("broadcasters")]
+		[HttpPatch("broadcasters/{id}")]
 		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<Broadcaster>> UpdateBroadcaster(
-			[FromBody]BroadcasterUpdateRequest request)
+			[FromRoute] int id, [FromBody] JsonPatchDocument<Broadcaster> patchDocument)
 		{
-			var broadcaster = await service.UpdateBroadcaster(request);
-			return Ok(broadcaster);
+			try
+			{
+				var broadcaster = await service.UpdateBroadcaster(
+					new BroadcasterUpdateRequest() { Id = id, PatchDocument = patchDocument });
+				return this.NotFoundResultIfNull(broadcaster);
+			}
+			catch (JsonPatchException ex)
+			{
+				return BadRequest(new { Message = ex.Message });
+			}
 		}
 
 		[HttpDelete("broadcasters/{id}")]
@@ -142,23 +161,31 @@ namespace F1WM.Controllers
 		[ProducesResponseType(201)]
 		[ProducesResponseType(401)]
 		public async Task<ActionResult<BroadcastSessionType>> AddSessionType(
-			[FromBody]BroadcastSessionTypeAddRequest request)
+			[FromBody] BroadcastSessionTypeAddRequest request)
 		{
 			var type = await service.AddSessionType(request);
 			return CreatedAtAction(nameof(GetSessionTypes), type);
 		}
 
-		[HttpPatch("types")]
+		[HttpPatch("types/{id}")]
 		[Authorize]
 		[ProducesResponseType(200)]
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<BroadcastSessionType>> UpdateSessionType(
-			[FromBody]BroadcastSessionTypeUpdateRequest request)
+			[FromRoute] int id, [FromBody] JsonPatchDocument<BroadcastSessionType> patchDocument)
 		{
-			var type = await service.UpdateSessionType(request);
-			return Ok(type);
+			try
+			{
+				var type = await service.UpdateSessionType(
+					new BroadcastSessionTypeUpdateRequest() { Id = id, PatchDocument = patchDocument });
+				return this.NotFoundResultIfNull(type);
+			}
+			catch (JsonPatchException ex)
+			{
+				return BadRequest(new { Message = ex.Message });
+			}
 		}
 
 		[HttpDelete("types/{id}")]

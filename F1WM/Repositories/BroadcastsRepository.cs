@@ -8,6 +8,7 @@ using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.DomainModel;
 using F1WM.Utilities;
+using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.EntityFrameworkCore;
 using Api = F1WM.ApiModel;
 using Database = F1WM.DatabaseModel;
@@ -22,7 +23,7 @@ namespace F1WM.Repositories
 		{
 			var dbSessions = mapper.Map<IEnumerable<Database.BroadcastedSession>>(request.Sessions);
 			context.BroadcastedSessions.AddRange(dbSessions);
-			context.Races.Single(r => r.Id == request.RaceId).BroadcastedSessions = dbSessions;
+			context.Races.Single(r => r.Id == request.RaceId).BroadcastedSessions = dbSessions.ToList();
 			await context.SaveChangesAsync();
 			var dbRace = await context.Races
 				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts).ThenInclude(b => b.Broadcaster)
@@ -84,9 +85,20 @@ namespace F1WM.Repositories
 			return mapper.Map<Api.BroadcastSessionType>(dbType);
 		}
 
-		public async Task<Api.BroadcastsInformation> UpdateBroadcasts(Api.BroadcastsUpdateRequest request)
+		public async Task<Api.BroadcastedRace> UpdateBroadcasts(Api.BroadcastsUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			var race = await context.Races
+				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts)
+				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Type)
+				.SingleOrDefaultAsync(r => r.Id == request.RaceId);
+			if (race != null)
+			{
+				mapper.Map<JsonPatchDocument<Race>>(request.PatchDocument).ApplyTo(race);
+				context.Races.Update(race);
+				await context.SaveChangesAsync();
+				return mapper.Map<Api.BroadcastedRace>(race);
+			}
+			return null;
 		}
 
 		public async Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null)
@@ -104,17 +116,41 @@ namespace F1WM.Repositories
 
 		public async Task<Api.Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			var dbBroadcaster = await context.Broadcasters.SingleOrDefaultAsync(b => b.Id == request.Id);
+			if (dbBroadcaster != null)
+			{
+				mapper.Map<JsonPatchDocument<Database.Broadcaster>>(request.PatchDocument).ApplyTo(dbBroadcaster);
+				context.Broadcasters.Update(dbBroadcaster);
+				await context.SaveChangesAsync();
+				return mapper.Map<Api.Broadcaster>(dbBroadcaster);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public async Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request)
 		{
-			throw new NotImplementedException();
+			var dbType = await context.BroadcastedSessionTypes.SingleOrDefaultAsync(b => b.Id == request.Id);
+			if (dbType != null)
+			{
+				mapper.Map<JsonPatchDocument<BroadcastedSessionType>>(request.PatchDocument).ApplyTo(dbType);
+				context.BroadcastedSessionTypes.Update(dbType);
+				await context.SaveChangesAsync();
+				return mapper.Map<BroadcastSessionType>(dbType);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		public Task DeleteBroadcasts(int raceId)
 		{
-			throw new NotImplementedException();
+			var dbRace = context.Races.SingleOrDefault(r => r.Id == raceId);
+			context.BroadcastedSessions.RemoveRange(dbRace.BroadcastedSessions.ToList());
+			return context.SaveChangesAsync();
 		}
 
 		public Task DeleteBroadcaster(int id)
@@ -129,6 +165,11 @@ namespace F1WM.Repositories
 			var dbSessionType = context.BroadcastedSessionTypes.SingleOrDefault(t => t.Id == id);
 			context.BroadcastedSessionTypes.Remove(dbSessionType);
 			return context.SaveChangesAsync();
+		}
+
+		public Task<BroadcastedRace> GetBroadcastedRace(int raceId)
+		{
+			return mapper.ProjectTo<BroadcastedRace>(context.Races.Where(r => r.Id == raceId)).SingleOrDefaultAsync();
 		}
 
 		public BroadcastRepository(Database.F1WMContext context, IMapper mapper)
