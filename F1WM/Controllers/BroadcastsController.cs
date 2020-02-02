@@ -59,15 +59,18 @@ namespace F1WM.Controllers
 		[ProducesResponseType(400)]
 		[ProducesResponseType(401)]
 		[ProducesResponseType(404)]
-		public async Task<ActionResult<BroadcastsInformation>> UpdateBroadcasts(
+		public async Task<ActionResult<BroadcastedRace>> UpdateBroadcasts(
 			[FromBody] JsonPatchDocument<BroadcastedRaceUpdate> patchDocument, [FromRoute] int raceId)
 		{
-			if (patchDocument == null)
+			try
 			{
-				return BadRequest(ModelState);
+				var broadcasts = await service.UpdateBroadcasts(new BroadcastsUpdateRequest() { RaceId = raceId, PatchDocument = patchDocument });
+				return this.NotFoundResultIfNull(broadcasts);
 			}
-			var broadcasts = await service.UpdateBroadcasts(new BroadcastsUpdateRequest() { RaceId = raceId, PatchDocument = patchDocument });
-			return Ok(broadcasts);
+			catch (JsonPatchException ex)
+			{
+				return BadRequest(new { Message = ex.Message });
+			}
 		}
 
 		[HttpDelete("broadcasted-races/{raceId}")]
