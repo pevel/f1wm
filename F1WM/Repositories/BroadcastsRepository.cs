@@ -148,8 +148,8 @@ namespace F1WM.Repositories
 
 		public Task DeleteBroadcasts(int raceId)
 		{
-			var dbRace = context.Races.SingleOrDefault(r => r.Id == raceId);
-			context.BroadcastedSessions.RemoveRange(dbRace.BroadcastedSessions.ToList());
+			var dbRace = context.Races.Include(r => r.BroadcastedSessions).SingleOrDefault(r => r.Id == raceId);
+			dbRace.BroadcastedSessions.Clear();
 			return context.SaveChangesAsync();
 		}
 
