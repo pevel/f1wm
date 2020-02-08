@@ -1,7 +1,7 @@
 using System;
 using Xunit;
 
-namespace F1WM.IntegrationTests
+namespace F1WM.IntegrationTests.Utilities
 {
 	public class SharedLogin
 	{

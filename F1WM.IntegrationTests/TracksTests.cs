@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -11,7 +12,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetTrack(TrackDetailsTestData data)
 		{
 			await TestResponse<TrackDetails>(
-				$"{baseAddress}/tracks/{data.TrackId}?atYear={data.AtYear}",
+				$"tracks/{data.TrackId}?atYear={data.AtYear}",
 				data.Expected);
 		}
 
@@ -20,7 +21,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetTrackRecords(TrackRecordsTestData data)
 		{
 			await TestResponse<TrackRecordsInformation>(
-				$"{baseAddress}/tracks/{data.TrackId}/versions/{data.TrackVersion}/records?beforeYear={data.BeforeYear}",
+				$"tracks/{data.TrackId}/versions/{data.TrackVersion}/records?beforeYear={data.BeforeYear}",
 				data.Expected);
 		}
 
@@ -29,7 +30,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetTracks(TracksSummaryTestData data)
 		{
 			await TestResponse<PagedResult<Track>>(
-				$"{baseAddress}/tracks?countPerPage={data.CountPerPage}&page={data.Page}",
+				$"tracks?countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
 
@@ -38,7 +39,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetTracksByStatus(TracksSummaryTestData data)
 		{
 			await TestResponse<PagedResult<Track>>(
-				$"{baseAddress}/tracks?status={data.Status}&countPerPage={data.CountPerPage}&page={data.Page}",
+				$"tracks?status={data.Status}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected);
 		}
 
@@ -47,7 +48,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetTrackShortResultsByYears(TrackShortResultsByYearsTestData data)
 		{
 			await TestResponse<TrackShortResultsByYears>(
-				$"{baseAddress}/tracks/{data.TrackId}/short-results?untilYear={data.UntilYear}",
+				$"tracks/{data.TrackId}/short-results?untilYear={data.UntilYear}",
 				data.Expected);
 		}
 

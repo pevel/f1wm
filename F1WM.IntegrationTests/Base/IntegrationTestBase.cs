@@ -4,6 +4,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoFixture;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Utilities;
 using FluentAssertions;
 using FluentAssertions.Equivalency;
 using Microsoft.AspNetCore.Hosting;
@@ -20,7 +21,7 @@ namespace F1WM.IntegrationTests
 		protected readonly Fixture generalFixture;
 		protected readonly TestServer server;
 		protected readonly HttpClient client;
-		protected readonly string baseAddress = "/api";
+		protected readonly string baseAddress = "api/";
 
 		private readonly string noFixtureMessage = $"Login fixture not found. Make sure tests class is decorated with {nameof(CollectionAttribute)} and proper constructor is called.";
 
@@ -51,6 +52,7 @@ namespace F1WM.IntegrationTests
 				.ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
 				.UseStartup<Startup>());
 			client = server.CreateClient();
+			client.BaseAddress = new Uri(client.BaseAddress + baseAddress);
 			generalFixture = new Fixture();
 		}
 
@@ -68,10 +70,10 @@ namespace F1WM.IntegrationTests
 			if (loginFixture.AccessToken == null)
 			{
 				loginFixture.AccessToken = String.Empty;
-				if (TestUtilities.CredentialsFileExists())
+				if (SharedTestUtilities.CredentialsFileExists())
 				{
-					var loginRequestBody = TestUtilities.GetLoginRequestBody();
-					var tokens = await Post<Tokens, Login>($"{baseAddress}/auth/login", loginRequestBody);
+					var loginRequestBody = SharedTestUtilities.GetLoginRequestBody();
+					var tokens = await Post<Tokens, Login>("auth/login", loginRequestBody);
 					loginFixture.AccessToken = tokens.AccessToken;
 				}
 				else

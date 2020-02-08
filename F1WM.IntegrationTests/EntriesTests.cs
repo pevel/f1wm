@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -10,7 +11,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("entries", "race-entries.json")]
 		public async Task ShouldGetRaceEntries(RaceEntriesTestData data)
 		{
-			await TestResponse<RaceEntriesInformation>($"{baseAddress}/Entries?raceId={data.RaceId}", data.Expected, data.Why);
+			await TestResponse<RaceEntriesInformation>($"Entries?raceId={data.RaceId}", data.Expected, data.Why);
 		}
 
 		public class RaceEntriesTestData

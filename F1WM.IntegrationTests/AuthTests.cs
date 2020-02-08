@@ -5,6 +5,8 @@ using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
+using F1WM.IntegrationTests.Utilities;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -29,7 +31,7 @@ namespace F1WM.IntegrationTests
 				typeof(Login),
 				new Login() { Email = "invalidEmail@nowhere.com", Password = "anyPassword" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/login", request);
+			var response = await client.PostAsync("auth/login", request);
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
@@ -41,7 +43,7 @@ namespace F1WM.IntegrationTests
 				typeof(RegisterRequest),
 				new RegisterRequest() { Email = "email@nowhere.com", Password = "anyPassword", Key = "wrongKey" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/register", request);
+			var response = await client.PostAsync("auth/register", request);
 			Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
 		}
 
@@ -57,7 +59,7 @@ namespace F1WM.IntegrationTests
 					RefreshToken = Convert.ToBase64String(Encoding.UTF8.GetBytes("refreshToken"))
 				},
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/refresh-token", request);
+			var response = await client.PostAsync("auth/refresh-token", request);
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 

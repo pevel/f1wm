@@ -12,7 +12,7 @@ namespace F1WM.IntegrationTests
 		{
 			var expectedDatabaseStatus = "OK";
 
-			var response = await client.GetAsync($"{baseAddress}/healthcheck");
+			var response = await client.GetAsync($"healthcheck");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();

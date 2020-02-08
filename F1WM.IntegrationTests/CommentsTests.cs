@@ -15,7 +15,7 @@ namespace F1WM.IntegrationTests
 		{
 			var id = 42;
 
-			var response = await client.GetAsync($"{baseAddress}/comments/{id}");
+			var response = await client.GetAsync($"comments/{id}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -31,7 +31,7 @@ namespace F1WM.IntegrationTests
 		{
 			var newsId = 43;
 
-			var response = await client.GetAsync($"{baseAddress}/comments?newsId={newsId}");
+			var response = await client.GetAsync($"comments?newsId={newsId}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();

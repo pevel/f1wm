@@ -5,6 +5,8 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using AutoFixture;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
+using F1WM.IntegrationTests.Utilities;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -19,7 +21,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetBroadcasters()
 		{
-			var response = await client.GetAsync($"{baseAddress}/broadcasts/broadcasters");
+			var response = await client.GetAsync("broadcasts/broadcasters");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -37,7 +39,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetBroadcastSessionTypes()
 		{
-			var response = await client.GetAsync($"{baseAddress}/broadcasts/types");
+			var response = await client.GetAsync("broadcasts/types");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -55,7 +57,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNextBroadcasts(NextBroadcastsTestData data)
 		{
 			await TestResponse<BroadcastsInformation>(
-				$"{baseAddress}/broadcasts/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				$"broadcasts/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
 				data.Expected);
 		}
 
@@ -63,7 +65,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldNotAddBroadcaster()
 		{
 			UnsetAuthorization();
-			var response = await client.PostAsync($"{baseAddress}/broadcasts/broadcasters", new StringContent(""));
+			var response = await client.PostAsync("broadcasts/broadcasters", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
@@ -75,22 +77,22 @@ namespace F1WM.IntegrationTests
 				.Without(b => b.Id)
 				.Create();
 			await Login();
-			var addedBroadcaster = await Post<Broadcaster, Broadcaster>($"{baseAddress}/broadcasts/broadcasters", broadcaster);
-			await Delete($"{baseAddress}/broadcasts/broadcasters/{addedBroadcaster.Id}");
+			var addedBroadcaster = await Post<Broadcaster, Broadcaster>("broadcasts/broadcasters", broadcaster);
+			await Delete($"broadcasts/broadcasters/{addedBroadcaster.Id}");
 		}
 
 		[Fact]
 		public async Task ShouldNotAddBroadcastSessionType()
 		{
 			UnsetAuthorization();
-			var response = await client.PostAsync($"{baseAddress}/broadcasts/types", new StringContent(""));
+			var response = await client.PostAsync("broadcasts/types", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcastSessionType()
 		{
-			var url = $"{baseAddress}/broadcasts/types";
+			var url = "broadcasts/types";
 			var sessionType = generalFixture.Build<BroadcastSessionType>().Without(t => t.Id).Create();
 			await Login();
 			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionType>(url, sessionType);
@@ -101,7 +103,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldNotAddBroadcasts()
 		{
 			UnsetAuthorization();
-			var response = await client.PostAsync($"{baseAddress}/broadcasts", new StringContent(""));
+			var response = await client.PostAsync("broadcasts", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 

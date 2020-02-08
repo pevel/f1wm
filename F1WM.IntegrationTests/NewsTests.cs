@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Newtonsoft.Json;
 using Xunit;
 
@@ -16,7 +17,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetSingleNews(NewsDetailsTestData data)
 		{
 			await TestResponse<NewsDetails>(
-				$"{baseAddress}/news/{data.NewsId}",
+				$"news/{data.NewsId}",
 				data.Expected,
 				c => c.Excluding(n => n.Views),
 				data.Why);
@@ -27,7 +28,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetManyNews(NewsSummaryTestData data)
 		{
 			await TestResponse<PagedResult<NewsSummary>>(
-				$"{baseAddress}/news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
+				$"news?firstId={data.FirstId}&countPerPage={data.CountPerPage}&page={data.Page}",
 				data.Expected,
 				c => c.WithStrictOrderingFor(n => n.Result));
 		}
@@ -36,14 +37,14 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "news-types.json")]
 		public async Task ShouldGetNewsTypes(NewsTypesTestData data)
 		{
-			await TestResponse<IEnumerable<NewsType>>($"{baseAddress}/news/types", data.Expected);
+			await TestResponse<IEnumerable<NewsType>>($"news/types", data.Expected);
 		}
 
 		[Theory]
 		[JsonData("news", "news-tag-categories.json")]
 		public async Task ShouldGetNewsCategories(NewsTagCategoriesTestData data)
 		{
-			await TestResponse<IEnumerable<NewsTagCategory>>($"{baseAddress}/news/categories", data.Expected);
+			await TestResponse<IEnumerable<NewsTagCategory>>($"news/categories", data.Expected);
 		}
 
 		[Theory]
@@ -51,20 +52,20 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetRelatedNews(RelatedNewsTestData data)
 		{
 			await TestResponse<IEnumerable<NewsSummary>>(
-				$"{baseAddress}/news/related/{data.NewsId}?before={data.Before.ToString("yyyy-MM-dd")}&count={data.Count}", data.Expected);
+				$"news/related/{data.NewsId}?before={data.Before.ToString("yyyy-MM-dd")}&count={data.Count}", data.Expected);
 		}
 		
 		[Theory]
 		[JsonData("news", "search-news.json")]
 		public async Task ShouldGetSearchResults(SearchNewsTestData data)
 		{
-			await TestResponse<PagedResult<NewsSummary>>($"{baseAddress}/news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before}", data.Expected);
+			await TestResponse<PagedResult<NewsSummary>>($"news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before}", data.Expected);
 		}
 		
 		[Fact]
 		public async Task ShouldGetImportantNews()
 		{
-			var response = await client.GetAsync($"{baseAddress}/news/important");
+			var response = await client.GetAsync($"news/important");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -82,7 +83,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldIncrementViews()
 		{
 			var id = 30676;
-			var response = await client.PostAsync($"{baseAddress}/news/{id}/views/increment", new StringContent(""));
+			var response = await client.PostAsync($"news/{id}/views/increment", new StringContent(""));
 			response.EnsureSuccessStatusCode();
 		}
 
@@ -90,7 +91,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsTags()
 		{
 			uint count = 5;
-			var response = await client.GetAsync($"{baseAddress}/news/tags?countPerPage={count}");
+			var response = await client.GetAsync($"news/tags?countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -117,7 +118,7 @@ namespace F1WM.IntegrationTests
 			var id = 2;
 			uint count = 5;
 
-			var response = await client.GetAsync($"{baseAddress}/news/tags?categoryId={id}&countPerPage={count}");
+			var response = await client.GetAsync($"news/tags?categoryId={id}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -144,7 +145,7 @@ namespace F1WM.IntegrationTests
 			var typeId = 5;
 			uint count = 7;
 
-			var response = await client.GetAsync($"{baseAddress}/news?typeId={typeId}&countPerPage={count}");
+			var response = await client.GetAsync($"news?typeId={typeId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();
@@ -174,7 +175,7 @@ namespace F1WM.IntegrationTests
 			var tagId = 2;
 			uint count = 7;
 
-			var response = await client.GetAsync($"{baseAddress}/news?tagId={tagId}&countPerPage={count}");
+			var response = await client.GetAsync($"news?tagId={tagId}&countPerPage={count}");
 			response.EnsureSuccessStatusCode();
 
 			var responseContent = await response.Content.ReadAsStringAsync();

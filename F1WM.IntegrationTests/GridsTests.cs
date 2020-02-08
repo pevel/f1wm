@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -10,7 +11,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("grids", "grid.json")]
 		public async Task ShouldGetGrid(GridTestData data)
 		{
-			await TestResponse<GridInformation>($"{baseAddress}/Grids?raceId={data.RaceId}", data.Expected, data.Why);
+			await TestResponse<GridInformation>($"Grids?raceId={data.RaceId}", data.Expected, data.Why);
 		}
 
 		public class GridTestData

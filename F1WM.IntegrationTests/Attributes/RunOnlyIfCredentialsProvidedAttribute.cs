@@ -1,12 +1,13 @@
+using F1WM.IntegrationTests.Utilities;
 using Xunit;
 
-namespace F1WM.IntegrationTests
+namespace F1WM.IntegrationTests.Attributes
 {
 	public class RunOnlyIfCredentialsProvidedAttribute : FactAttribute
 	{
 		public RunOnlyIfCredentialsProvidedAttribute()
 		{
-			if (!TestUtilities.CredentialsFileExists())
+			if (!SharedTestUtilities.CredentialsFileExists())
 			{
 				Skip = "Credentials not found. Ignoring test requiring credentials";
 			}

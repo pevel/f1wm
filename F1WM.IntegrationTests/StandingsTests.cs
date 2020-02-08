@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -11,7 +12,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetConstructorsStandings(ConstructorsStandingsTestData data)
 		{
 			await TestResponse<ConstructorsStandings>(
-				$"{baseAddress}/standings/constructors?seasonId={data.SeasonId}&count={data.Count}",
+				$"standings/constructors?seasonId={data.SeasonId}&count={data.Count}",
 				data.Expected);
 		}
 
@@ -20,7 +21,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetDriversStandings(DriversStandingsTestData data)
 		{
 			await TestResponse<DriversStandings>(
-				$"{baseAddress}/standings/drivers?seasonId={data.SeasonId}&count={data.Count}",
+				$"standings/drivers?seasonId={data.SeasonId}&count={data.Count}",
 				data.Expected);
 		}
 
