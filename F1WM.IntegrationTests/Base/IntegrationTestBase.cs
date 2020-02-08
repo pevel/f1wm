@@ -1,4 +1,5 @@
 using System;
+using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -44,6 +45,28 @@ namespace F1WM.IntegrationTests
 		{
 			T actual = await Get<T>(url);
 			actual.Should().BeEquivalentTo(expected, config, why);
+		}
+
+		protected async Task TestIfIsSecured(TestedHttpMethod method, string url)
+		{
+			UnsetAuthorization();
+			Func<string, HttpContent, Task<HttpResponseMessage>> action;
+			string parameter;
+			switch (method)
+			{
+				case TestedHttpMethod.POST:
+					action = client.PostAsync;
+					parameter = "";
+					break;
+				case TestedHttpMethod.PATCH:
+					action = client.PatchAsync;
+					parameter = "/123";
+					break;
+				default:
+					throw new NotImplementedException();
+			}
+			var response = await action($"{url}{parameter}", new StringContent(""));
+			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
 		protected IntegrationTestBase()

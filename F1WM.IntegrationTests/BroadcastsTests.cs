@@ -7,7 +7,6 @@ using AutoFixture;
 using F1WM.ApiModel;
 using F1WM.IntegrationTests.Attributes;
 using F1WM.IntegrationTests.Utilities;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -15,17 +14,17 @@ namespace F1WM.IntegrationTests
 	[Collection(SharedLogin.CollectionName)]
 	public class BroadcastsTests : IntegrationTestBase
 	{
+		private readonly string broadcastsUrl = "broadcasts";
+		private readonly string broadcastersUrl = "broadcasts/broadcasters";
+		private readonly string typesUrl = "broadcasts/types";
+
 		public BroadcastsTests(SharedLogin.Fixture fixture) : base(fixture)
 		{ }
 
 		[Fact]
 		public async Task ShouldGetBroadcasters()
 		{
-			var response = await client.GetAsync("broadcasts/broadcasters");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<IEnumerable<Broadcaster>>(responseContent);
+			IEnumerable<Broadcaster> result = await GetBroadcasters();
 			Assert.NotNull(result);
 			Assert.All(result, broadcaster =>
 			{
@@ -39,11 +38,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetBroadcastSessionTypes()
 		{
-			var response = await client.GetAsync("broadcasts/types");
-			response.EnsureSuccessStatusCode();
-
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<IEnumerable<BroadcastSessionType>>(responseContent);
+			IEnumerable<BroadcastSessionType> result = await GetSessionTypes();
 			Assert.NotNull(result);
 			Assert.All(result, type =>
 			{
@@ -57,60 +52,66 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNextBroadcasts(NextBroadcastsTestData data)
 		{
 			await TestResponse<BroadcastsInformation>(
-				$"broadcasts/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				$"{broadcastsUrl}/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
 				data.Expected);
 		}
 
 		[Fact]
 		public async Task ShouldNotAddBroadcaster()
 		{
-			UnsetAuthorization();
-			var response = await client.PostAsync("broadcasts/broadcasters", new StringContent(""));
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+			await TestIfIsSecured(TestedHttpMethod.POST, broadcastersUrl);
 		}
 
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcaster()
 		{
-			var broadcaster = generalFixture.Build<Broadcaster>()
-				.Without(b => b.Broadcasts)
-				.Without(b => b.Id)
-				.Create();
+			var broadcaster = generalFixture.Create<BroadcasterAddRequest>();
 			await Login();
-			var addedBroadcaster = await Post<Broadcaster, Broadcaster>("broadcasts/broadcasters", broadcaster);
-			await Delete($"broadcasts/broadcasters/{addedBroadcaster.Id}");
+			var addedBroadcaster = await Post<Broadcaster, BroadcasterAddRequest>(broadcastersUrl, broadcaster);
+			await Delete($"{broadcastersUrl}/{addedBroadcaster.Id}");
+		}
+
+		[Fact]
+		public async Task ShouldNotUpdateBroadcaster()
+		{
+			await TestIfIsSecured(TestedHttpMethod.PATCH, broadcastersUrl);
 		}
 
 		[Fact]
 		public async Task ShouldNotAddBroadcastSessionType()
 		{
-			UnsetAuthorization();
-			var response = await client.PostAsync("broadcasts/types", new StringContent(""));
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+			await TestIfIsSecured(TestedHttpMethod.POST, typesUrl);
 		}
 
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcastSessionType()
 		{
-			var url = "broadcasts/types";
-			var sessionType = generalFixture.Build<BroadcastSessionType>().Without(t => t.Id).Create();
+			var sessionType = generalFixture.Create<BroadcastSessionTypeAddRequest>();
 			await Login();
-			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionType>(url, sessionType);
-			await Delete($"{url}/{addedSessionType.Id}");
+			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionTypeAddRequest>(typesUrl, sessionType);
+			await Delete($"{typesUrl}/{addedSessionType.Id}");
 		}
 
 		[Fact]
 		public async Task ShouldNotAddBroadcasts()
 		{
-			UnsetAuthorization();
-			var response = await client.PostAsync("broadcasts", new StringContent(""));
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+			await TestIfIsSecured(TestedHttpMethod.POST, broadcastsUrl);
 		}
 
 		public class NextBroadcastsTestData
 		{
 			public DateTime After { get; set; }
 			public BroadcastsInformation Expected { get; set; }
+		}
+
+		private Task<IEnumerable<Broadcaster>> GetBroadcasters()
+		{
+			return Get<IEnumerable<Broadcaster>>(broadcastersUrl);
+		}
+
+		private Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
+		{
+			return Get<IEnumerable<BroadcastSessionType>>(typesUrl);
 		}
 	}
 }
