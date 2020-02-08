@@ -65,11 +65,8 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetImportantNews()
 		{
-			var response = await client.GetAsync($"news/important");
-			response.EnsureSuccessStatusCode();
+			var newsList = await Get<IEnumerable<ImportantNewsSummary>>("news/important");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var newsList = JsonConvert.DeserializeObject<IEnumerable<ImportantNewsSummary>>(responseContent);
 			Assert.NotNull(newsList);
 			Assert.All(newsList, news =>
 			{
@@ -83,19 +80,15 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldIncrementViews()
 		{
 			var id = 30676;
-			var response = await client.PostAsync($"news/{id}/views/increment", new StringContent(""));
-			response.EnsureSuccessStatusCode();
+			var response = await Post<string, string>($"news/{id}/views/increment", "", false);
 		}
 
 		[Fact]
 		public async Task ShouldGetNewsTags()
 		{
 			uint count = 5;
-			var response = await client.GetAsync($"news/tags?countPerPage={count}");
-			response.EnsureSuccessStatusCode();
+			var result = await Get<PagedResult<NewsTag>>($"news/tags?countPerPage={count}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
@@ -118,11 +111,8 @@ namespace F1WM.IntegrationTests
 			var id = 2;
 			uint count = 5;
 
-			var response = await client.GetAsync($"news/tags?categoryId={id}&countPerPage={count}");
-			response.EnsureSuccessStatusCode();
+			var result = await Get<PagedResult<NewsTag>>($"news/tags?categoryId={id}&countPerPage={count}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<NewsTag>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
@@ -145,11 +135,8 @@ namespace F1WM.IntegrationTests
 			var typeId = 5;
 			uint count = 7;
 
-			var response = await client.GetAsync($"news?typeId={typeId}&countPerPage={count}");
-			response.EnsureSuccessStatusCode();
+			var result = await Get<PagedResult<NewsSummary>>($"news?typeId={typeId}&countPerPage={count}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
@@ -175,11 +162,8 @@ namespace F1WM.IntegrationTests
 			var tagId = 2;
 			uint count = 7;
 
-			var response = await client.GetAsync($"news?tagId={tagId}&countPerPage={count}");
-			response.EnsureSuccessStatusCode();
+			var result = await Get<PagedResult<NewsSummary>>($"news?tagId={tagId}&countPerPage={count}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var result = JsonConvert.DeserializeObject<PagedResult<NewsSummary>>(responseContent);
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);

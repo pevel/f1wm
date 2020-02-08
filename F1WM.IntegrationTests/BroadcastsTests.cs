@@ -75,8 +75,8 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcaster()
 		{
-			var broadcaster = generalFixture.Create<BroadcasterAddRequest>();
 			await Login();
+			var broadcaster = generalFixture.Create<BroadcasterAddRequest>();
 			var addedBroadcaster = await Post<Broadcaster, BroadcasterAddRequest>(broadcastersUrl, broadcaster);
 			await Delete($"{broadcastersUrl}/{addedBroadcaster.Id}");
 		}
@@ -90,8 +90,8 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcastSessionType()
 		{
-			var sessionType = generalFixture.Create<BroadcastSessionTypeAddRequest>();
 			await Login();
+			var sessionType = generalFixture.Create<BroadcastSessionTypeAddRequest>();
 			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionTypeAddRequest>(typesUrl, sessionType);
 			await Delete($"{typesUrl}/{addedSessionType.Id}");
 		}
@@ -105,9 +105,9 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldAddAndDeleteBroadcasts()
 		{
+			await Login();
 			var raceId = 42;
 			var request = await CreateBroadcastsAddRequest(raceId);
-			await Login();
 			var addedBroadcasts = await Post<BroadcastsInformation, BroadcastsAddRequest>(broadcastsUrl, request);
 			await Delete($"{broadcastedRacesUrl}/{raceId}");
 		}
@@ -121,9 +121,9 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldUpdateBroadcaster()
 		{
+			await Login();
 			var broadcaster = generalFixture.Create<BroadcasterAddRequest>();
 			var expected = new Broadcaster() { Name = "updated name", Icon = "updated icon", Url = "updated url" };
-			await Login();
 			var addedBroadcaster = await Post<Broadcaster, BroadcasterAddRequest>(broadcastersUrl, broadcaster);
 			var patchDocument = new JsonPatchDocument<Broadcaster>()
 				.Replace(b => b.Name, expected.Name)
@@ -143,9 +143,9 @@ namespace F1WM.IntegrationTests
 		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldUpdateSessionType()
 		{
+			await Login();
 			var sessionType = generalFixture.Create<BroadcastSessionTypeAddRequest>();
 			var expected = new BroadcastSessionType() { Name = "updated name " };
-			await Login();
 			var addedSessionType = await Post<BroadcastSessionType, BroadcastSessionTypeAddRequest>(typesUrl, sessionType);
 			var patchDocument = new JsonPatchDocument<BroadcastSessionType>().Replace(b => b.Name, expected.Name);
 			var actual = await Patch<BroadcastSessionType, JsonPatchDocument<BroadcastSessionType>>(

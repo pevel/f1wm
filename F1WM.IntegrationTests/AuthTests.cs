@@ -26,31 +26,28 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotLogin()
 		{
-			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(Login),
 				new Login() { Email = "invalidEmail@nowhere.com", Password = "anyPassword" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync("auth/login", request);
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+			await TestIfIsSecured(TestedHttpMethod.POST, "auth/login", request);
 		}
 
 		[Fact]
 		public async Task ShouldNotRegister()
 		{
-			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(RegisterRequest),
 				new RegisterRequest() { Email = "email@nowhere.com", Password = "anyPassword", Key = "wrongKey" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync("auth/register", request);
+			var response = await CreateClient(false).PostAsync("auth/register", request);
 			Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
 		}
 
 		[Fact]
 		public async Task ShouldNotRefreshAccessToken()
 		{
-			UnsetAuthorization();
 			var request = new ObjectContent(
 				typeof(Tokens),
 				new Tokens()
@@ -59,8 +56,8 @@ namespace F1WM.IntegrationTests
 					RefreshToken = Convert.ToBase64String(Encoding.UTF8.GetBytes("refreshToken"))
 				},
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync("auth/refresh-token", request);
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+			await TestIfIsSecured(TestedHttpMethod.POST, "auth/refresh-token", request);
 		}
 
 		private string GetFakeJwt()

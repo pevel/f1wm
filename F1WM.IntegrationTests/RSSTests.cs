@@ -16,7 +16,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetRSSFeed()
 		{
 			var firstId = 44000;
-			var response = await client.GetAsync($"rss?firstId={firstId}");
+			var response = await CreateClient(false).GetAsync($"rss?firstId={firstId}");
 			response.EnsureSuccessStatusCode();
 			var responseContent = await response.Content.ReadAsStringAsync();
 			var expected = Read(File.ReadAllText(SharedTestUtilities.GetTestDataFilePath("RSS", "feed.xml")));
@@ -27,7 +27,7 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldNotUpdateRSSConfiguration()
 		{
-			var response = await client.PutAsync($"rss/configuration", new StringContent(""));
+			var response = await CreateClient(false).PutAsync($"rss/configuration", new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 

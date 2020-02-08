@@ -17,20 +17,14 @@ using Xunit;
 
 namespace F1WM.IntegrationTests
 {
-	public abstract class IntegrationTestBase : IDisposable
+	public abstract class IntegrationTestBase
 	{
 		protected readonly SharedLogin.Fixture loginFixture;
 		protected readonly Fixture generalFixture;
 		protected readonly TestServer server;
-		protected readonly HttpClient client;
 		protected readonly string baseAddress = "api/";
 
 		private readonly string noFixtureMessage = $"Login fixture not found. Make sure tests class is decorated with {nameof(CollectionAttribute)} and proper constructor is called.";
-
-		public void Dispose()
-		{
-			UnsetAuthorization();
-		}
 
 		protected async Task TestResponse<T>(string url, T expected, string why = "")
 		{
@@ -48,29 +42,32 @@ namespace F1WM.IntegrationTests
 			actual.Should().BeEquivalentTo(expected, config, why);
 		}
 
-		protected async Task TestIfIsSecured(TestedHttpMethod method, string url)
+		protected async Task TestIfIsSecured(TestedHttpMethod method, string url, HttpContent content = null)
 		{
-			UnsetAuthorization();
 			Func<string, HttpContent, Task<HttpResponseMessage>> action;
 			string parameter;
 			switch (method)
 			{
 				case TestedHttpMethod.POST:
-					action = client.PostAsync;
+					action = CreateClient(false).PostAsync;
 					parameter = "";
 					break;
 				case TestedHttpMethod.PATCH:
-					action = client.PatchAsync;
+					action = CreateClient(false).PatchAsync;
 					parameter = "/123";
 					break;
 				case TestedHttpMethod.DELETE:
-					action = (u, _) => client.DeleteAsync(u);
+					action = (u, _) => CreateClient(false).DeleteAsync(u);
 					parameter = "/321";
+					break;
+				case TestedHttpMethod.PUT:
+					action = CreateClient(false).PutAsJsonAsync;
+					parameter = "/456";
 					break;
 				default:
 					throw new NotImplementedException();
 			}
-			var response = await action($"{url}{parameter}", new StringContent(""));
+			var response = await action($"{url}{parameter}", content ?? new StringContent(""));
 			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
 		}
 
@@ -79,8 +76,6 @@ namespace F1WM.IntegrationTests
 			server = new TestServer(new WebHostBuilder()
 				.ConfigureAppConfiguration(config => config.AddUserSecrets<Startup>())
 				.UseStartup<Startup>());
-			client = server.CreateClient();
-			client.BaseAddress = new Uri(client.BaseAddress + baseAddress);
 			generalFixture = new Fixture();
 		}
 
@@ -109,48 +104,48 @@ namespace F1WM.IntegrationTests
 					throw new Exception("Attempted to login with no credentials setup. Create test credentials file to login within test runs.");
 				}
 			}
-			SetAuthorization();
 		}
 
-		protected void SetAuthorization()
+		protected async Task<T> Get<T>(string url, bool authorize = false)
 		{
-			if (loginFixture == null)
-			{
-				throw new Exception(noFixtureMessage);
-			}
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginFixture.AccessToken);
-		}
-
-		protected void UnsetAuthorization()
-		{
-			client.DefaultRequestHeaders.Authorization = null;
-		}
-
-		protected async Task<T> Get<T>(string url)
-		{
-			var response = await client.GetAsync(url);
+			var response = await CreateClient(authorize).GetAsync(url);
 			return await ReadResponse<T>(response);
 		}
 
-		protected async Task<T> Post<T, V>(string url, V body)
+		protected async Task<T> Post<T, V>(string url, V body, bool authorize = true)
 		{
-			var response = await client.PostAsJsonAsync(url, body);
+			var response = await CreateClient(authorize).PostAsJsonAsync(url, body);
 			return await ReadResponse<T>(response);
 		}
 
-		protected async Task<T> Patch<T, V>(string url, V body)
+		protected async Task<T> Patch<T, V>(string url, V body, bool authorize = true)
 		{
-			var response = await client.PatchAsync(
+			var response = await CreateClient(authorize).PatchAsync(
 				url,
 				new ObjectContent(body.GetType(), body, new JsonMediaTypeFormatter(), "application/json")
 			);
 			return await ReadResponse<T>(response);
 		}
 
-		protected async Task Delete(string url)
+		protected async Task Delete(string url, bool authorize = true)
 		{
-			var response = await client.DeleteAsync(url);
+			var response = await CreateClient(authorize).DeleteAsync(url);
 			response.EnsureSuccessStatusCode();
+		}
+
+		protected HttpClient CreateClient(bool authorize)
+		{
+			var client = server.CreateClient();
+			client.BaseAddress = new Uri(client.BaseAddress + baseAddress);
+			if (authorize)
+			{
+				if (loginFixture == null)
+				{
+					throw new Exception(noFixtureMessage);
+				}
+				client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", loginFixture.AccessToken);
+			}
+			return client;
 		}
 
 		private async Task<T> ReadResponse<T>(HttpResponseMessage response)
