@@ -1,6 +1,7 @@
+using F1WM.ApiModel;
 using Microsoft.AspNetCore.JsonPatch;
 
-namespace F1WM.ApiModel
+namespace F1WM.DomainModel
 {
 	public class BroadcasterUpdateRequest
 	{

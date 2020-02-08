@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.DomainModel;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Authorization;

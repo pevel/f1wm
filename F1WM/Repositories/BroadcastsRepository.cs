@@ -85,7 +85,7 @@ namespace F1WM.Repositories
 			return mapper.Map<Api.BroadcastSessionType>(dbType);
 		}
 
-		public async Task<Api.BroadcastedRace> UpdateBroadcasts(Api.BroadcastsUpdateRequest request)
+		public async Task<Api.BroadcastedRace> UpdateBroadcasts(BroadcastsUpdateRequest request)
 		{
 			var race = await context.Races
 				.Include(r => r.BroadcastedSessions).ThenInclude(s => s.Broadcasts)

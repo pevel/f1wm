@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.DomainModel;
 using F1WM.Repositories;
 
 namespace F1WM.Services

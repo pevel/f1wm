@@ -1,6 +1,7 @@
 using System;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using AutoFixture;
@@ -61,6 +62,10 @@ namespace F1WM.IntegrationTests
 				case TestedHttpMethod.PATCH:
 					action = client.PatchAsync;
 					parameter = "/123";
+					break;
+				case TestedHttpMethod.DELETE:
+					action = (u, _) => client.DeleteAsync(u);
+					parameter = "/321";
 					break;
 				default:
 					throw new NotImplementedException();
@@ -124,14 +129,21 @@ namespace F1WM.IntegrationTests
 		protected async Task<T> Get<T>(string url)
 		{
 			var response = await client.GetAsync(url);
-			response.EnsureSuccessStatusCode();
 			return await ReadResponse<T>(response);
 		}
 
 		protected async Task<T> Post<T, V>(string url, V body)
 		{
 			var response = await client.PostAsJsonAsync(url, body);
-			response.EnsureSuccessStatusCode();
+			return await ReadResponse<T>(response);
+		}
+
+		protected async Task<T> Patch<T, V>(string url, V body)
+		{
+			var response = await client.PatchAsync(
+				url,
+				new ObjectContent(body.GetType(), body, new JsonMediaTypeFormatter(), "application/json")
+			);
 			return await ReadResponse<T>(response);
 		}
 
