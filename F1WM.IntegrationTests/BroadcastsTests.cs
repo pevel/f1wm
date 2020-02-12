@@ -107,7 +107,7 @@ namespace F1WM.IntegrationTests
 		{
 			await Login();
 			var raceId = 42;
-			var request = await CreateBroadcastsAddRequest(raceId);
+			var request = CreateBroadcastsAddRequest(raceId, await GetSessionTypes(), await GetBroadcasters());
 			var addedBroadcasts = await Post<BroadcastsInformation, BroadcastsAddRequest>(broadcastsUrl, request);
 			await Delete($"{broadcastedRacesUrl}/{raceId}");
 		}
@@ -160,6 +160,34 @@ namespace F1WM.IntegrationTests
 			await TestIfIsSecured(TestedHttpMethod.PATCH, broadcastedRacesUrl);
 		}
 
+		[RunOnlyIfCredentialsProvided]
+		public async Task ShouldUpdateBroadcasts()
+		{
+			await Login();
+			var raceId = 43;
+			var newSessionTime = DateTime.Now;
+			var broadcasters = await GetBroadcasters();
+			var sessionTypes = await GetSessionTypes();
+			var addRequest = CreateBroadcastsAddRequest(raceId, sessionTypes, broadcasters);
+			var addedBroadcasts = await Post<BroadcastsInformation, BroadcastsAddRequest>(broadcastsUrl, addRequest);
+			var newSession = CreateBroadcastedSessionAddRequest(newSessionTime.AddDays(1), broadcasters, sessionTypes.First());
+			var patchDocument = new JsonPatchDocument()
+				.Replace("/broadcastedSessions/0/start", newSessionTime)
+				.Add("/broadcastedSessions/-", newSession);
+			var actual = await Patch<BroadcastedRace, JsonPatchDocument>(
+				$"{broadcastedRacesUrl}/{raceId}", patchDocument);
+			await Delete($"{broadcastedRacesUrl}/{raceId}");
+			var actualSession = actual.BroadcastedSessions.Last();
+			actual.BroadcastedSessions.ElementAt(0).Start.Should().Be(newSessionTime);
+			actualSession.Start.Should().Be(newSession.Start);
+			actualSession.TypeName.Should().Be(sessionTypes.Single(t => t.Id == newSession.BroadcastedSessionTypeId).Name);
+			Assert.All(actualSession.Broadcasts, broadcast =>
+			{
+				broadcast.BroadcasterId.Should().BePositive().And.BeOneOf(broadcasters.Select(b => b.Id));
+				broadcast.Start.Should().BeOneOf(newSession.Broadcasts.Select(b => b.Start));
+			});
+		}
+
 		[Fact]
 		public async Task ShouldNotDeleteBroadcaster()
 		{
@@ -200,11 +228,41 @@ namespace F1WM.IntegrationTests
 			return Get<IEnumerable<BroadcastSessionType>>(typesUrl);
 		}
 
-		private async Task<BroadcastsAddRequest> CreateBroadcastsAddRequest(int raceId)
+		private BroadcastAddRequest CreateBroadcastAddRequest(DateTime time, Broadcaster broadcaster)
 		{
-			var sessionTypes = await GetSessionTypes();
+			return new BroadcastAddRequest()
+			{
+				Start = time,
+				BroadcasterId = broadcaster.Id
+			};
+		}
+
+		private BroadcastedSessionAddRequest CreateBroadcastedSessionAddRequest(
+			DateTime time,
+			IEnumerable<Broadcaster> broadcasters,
+			BroadcastSessionType sessionType
+		)
+		{
+			return new BroadcastedSessionAddRequest()
+			{
+				BroadcastedSessionTypeId = sessionType.Id,
+				Start = time,
+				Broadcasts = new List<BroadcastAddRequest>()
+				{
+					CreateBroadcastAddRequest(time.AddDays(1), broadcasters.ToList().ElementAt(0)),
+					CreateBroadcastAddRequest(time.AddDays(2), broadcasters.ToList().ElementAt(1)),
+					CreateBroadcastAddRequest(time.AddDays(3), broadcasters.ToList().ElementAt(2))
+				}
+			};
+		}
+
+		private BroadcastsAddRequest CreateBroadcastsAddRequest(
+			int raceId,
+			IEnumerable<BroadcastSessionType> sessionTypes,
+			IEnumerable<Broadcaster> broadcasters
+		)
+		{
 			Assert.True(sessionTypes.Count() >= 3, "Cannot add broadcasts when there too few broadcast session types.");
-			var broadcasters = await GetBroadcasters();
 			Assert.True(broadcasters.Count() >= 3, "Cannot add broadcasts when there too few broadcasters.");
 			var broadcasts = generalFixture.Create<BroadcastsAddRequest>();
 			broadcasts.RaceId = raceId;
