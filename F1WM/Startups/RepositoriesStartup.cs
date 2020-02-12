@@ -40,7 +40,6 @@ namespace F1WM.Startups
 
 		private static void BuildDbContext(DbContextOptionsBuilder options, IConfiguration configuration, string key)
 		{
-			options.EnableSensitiveDataLogging();
 			var connectionString = configuration.GetConnectionString(key);
 			if (String.IsNullOrEmpty(connectionString))
 			{
