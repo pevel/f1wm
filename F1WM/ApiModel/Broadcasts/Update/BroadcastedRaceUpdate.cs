@@ -1,9 +1,11 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace F1WM.ApiModel
 {
 	public class BroadcastedRaceUpdate
 	{
-		public virtual IEnumerable<BroadcastedSessionUpdateRequest> BroadcastedSessions { get; set; }
+		[Required]
+		public virtual IList<BroadcastedSessionUpdateRequest> BroadcastedSessions { get; set; }
 	}
 }
