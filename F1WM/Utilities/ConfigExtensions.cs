@@ -2,10 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using F1WM.DatabaseModel;
 
-public static class ConfigExtensions
+namespace F1WM.Utilities
 {
-	public static string Get(this IEnumerable<ConfigText> config, string key)
+	public static class ConfigExtensions
 	{
-		return config.SingleOrDefault(c => c.Name == key)?.Value;
+		public static string Get(this IEnumerable<ConfigText> config, string key)
+		{
+			return config.SingleOrDefault(c => c.Name == key)?.Value;
+		}
 	}
 }

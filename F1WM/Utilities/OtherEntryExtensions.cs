@@ -1,11 +1,13 @@
-using System;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 
-public static class OtherEntryExtensions
+namespace F1WM.Utilities
 {
-	public static CarSummary GetCarInfo(this OtherEntry entry)
+	public static class OtherEntryExtensions
 	{
-		return new CarSummary() { Name = entry.CarName };
+		public static CarSummary GetCarInfo(this OtherEntry entry)
+		{
+			return new CarSummary() { Name = entry.CarName };
+		}
 	}
 }

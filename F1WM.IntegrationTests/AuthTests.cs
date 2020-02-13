@@ -1,44 +1,52 @@
 using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Text;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using Microsoft.IdentityModel.JsonWebTokens;
-using Newtonsoft.Json;
+using F1WM.IntegrationTests.Attributes;
+using F1WM.IntegrationTests.Utilities;
 using Xunit;
 
 namespace F1WM.IntegrationTests
 {
+	[Collection(SharedLogin.CollectionName)]
 	public class AuthTests : IntegrationTestBase
 	{
-		[Fact]
+		public AuthTests(SharedLogin.Fixture fixture) : base(fixture)
+		{ }
+
+		[RunOnlyIfCredentialsProvided]
 		public async Task ShouldLogin()
+		{
+			await Login();
+		}
+
+		[Fact]
+		public async Task ShouldNotLogin()
 		{
 			var request = new ObjectContent(
 				typeof(Login),
 				new Login() { Email = "invalidEmail@nowhere.com", Password = "anyPassword" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/login", request);
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+			await TestIfIsSecured(TestedHttpMethod.POST, "auth/login", request);
 		}
 
 		[Fact]
-		public async Task ShouldRegister()
+		public async Task ShouldNotRegister()
 		{
 			var request = new ObjectContent(
 				typeof(RegisterRequest),
 				new RegisterRequest() { Email = "email@nowhere.com", Password = "anyPassword", Key = "wrongKey" },
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/register", request);
+			var response = await CreateClient(false).PostAsync("auth/register", request);
 			Assert.Equal(HttpStatusCode.UnprocessableEntity, response.StatusCode);
 		}
 
 		[Fact]
-		public async Task ShouldRefreshAccessToken()
+		public async Task ShouldNotRefreshAccessToken()
 		{
 			var request = new ObjectContent(
 				typeof(Tokens),
@@ -48,8 +56,8 @@ namespace F1WM.IntegrationTests
 					RefreshToken = Convert.ToBase64String(Encoding.UTF8.GetBytes("refreshToken"))
 				},
 				new JsonMediaTypeFormatter());
-			var response = await client.PostAsync($"{baseAddress}/auth/refresh-token", request);
-			Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
+
+			await TestIfIsSecured(TestedHttpMethod.POST, "auth/refresh-token", request);
 		}
 
 		private string GetFakeJwt()

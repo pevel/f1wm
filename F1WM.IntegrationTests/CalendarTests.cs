@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -10,7 +11,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("calendar", "calendar.json")]
 		public async Task ShouldGetCalendar(CalendarTestData data)
 		{
-			await TestResponse<Calendar>($"{baseAddress}/Calendar?year={data.Year}", data.Expected);
+			await TestResponse<Calendar>($"Calendar?year={data.Year}", data.Expected);
 		}
 
 		public class CalendarTestData

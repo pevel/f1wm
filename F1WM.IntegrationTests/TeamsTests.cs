@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -10,14 +11,14 @@ namespace F1WM.IntegrationTests
 		[JsonData("teams", "team-details.json")]
 		public async Task ShouldGetTeam(TeamDetailsTestData data)
 		{
-			await TestResponse<TeamDetails>($"{baseAddress}/Teams/{data.TeamId}", data.Expected);
+			await TestResponse<TeamDetails>($"Teams/{data.TeamId}", data.Expected);
 		}
 
 		[Theory]
 		[JsonData("teams", "teams.json")]
 		public async Task ShouldGetTeams(TeamsTestData data)
 		{
-			await TestResponse<Teams>($"{baseAddress}/Teams?letter={data.Letter}", data.Expected);
+			await TestResponse<Teams>($"Teams?letter={data.Letter}", data.Expected);
 		}
 
 		public class TeamDetailsTestData

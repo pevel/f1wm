@@ -3,58 +3,60 @@ using System.Globalization;
 using System.Linq;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
-using F1WM.Utilities;
 
-public static class QualifyingExtensions
+namespace F1WM.Utilities
 {
-	public static Qualifying FillFinishPositionInfo(this Qualifying dbResult)
+	public static class QualifyingExtensions
 	{
-		if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
+		public static Qualifying FillFinishPositionInfo(this Qualifying dbResult)
 		{
-			dbResult.FinishPosition = position;
-			dbResult.Status = null;
+			if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
+			{
+				dbResult.FinishPosition = position;
+				dbResult.Status = null;
+			}
+			else
+			{
+				dbResult.FinishPosition = null;
+				dbResult.Status = dbResult.PositionOrStatus;
+			}
+			return dbResult;
 		}
-		else
-		{
-			dbResult.FinishPosition = null;
-			dbResult.Status = dbResult.PositionOrStatus;
-		}
-		return dbResult;
-	}
 
-	public static void FillSessionsInfo(this Qualifying dbResult, QualifyingResultPosition apiResult)
-	{
-		apiResult.Session1 = dbResult.Session1Time == TimeSpan.Zero && dbResult.Session1Laps == 0 ? null : new QualifyingSessionResultPosition()
+		public static void FillSessionsInfo(this Qualifying dbResult, QualifyingResultPosition apiResult)
 		{
-			FinishPosition = dbResult.Session1Position,
-			FinishedLaps = dbResult.Session1Laps,
-			Time = dbResult.Session1Time
-		};
-		apiResult.Session2 = dbResult.Session2Time == TimeSpan.Zero && dbResult.Session2Laps == 0 ? null : new QualifyingSessionResultPosition()
-		{
-			FinishPosition = dbResult.Session2Position,
-			FinishedLaps = dbResult.Session2Laps,
-			Time = dbResult.Session2Time
-		};
-		apiResult.Session3 = dbResult.Session3Time == TimeSpan.Zero && dbResult.Session3Laps == 0 ? null : new QualifyingSessionResultPosition()
-		{
-			FinishPosition = dbResult.Session3Position,
-			FinishedLaps = dbResult.Session3Laps,
-			Time = dbResult.Session3Time
-		};
-	}
-
-	public static TimeSpan GetFastestQualifyingLapTime(this Qualifying dbResult)
-	{
-		if (dbResult != null)
-		{
-			return (new[] { dbResult.Session1Time, dbResult.Session2Time, dbResult.Session3Time })
-				.Where(t => t != TimeSpan.Zero)
-				.Min();
+			apiResult.Session1 = dbResult.Session1Time == TimeSpan.Zero && dbResult.Session1Laps == 0 ? null : new QualifyingSessionResultPosition()
+			{
+				FinishPosition = dbResult.Session1Position,
+				FinishedLaps = dbResult.Session1Laps,
+				Time = dbResult.Session1Time
+			};
+			apiResult.Session2 = dbResult.Session2Time == TimeSpan.Zero && dbResult.Session2Laps == 0 ? null : new QualifyingSessionResultPosition()
+			{
+				FinishPosition = dbResult.Session2Position,
+				FinishedLaps = dbResult.Session2Laps,
+				Time = dbResult.Session2Time
+			};
+			apiResult.Session3 = dbResult.Session3Time == TimeSpan.Zero && dbResult.Session3Laps == 0 ? null : new QualifyingSessionResultPosition()
+			{
+				FinishPosition = dbResult.Session3Position,
+				FinishedLaps = dbResult.Session3Laps,
+				Time = dbResult.Session3Time
+			};
 		}
-		else
+
+		public static TimeSpan GetFastestQualifyingLapTime(this Qualifying dbResult)
 		{
-			return TimeSpan.MaxValue;
+			if (dbResult != null)
+			{
+				return (new[] { dbResult.Session1Time, dbResult.Session2Time, dbResult.Session3Time })
+					.Where(t => t != TimeSpan.Zero)
+					.Min();
+			}
+			else
+			{
+				return TimeSpan.MaxValue;
+			}
 		}
 	}
 }

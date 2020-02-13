@@ -1,0 +1,365 @@
+[
+  {
+    "raceId": 1045,
+    "expected": {
+      "id": 1045,
+      "broadcastedSessions": [
+        {
+          "id": 1,
+          "typeName": "Trening 1",
+          "start": "2019-03-15T01:00:00",
+          "broadcasts": [
+            {
+              "id": 1,
+              "broadcastedSessionId": 1,
+              "broadcasterId": 1,
+              "start": "2019-03-15T01:00:00"
+            },
+            {
+              "id": 2,
+              "broadcastedSessionId": 1,
+              "broadcasterId": 2,
+              "start": "2019-03-15T01:00:00"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "typeName": "Trening 2",
+          "start": "2019-03-15T05:00:00",
+          "broadcasts": [
+            {
+              "id": 3,
+              "broadcastedSessionId": 2,
+              "broadcasterId": 1,
+              "start": "2019-03-15T05:00:00"
+            },
+            {
+              "id": 4,
+              "broadcastedSessionId": 2,
+              "broadcasterId": 2,
+              "start": "2019-03-15T05:00:00"
+            }
+          ]
+        },
+        {
+          "id": 3,
+          "typeName": "Trening 3",
+          "start": "2019-03-16T03:00:00",
+          "broadcasts": [
+            {
+              "id": 5,
+              "broadcastedSessionId": 3,
+              "broadcasterId": 1,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 6,
+              "broadcastedSessionId": 3,
+              "broadcasterId": 2,
+              "start": "2019-03-16T03:00:00"
+            },
+            {
+              "id": 7,
+              "broadcastedSessionId": 3,
+              "broadcasterId": 4,
+              "start": "2019-03-16T05:00:00"
+            }
+          ]
+        },
+        {
+          "id": 4,
+          "typeName": "Kwalifikacje",
+          "start": "2019-03-16T06:00:00",
+          "broadcasts": [
+            {
+              "id": 8,
+              "broadcastedSessionId": 4,
+              "broadcasterId": 1,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 9,
+              "broadcastedSessionId": 4,
+              "broadcasterId": 2,
+              "start": "2019-03-16T06:00:00"
+            },
+            {
+              "id": 10,
+              "broadcastedSessionId": 4,
+              "broadcasterId": 4,
+              "start": "2019-03-16T06:00:00"
+            }
+          ]
+        },
+        {
+          "id": 5,
+          "typeName": "Wyścig",
+          "start": "2019-03-17T05:10:00",
+          "broadcasts": [
+            {
+              "id": 11,
+              "broadcastedSessionId": 5,
+              "broadcasterId": 1,
+              "start": "2019-03-17T05:10:00"
+            },
+            {
+              "id": 12,
+              "broadcastedSessionId": 5,
+              "broadcasterId": 2,
+              "start": "2019-03-17T05:10:00"
+            },
+            {
+              "id": 13,
+              "broadcastedSessionId": 5,
+              "broadcasterId": 4,
+              "start": "2019-03-17T05:10:00"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1058,
+    "expected": {
+      "id": 1058,
+      "broadcastedSessions": [
+        {
+          "id": 71,
+          "typeName": "Trening 1",
+          "start": "2019-09-06T11:00:00",
+          "broadcasts": [
+            {
+              "id": 183,
+              "broadcastedSessionId": 71,
+              "broadcasterId": 1,
+              "start": "2019-09-06T11:00:00"
+            },
+            {
+              "id": 184,
+              "broadcastedSessionId": 71,
+              "broadcasterId": 2,
+              "start": "2019-09-06T11:00:00"
+            }
+          ]
+        },
+        {
+          "id": 72,
+          "typeName": "Trening 2",
+          "start": "2019-09-06T15:00:00",
+          "broadcasts": [
+            {
+              "id": 185,
+              "broadcastedSessionId": 72,
+              "broadcasterId": 1,
+              "start": "2019-09-06T15:00:00"
+            },
+            {
+              "id": 186,
+              "broadcastedSessionId": 72,
+              "broadcasterId": 2,
+              "start": "2019-09-06T15:00:00"
+            }
+          ]
+        },
+        {
+          "id": 73,
+          "typeName": "Trening 3",
+          "start": "2019-09-07T12:00:00",
+          "broadcasts": [
+            {
+              "id": 187,
+              "broadcastedSessionId": 73,
+              "broadcasterId": 1,
+              "start": "2019-09-07T12:00:00"
+            },
+            {
+              "id": 188,
+              "broadcastedSessionId": 73,
+              "broadcasterId": 2,
+              "start": "2019-09-07T12:00:00"
+            },
+            {
+              "id": 189,
+              "broadcastedSessionId": 73,
+              "broadcasterId": 4,
+              "start": "2019-09-07T14:00:00"
+            }
+          ]
+        },
+        {
+          "id": 74,
+          "typeName": "Kwalifikacje",
+          "start": "2019-09-07T15:00:00",
+          "broadcasts": [
+            {
+              "id": 190,
+              "broadcastedSessionId": 74,
+              "broadcasterId": 1,
+              "start": "2019-09-07T15:00:00"
+            },
+            {
+              "id": 191,
+              "broadcastedSessionId": 74,
+              "broadcasterId": 2,
+              "start": "2019-09-07T15:00:00"
+            },
+            {
+              "id": 192,
+              "broadcastedSessionId": 74,
+              "broadcasterId": 4,
+              "start": "2019-09-07T15:00:00"
+            }
+          ]
+        },
+        {
+          "id": 75,
+          "typeName": "Wyścig",
+          "start": "2019-09-08T15:10:00",
+          "broadcasts": [
+            {
+              "id": 193,
+              "broadcastedSessionId": 75,
+              "broadcasterId": 1,
+              "start": "2019-09-08T15:10:00"
+            },
+            {
+              "id": 194,
+              "broadcastedSessionId": 75,
+              "broadcasterId": 2,
+              "start": "2019-09-08T15:10:00"
+            },
+            {
+              "id": 195,
+              "broadcastedSessionId": 75,
+              "broadcasterId": 4,
+              "start": "2019-09-08T15:10:00"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "raceId": 1062,
+    "expected": {
+      "id": 1062,
+      "broadcastedSessions": [
+        {
+          "id": 91,
+          "typeName": "Trening 1",
+          "start": "2019-10-25T15:00:00",
+          "broadcasts": [
+            {
+              "id": 235,
+              "broadcastedSessionId": 91,
+              "broadcasterId": 1,
+              "start": "2019-10-25T15:00:00"
+            },
+            {
+              "id": 236,
+              "broadcastedSessionId": 91,
+              "broadcasterId": 2,
+              "start": "2019-10-25T15:00:00"
+            }
+          ]
+        },
+        {
+          "id": 92,
+          "typeName": "Trening 2",
+          "start": "2019-10-25T19:00:00",
+          "broadcasts": [
+            {
+              "id": 237,
+              "broadcastedSessionId": 92,
+              "broadcasterId": 1,
+              "start": "2019-10-25T19:00:00"
+            },
+            {
+              "id": 238,
+              "broadcastedSessionId": 92,
+              "broadcasterId": 2,
+              "start": "2019-10-25T19:00:00"
+            }
+          ]
+        },
+        {
+          "id": 93,
+          "typeName": "Trening 3",
+          "start": "2019-10-26T15:00:00",
+          "broadcasts": [
+            {
+              "id": 239,
+              "broadcastedSessionId": 93,
+              "broadcasterId": 1,
+              "start": "2019-10-26T15:00:00"
+            },
+            {
+              "id": 240,
+              "broadcastedSessionId": 93,
+              "broadcasterId": 2,
+              "start": "2019-10-26T15:00:00"
+            },
+            {
+              "id": 241,
+              "broadcastedSessionId": 93,
+              "broadcasterId": 4,
+              "start": "2019-10-26T17:00:00"
+            }
+          ]
+        },
+        {
+          "id": 94,
+          "typeName": "Kwalifikacje",
+          "start": "2019-10-26T18:00:00",
+          "broadcasts": [
+            {
+              "id": 242,
+              "broadcastedSessionId": 94,
+              "broadcasterId": 1,
+              "start": "2019-10-26T18:00:00"
+            },
+            {
+              "id": 243,
+              "broadcastedSessionId": 94,
+              "broadcasterId": 2,
+              "start": "2019-10-26T18:00:00"
+            },
+            {
+              "id": 244,
+              "broadcastedSessionId": 94,
+              "broadcasterId": 4,
+              "start": "2019-10-26T18:00:00"
+            }
+          ]
+        },
+        {
+          "id": 95,
+          "typeName": "Wyścig",
+          "start": "2019-10-27T19:10:00",
+          "broadcasts": [
+            {
+              "id": 245,
+              "broadcastedSessionId": 95,
+              "broadcasterId": 1,
+              "start": "2019-10-27T19:10:00"
+            },
+            {
+              "id": 246,
+              "broadcastedSessionId": 95,
+              "broadcasterId": 2,
+              "start": "2019-10-27T19:10:00"
+            },
+            {
+              "id": 247,
+              "broadcastedSessionId": 95,
+              "broadcasterId": 4,
+              "start": "2019-10-27T19:10:00"
+            }
+          ]
+        }
+      ]
+    }
+  }
+]
