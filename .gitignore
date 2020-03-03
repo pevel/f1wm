@@ -22,5 +22,6 @@ msbuild.wrn
 # Project specific
 F1WM/version.json
 F1WM/logs
+F1WM.IntegrationTests/test-data/auth/test-credentials.json
 docker.env
 tempkey.rsa

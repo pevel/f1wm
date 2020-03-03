@@ -1,4 +1,5 @@
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -10,7 +11,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("drivers", "drivers.json")]
 		public async Task ShouldGetDrivers(DriversTestData data)
 		{
-			await TestResponse<Drivers>($"{baseAddress}/Drivers?letter={data.Letter}", data.Expected);
+			await TestResponse<Drivers>($"Drivers?letter={data.Letter}", data.Expected);
 		}
 
 		[Theory]
@@ -18,7 +19,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetDriver(DriverDetailsTestData data)
 		{
 			await TestResponse<DriverDetails>(
-				$"{baseAddress}/Drivers/{data.DriverId}?atYear={data.AtYear}",
+				$"Drivers/{data.DriverId}?atYear={data.AtYear}",
 				data.Expected,
 				data.Why);
 		}
@@ -28,7 +29,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldSearchDrivers(DriversSearchTestData data)
 		{
 			await TestResponse<SearchResult<DriverSummary>>(
-				$"{baseAddress}/Drivers/Search?filter={data.Filter}",
+				$"Drivers/Search?filter={data.Filter}",
 				data.Expected,
 				data.Why);
 		}

@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using NSwag.AspNetCore;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
+[assembly: ApiController]
 namespace F1WM
 {
 	public class Startup

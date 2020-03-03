@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using F1WM.Controllers;
-using Newtonsoft.Json;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -17,7 +14,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNextRace(NextRaceTestData data)
 		{
 			await TestResponse<NextRaceSummary>(
-				$"{baseAddress}/races/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				$"races/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
 				data.Expected);
 		}
 
@@ -26,7 +23,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetLastRace(LastRaceTestData data)
 		{
 			await TestResponse<LastRaceSummary>(
-				$"{baseAddress}/races/last?before={WebUtility.UrlEncode(data.Before.ToLongDateString())}",
+				$"races/last?before={WebUtility.UrlEncode(data.Before.ToLongDateString())}",
 				data.Expected);
 		}
 
@@ -35,7 +32,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetRaceNews(RaceNewsTestData data)
 		{
 			await TestResponse<RaceNews>(
-				$"{baseAddress}/races/{data.RaceId}/news",
+				$"races/{data.RaceId}/news",
 				data.Expected);
 		}
 
@@ -44,7 +41,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetRaceFastestLaps(RaceFastestLapsTestData data)
 		{
 			await TestResponse<RaceFastestLaps>(
-				$"{baseAddress}/races/{data.RaceId}/fastest-laps",
+				$"races/{data.RaceId}/fastest-laps",
 				data.Expected);
 		}
 
@@ -53,7 +50,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetConstructorsStandingsAfterRace(ConstructorsStandingsTestData data)
 		{
 			await TestResponse<ConstructorsStandingsAfterRace>(
-				$"{baseAddress}/races/{data.RaceId}/standings/constructors",
+				$"races/{data.RaceId}/standings/constructors",
 				data.Expected);
 		}
 
@@ -62,7 +59,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetDriversStandingsAfterRace(DriversStandingsTestData data)
 		{
 			await TestResponse<DriversStandingsAfterRace>(
-				$"{baseAddress}/races/{data.RaceId}/standings/drivers",
+				$"races/{data.RaceId}/standings/drivers",
 				data.Expected);
 		}
 

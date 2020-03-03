@@ -1,35 +1,36 @@
 using System;
 using System.Globalization;
-using F1WM.ApiModel;
 using F1WM.DatabaseModel;
-using F1WM.Utilities;
 
-public static class ResultExtensions
+namespace F1WM.Utilities
 {
-	public static Result FillFinishPositionInfo(this Result dbResult)
+	public static class ResultExtensions
 	{
-		if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
+		public static Result FillFinishPositionInfo(this Result dbResult)
 		{
-			dbResult.FinishPosition = position;
-			dbResult.Status = null;
+			if (int.TryParse(dbResult.PositionOrStatus, NumberStyles.Integer, CultureInfo.InvariantCulture, out int position))
+			{
+				dbResult.FinishPosition = position;
+				dbResult.Status = null;
+			}
+			else
+			{
+				dbResult.FinishPosition = null;
+				dbResult.Status = dbResult.PositionOrStatus;
+			}
+			return dbResult;
 		}
-		else
-		{
-			dbResult.FinishPosition = null;
-			dbResult.Status = dbResult.PositionOrStatus;
-		}
-		return dbResult;
-	}
 
-	public static double CalculateAverageSpeed(this Result dbResult)
-	{
-		if (dbResult?.Race?.Distance != null)
+		public static double CalculateAverageSpeed(this Result dbResult)
 		{
-			return dbResult.Race.Distance / dbResult.Time.TotalHours;
-		}
-		else
-		{
-			throw new ArgumentException("Cannot calculate average speed.", nameof(dbResult));
+			if (dbResult?.Race?.Distance != null)
+			{
+				return dbResult.Race.Distance / dbResult.Time.TotalHours;
+			}
+			else
+			{
+				throw new ArgumentException("Cannot calculate average speed.", nameof(dbResult));
+			}
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -10,7 +11,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("engines", "engines.json")]
 		public async Task ShouldGetEngines(EnginesTestData data)
 		{
-			await TestResponse<Engines>($"{baseAddress}/Engines?letter={data.Letter}", data.Expected);
+			await TestResponse<Engines>($"Engines?letter={data.Letter}", data.Expected);
 		}
 
 		[Theory]
@@ -18,7 +19,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetEngine(EngineDetailsTestData data)
 		{
 			await TestResponse<EngineDetails>(
-				$"{baseAddress}/Engines/{data.EngineId}",
+				$"Engines/{data.EngineId}",
 				data.Expected,
 				data.Why);
 		}

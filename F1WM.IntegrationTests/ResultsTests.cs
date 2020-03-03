@@ -1,5 +1,6 @@
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.IntegrationTests.Attributes;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -11,7 +12,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetRaceResult(RaceResultsTestData data)
 		{
 			await TestResponse<RaceResult>(
-				$"{baseAddress}/results/race/{data.RaceId}",
+				$"results/race/{data.RaceId}",
 				data.Expected,
 				c => c.WithStrictOrderingFor(r => r.Results),
 				data.Why);
@@ -22,7 +23,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetQualifyingResult(QualifyingResultsTestData data)
 		{
 			await TestResponse<QualifyingResult>(
-				$"{baseAddress}/results/qualifying/{data.RaceId}",
+				$"results/qualifying/{data.RaceId}",
 				data.Expected,
 				data.Why);
 		}
@@ -32,7 +33,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetPracticeSessionResult(PracticeSessionResultsTestData data)
 		{
 			await TestResponse<PracticeSessionResult>(
-				$"{baseAddress}/results/practice/{data.RaceId}/sessions/{data.Session}",
+				$"results/practice/{data.RaceId}/sessions/{data.Session}",
 				data.Expected);
 		}
 
@@ -41,7 +42,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetOtherResult(OtherResultsTestData data)
 		{
 			await TestResponse<OtherResult>(
-				$"{baseAddress}/results/other/{data.EventId}",
+				$"results/other/{data.EventId}",
 				data.Expected,
 				data.Why);
 		}

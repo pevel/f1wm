@@ -129,7 +129,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturn422IfCouldNotAddBroadcasts()
 		{
-			var request = fixture.Create<BroadcastsAddRequest>();;
+			var request = fixture.Create<BroadcastsAddRequest>();
 			serviceMock.Setup(s => s.AddBroadcasts(request)).ReturnsAsync((BroadcastsInformation)null);
 
 			var result = await controller.AddBroadcasts(request);

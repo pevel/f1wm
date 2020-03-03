@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using F1WM.DatabaseModel;
 using F1WM.DomainModel;
 
 namespace F1WM.Repositories
@@ -11,10 +10,18 @@ namespace F1WM.Repositories
 	{
 		Task<BroadcastsInformation> AddBroadcasts(BroadcastsAddRequest request);
 		Task<ApiModel.Broadcaster> AddBroadcaster(BroadcasterAddRequest request);
-		Task<IEnumerable<ApiModel.Broadcaster>> GetBroadcasters();
-		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
-		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
 		Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request);
 		Task<BroadcastsInformation> GetNextBroadcasts(SeasonRaces currentSeason);
+		Task<BroadcastsInformation> GetBroadcastsAfter(DateTime now);
+		Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null);
+		Task<BroadcastedRace> GetBroadcastedRace(int raceId);
+		Task<IEnumerable<ApiModel.Broadcaster>> GetBroadcasters();
+		Task<IEnumerable<BroadcastSessionType>> GetSessionTypes();
+		Task<BroadcastedRace> UpdateBroadcasts(BroadcastsUpdateRequest request);
+		Task<Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request);
+		Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request);
+		Task DeleteBroadcasts(int raceId);
+		Task DeleteBroadcaster(int id);
+		Task DeleteSessionType(int id);
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
+using F1WM.DomainModel;
 using F1WM.Repositories;
 
 namespace F1WM.Services
@@ -32,9 +33,11 @@ namespace F1WM.Services
 
 		public async Task<BroadcastsInformation> GetNextBroadcasts(DateTime? after = null)
 		{
-			return after != null
+			var broadcasts = after != null
 				? await broadcastsRepository.GetBroadcastsAfter(after.Value)
 				: await broadcastsRepository.GetNextBroadcasts(await seasonsRepository.GetCurrentSeasonRaces(time.Now));
+			broadcasts.Sessions.ToList().ForEach(s => s.Broadcasts = null);
+			return broadcasts;
 		}
 
 		public Task<IEnumerable<BroadcastSessionType>> GetSessionTypes()
@@ -45,6 +48,46 @@ namespace F1WM.Services
 		public Task<BroadcastSessionType> AddSessionType(BroadcastSessionTypeAddRequest request)
 		{
 			return broadcastsRepository.AddSessionType(request);
+		}
+
+		public Task<IEnumerable<BroadcastsInformation>> GetBroadcasts(int? raceId = null)
+		{
+			return broadcastsRepository.GetBroadcasts(raceId);
+		}
+
+		public Task<BroadcastedRace> UpdateBroadcasts(BroadcastsUpdateRequest request)
+		{
+			return broadcastsRepository.UpdateBroadcasts(request);
+		}
+
+		public Task DeleteBroadcasts(int raceId)
+		{
+			return broadcastsRepository.DeleteBroadcasts(raceId);
+		}
+
+		public Task DeleteBroadcaster(int id)
+		{
+			return broadcastsRepository.DeleteBroadcaster(id);
+		}
+
+		public Task DeleteSessionType(int id)
+		{
+			return broadcastsRepository.DeleteSessionType(id);
+		}
+
+		public Task<BroadcastSessionType> UpdateSessionType(BroadcastSessionTypeUpdateRequest request)
+		{
+			return broadcastsRepository.UpdateSessionType(request);
+		}
+
+		public Task<Broadcaster> UpdateBroadcaster(BroadcasterUpdateRequest request)
+		{
+			return broadcastsRepository.UpdateBroadcaster(request);
+		}
+
+		public Task<BroadcastedRace> GetBroadcastedRace(int raceId)
+		{
+			return broadcastsRepository.GetBroadcastedRace(raceId);
 		}
 
 		public BroadcastsService(

@@ -1,9 +1,6 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
-using F1WM.Controllers;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests
@@ -15,11 +12,8 @@ namespace F1WM.IntegrationTests
 		{
 			var id = 42;
 
-			var response = await client.GetAsync($"{baseAddress}/comments/{id}");
-			response.EnsureSuccessStatusCode();
+			var comment = await Get<Comment>($"comments/{id}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var comment = JsonConvert.DeserializeObject<Comment>(responseContent);
 			Assert.NotNull(comment);
 			Assert.NotNull(comment.PosterName);
 			Assert.NotNull(comment.Text);
@@ -31,11 +25,8 @@ namespace F1WM.IntegrationTests
 		{
 			var newsId = 43;
 
-			var response = await client.GetAsync($"{baseAddress}/comments?newsId={newsId}");
-			response.EnsureSuccessStatusCode();
+			var comments = await Get<IEnumerable<Comment>>($"comments?newsId={newsId}");
 
-			var responseContent = await response.Content.ReadAsStringAsync();
-			var comments = JsonConvert.DeserializeObject<IEnumerable<Comment>>(responseContent);
 			Assert.NotNull(comments);
 			Assert.All(comments, comment =>
 			{
