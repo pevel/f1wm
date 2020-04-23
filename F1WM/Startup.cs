@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NSwag.AspNetCore;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
@@ -19,10 +20,10 @@ namespace F1WM
 	public class Startup
 	{
 		private readonly IConfiguration configuration;
-		private readonly IHostingEnvironment environment;
+		private readonly IWebHostEnvironment environment;
 		private LoggingService logger;
 
-		public Startup(IConfiguration configuration, IHostingEnvironment environment)
+		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
 			this.configuration = configuration;
 			this.environment = environment;
@@ -48,14 +49,13 @@ namespace F1WM
 				services
 					.AddCustomAuth(environment, configuration);
 				services
-					.AddMvcCore()
+					.AddMvcCore(options => options.EnableEndpointRouting = false)
 					.AddApiExplorer()
 					.AddAuthorization()
 					.AddDataAnnotations()
 					.AddFormatterMappings()
 					.AddCustomCors()
-					.AddXmlSerializerFormatters()
-					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+					.AddXmlSerializerFormatters();
 			}
 			catch (Exception ex)
 			{
@@ -67,7 +67,7 @@ namespace F1WM
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(
 			IApplicationBuilder application,
-			IHostingEnvironment environment,
+			IWebHostEnvironment environment,
 			IServiceProvider serviceProvider,
 			IConfigurationBuilder configurationBuilder)
 		{

@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using NJsonSchema;
 using NSwag;
 using NSwag.AspNetCore;
@@ -11,7 +12,7 @@ namespace F1WM.Startups
 {
 	public static class SwaggerStartup
 	{
-		public static IApplicationBuilder UseCustomSwaggerUi(this IApplicationBuilder builder, IHostingEnvironment environment)
+		public static IApplicationBuilder UseCustomSwaggerUi(this IApplicationBuilder builder, IWebHostEnvironment environment)
 		{
 			return builder.UseSwaggerUi3WithApiExplorer(GetSwaggerUiSettings(!environment.IsDevelopment()));
 		}
