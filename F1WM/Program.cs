@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 
 namespace F1WM
@@ -11,9 +12,13 @@ namespace F1WM
 			CreateWebHostBuilder(args).Build().Run();
 		}
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-			.UseStartup<Startup>()
-			.UseSerilog();
+		public static IHostBuilder CreateWebHostBuilder(string[] args) =>
+			Host.CreateDefaultBuilder(args)
+				.ConfigureWebHostDefaults(webBuilder =>
+				{
+					webBuilder.ConfigureKestrel(serverOptions => {})
+						.UseStartup<Startup>()
+						.UseSerilog();
+				});
 	}
 }

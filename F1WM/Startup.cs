@@ -54,7 +54,6 @@ namespace F1WM
 					.AddDataAnnotations()
 					.AddFormatterMappings()
 					.AddCustomCors()
-					.AddJsonFormatters()
 					.AddXmlSerializerFormatters()
 					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 			}
