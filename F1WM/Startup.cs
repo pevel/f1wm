@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using NSwag.AspNetCore;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 [assembly: ApiController]
@@ -38,7 +37,7 @@ namespace F1WM
 				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 				services
 					.AddLogging()
-					.AddSwagger()
+					.AddOpenApiDocument(OpenApiStartup.GetOpenApiGeneratorSettings())
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
 					.AddMemoryCache()
 					.ConfigureRepositories(configuration)
@@ -55,6 +54,7 @@ namespace F1WM
 					.AddDataAnnotations()
 					.AddFormatterMappings()
 					.AddCustomCors()
+					.AddNewtonsoftJson()
 					.AddXmlSerializerFormatters();
 			}
 			catch (Exception ex)
@@ -85,6 +85,7 @@ namespace F1WM
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)
 					.UseAuthentication()
+					.UseHttpsRedirection()
 					.UseMvc();
 			}
 			catch (Exception ex)

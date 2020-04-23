@@ -17,7 +17,7 @@ namespace F1WM.Startups
 				.AddSingleton<IConfigurationBuilder, ConfigurationBuilder>()
 				.AddDbContext<F1WMContext>(options => BuildDbContext(options, configuration, Configuration.F1WMConnectionStringKey))
 				.AddDbContext<F1WMIdentityContext>(options => BuildDbContext(options, configuration, Configuration.F1WMIdentityConnectionStringKey))
-				.AddAutoMapper(options => options.AddProfiles(Assembly.GetExecutingAssembly()))
+				.AddAutoMapper(Assembly.GetExecutingAssembly())
 				.AddTransient<INewsRepository, NewsRepository>()
 				.AddTransient<ICommentsRepository, CommentsRepository>()
 				.AddTransient<IHealthCheckRepository, HealthCheckRepository>()
