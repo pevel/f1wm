@@ -59,7 +59,7 @@ namespace F1WM.IntegrationTests
 		[JsonData("news", "search-news.json")]
 		public async Task ShouldGetSearchResults(SearchNewsTestData data)
 		{
-			await TestResponse<PagedResult<NewsSummary>>($"news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before}", data.Expected);
+			await TestResponse<PagedResult<NewsSummary>>($"news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before.ToString("yyyy-MM-dd")}", data.Expected);
 		}
 		
 		[Fact]
