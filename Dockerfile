@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.2-sdk-bionic AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1-bionic AS build-env
 WORKDIR /app
 
 # copy everything and run unit tests and build
@@ -9,7 +9,7 @@ RUN dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
 RUN dotnet publish -c Release -o bin F1WM/F1WM.csproj
 
 # build runtime image
-FROM microsoft/dotnet:2.2-aspnetcore-runtime-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
 WORKDIR /app
 COPY --from=build-env /app/F1WM/bin .
 
