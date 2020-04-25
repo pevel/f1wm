@@ -26,8 +26,9 @@ namespace F1WM.Repositories
 
 			if (firstId != null)
 			{
+				var castFirstId = (uint)firstId.Value;
 				dbNews = context.News
-					.Join(context.News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
+					.Join(context.News, n1 => n1.Id, n2 => castFirstId, (n1, n2) => new { n1, n2 })
 					.Where(n => n.n1.Date >= n.n2.Date)
 					.Select(n => n.n2)
 					.Include(n => n.MainTag)
