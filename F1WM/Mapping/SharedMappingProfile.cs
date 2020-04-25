@@ -3,6 +3,8 @@ using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
 using F1WM.Utilities;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 
 namespace F1WM.Mapping
 {
@@ -24,6 +26,8 @@ namespace F1WM.Mapping
 			CreateMap<Team, TeamSummary>()
 				.ForMember(api => api.Logo, o => o.MapFrom(db => db.Key.IgnoreEmpty().GetTeamLogoPath()));
 			CreateMap<Season, SeasonSummary>();
+			CreateMap(typeof(JsonPatchDocument<>), typeof(JsonPatchDocument<>));
+			CreateMap(typeof(Operation<>), typeof(Operation<>));
 		}
 	}
 }
