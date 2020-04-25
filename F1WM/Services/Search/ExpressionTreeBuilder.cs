@@ -78,10 +78,14 @@ namespace F1WM.Services.Search
 			{
 				var left = c.LeftExpressions.Dequeue();
 				var right = c.RightExpressions.Dequeue();
-				var expression = Expression.Call(
-					left,
-					typeof(string).GetMethod(nameof(string.Contains), new Type[] { typeof(string) }),
-					new Expression[] { right }
+				var expression = Expression.GreaterThanOrEqual(
+					Expression.Call(
+						left,
+						typeof(string).GetMethod(nameof(string.IndexOf), new Type[] { typeof(string), typeof(StringComparison) }),
+						right,
+						Expression.Constant(StringComparison.CurrentCultureIgnoreCase)
+					),
+					Expression.Constant(0)
 				);
 				c.LeftExpressions.Enqueue(expression);
 				return c;
@@ -148,16 +152,10 @@ namespace F1WM.Services.Search
 		public ExpressionTreeBuilder()
 		{
 			logicalBuilderMapping = new Dictionary<LogicalOperator, Func<ParserContext, ParserContext>>()
-			{
-				{ LogicalOperator.And, BuildAndExpression },
-				{ LogicalOperator.Or, BuildOrExpression }
+			{ { LogicalOperator.And, BuildAndExpression }, { LogicalOperator.Or, BuildOrExpression }
 			};
 			comparisonBuilderMapping = new Dictionary<ComparisonOperator, Func<ParserContext, ParserContext>>()
-			{
-				{ ComparisonOperator.Equal, BuildEqualExpression },
-				{ ComparisonOperator.Like, BuildLikeExpression },
-				{ ComparisonOperator.GreaterThan, BuildGreaterThanExpression },
-				{ ComparisonOperator.LessThan, BuildLessThanExpression }
+			{ { ComparisonOperator.Equal, BuildEqualExpression }, { ComparisonOperator.Like, BuildLikeExpression }, { ComparisonOperator.GreaterThan, BuildGreaterThanExpression }, { ComparisonOperator.LessThan, BuildLessThanExpression }
 			};
 		}
 
@@ -174,7 +172,7 @@ namespace F1WM.Services.Search
 
 		private bool ShouldBuildComparisonExpression(ParserContext c)
 		{
-			return c.LeftExpressions.TryPeek(out var x) && c.RightExpressions.TryPeek(out var y); 
+			return c.LeftExpressions.TryPeek(out var x) && c.RightExpressions.TryPeek(out var y);
 		}
 
 		private bool ShouldBuildLogicalExpression(ParserContext c)
