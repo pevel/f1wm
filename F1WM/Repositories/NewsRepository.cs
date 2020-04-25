@@ -160,10 +160,11 @@ namespace F1WM.Repositories
 
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime before)
 		{
+			var comparisonType = StringComparison.CurrentCultureIgnoreCase;
 			var result = context.News
-				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 
-				            && x.Date < before
-				            && !x.NewsHidden)
+				.Where(x => (x.Title.IndexOf(term, comparisonType) >= 0 || x.Subtitle.IndexOf(term, comparisonType) >= 0) 
+					&& x.Date < before
+					&& !x.NewsHidden)
 				.OrderByDescending(x => x.Date);
 
 			return await result.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
