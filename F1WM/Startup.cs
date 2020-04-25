@@ -78,6 +78,10 @@ namespace F1WM
 					application.UseDeveloperExceptionPage();
 					configurationBuilder.AddUserSecrets<Startup>();
 				}
+				else
+				{
+					application.UseHttpsRedirection();
+				}
 				configurationBuilder.AddEnvironmentVariables();
 				application
 					.UseMiddleware<ExceptionMiddleware>()
@@ -85,7 +89,6 @@ namespace F1WM
 					.UseCors(Configuration.CorsPolicy)
 					.UseCustomSwaggerUi(environment)
 					.UseAuthentication()
-					.UseHttpsRedirection()
 					.UseMvc();
 			}
 			catch (Exception ex)
