@@ -6,7 +6,7 @@ ARG BRANCH
 ENV BRANCH=$BRANCH
 COPY . ./
 RUN dotnet test F1WM.UnitTests/F1WM.UnitTests.csproj
-RUN dotnet publish -c Release -o bin F1WM/F1WM.csproj
+RUN dotnet publish -c Release -o F1WM/bin F1WM/F1WM.csproj
 
 # build runtime image
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine
