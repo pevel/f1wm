@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq.Expressions;
+using F1WM.Utilities;
 
 namespace F1WM.Services.Search
 {
@@ -78,15 +79,7 @@ namespace F1WM.Services.Search
 			{
 				var left = c.LeftExpressions.Dequeue();
 				var right = c.RightExpressions.Dequeue();
-				var expression = Expression.GreaterThanOrEqual(
-					Expression.Call(
-						left,
-						typeof(string).GetMethod(nameof(string.IndexOf), new Type[] { typeof(string), typeof(StringComparison) }),
-						right,
-						Expression.Constant(StringComparison.CurrentCultureIgnoreCase)
-					),
-					Expression.Constant(0)
-				);
+				var expression = F1WMExpressions.GetCaseInsensitiveStringCompareExpression(left, right);
 				c.LeftExpressions.Enqueue(expression);
 				return c;
 			}

@@ -6,11 +6,6 @@ namespace F1WM.Utilities
 {
 	public static class StringExtensions
 	{
-		public static bool Like(this string text, string term)
-		{
-			return text.IndexOf(term, StringComparison.CurrentCultureIgnoreCase) >= 0;
-		}
-
 		public static string IgnoreEmpty(this string text)
 		{
 			return text == "-" || string.IsNullOrWhiteSpace(text) ? null : text;
