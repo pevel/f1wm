@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
@@ -21,6 +20,9 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Number, o => o.MapFrom(db => db.Entry.Number))
 				.ForMember(api => api.Tyres, o => o.MapFrom(db => db.Entry.Tyres));
+			CreateMap<Race, RaceSummary>()
+				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
+				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
 		}
 	}
 }

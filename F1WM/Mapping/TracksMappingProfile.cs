@@ -1,4 +1,3 @@
-using System;
 using System.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
@@ -37,6 +36,8 @@ namespace F1WM.Mapping
 				.ForMember(domain => domain.Year, o => o.MapFrom(db => db.Race.Date.Year))
 				.ForMember(domain => domain.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(domain => domain.Team, o => o.MapFrom(db => db.Entry.Team));
+			CreateMap<DatabaseModel.Track, TrackSummary>()
+				.ForMember(api => api.TrackIcon, o => o.MapFrom(db => db.Key.GetTrackIconPath()));
 		}
 	}
 }
