@@ -22,6 +22,8 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
 			CreateMap<Driver, DriverSummary>();
 			CreateMap<Driver, DriverBase>();
+			CreateMap<OtherDriver, DriverSummary>();
+			CreateMap<OtherDriver, DriverBase>();
 		}
 	}
 }

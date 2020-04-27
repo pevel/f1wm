@@ -76,6 +76,7 @@ namespace F1WM.Mapping
 				.ForMember(api => api.Driver, o => o.MapFrom(db => db.Entry.Driver))
 				.ForMember(api => api.Car, o => o.MapFrom(db => db.Entry.Car))
 				.ForMember(api => api.AverageSpeed, o => o.MapFrom(db => db.CalculateAverageSpeed()));
+			CreateMap<OtherSeries, SeriesSummary>();
 		}
 	}
 }
