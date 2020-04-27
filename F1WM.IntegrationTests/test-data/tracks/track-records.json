@@ -44,7 +44,7 @@
           "id": 959,
           "name": "Ferrari F2007"
         },
-        "averageSpeed": 222.62980326219838,
+        "averageSpeed": 222.630,
         "raceDate": "2007-07-08T00:00:00"
       }
     }
@@ -94,7 +94,7 @@
           "id": 584,
           "name": "McLaren MP4/2"
         },
-        "averageSpeed": 200.29855461418504,
+        "averageSpeed": 200.299,
         "raceDate": "1984-07-22T00:00:00"
       }
     }
@@ -144,7 +144,7 @@
           "id": 1067,
           "name": "Mercedes F1 W07 Hybrid"
         },
-        "averageSpeed": 197.88750415891562,
+        "averageSpeed": 197.888,
         "raceDate": "2016-06-19T00:00:00"
       }
     }
