@@ -23,7 +23,7 @@ namespace F1WM.Startups
 			return builder =>
 			{
 				builder
-					.AllowAnyOrigin()
+					.SetIsOriginAllowed(_ => true)
 					.AllowAnyMethod()
 					.AllowAnyHeader()
 					.AllowCredentials();

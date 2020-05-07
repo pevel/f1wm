@@ -214,16 +214,9 @@ namespace F1WM.Repositories
 				.Where(hasFastestLap)
 				.Where(q => q.Race.Date.Year < beforeYear)
 				.Where(q => q.Race.TrackId == trackId && q.Race.TrackVersion == trackVersion)
-				.Select(q => new
-				{
-					Qualifying = q,
-					Time = (new[] { q.Session1Time, q.Session2Time, q.Session3Time })
-					.Where(t => t != TimeSpan.Zero)
-					.Min()
-				})
-				.OrderBy(g => g.Time)
-				.FirstOrDefaultAsync())
-				?.Qualifying;
+				.ToListAsync())
+				.OrderBy(q => (new[] { q.Session1Time, q.Session2Time, q.Session3Time }).Where(t => t != TimeSpan.Zero).Min())
+				.FirstOrDefault();
 		}
 	}
 }

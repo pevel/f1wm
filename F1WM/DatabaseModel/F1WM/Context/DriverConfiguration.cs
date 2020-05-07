@@ -134,7 +134,6 @@ namespace F1WM.DatabaseModel.Context
 				.HasDefaultValueSql("''");
 
 			builder.Property(e => e.TeamKey)
-				.IsRequired()
 				.HasColumnName("teamascid")
 				.HasColumnType("char(3)")
 				.HasDefaultValueSql("''");

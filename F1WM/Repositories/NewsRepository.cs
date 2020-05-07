@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
@@ -26,8 +27,9 @@ namespace F1WM.Repositories
 
 			if (firstId != null)
 			{
+				var castFirstId = (uint) firstId.Value;
 				dbNews = context.News
-					.Join(context.News, n1 => (int)n1.Id, n2 => firstId.Value, (n1, n2) => new { n1, n2 })
+					.Join(context.News, n1 => n1.Id, n2 => castFirstId, (n1, n2) => new { n1, n2 })
 					.Where(n => n.n1.Date >= n.n2.Date)
 					.Select(n => n.n2)
 					.Include(n => n.MainTag)
@@ -51,11 +53,11 @@ namespace F1WM.Repositories
 			var news = await mapper.ProjectTo<NewsDetails>(dbNews).FirstOrDefaultAsync();
 			if (news != null)
 			{
-				news.PreviousNewsId = (int?)(await context.News
+				news.PreviousNewsId = (int?) (await context.News
 					.Where(n => n.Date < news.Date && !n.NewsHidden)
 					.OrderByDescending(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;
-				news.NextNewsId = (int?)(await context.News
+				news.NextNewsId = (int?) (await context.News
 					.Where(n => n.Date > news.Date && !n.NewsHidden)
 					.OrderBy(n => n.Date)
 					.FirstOrDefaultAsync())?.Id;
@@ -74,10 +76,10 @@ namespace F1WM.Repositories
 		public Task<PagedResult<NewsSummary>> GetNewsByTagId(int tagId, uint page, uint countPerPage)
 		{
 			var dbNews = context.NewsTagMatches
-					.Where(t => t.TagId == tagId)
-					.Select(t => t.News)
-					.Where(n => !n.NewsHidden)
-					.OrderByDescending(n => n.Date);
+				.Where(t => t.TagId == tagId)
+				.Select(t => t.News)
+				.Where(n => !n.NewsHidden)
+				.OrderByDescending(n => n.Date);
 
 			return dbNews.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);
 		}
@@ -140,29 +142,28 @@ namespace F1WM.Repositories
 		public async Task<IEnumerable<NewsSummary>> GetRelatedNews(int newsId, DateTime before, int count)
 		{
 			var tagId = await context.News
-				.Where(x => (int)x.Id == newsId)
-				.Select(x=>x.MainTagId)
+				.Where(x => (int) x.Id == newsId)
+				.Select(x => x.MainTagId)
 				.SingleAsync();
-			
+
 			var result = await mapper.ProjectTo<NewsSummary>(
 					context.News
-						.Where(x => x.Date < before
-						            && x.MainTagId == tagId
-						            && x.Id != newsId
-						            && x.NewsHidden != true)
-						.OrderByDescending(x => x.Date)
-						.Take(count))
+					.Where(x => x.Date < before &&
+						x.MainTagId == tagId &&
+						x.Id != newsId &&
+						x.NewsHidden != true)
+					.OrderByDescending(x => x.Date)
+					.Take(count))
 				.ToListAsync();
-			
+
 			return result.Count > 0 ? result : null;
 		}
 
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term, uint page, uint countPerPage, DateTime before)
 		{
 			var result = context.News
-				.Where(x => (x.Title.Contains(term) || x.Subtitle.Contains(term)) 
-				            && x.Date < before
-				            && !x.NewsHidden)
+				.Where(x => x.Date < before && !x.NewsHidden)
+				.Where(F1WMExpressions.Like<News>(term, nameof(News.Title), nameof(News.Subtitle)))
 				.OrderByDescending(x => x.Date);
 
 			return await result.GetPagedResult<News, NewsSummary>(mapper, page, countPerPage);

@@ -1,6 +1,8 @@
+using F1WM.DomainModel;
+
 namespace F1WM.ApiModel
 {
-	public class DriverPosition
+	public class DriverPosition : IStandingsPosition
 	{
 		public uint Id { get; set; }
 		public int Position { get; set; }

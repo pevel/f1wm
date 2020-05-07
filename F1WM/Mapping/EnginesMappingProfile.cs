@@ -12,6 +12,7 @@ namespace F1WM.Mapping
 			CreateMap<Engine, EngineDetails>()
 				.ForMember(api => api.Picture, o => o.MapFrom(db => db.GetEnginePicturePath()))
 				.ForMember(api => api.Specifications, o => o.MapFrom(db => db.EngineSpecification.Parse()));
+			CreateMap<Engine, EngineSummary>();
 		}
 	}
 }
