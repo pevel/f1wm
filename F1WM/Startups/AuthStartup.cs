@@ -5,12 +5,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace F1WM.Startups
 {
 	public static class AuthStartup
 	{
-		public static AuthenticationBuilder AddCustomAuth(this IServiceCollection services, IHostingEnvironment environment, IConfiguration configuration)
+		public static AuthenticationBuilder AddCustomAuth(this IServiceCollection services, IWebHostEnvironment environment, IConfiguration configuration)
 		{
 			return services
 				.AddAuthentication(GetAuthenticationOptions())
@@ -27,7 +28,7 @@ namespace F1WM.Startups
 			};
 		}
 
-		private static Action<JwtBearerOptions> GetJwtBearerOptions(IHostingEnvironment environment, IConfiguration configuration)
+		private static Action<JwtBearerOptions> GetJwtBearerOptions(IWebHostEnvironment environment, IConfiguration configuration)
 		{
 			return options =>
 			{

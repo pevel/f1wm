@@ -13,6 +13,8 @@ namespace F1WM.Utilities
 {
 	public static class Constants
 	{
+		public static int AverageSpeedPrecision = 3;
+
 		public readonly static Dictionary<string, ResultStatus> TextToResultStatus =
 			new Dictionary<string, ResultStatus>()
 		{

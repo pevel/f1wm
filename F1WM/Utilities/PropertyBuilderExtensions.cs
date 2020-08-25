@@ -12,7 +12,7 @@ namespace F1WM.Utilities
 		{
 			return builder.HasConversion(
 				v => v.TotalMilliseconds,
-				v => TimeSpan.FromMilliseconds(v * 1000)
+				v => TimeSpan.FromMilliseconds(Math.Round(v * 1000))
 			);
 		}
 

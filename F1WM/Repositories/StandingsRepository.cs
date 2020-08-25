@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
+using F1WM.DomainModel;
+using F1WM.Utilities;
 using Microsoft.EntityFrameworkCore;
 
 namespace F1WM.Repositories
@@ -126,10 +128,18 @@ namespace F1WM.Repositories
 		private async Task<IEnumerable<ConstructorPositionAfterRace>> GetConstructorsStandingsAfterRace(
 			(uint SeasonId, DateTime Date, bool IsFirst) constraints)
 		{
-			var positionsAfter = await context.ConstructorPoints
-				.Where(p => p.SeasonId == constraints.SeasonId && p.Race.Date <= constraints.Date)
-				.Include(p => p.Constructor).ThenInclude(c => c.Nationality)
-				.Select(p => new { p, p.Constructor })
+			var tieResolutionOptions = new TieResolutionOptions
+			{
+				SeasonId = constraints.SeasonId,
+				BeforeDate = constraints.Date,
+				IdPredicateFactory = ids => r => ids.Contains(r.Entry.TeamId),
+				PositionSelector = r => new RacePosition { Id = r.Entry.TeamId, Position = r.PositionOrStatus }
+			};
+			var positionsAfter = (await context.ConstructorPoints
+					.Where(p => p.SeasonId == constraints.SeasonId && p.Race.Date <= constraints.Date)
+					.Include(p => p.Constructor).ThenInclude(c => c.Nationality)
+					.Select(p => new { p, p.Constructor })
+					.ToListAsync())
 				.GroupBy(g => g.p.ConstructorId, (key, result) => new ConstructorPositionAfterRace()
 				{
 					Id = key,
@@ -138,17 +148,26 @@ namespace F1WM.Repositories
 					Points = result.Sum(p => p.p.Points ?? 0)
 				})
 				.OrderByDescending(p => p.Points)
-				.ToListAsync();
-			var positionsBefore = await context.ConstructorPoints
-				.Where(c => !constraints.IsFirst)
-				.Where(c => c.SeasonId == constraints.SeasonId && c.Race.Date < constraints.Date)
-				.GroupBy(c => c.ConstructorId, (key, result) => new
+				.ThenBy(p => p.Id)
+				.ToList();
+
+			positionsAfter = await ResolveTies(positionsAfter, tieResolutionOptions);
+
+			var positionsBefore = (await context.ConstructorPoints
+					.Where(c => !constraints.IsFirst)
+					.Where(c => c.SeasonId == constraints.SeasonId && c.Race.Date < constraints.Date)
+					.ToListAsync())
+				.GroupBy(c => c.ConstructorId, (key, result) => new StandingsPosition
 				{
 					Id = key,
 					Points = result.Sum(c => c.Points ?? 0)
 				})
 				.OrderByDescending(c => c.Points)
-				.ToListAsync();
+				.ThenBy(c => c.Id)
+				.ToList();
+
+			positionsBefore = await ResolveTies(positionsBefore, tieResolutionOptions);
+			
 			positionsAfter = positionsAfter
 				.Select((position, index) => new { Value = position, index })
 				.GroupJoin(positionsBefore.Select((position, index) => new { Id = position.Id, index }),
@@ -167,6 +186,7 @@ namespace F1WM.Repositories
 						Change = before == null ? 0 : (before.index + 1) - (g.after.index + 1)
 					})
 				.OrderBy(c => c.Position)
+				.ThenBy(c => c.Id)
 				.ToList();
 			return positionsAfter;
 		}
@@ -174,10 +194,18 @@ namespace F1WM.Repositories
 		private async Task<IEnumerable<DriverPositionAfterRace>> GetDriversStandingsAfterRace(
 			(uint SeasonId, DateTime Date, bool IsFirst) constraints)
 		{
-			var positionsAfter = await context.DriverPoints
-				.Where(p => p.SeasonId == constraints.SeasonId && p.Race.Date <= constraints.Date)
-				.Include(p => p.Driver).ThenInclude(d => d.Nationality)
-				.Select(p => new { p, p.Driver })
+			var tieResolutionOptions = new TieResolutionOptions
+			{
+				SeasonId = constraints.SeasonId,
+				BeforeDate = constraints.Date,
+				IdPredicateFactory = ids => r => ids.Contains(r.Entry.DriverId),
+				PositionSelector = r => new RacePosition { Id = r.Entry.DriverId, Position = r.PositionOrStatus }
+			};
+			var positionsAfter = (await context.DriverPoints
+					.Where(p => p.SeasonId == constraints.SeasonId && p.Race.Date <= constraints.Date)
+					.Include(p => p.Driver).ThenInclude(d => d.Nationality)
+					.Select(p => new { p, p.Driver })
+					.ToListAsync())
 				.GroupBy(g => g.p.DriverId, (key, result) => new DriverPositionAfterRace()
 				{
 					Id = key,
@@ -186,17 +214,25 @@ namespace F1WM.Repositories
 					Points = result.Sum(p => p.p.Points ?? 0)
 				})
 				.OrderByDescending(p => p.Points)
-				.ToListAsync();
-			var positionsBefore = await context.DriverPoints
-				.Where(c => !constraints.IsFirst)
-				.Where(c => c.SeasonId == constraints.SeasonId && c.Race.Date < constraints.Date)
-				.GroupBy(c => c.DriverId, (key, result) => new
+				.ThenBy(p => p.Id)
+				.ToList();
+			positionsAfter = await ResolveTies(positionsAfter, tieResolutionOptions);
+
+			var positionsBefore = (await context.DriverPoints
+					.Where(c => !constraints.IsFirst)
+					.Where(c => c.SeasonId == constraints.SeasonId && c.Race.Date < constraints.Date)
+					.ToListAsync())
+				.GroupBy(c => c.DriverId, (key, result) => new StandingsPosition
 				{
 					Id = key,
 					Points = result.Sum(c => c.Points ?? 0)
 				})
 				.OrderByDescending(c => c.Points)
-				.ToListAsync();
+				.ThenBy(c => c.Id)
+				.ToList();
+
+			positionsBefore = await ResolveTies(positionsBefore, tieResolutionOptions);
+
 			positionsAfter = positionsAfter
 				.Select((position, index) => new { Value = position, index })
 				.GroupJoin(positionsBefore.Select((position, index) => new { Id = position.Id, index }),
@@ -217,6 +253,60 @@ namespace F1WM.Repositories
 				.OrderBy(c => c.Position)
 				.ToList();
 			return positionsAfter;
+		}
+
+		private async Task<List<T>> ResolveTies<T>(List<T> positions, TieResolutionOptions options)
+			where T : IStandingsPosition
+		{
+			var tiedStandingsPositionsGroups = positions
+				.Where(p => p.Points > 0)
+				.GroupBy(p => p.Points)
+				.Where(group => group.Count() > 1)
+				.ToList();
+
+			foreach (var tiedPositionsGroup in tiedStandingsPositionsGroups)
+			{
+				var idPredicate = options.IdPredicateFactory(tiedPositionsGroup.Select(g => g.Id));
+				var racePositionsCounts = (await context.Results
+						.Where(r => r.Race.SeasonId == options.SeasonId && r.Race.Date <= options.BeforeDate)
+						.Where(r => !string.IsNullOrEmpty(r.PositionOrStatus))
+						.Where(idPredicate)
+						.Select(options.PositionSelector)
+						.ToListAsync())
+					.GroupBy(r => r.Id)
+					.Select(group => new
+					{
+						Id = group.Key,
+						PositionsCounts = CountPositions(group)
+					})
+					.OrderByDescending(p => p.PositionsCounts, new PositionsCountsComparer())
+					.ThenBy(p => p.Id);
+
+				var tieIndex = positions.TakeWhile(p => p.Points != tiedPositionsGroup.Key).Count();
+				var sortedPositionsToInsert = racePositionsCounts.Select(c => positions.Single(p => p.Id == c.Id)).ToList();
+				positions.RemoveRange(tieIndex, racePositionsCounts.Count());
+				positions.InsertRange(tieIndex, sortedPositionsToInsert);
+			}
+			return positions;
+		}
+
+		private PositionsCounts CountPositions(IGrouping<uint, RacePosition> groupedRacePositions)
+		{
+			return groupedRacePositions.Aggregate(new PositionsCounts(), (all, result) =>
+			{
+				if (int.TryParse(result.Position, out var position))
+				{
+					if (all.Positions.ContainsKey(position))
+					{
+						all.Positions[position]++;
+					}
+					else
+					{
+						all.Positions.Add(position, 1);
+					}
+				}
+				return all;
+			});
 		}
 	}
 }

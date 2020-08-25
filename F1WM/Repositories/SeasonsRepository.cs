@@ -16,13 +16,9 @@ namespace F1WM.Repositories
 
 		public async Task<SeasonRules> GetSeasonRules(int year)
 		{
-			
-			var seasonRules = await context.Seasons
-				.SingleOrDefaultAsync(s => s.Year == year);
-
-			var result = mapper.Map<SeasonRules>(seasonRules);
-
-			return result;
+			return await mapper.ProjectTo<SeasonRules>(context.Seasons
+				.Where(s => s.Year == year))
+				.FirstOrDefaultAsync();
 		}
 
 		public async Task<SeasonRaces> GetCurrentSeasonRaces(DateTime now)

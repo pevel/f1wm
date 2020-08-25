@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.IntegrationTests.Attributes;
-using Newtonsoft.Json;
 using Xunit;
 
 namespace F1WM.IntegrationTests

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using NSwag.AspNetCore;
+using Microsoft.Extensions.Hosting;
 
 [assembly: ApiConventionType(typeof(DefaultApiConventions))]
 [assembly: ApiController]
@@ -19,10 +19,10 @@ namespace F1WM
 	public class Startup
 	{
 		private readonly IConfiguration configuration;
-		private readonly IHostingEnvironment environment;
+		private readonly IWebHostEnvironment environment;
 		private LoggingService logger;
 
-		public Startup(IConfiguration configuration, IHostingEnvironment environment)
+		public Startup(IConfiguration configuration, IWebHostEnvironment environment)
 		{
 			this.configuration = configuration;
 			this.environment = environment;
@@ -37,7 +37,7 @@ namespace F1WM
 				JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
 				services
 					.AddLogging()
-					.AddSwagger()
+					.AddOpenApiDocument(OpenApiStartup.GetOpenApiGeneratorSettings())
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
 					.AddMemoryCache()
 					.ConfigureRepositories(configuration)
@@ -48,15 +48,14 @@ namespace F1WM
 				services
 					.AddCustomAuth(environment, configuration);
 				services
-					.AddMvcCore()
+					.AddMvcCore(options => options.EnableEndpointRouting = false)
 					.AddApiExplorer()
 					.AddAuthorization()
 					.AddDataAnnotations()
 					.AddFormatterMappings()
 					.AddCustomCors()
-					.AddJsonFormatters()
-					.AddXmlSerializerFormatters()
-					.SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+					.AddNewtonsoftJson()
+					.AddXmlSerializerFormatters();
 			}
 			catch (Exception ex)
 			{
@@ -68,7 +67,7 @@ namespace F1WM
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(
 			IApplicationBuilder application,
-			IHostingEnvironment environment,
+			IWebHostEnvironment environment,
 			IServiceProvider serviceProvider,
 			IConfigurationBuilder configurationBuilder)
 		{
@@ -78,6 +77,10 @@ namespace F1WM
 				{
 					application.UseDeveloperExceptionPage();
 					configurationBuilder.AddUserSecrets<Startup>();
+				}
+				else
+				{
+					application.UseHttpsRedirection();
 				}
 				configurationBuilder.AddEnvironmentVariables();
 				application

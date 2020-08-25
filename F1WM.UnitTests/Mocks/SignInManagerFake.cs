@@ -14,7 +14,8 @@ namespace F1WM.UnitTests.Mocks
 			new Mock<IUserClaimsPrincipalFactory<T>>().Object,
 			new Mock<IOptions<IdentityOptions>>().Object,
 			new Mock<ILogger<SignInManager<T>>>().Object,
-			new Mock<IAuthenticationSchemeProvider>().Object)
+			new Mock<IAuthenticationSchemeProvider>().Object,
+			new Mock<IUserConfirmation<T>>().Object)
 		{ }
 	}
 }

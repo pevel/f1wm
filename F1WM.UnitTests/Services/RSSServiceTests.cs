@@ -31,8 +31,10 @@ namespace F1WM.UnitTests.Services
 			timeServiceMock = new Mock<ITimeService>();
 			configRepositoryMock = new Mock<IConfigRepository>();
 			newsRepositoryMock = new Mock<INewsRepository>();
-			Mapper.Initialize(options => options.AddProfile(new RSSMappingProfile()));
-			mapper = new Mapper(Mapper.Configuration);
+			mapper = new MapperConfiguration(cfg =>
+			{
+				cfg.AddProfile(new RSSMappingProfile());
+			}).CreateMapper();
 			service = new RSSService(
 				timeServiceMock.Object,
 				configRepositoryMock.Object,

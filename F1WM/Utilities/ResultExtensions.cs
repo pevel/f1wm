@@ -25,7 +25,7 @@ namespace F1WM.Utilities
 		{
 			if (dbResult?.Race?.Distance != null)
 			{
-				return dbResult.Race.Distance / dbResult.Time.TotalHours;
+				return Math.Round(dbResult.Race.Distance / dbResult.Time.TotalHours, Constants.AverageSpeedPrecision);
 			}
 			else
 			{

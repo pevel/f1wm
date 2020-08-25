@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using AutoMapper;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
@@ -23,9 +20,10 @@ namespace F1WM.Mapping
 				.ForMember(api => api.ChampionAtSeries, o => o.MapFrom(db => db.GetSeriesChampionInfo()))
 				.ForMember(api => api.CareerPeriods, o => o.MapFrom(db => db.ParseCareerInfo()))
 				.ForMember(api => api.Website, o => o.MapFrom(db => db.Link.Url));
-			CreateMap<Race, RaceSummary>()
-				.ForMember(api => api.RaceId, o => o.MapFrom(db => db.Id))
-				.ForMember(api => api.Name, o => o.MapFrom(db => db.Country.GenitiveName.GetGrandPrixName()));
+			CreateMap<Driver, DriverSummary>();
+			CreateMap<Driver, DriverBase>();
+			CreateMap<OtherDriver, DriverSummary>();
+			CreateMap<OtherDriver, DriverBase>();
 		}
 	}
 }
