@@ -23,7 +23,7 @@ namespace F1WM.Repositories
 				.Where(r => r.Date.Year == year)
 				.ToListAsync();
 
-			if (dbRaces.Count() == 0)return null;
+			if (!dbRaces.Any())return null;
 
 			var races = mapper.Map<List<Race>, List<CalendarRace>>(dbRaces);
 			await IncludeLastPolePositionResult(year, races);
@@ -68,7 +68,7 @@ namespace F1WM.Repositories
 			
 			foreach (var r in dbRaceResults)
 			{
-				r.Entry.Grid.FillStartPositionInfo();
+				r.Entry.Grid?.FillStartPositionInfo();
 			}
 
 			foreach (CalendarRace calendarRace in calendar)
