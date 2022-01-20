@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using FluentAssertions;
+using System;
+using static F1WM.Utilities.Constants;
 
 namespace F1WM.UnitTests.Controllers
 {
@@ -15,12 +17,14 @@ namespace F1WM.UnitTests.Controllers
 		private BroadcastsController controller;
 		private Fixture fixture;
 		private Mock<IBroadcastsService> serviceMock;
+		private Mock<ICachingService> cachingServiceMock;
 
 		public BroadcastsControllerTests()
 		{
 			fixture = new Fixture();
 			serviceMock = new Mock<IBroadcastsService>();
-			controller = new BroadcastsController(serviceMock.Object);
+			cachingServiceMock = new Mock<ICachingService>();
+			controller = new BroadcastsController(serviceMock.Object, cachingServiceMock.Object);
 		}
 
 		[Fact]
@@ -124,6 +128,7 @@ namespace F1WM.UnitTests.Controllers
 			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
 			var createdAtActionResult = Assert.IsType<CreatedAtActionResult>(result.Result);
 			broadcasts.Should().BeEquivalentTo(createdAtActionResult.Value);
+			cachingServiceMock.Verify(c => c.DisposeCache(), Times.Once);
 		}
 
 		[Fact]
@@ -136,6 +141,42 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.AddBroadcasts(request), Times.Once);
 			Assert.IsType<UnprocessableEntityResult>(result.Result);
+		}
+
+		[Fact]
+		public async Task ShouldReturnCachedNextBroadcast()
+		{
+			var broadcasts = fixture.Create<BroadcastsInformation>();
+			DateTime? requestParam = null;
+			var cacheKey = $"{CacheKeys.NextBroadcast}_{requestParam}";
+
+			cachingServiceMock.Setup(c => c.TryGetCacheValue<BroadcastsInformation>(cacheKey)).Returns(broadcasts);
+
+			var result = await controller.GetNextBroadcasts(requestParam);
+
+			serviceMock.Verify(s => s.GetNextBroadcasts(requestParam), Times.Never);
+			cachingServiceMock.Verify(c => c.TryGetCacheValue<BroadcastsInformation>(cacheKey), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), TimeSpan.FromDays(1)), Times.Never);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			broadcasts.Should().BeEquivalentTo(okResult.Value);
+		}
+
+		[Fact]
+		public async Task ShouldSetNextBroadcastCache()
+		{
+			var broadcasts = fixture.Create<BroadcastsInformation>();
+			DateTime? requestParam = null;
+			var cacheKey = $"{CacheKeys.NextBroadcast}_{requestParam}";
+
+			serviceMock.Setup(s => s.GetNextBroadcasts(null)).ReturnsAsync(broadcasts);
+
+			var result = await controller.GetNextBroadcasts(requestParam);
+
+			serviceMock.Verify(s => s.GetNextBroadcasts(requestParam), Times.Once);
+			cachingServiceMock.Verify(c => c.TryGetCacheValue<BroadcastsInformation>(cacheKey), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), TimeSpan.FromDays(1)), Times.Once);
+			var okResult = Assert.IsType<OkObjectResult>(result.Result);
+			broadcasts.Should().BeEquivalentTo(okResult.Value);
 		}
 	}
 }

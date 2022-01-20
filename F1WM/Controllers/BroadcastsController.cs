@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using Microsoft.AspNetCore.Mvc;
+using static F1WM.Utilities.Constants;
 
 namespace F1WM.Controllers
 {
@@ -16,6 +17,7 @@ namespace F1WM.Controllers
 	public class BroadcastsController : ControllerBase
 	{
 		private readonly IBroadcastsService service;
+		private readonly ICachingService cachingService;
 
 		[HttpGet]
 		[ProducesResponseType(200)]
@@ -35,6 +37,7 @@ namespace F1WM.Controllers
 			[FromBody] BroadcastsAddRequest request)
 		{
 			var broadcasts = await service.AddBroadcasts(request);
+			cachingService.DisposeCache();
 			if (broadcasts != null)
 			{
 				return CreatedAtAction(nameof(GetNextBroadcasts), broadcasts);
@@ -66,6 +69,7 @@ namespace F1WM.Controllers
 			try
 			{
 				var broadcasts = await service.UpdateBroadcasts(new BroadcastsUpdateRequest() { RaceId = raceId, PatchDocument = patchDocument });
+				cachingService.DisposeCache();
 				return this.NotFoundResultIfNull(broadcasts);
 			}
 			catch (JsonPatchException ex)
@@ -82,6 +86,7 @@ namespace F1WM.Controllers
 		public async Task<ActionResult> DeleteBroadcasts([FromRoute] int raceId)
 		{
 			await service.DeleteBroadcasts(raceId);
+			cachingService.DisposeCache();
 			return NoContent();
 		}
 
@@ -91,8 +96,14 @@ namespace F1WM.Controllers
 		public async Task<ActionResult<BroadcastsInformation>> GetNextBroadcasts(
 			[FromQuery] DateTime? after)
 		{
-			var broadcasts = await service.GetNextBroadcasts(after);
-			return this.NotFoundResultIfNull(broadcasts);
+			var cacheKey = $"{CacheKeys.NextBroadcast}_{after}";
+			var responseData = cachingService.TryGetCacheValue<BroadcastsInformation>(cacheKey);
+			if (responseData is null)
+			{
+				responseData = await service.GetNextBroadcasts(after);
+				cachingService.Set(cacheKey, responseData, TimeSpan.FromDays(1));
+			}
+			return this.NotFoundResultIfNull(responseData);
 		}
 
 		[HttpGet("broadcasters")]
@@ -203,9 +214,10 @@ namespace F1WM.Controllers
 			return NoContent();
 		}
 
-		public BroadcastsController(IBroadcastsService service)
+		public BroadcastsController(IBroadcastsService service, ICachingService cachingService)
 		{
 			this.service = service;
+			this.cachingService = cachingService;
 		}
 	}
 }
