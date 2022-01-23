@@ -1,11 +1,12 @@
 using System;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace F1WM.Services
 {
 	public interface ICachingService
 	{
 		T Get<T>(string key);
-		T Set<T>(string key, T value, MemoryCacheEntryOptions options);
+		T TryGetCacheValue<T>(string key) where T : class;
+		void Set<T>(string key, T value, TimeSpan timeSpan);
+		void DisposeCache();
 	}
 }

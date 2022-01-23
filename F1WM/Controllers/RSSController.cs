@@ -30,7 +30,7 @@ namespace F1WM.Controllers
 				feed = await rssService.GetFeed(firstId);
 				if (shouldUseCache)
 				{
-					this.cache.Set(rssCacheKey, feed, GetMemoryCacheEntryOptions());
+					this.cache.Set(rssCacheKey, feed, GetMemoryCacheExpiration());
 				}
 			}
 			return new Rss20FeedFormatter(feed);
@@ -53,12 +53,9 @@ namespace F1WM.Controllers
 			this.cache = cache;
 		}
 
-		private MemoryCacheEntryOptions GetMemoryCacheEntryOptions()
+		private TimeSpan GetMemoryCacheExpiration()
 		{
-			return new MemoryCacheEntryOptions()
-			{
-				AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(5)
-			};
+			return TimeSpan.FromMinutes(5);
 		}
 	}
 }

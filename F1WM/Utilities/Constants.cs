@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.DatabaseModel;
-using F1WM.Utilities;
 using F1WM.Utilities.Model;
 using Microsoft.EntityFrameworkCore;
 using Database = F1WM.DatabaseModel.Constants;
@@ -89,6 +88,18 @@ namespace F1WM.Utilities
 		{ ResultLinkType.Qualifying, (c, l) => getRaceIdResultLinkByYearAndNumber(c, l) },
 		{ ResultLinkType.FastestLaps, (c, l) => getRaceIdResultLinkByYearAndNumber(c, l) }
 		};
+
+		public enum CacheKeys
+		{
+			Calendar,
+			ConstructorsStanding,
+			DriversStanding,
+			ImportantNews,
+			LastRace,
+			News,
+			NextBroadcast,
+			NextRace,
+		}
 
 		private readonly static Func<F1WMContext, ResultRedirectLink, Task<ResultLink>> getRaceIdResultLinkByYearAndNumber =
 			async (context, link) =>

@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Services;
 using F1WM.Utilities;
 using Microsoft.AspNetCore.Mvc;
+using static F1WM.Utilities.Constants;
 
 namespace F1WM.Controllers
 {
@@ -15,6 +17,7 @@ namespace F1WM.Controllers
 		private const int defaultCountPerPage = 20;
 
 		private readonly INewsService service;
+		private readonly ICachingService cachingService;
 
 		[HttpGet]
 		public async Task<PagedResult<NewsSummary>> GetManyNews(
@@ -25,11 +28,38 @@ namespace F1WM.Controllers
 					[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
 		{
 			if (tagId != null)
-				return await service.GetNewsByTagId((int)tagId, page, countPerPage);
+			{
+				var cacheKey = $"{CacheKeys.News}_TagId_{tagId}_{page}_{countPerPage}";
+				var responseData = cachingService.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey);
+				if (responseData is null)
+				{
+					responseData = await service.GetNewsByTagId((int)tagId, page, countPerPage);
+					cachingService.Set(cacheKey, responseData, TimeSpan.FromDays(1));
+				}
+				return responseData;
+			}
 			else if (typeId != null)
-				return await service.GetNewsByTypeId((int)typeId, page, countPerPage);
+			{
+				var cacheKey = $"{CacheKeys.News}_TypeId_{typeId}_{page}_{countPerPage}";
+				var responseData = cachingService.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey);
+				if (responseData is null)
+				{
+					responseData = await service.GetNewsByTypeId((int)typeId, page, countPerPage);
+					cachingService.Set(cacheKey, responseData, TimeSpan.FromDays(1));
+				}
+				return responseData;
+			}
 			else
-				return await service.GetLatestNews(firstId, page, countPerPage);
+			{
+				var cacheKey = $"{CacheKeys.News}_FirstId_{firstId}_{page}_{countPerPage}";
+				var responseData = cachingService.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey);
+				if (responseData is null)
+				{
+					responseData = await service.GetLatestNews(firstId, page, countPerPage);
+					cachingService.Set(cacheKey, responseData, TimeSpan.FromDays(1));
+				}
+				return responseData;
+			}
 		}
 
 
@@ -38,8 +68,14 @@ namespace F1WM.Controllers
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<NewsDetails>> GetSingle(int id)
 		{
-			var news = await service.GetNewsDetails(id);
-			return this.NotFoundResultIfNull(news);
+			var cacheKey = $"{CacheKeys.News}_{id}";
+			var responseData = cachingService.TryGetCacheValue<NewsDetails>(cacheKey);
+			if (responseData is null)
+			{
+				responseData = await service.GetNewsDetails(id);
+				cachingService.Set(cacheKey, responseData, TimeSpan.FromDays(5));
+			}
+			return this.NotFoundResultIfNull(responseData);
 		}
 
 		[HttpGet("types")]
@@ -69,7 +105,13 @@ namespace F1WM.Controllers
 		[HttpGet("important")]
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
-			return await service.GetImportantNews();
+			var responseData = cachingService.TryGetCacheValue<IEnumerable<ImportantNewsSummary>>(CacheKeys.ImportantNews.ToString());
+			if (responseData is null || !responseData.Any())
+			{
+				responseData = await service.GetImportantNews();
+				cachingService.Set(CacheKeys.ImportantNews.ToString(), responseData, TimeSpan.FromDays(5));
+			}
+			return responseData;
 		}
 
 		[HttpPost("{id}/views/increment")]
@@ -80,9 +122,10 @@ namespace F1WM.Controllers
 			return (await service.IncrementViews(id)) ? (ActionResult)NoContent() : (ActionResult)NotFound();
 		}
 
-		public NewsController(INewsService service)
+		public NewsController(INewsService service, ICachingService cachingService)
 		{
 			this.service = service;
+			this.cachingService = cachingService;
 		}
 
 		[HttpGet("related/{newsId}")]
@@ -93,7 +136,7 @@ namespace F1WM.Controllers
 			var news = await service.GetRelatedNews(newsId, before, count);
 			return this.NotFoundResultIfNull(news);
 		}
-		
+
 		[HttpGet("search/{term}")]
 		[ProducesResponseType(200)]
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term,
