@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -55,7 +56,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNextBroadcasts(NextBroadcastsTestData data)
 		{
 			await TestResponse<BroadcastsInformation>(
-				$"{broadcastsUrl}/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				$"{broadcastsUrl}/next?after={WebUtility.UrlEncode(data.After.ToString(CultureInfo.CreateSpecificCulture("en-US")))}",
 				data.Expected);
 		}
 		

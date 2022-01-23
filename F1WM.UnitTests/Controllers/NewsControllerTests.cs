@@ -334,7 +334,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Never);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 
@@ -359,7 +359,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Never);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 
@@ -384,7 +384,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetLatestNews(firstId, 1, 20), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Never);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 
@@ -425,7 +425,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNewsByTagId(tagId, 1, 20), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Once);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 
@@ -450,7 +450,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNewsByTypeId(typeId, 1, 20), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Once);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 
@@ -475,7 +475,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetLatestNews(firstId, 1, 20), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<PagedResult<NewsSummary>>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<PagedResult<NewsSummary>>(), It.IsAny<TimeSpan>()), Times.Once);
 			result.Should().BeEquivalentTo(pagedResponse);
 		}
 

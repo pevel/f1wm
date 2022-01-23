@@ -60,7 +60,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetFeed(null), Times.Never);
 			cachingServiceMock.Verify(c => c.Get<SyndicationFeed>(It.IsAny<string>()), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(It.IsAny<string>(), It.IsAny<SyndicationFeed>(), TimeSpan.Zero), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(It.IsAny<string>(), It.IsAny<SyndicationFeed>(), It.IsAny<TimeSpan>()), Times.Never);
 		}
 
 		[Fact]

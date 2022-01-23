@@ -106,7 +106,7 @@ namespace F1WM.Controllers
 		public async Task<IEnumerable<ImportantNewsSummary>> GetImportantNews()
 		{
 			var responseData = cachingService.TryGetCacheValue<IEnumerable<ImportantNewsSummary>>(CacheKeys.ImportantNews.ToString());
-			if (responseData is null || responseData.Any())
+			if (responseData is null || !responseData.Any())
 			{
 				responseData = await service.GetImportantNews();
 				cachingService.Set(CacheKeys.ImportantNews.ToString(), responseData, TimeSpan.FromDays(5));

@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Net;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
@@ -14,7 +15,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNextRace(NextRaceTestData data)
 		{
 			await TestResponse<NextRaceSummary>(
-				$"races/next?after={WebUtility.UrlEncode(data.After.ToLongDateString())}",
+				$"races/next?after={WebUtility.UrlEncode(data.After.ToString(CultureInfo.CreateSpecificCulture("en-US")))}",
 				data.Expected);
 		}
 
@@ -23,7 +24,7 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetLastRace(LastRaceTestData data)
 		{
 			await TestResponse<LastRaceSummary>(
-				$"races/last?before={WebUtility.UrlEncode(data.Before.ToLongDateString())}",
+				$"races/last?before={WebUtility.UrlEncode(data.Before.ToString(CultureInfo.CreateSpecificCulture("en-US")))}",
 				data.Expected);
 		}
 

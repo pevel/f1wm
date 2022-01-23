@@ -74,7 +74,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetConstructorsStandings(count, seasonId), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<ConstructorsStandings>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<ConstructorsStandings>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<ConstructorsStandings>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -91,7 +91,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetDriversStandings(count, seasonId), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<DriversStandings>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<DriversStandings>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<DriversStandings>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -108,7 +108,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetConstructorsStandings(count, seasonId), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<ConstructorsStandings>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<ConstructorsStandings>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<ConstructorsStandings>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -125,7 +125,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetDriversStandings(count, seasonId), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<DriversStandings>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<DriversStandings>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<DriversStandings>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 	}

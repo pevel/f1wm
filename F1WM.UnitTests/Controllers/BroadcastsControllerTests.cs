@@ -156,7 +156,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNextBroadcasts(requestParam), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<BroadcastsInformation>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 			broadcasts.Should().BeEquivalentTo(okResult.Value);
 		}
@@ -174,7 +174,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetNextBroadcasts(requestParam), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<BroadcastsInformation>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<BroadcastsInformation>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 			broadcasts.Should().BeEquivalentTo(okResult.Value);
 		}

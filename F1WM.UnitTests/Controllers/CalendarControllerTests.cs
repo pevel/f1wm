@@ -59,7 +59,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetCalendar(year), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<Calendar>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<Calendar>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<Calendar>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -75,7 +75,7 @@ namespace F1WM.UnitTests.Controllers
 
 			serviceMock.Verify(s => s.GetCalendar(year), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<Calendar>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<Calendar>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<Calendar>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 	}

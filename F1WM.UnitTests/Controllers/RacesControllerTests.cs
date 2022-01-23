@@ -182,7 +182,7 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnCachedNextRace()
 		{
 			DateTime? requestParam = null;
-			var cacheKey = $"{CacheKeys.NextRace}_{requestParam}"; ;
+			var cacheKey = $"{CacheKeys.NextRace}_{requestParam}";
 
 			cachingServiceMock.Setup(c => c.TryGetCacheValue<NextRaceSummary>(cacheKey)).Returns(new NextRaceSummary());
 
@@ -190,7 +190,7 @@ namespace F1WM.UnitTests.Controllers
 
 			racesServiceMock.Verify(s => s.GetNextRace(requestParam), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<NextRaceSummary>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<NextRaceSummary>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<NextRaceSummary>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -198,7 +198,7 @@ namespace F1WM.UnitTests.Controllers
 		public async Task ShouldReturnCachedLastRace()
 		{
 			DateTime? requestParam = null;
-			var cacheKey = $"{CacheKeys.LastRace}_{requestParam}"; ;
+			var cacheKey = $"{CacheKeys.LastRace}_{requestParam}";
 
 			cachingServiceMock.Setup(c => c.TryGetCacheValue<LastRaceSummary>(cacheKey)).Returns(new LastRaceSummary());
 
@@ -206,7 +206,7 @@ namespace F1WM.UnitTests.Controllers
 
 			racesServiceMock.Verify(s => s.GetLastRace(requestParam), Times.Never);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<LastRaceSummary>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<LastRaceSummary>(), TimeSpan.FromDays(1)), Times.Never);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<LastRaceSummary>(), It.IsAny<TimeSpan>()), Times.Never);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -222,7 +222,7 @@ namespace F1WM.UnitTests.Controllers
 
 			racesServiceMock.Verify(s => s.GetNextRace(requestParam), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<NextRaceSummary>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<NextRaceSummary>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<NextRaceSummary>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 
@@ -238,7 +238,7 @@ namespace F1WM.UnitTests.Controllers
 
 			racesServiceMock.Verify(s => s.GetLastRace(requestParam), Times.Once);
 			cachingServiceMock.Verify(c => c.TryGetCacheValue<LastRaceSummary>(cacheKey), Times.Once);
-			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<LastRaceSummary>(), TimeSpan.FromDays(1)), Times.Once);
+			cachingServiceMock.Verify(c => c.Set(cacheKey, It.IsAny<LastRaceSummary>(), It.IsAny<TimeSpan>()), Times.Once);
 			var okResult = Assert.IsType<OkObjectResult>(result.Result);
 		}
 	}
