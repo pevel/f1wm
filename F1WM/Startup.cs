@@ -39,7 +39,10 @@ namespace F1WM
 					.AddLogging()
 					.AddOpenApiDocument(OpenApiStartup.GetOpenApiGeneratorSettings())
 					.AddTransient<ILoggingService, LoggingService>(provider => this.logger)
-					.AddMemoryCache()
+					.AddMemoryCache(o =>
+					{
+						o.SizeLimit = 500;
+					})
 					.ConfigureRepositories(configuration)
 					.ConfigureLogicServices()
 					.AddIdentity<F1WMUser, IdentityRole>()
