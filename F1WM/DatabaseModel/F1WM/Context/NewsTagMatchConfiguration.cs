@@ -12,10 +12,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_news_topicmatch");
 
 			builder.HasIndex(e => e.NewsId)
-				.HasName("news_id");
+				.HasDatabaseName("news_id");
 
 			builder.HasIndex(e => new { e.TagId, e.NewsDate })
-				.HasName("topic_id");
+				.HasDatabaseName("topic_id");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("match_id")

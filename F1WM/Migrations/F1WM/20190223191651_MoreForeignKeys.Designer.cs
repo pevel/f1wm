@@ -8,5504 +8,5504 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace F1WM.Migrations.F1WM
 {
-    [DbContext(typeof(F1WMContext))]
-    [Migration("20190223191651_MoreForeignKeys")]
-    partial class MoreForeignKeys
-    {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
-        {
+	[DbContext(typeof(F1WMContext))]
+	[Migration("20190223191651_MoreForeignKeys")]
+	partial class MoreForeignKeys
+	{
+		protected override void BuildTargetModel(ModelBuilder modelBuilder)
+		{
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+			modelBuilder
+				.HasAnnotation("ProductVersion", "2.2.2-servicing-10034")
+				.HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("F1WM.DatabaseModel.Article", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("artid")
-                        .HasColumnType("mediumint unsigned");
+			modelBuilder.Entity("F1WM.DatabaseModel.Article", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("artid")
+						.HasColumnType("mediumint unsigned");
 
-                    b.Property<uint>("ArticleCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("catid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
+					b.Property<uint>("ArticleCategoryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("catid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
 
-                    b.Property<byte>("IsHidden")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("arthidden")
-                        .HasDefaultValueSql("'0'");
+					b.Property<byte>("IsHidden")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("arthidden")
+						.HasDefaultValueSql("'0'");
 
-                    b.Property<uint?>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("newsid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
+					b.Property<uint?>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("newsid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
 
-                    b.Property<string>("Poster")
-                        .IsRequired()
-                        .HasColumnName("artposter")
-                        .HasMaxLength(64);
+					b.Property<string>("Poster")
+						.IsRequired()
+						.HasColumnName("artposter")
+						.HasMaxLength(64);
 
-                    b.Property<string>("Preview")
-                        .HasColumnName("artpreview")
-                        .HasMaxLength(255);
+					b.Property<string>("Preview")
+						.HasColumnName("artpreview")
+						.HasMaxLength(255);
 
-                    b.Property<string>("Text")
-                        .HasColumnName("arttext")
-                        .HasColumnType("text");
+					b.Property<string>("Text")
+						.HasColumnName("arttext")
+						.HasColumnType("text");
 
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("arttitle")
-                        .HasMaxLength(80);
+					b.Property<string>("Title")
+						.IsRequired()
+						.HasColumnName("arttitle")
+						.HasMaxLength(80);
 
-                    b.Property<uint>("Views")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("artviews")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
+					b.Property<uint>("Views")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("artviews")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
 
-                    b.HasKey("Id");
+					b.HasKey("Id");
 
-                    b.HasIndex("ArticleCategoryId")
-                        .HasName("catid");
+					b.HasIndex("ArticleCategoryId")
+						.HasDatabaseName("catid");
 
-                    b.HasIndex("NewsId")
-                        .IsUnique();
+					b.HasIndex("NewsId")
+						.IsUnique();
 
-                    b.HasIndex("Title")
-                        .HasName("arttitle");
+					b.HasIndex("Title")
+						.HasDatabaseName("arttitle");
 
-                    b.ToTable("f1_arts");
-                });
+					b.ToTable("f1_arts");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.Broadcast", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+			modelBuilder.Entity("F1WM.DatabaseModel.Broadcast", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd();
 
-                    b.Property<int>("BroadcastedSessionId");
+					b.Property<int>("BroadcastedSessionId");
 
-                    b.Property<int>("BroadcasterId");
+					b.Property<int>("BroadcasterId");
 
-                    b.Property<DateTime>("Start");
+					b.Property<DateTime>("Start");
 
-                    b.HasKey("Id");
+					b.HasKey("Id");
 
-                    b.HasIndex("BroadcastedSessionId");
+					b.HasIndex("BroadcastedSessionId");
 
-                    b.HasIndex("BroadcasterId");
+					b.HasIndex("BroadcasterId");
 
-                    b.ToTable("Broadcasts");
-                });
+					b.ToTable("Broadcasts");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSession", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+			modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSession", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd();
 
-                    b.Property<int>("BroadcastedSessionTypeId");
+					b.Property<int>("BroadcastedSessionTypeId");
 
-                    b.Property<uint?>("RaceId");
+					b.Property<uint?>("RaceId");
 
-                    b.Property<DateTime>("Start");
+					b.Property<DateTime>("Start");
 
-                    b.HasKey("Id");
+					b.HasKey("Id");
 
-                    b.HasIndex("BroadcastedSessionTypeId");
+					b.HasIndex("BroadcastedSessionTypeId");
 
-                    b.HasIndex("RaceId");
+					b.HasIndex("RaceId");
 
-                    b.ToTable("BroadcastedSessions");
-                });
+					b.ToTable("BroadcastedSessions");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSessionType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+			modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSessionType", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd();
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255);
+					b.Property<string>("Name")
+						.HasMaxLength(255);
 
-                    b.HasKey("Id");
+					b.HasKey("Id");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
+					b.HasIndex("Name")
+						.IsUnique();
 
-                    b.ToTable("BroadcastedSessionTypes");
-                });
+					b.ToTable("BroadcastedSessionTypes");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.Broadcaster", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
+			modelBuilder.Entity("F1WM.DatabaseModel.Broadcaster", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd();
 
-                    b.Property<string>("Icon")
-                        .HasMaxLength(255);
+					b.Property<string>("Icon")
+						.HasMaxLength(255);
 
-                    b.Property<string>("Name")
-                        .HasMaxLength(255);
+					b.Property<string>("Name")
+						.HasMaxLength(255);
 
-                    b.Property<string>("Url")
-                        .HasMaxLength(255);
+					b.Property<string>("Url")
+						.HasMaxLength(255);
 
-                    b.HasKey("Id");
+					b.HasKey("Id");
 
-                    b.ToTable("Broadcasters");
-                });
+					b.ToTable("Broadcasters");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.Car", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carid")
-                        .HasColumnType("mediumint unsigned");
+			modelBuilder.Entity("F1WM.DatabaseModel.Car", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carid")
+						.HasColumnType("mediumint unsigned");
 
-                    b.Property<uint>("Albumid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("albumid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("ContstructorId")
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint?>("Launch1newsid")
-                        .HasColumnName("launch1newsid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Launch2newsid")
-                        .HasColumnName("launch2newsid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Litera")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("car")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
+					b.Property<uint>("Albumid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("albumid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("ContstructorId")
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint?>("Launch1newsid")
+						.HasColumnName("launch1newsid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Launch2newsid")
+						.HasColumnName("launch2newsid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Litera")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("car")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
 
-                    b.HasIndex("ContstructorId")
-                        .HasName("carmakeid");
+					b.HasIndex("ContstructorId")
+						.HasDatabaseName("carmakeid");
 
-                    b.HasIndex("Litera")
-                        .HasName("litera");
+					b.HasIndex("Litera")
+						.HasDatabaseName("litera");
 
-                    b.HasIndex("Name")
-                        .HasName("car");
+					b.HasIndex("Name")
+						.HasDatabaseName("car");
 
-                    b.ToTable("f1cars");
-                });
+					b.ToTable("f1cars");
+				});
 
-            modelBuilder.Entity("F1WM.DatabaseModel.ConfigText", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnName("description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("name")
-                        .HasMaxLength(45);
-
-                    b.Property<byte>("Section")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("section")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Value")
-                        .HasColumnName("value")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .HasName("name");
-
-                    b.HasIndex("Section")
-                        .HasName("section");
-
-                    b.ToTable("f1_config_text");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Constructor", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned");
+			modelBuilder.Entity("F1WM.DatabaseModel.ConfigText", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Description")
+						.IsRequired()
+						.HasColumnName("description")
+						.HasColumnType("text");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasColumnName("name")
+						.HasMaxLength(45);
+
+					b.Property<byte>("Section")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("section")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Value")
+						.HasColumnName("value")
+						.HasColumnType("text");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("name");
+
+					b.HasIndex("Section")
+						.HasDatabaseName("section");
+
+					b.ToTable("f1_config_text");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Constructor", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned");
 
-                    b.Property<string>("Ascid")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Letter")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carmake")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .HasColumnName("nat")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Ascid")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("Letter")
-                        .HasName("litera");
-
-                    b.HasIndex("Name")
-                        .HasName("carmake");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("Status")
-                        .HasName("status");
-
-                    b.ToTable("f1carmakes");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.ConstructorStandingsPosition", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("constrcsid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("ConstructorId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("EngineMakeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Points")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("points")
-                        .HasColumnType("double")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("Position")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cspos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("SeasonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConstructorId")
-                        .HasName("carmakeid");
-
-                    b.HasIndex("EngineMakeId")
-                        .HasName("enginemakeid");
-
-                    b.HasIndex("Position");
-
-                    b.HasIndex("SeasonId")
-                        .HasName("seasonid");
-
-                    b.ToTable("f1constrcs");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Country", b =>
-                {
-                    b.Property<string>("Key")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("GenitiveName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nacji")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(40);
-
-                    b.Property<string>("Jezyk")
-                        .HasColumnName("jezyk")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nacja")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(40);
-
-                    b.HasKey("Key");
-
-                    b.HasIndex("Name")
-                        .HasName("nacja");
-
-                    b.ToTable("f1nations");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Driver", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("driverid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Artid")
-                        .HasColumnName("artid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("BirthPlace")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("birthplc")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(64);
-
-                    b.Property<DateTime>("Birthday")
-                        .HasColumnName("birth");
-
-                    b.Property<ushort>("Birthmd")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("birthmd")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("CareerText")
-                        .IsRequired()
-                        .HasColumnName("career")
-                        .HasColumnType("text");
-
-                    b.Property<string>("ChampionAtSeries")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("titles")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime?>("Death")
-                        .HasColumnName("death");
-
-                    b.Property<string>("DeathPlace")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("deathplc")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(64);
-
-                    b.Property<ushort>("Deathmd")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("deathmd")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("DebutYear")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("debiut")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("forename")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<ushort>("Group")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("group")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Height")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("height")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("'-'");
-
-                    b.Property<string>("Initial")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("initial")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("Key")
-                        .HasColumnName("ascid")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Kids")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("kids")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("Litera")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("MaritalStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nat")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Residence")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("resides")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("surname")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("TeamKey")
-                        .HasColumnName("teamascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Testdriver")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("testdriver")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Weight")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("weight")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(4);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Birthmd")
-                        .HasName("birthmd");
-
-                    b.HasIndex("Deathmd")
-                        .HasName("deathmd");
-
-                    b.HasIndex("Key")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("Litera")
-                        .HasName("litera");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("Surname")
-                        .HasName("surname");
-
-                    b.HasIndex("TeamKey")
-                        .HasName("teamascid");
-
-                    b.HasIndex("Group", "Surname")
-                        .HasName("group");
-
-                    b.ToTable("f1drivers");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.DriverPoints", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("DriverId")
-                        .HasColumnName("driverid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<float?>("NotCountedTowardsChampionshipPoints")
-                        .HasColumnName("ncpoints")
-                        .HasColumnType("float");
-
-                    b.Property<float?>("Points")
-                        .HasColumnName("points")
-                        .HasColumnType("float");
-
-                    b.Property<uint>("RaceId")
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("SeasonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId")
-                        .HasName("driverid");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.HasIndex("SeasonId")
-                        .HasName("seasonid");
-
-                    b.HasIndex("DriverId", "RaceId")
-                        .IsUnique();
-
-                    b.ToTable("f1driverpoints");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.DriverStandingsPosition", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("drivercsid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("DriverId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("driverid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Points")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("points")
-                        .HasColumnType("double")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("Position")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cspos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("SeasonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DriverId")
-                        .HasName("driverid");
-
-                    b.HasIndex("Position");
-
-                    b.HasIndex("SeasonId")
-                        .HasName("seasonid");
-
-                    b.ToTable("f1drivercs");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Engine", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("engineid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("EngineMakeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Letter")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("engine")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EngineMakeId")
-                        .HasName("enginemakeid");
-
-                    b.HasIndex("Letter")
-                        .HasName("litera");
-
-                    b.HasIndex("Name")
-                        .HasName("engine");
-
-                    b.ToTable("f1engines");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.EngineMake", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemakeid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Letter")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemake")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .HasColumnName("nat")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Key")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("Letter")
-                        .HasName("litera");
-
-                    b.HasIndex("Name")
-                        .HasName("enginemake");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("Status")
-                        .HasName("status");
-
-                    b.ToTable("f1enginemakes");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.EngineSpecification", b =>
-                {
-                    b.Property<uint>("EngineId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("engineid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Text")
-                        .HasColumnName("enginespecs")
-                        .HasColumnType("text");
-
-                    b.HasKey("EngineId");
-
-                    b.ToTable("f1enginesspecs");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Entry", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("CarId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("CarMakeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("DriverId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("driverid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("EngineId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("engineid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("EngineMakeId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<bool>("IsThirdDriver")
-                        .HasColumnName("thirddriver");
-
-                    b.Property<byte>("Number")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("number")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TeamId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TeamNameId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamnameid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TyresId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("tyresid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CarId")
-                        .HasName("carid");
-
-                    b.HasIndex("CarMakeId")
-                        .HasName("carmakeid");
-
-                    b.HasIndex("DriverId")
-                        .HasName("driverid");
-
-                    b.HasIndex("EngineId")
-                        .HasName("engineid");
-
-                    b.HasIndex("EngineMakeId")
-                        .HasName("enginemakeid");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.HasIndex("TeamId")
-                        .HasName("teamid");
-
-                    b.HasIndex("TeamNameId");
-
-                    b.HasIndex("TyresId")
-                        .HasName("tyresid");
-
-                    b.ToTable("f1entries");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Event", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<byte>("Bezstats")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("bezstats")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Dzien")
-                        .IsRequired()
-                        .HasColumnName("dzien")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("Galeriaurl")
-                        .IsRequired()
-                        .HasColumnName("galeriaurl")
-                        .HasMaxLength(150);
-
-                    b.Property<string>("Godzina")
-                        .IsRequired()
-                        .HasColumnName("godzina")
-                        .HasMaxLength(5);
-
-                    b.Property<ushort>("Laps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("okrazenia")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("nazwa")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .HasColumnName("kraj")
-                        .HasMaxLength(3);
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("newsid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Nrwsez")
-                        .HasColumnName("nrwsez");
-
-                    b.Property<uint>("OtherSeriesId")
-                        .HasColumnName("seriaid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Rokmies")
-                        .IsRequired()
-                        .HasColumnName("rokmies")
-                        .HasColumnType("char(6)");
-
-                    b.Property<string>("Season")
-                        .IsRequired()
-                        .HasColumnName("sezon")
-                        .HasMaxLength(9);
-
-                    b.Property<uint>("Startgrupy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("startgrupy")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TrackLength")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("dlugtoru")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("TrackName")
-                        .IsRequired()
-                        .HasColumnName("tor")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("Type")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("typ")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Typtoru")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("typtoru")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("OtherSeriesId")
-                        .HasName("seriaid");
-
-                    b.HasIndex("Rokmies")
-                        .HasName("rokmies");
-
-                    b.HasIndex("Startgrupy")
-                        .HasName("startgrupy");
-
-                    b.HasIndex("Season", "OtherSeriesId")
-                        .HasName("sezon");
-
-                    b.HasIndex("OtherSeriesId", "Type", "Laps")
-                        .HasName("seria+typ+okr");
-
-                    b.ToTable("inne_imprezy");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1ArtsCats", b =>
-                {
-                    b.Property<uint>("Catid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("catid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Arts")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("arts")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Lastartid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("lastartid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("name")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("Ord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ord")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Catid");
-
-                    b.HasIndex("Lastartid")
-                        .HasName("lastartid");
-
-                    b.HasIndex("Ord")
-                        .HasName("ord");
-
-                    b.ToTable("f1_arts_cats");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1ConfigSections", b =>
-                {
-                    b.Property<byte>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("name")
-                        .HasMaxLength(45);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1_config_sections");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1ConfigVarchar", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnName("description")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("name")
-                        .HasMaxLength(45);
-
-                    b.Property<byte>("Section")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("section")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Type")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("type")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Value")
-                        .IsRequired()
-                        .HasColumnName("value")
-                        .HasMaxLength(255);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .HasName("name");
-
-                    b.HasIndex("Section")
-                        .HasName("section");
-
-                    b.ToTable("f1_config_varchar");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Hideusercoms", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Hideuserid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("hideuserid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Userid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("userid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Userid")
-                        .HasName("userid");
-
-                    b.ToTable("f1_hideusercoms");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Ligna", b =>
-                {
-                    b.Property<uint>("LUid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_uid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("LDane")
-                        .HasColumnName("l_dane")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("LId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_id")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("LSezon")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_sezon")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("LUid");
-
-                    b.HasIndex("LId")
-                        .HasName("l_id");
-
-                    b.HasIndex("LSezon")
-                        .HasName("l_sezon");
-
-                    b.ToTable("f1_ligna");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1LogZmian", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("char(32)");
-
-                    b.Property<uint>("ArtId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("art_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Autor")
-                        .IsRequired()
-                        .HasColumnName("autor")
-                        .HasMaxLength(64);
-
-                    b.Property<uint>("CommId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnName("data")
-                        .HasColumnType("datetime");
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TextId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("text_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("UserId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("user_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Zmiany")
-                        .IsRequired()
-                        .HasColumnName("zmiany")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArtId")
-                        .HasName("art_id");
-
-                    b.HasIndex("CommId")
-                        .HasName("comm_id");
-
-                    b.HasIndex("Data")
-                        .HasName("data");
-
-                    b.HasIndex("NewsId")
-                        .HasName("news_id");
-
-                    b.HasIndex("TextId")
-                        .HasName("text_id");
-
-                    b.ToTable("f1_log_zmian");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditorcats", b =>
-                {
-                    b.Property<uint>("Catid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("catid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("name")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(40);
-
-                    b.HasKey("Catid");
-
-                    b.ToTable("f1_newseditorcats");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditordata", b =>
-                {
-                    b.Property<uint>("Dataid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("dataid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Catid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("catid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Image")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("image")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("Name1")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("name1")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(40);
-
-                    b.Property<string>("Name2")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("name2")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(40);
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("url")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Dataid");
-
-                    b.HasIndex("Name1")
-                        .HasName("name1");
-
-                    b.ToTable("f1_newseditordata");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Redakcja", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnName("email")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("F1db")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("f1db")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Funkcja")
-                        .IsRequired()
-                        .HasColumnName("funkcja")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("Gpm")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("gpm")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Grupa")
-                        .HasColumnName("grupa");
-
-                    b.Property<string>("Informacje")
-                        .IsRequired()
-                        .HasColumnName("informacje")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("Isdb")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("isdb")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Korekta")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("korekta")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("L")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Ligna")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ligna")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Modkom")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("modkom")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("N")
-                        .IsRequired()
-                        .HasColumnName("n")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Portret")
-                        .IsRequired()
-                        .HasColumnName("portret")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("Skroty")
-                        .IsRequired()
-                        .HasColumnName("skroty")
-                        .HasMaxLength(45);
-
-                    b.Property<byte>("Tylkoligna")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("tylkoligna")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Userid")
-                        .HasColumnName("userid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Www")
-                        .IsRequired()
-                        .HasColumnName("www")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Grupa")
-                        .HasName("grupa");
-
-                    b.HasIndex("Skroty")
-                        .HasName("skroty");
-
-                    b.HasIndex("Userid")
-                        .HasName("userid");
-
-                    b.ToTable("f1_redakcja");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Rezerwacje", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("char(32)");
-
-                    b.Property<DateTime>("Datadod")
-                        .HasColumnName("datadod")
-                        .HasColumnType("datetime");
-
-                    b.Property<DateTime>("Datarez")
-                        .HasColumnName("datarez")
-                        .HasColumnType("datetime");
-
-                    b.Property<string>("Linki")
-                        .IsRequired()
-                        .HasColumnName("linki")
-                        .HasColumnType("tinytext");
-
-                    b.Property<uint>("Newsid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("newsid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Notatki")
-                        .IsRequired()
-                        .HasColumnName("notatki")
-                        .HasColumnType("tinytext");
-
-                    b.Property<byte>("Pilne")
-                        .HasColumnName("pilne");
-
-                    b.Property<uint>("Redaktor")
-                        .HasColumnName("redaktor")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Rsscrc")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("rsscrc")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Status")
-                        .HasColumnName("status");
-
-                    b.Property<string>("Tytul")
-                        .IsRequired()
-                        .HasColumnName("tytul")
-                        .HasMaxLength(255);
-
-                    b.Property<uint>("Zglaszajacy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zglaszajacy")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Datarez")
-                        .HasName("datarez");
-
-                    b.ToTable("f1_rezerwacje");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Subskr", b =>
-                {
-                    b.Property<uint>("SId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("SEmail")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s_email")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(100);
-
-                    b.Property<sbyte>("SStatus")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s_status")
-                        .HasColumnType("tinyint(1)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<int>("STime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s_time")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("SId");
-
-                    b.HasIndex("STime")
-                        .HasName("s_time");
-
-                    b.ToTable("f1_subskr");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1Texts", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Grupa")
-                        .IsRequired()
-                        .HasColumnName("grupa")
-                        .HasMaxLength(32);
-
-                    b.Property<string>("Tresc")
-                        .IsRequired()
-                        .HasColumnName("tresc")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Tytul")
-                        .IsRequired()
-                        .HasColumnName("tytul")
-                        .HasMaxLength(80);
-
-                    b.Property<byte>("Uprawnienia")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("uprawnienia")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<DateTime>("Zmieniony")
-                        .HasColumnName("zmieniony")
-                        .HasColumnType("datetime");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Grupa")
-                        .HasName("grupa");
-
-                    b.ToTable("f1_texts");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1ZgloszoneBledy", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("char(32)");
-
-                    b.Property<uint>("ArtId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("art_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("CommId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<DateTime>("Data")
-                        .HasColumnName("data")
-                        .HasColumnType("datetime");
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("OpisBledu")
-                        .IsRequired()
-                        .HasColumnName("opis_bledu")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("Typ")
-                        .HasColumnName("typ");
-
-                    b.Property<uint>("UserId")
-                        .HasColumnName("user_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Zglaszajacy")
-                        .IsRequired()
-                        .HasColumnName("zglaszajacy")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ArtId")
-                        .HasName("art_id");
-
-                    b.HasIndex("CommId")
-                        .HasName("comm_id");
-
-                    b.HasIndex("Data")
-                        .HasName("data");
-
-                    b.HasIndex("NewsId")
-                        .HasName("news_id");
-
-                    b.HasIndex("Typ")
-                        .HasName("typ");
-
-                    b.ToTable("f1_zgloszone_bledy");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1carsspecs", b =>
-                {
-                    b.Property<uint>("Carid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Carspecs")
-                        .HasColumnName("carspecs")
-                        .HasColumnType("text");
-
-                    b.HasKey("Carid");
-
-                    b.ToTable("f1carsspecs");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1constrcsLastpos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Carmakeid")
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Cspos")
-                        .HasColumnName("cspos")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Raceid")
-                        .HasColumnName("raceid")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Seasonid")
-                        .HasColumnName("seasonid")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1constrcs_lastpos");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1constrpoints", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Carmakeid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Enginemakeid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("enginemakeid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Raceid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Seasonid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Carmakeid")
-                        .HasName("carmakeid");
-
-                    b.HasIndex("Enginemakeid")
-                        .HasName("enginemakeid");
-
-                    b.HasIndex("Raceid")
-                        .HasName("raceid");
-
-                    b.HasIndex("Seasonid")
-                        .HasName("seasonid");
-
-                    b.ToTable("f1constrpoints");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1drivercsLastpos", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Cspos")
-                        .HasColumnName("cspos")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Driverid")
-                        .HasColumnName("driverid")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Raceid")
-                        .HasColumnName("raceid")
-                        .HasColumnType("int(11)");
-
-                    b.Property<int>("Seasonid")
-                        .HasColumnName("seasonid")
-                        .HasColumnType("int(11)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1drivercs_lastpos");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1driversid3", b =>
-                {
-                    b.Property<string>("Id3")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id3")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Id4")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id4")
-                        .HasColumnType("char(4)")
-                        .HasDefaultValueSql("''");
-
-                    b.HasKey("Id3");
-
-                    b.ToTable("f1driversid3");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1glossary", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Descr")
-                        .IsRequired()
-                        .HasColumnName("descr")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Extlink")
-                        .IsRequired()
-                        .HasColumnName("extlink")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Nameen")
-                        .IsRequired()
-                        .HasColumnName("nameen")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Namepl")
-                        .IsRequired()
-                        .HasColumnName("namepl")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Nameen")
-                        .HasName("nameen");
-
-                    b.HasIndex("Namepl")
-                        .HasName("namepl");
-
-                    b.ToTable("f1glossary");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1lapsled", b =>
-                {
-                    b.Property<uint>("Entryid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<short>("Lapsled")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("lapsled")
-                        .HasColumnType("smallint(3)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Raceid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Entryid");
-
-                    b.HasIndex("Raceid")
-                        .HasName("raceid");
-
-                    b.ToTable("f1lapsled");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.F1quotes", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnName("date")
-                        .HasColumnType("datetime");
-
-                    b.Property<byte>("Hidden")
-                        .HasColumnName("hidden");
-
-                    b.Property<string>("Poster")
-                        .IsRequired()
-                        .HasColumnName("poster")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Q1name")
-                        .IsRequired()
-                        .HasColumnName("q1name")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Q1nameadd")
-                        .IsRequired()
-                        .HasColumnName("q1nameadd")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Q1text")
-                        .IsRequired()
-                        .HasColumnName("q1text")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Q2name")
-                        .IsRequired()
-                        .HasColumnName("q2name")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Q2nameadd")
-                        .IsRequired()
-                        .HasColumnName("q2nameadd")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Q2text")
-                        .IsRequired()
-                        .HasColumnName("q2text")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Q3name")
-                        .IsRequired()
-                        .HasColumnName("q3name")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Q3nameadd")
-                        .IsRequired()
-                        .HasColumnName("q3nameadd")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Q3text")
-                        .IsRequired()
-                        .HasColumnName("q3text")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Q4name")
-                        .IsRequired()
-                        .HasColumnName("q4name")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Q4nameadd")
-                        .IsRequired()
-                        .HasColumnName("q4nameadd")
-                        .HasMaxLength(60);
-
-                    b.Property<string>("Q4text")
-                        .IsRequired()
-                        .HasColumnName("q4text")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("Qtype")
-                        .HasColumnName("qtype");
-
-                    b.Property<uint>("Raceid")
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Redid")
-                        .HasColumnName("redid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Teamascid")
-                        .IsRequired()
-                        .HasColumnName("teamascid")
-                        .HasColumnType("char(3)");
-
-                    b.Property<string>("Teaminfo")
-                        .IsRequired()
-                        .HasColumnName("teaminfo")
-                        .HasMaxLength(255);
-
-                    b.Property<byte>("Teampos")
-                        .HasColumnName("teampos");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Date")
-                        .HasName("date");
-
-                    b.HasIndex("Raceid")
-                        .HasName("raceid");
-
-                    b.ToTable("f1quotes");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.FastestLap", b =>
-                {
-                    b.Property<uint>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("LapNumber")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("lap")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Order")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ord")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("PositionOrStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("frlpos")
-                        .HasColumnType("char(2)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Time")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("time")
-                        .HasColumnType("double")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("EntryId");
-
-                    b.HasIndex("PositionOrStatus")
-                        .HasName("frlpos");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.HasIndex("Time");
-
-                    b.ToTable("f1fastestlaps");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmkonfig", b =>
-                {
-                    b.Property<byte>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasDefaultValueSql("'1'");
-
-                    b.Property<uint>("Cenapunktu")
-                        .HasColumnName("cenapunktu");
-
-                    b.Property<double>("Kier3cenamnoz")
-                        .HasColumnName("kier3cenamnoz");
-
-                    b.Property<double>("Kier3cenamnozprzed")
-                        .HasColumnName("kier3cenamnozprzed");
-
-                    b.Property<double>("Kier3zwrotmnoz")
-                        .HasColumnName("kier3zwrotmnoz");
-
-                    b.Property<string>("Komunikaty")
-                        .IsRequired()
-                        .HasColumnName("komunikaty")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("Koniec1fazy")
-                        .HasColumnName("koniec1fazy");
-
-                    b.Property<byte>("Krokinicjalizacji")
-                        .HasColumnName("krokinicjalizacji");
-
-                    b.Property<string>("Powodblokady")
-                        .IsRequired()
-                        .HasColumnName("powodblokady")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Przelcennik1")
-                        .IsRequired()
-                        .HasColumnName("przelcennik1")
-                        .HasMaxLength(90);
-
-                    b.Property<string>("Przelcennik2")
-                        .IsRequired()
-                        .HasColumnName("przelcennik2")
-                        .HasMaxLength(90);
-
-                    b.Property<ushort>("Rok")
-                        .HasColumnName("rok");
-
-                    b.Property<string>("Sponsorzy")
-                        .IsRequired()
-                        .HasColumnName("sponsorzy")
-                        .HasColumnType("text");
-
-                    b.Property<uint>("Startmoney")
-                        .HasColumnName("startmoney");
-
-                    b.Property<string>("Typowanie")
-                        .IsRequired()
-                        .HasColumnName("typowanie")
-                        .HasMaxLength(90);
-
-                    b.Property<byte>("Typpktpomylka")
-                        .HasColumnName("typpktpomylka");
-
-                    b.Property<byte>("Wymusblokade")
-                        .HasColumnName("wymusblokade");
-
-                    b.Property<double>("Zwrotmnoz")
-                        .HasColumnName("zwrotmnoz");
-
-                    b.Property<double>("Zwrotmnoz1faza")
-                        .HasColumnName("zwrotmnoz1faza");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("gpm_admkonfig");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmskladniki", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Ascid")
-                        .IsRequired()
-                        .HasColumnName("ascid")
-                        .HasMaxLength(4);
-
-                    b.Property<uint>("Cena")
-                        .HasColumnName("cena");
-
-                    b.Property<uint>("Idmodelu")
-                        .HasColumnName("idmodelu")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Kierzesp")
-                        .IsRequired()
-                        .HasColumnName("kierzesp")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("Nazwa")
-                        .IsRequired()
-                        .HasColumnName("nazwa")
-                        .HasMaxLength(45);
-
-                    b.Property<byte>("Niestartuje")
-                        .HasColumnName("niestartuje");
-
-                    b.Property<byte>("Nrstart")
-                        .HasColumnName("nrstart");
-
-                    b.Property<string>("Staryzespol")
-                        .IsRequired()
-                        .HasColumnName("staryzespol")
-                        .HasMaxLength(3);
-
-                    b.Property<byte>("Typ")
-                        .HasColumnName("typ");
-
-                    b.Property<uint>("Wymuszona")
-                        .HasColumnName("wymuszona");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Nazwa")
-                        .HasName("nazwa");
-
-                    b.HasIndex("Typ", "Cena")
-                        .HasName("typ_cena");
-
-                    b.ToTable("gpm_admskladniki");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmwyscigi", b =>
-                {
-                    b.Property<byte>("Nr")
-                        .HasColumnName("nr");
-
-                    b.Property<byte>("Ceny")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ceny")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Kontuzje")
-                        .IsRequired()
-                        .HasColumnName("kontuzje")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Kraj")
-                        .IsRequired()
-                        .HasColumnName("kraj")
-                        .HasColumnType("char(3)");
-
-                    b.Property<byte>("Kwaldzien")
-                        .HasColumnName("kwaldzien");
-
-                    b.Property<byte>("Kwalgodz")
-                        .HasColumnName("kwalgodz");
-
-                    b.Property<byte>("Kwalmies")
-                        .HasColumnName("kwalmies");
-
-                    b.Property<byte>("Kwalmin")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("kwalmin")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Punkty")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("punkty")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Wyplata")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("wyplata")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Wyscdzien")
-                        .HasColumnName("wyscdzien");
-
-                    b.Property<byte>("Wyscmies")
-                        .HasColumnName("wyscmies");
-
-                    b.HasKey("Nr");
-
-                    b.ToTable("gpm_admwyscigi");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgen", b =>
-                {
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Miejsce")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("miejsce")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Nieaktywny")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nieaktywny")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Suma")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("suma")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte?>("W1")
-                        .HasColumnName("w1");
-
-                    b.Property<byte?>("W10")
-                        .HasColumnName("w10");
-
-                    b.Property<byte?>("W11")
-                        .HasColumnName("w11");
-
-                    b.Property<byte?>("W12")
-                        .HasColumnName("w12");
-
-                    b.Property<byte?>("W13")
-                        .HasColumnName("w13");
-
-                    b.Property<byte?>("W14")
-                        .HasColumnName("w14");
-
-                    b.Property<byte?>("W15")
-                        .HasColumnName("w15");
-
-                    b.Property<byte?>("W16")
-                        .HasColumnName("w16");
-
-                    b.Property<byte?>("W17")
-                        .HasColumnName("w17");
-
-                    b.Property<byte?>("W18")
-                        .HasColumnName("w18");
-
-                    b.Property<byte?>("W19")
-                        .HasColumnName("w19");
-
-                    b.Property<byte?>("W2")
-                        .HasColumnName("w2");
-
-                    b.Property<byte?>("W20")
-                        .HasColumnName("w20");
-
-                    b.Property<byte?>("W21")
-                        .HasColumnName("w21");
-
-                    b.Property<byte?>("W3")
-                        .HasColumnName("w3");
-
-                    b.Property<byte?>("W4")
-                        .HasColumnName("w4");
-
-                    b.Property<byte?>("W5")
-                        .HasColumnName("w5");
-
-                    b.Property<byte?>("W6")
-                        .HasColumnName("w6");
-
-                    b.Property<byte?>("W7")
-                        .HasColumnName("w7");
-
-                    b.Property<byte?>("W8")
-                        .HasColumnName("w8");
-
-                    b.Property<byte?>("W9")
-                        .HasColumnName("w9");
-
-                    b.Property<short?>("Zmiana")
-                        .HasColumnName("zmiana")
-                        .HasColumnType("smallint(3)");
-
-                    b.HasKey("Zespolid");
-
-                    b.HasIndex("Miejsce")
-                        .HasName("miejsce");
-
-                    b.HasIndex("Nieaktywny")
-                        .HasName("nieaktywny");
-
-                    b.HasIndex("Suma")
-                        .HasName("suma");
-
-                    b.ToTable("gpm_klasgen");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgenpoz", b =>
-                {
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P1")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p1")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P10")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p10")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P11")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p11")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P12")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p12")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P13")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p13")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P14")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p14")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P15")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p15")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P16")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p16")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P17")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p17")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P18")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p18")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P19")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p19")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P2")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p2")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P20")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p20")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P21")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p21")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P3")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p3")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P4")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p4")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P5")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p5")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P6")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p6")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P7")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p7")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P8")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p8")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("P9")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("p9")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Zespolid");
-
-                    b.ToTable("gpm_klasgenpoz");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmKlastyp", b =>
-                {
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Sumatyp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sumatyp")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte?>("T1")
-                        .HasColumnName("t1");
-
-                    b.Property<byte?>("T10")
-                        .HasColumnName("t10");
-
-                    b.Property<byte?>("T11")
-                        .HasColumnName("t11");
-
-                    b.Property<byte?>("T12")
-                        .HasColumnName("t12");
-
-                    b.Property<byte?>("T13")
-                        .HasColumnName("t13");
-
-                    b.Property<byte?>("T14")
-                        .HasColumnName("t14");
-
-                    b.Property<byte?>("T15")
-                        .HasColumnName("t15");
-
-                    b.Property<byte?>("T16")
-                        .HasColumnName("t16");
-
-                    b.Property<byte?>("T17")
-                        .HasColumnName("t17");
-
-                    b.Property<byte?>("T18")
-                        .HasColumnName("t18");
-
-                    b.Property<byte?>("T19")
-                        .HasColumnName("t19");
-
-                    b.Property<byte?>("T2")
-                        .HasColumnName("t2");
-
-                    b.Property<byte?>("T20")
-                        .HasColumnName("t20");
-
-                    b.Property<byte?>("T21")
-                        .HasColumnName("t21");
-
-                    b.Property<byte?>("T3")
-                        .HasColumnName("t3");
-
-                    b.Property<byte?>("T4")
-                        .HasColumnName("t4");
-
-                    b.Property<byte?>("T5")
-                        .HasColumnName("t5");
-
-                    b.Property<byte?>("T6")
-                        .HasColumnName("t6");
-
-                    b.Property<byte?>("T7")
-                        .HasColumnName("t7");
-
-                    b.Property<byte?>("T8")
-                        .HasColumnName("t8");
-
-                    b.Property<byte?>("T9")
-                        .HasColumnName("t9");
-
-                    b.HasKey("Zespolid");
-
-                    b.HasIndex("Sumatyp")
-                        .HasName("sumatyp");
-
-                    b.ToTable("gpm_klastyp");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmKlaswszech", b =>
-                {
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("Miejsce")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("miejsce")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2005")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2005")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2006")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2006")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2007")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2007")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2008")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2008")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2009")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2009")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<ushort>("S2010")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2010")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2011")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2011")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2012")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2012")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2013")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2013")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2014")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2014")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2015")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2015")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2016")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2016")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2017")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2017")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("S2018")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("s2018")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Suma")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("suma")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<short>("Zmiana")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zmiana")
-                        .HasColumnType("smallint(6)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Zespolid");
-
-                    b.ToTable("gpm_klaswszech");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmLigi", b =>
-                {
-                    b.Property<uint>("Ligaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ligaid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Komentarze")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("komentarze")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Limitzespolow")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("limitzespolow")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Nazwa")
-                        .IsRequired()
-                        .HasColumnName("nazwa")
-                        .HasMaxLength(45);
-
-                    b.Property<uint>("Sumapkt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sumapkt")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Zalozycielid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zalozycielid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Zamknieta")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zamknieta")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Zespoly")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespoly")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'1'");
-
-                    b.HasKey("Ligaid");
-
-                    b.HasIndex("Komentarze")
-                        .HasName("komentarze");
-
-                    b.HasIndex("Nazwa")
-                        .HasName("nazwa");
-
-                    b.HasIndex("Zespoly")
-                        .HasName("zespoly");
-
-                    b.ToTable("gpm_ligi");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmLigiKoms", b =>
-                {
-                    b.Property<uint>("Komid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("komid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Autor")
-                        .IsRequired()
-                        .HasColumnName("autor")
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("Czas")
-                        .HasColumnName("czas")
-                        .HasColumnType("datetime");
-
-                    b.Property<uint>("Ligaid")
-                        .HasColumnName("ligaid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Tresc")
-                        .IsRequired()
-                        .HasColumnName("tresc")
-                        .HasColumnType("text");
-
-                    b.Property<uint>("Zespolid")
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.HasKey("Komid");
-
-                    b.HasIndex("Czas")
-                        .HasName("time");
-
-                    b.HasIndex("Ligaid")
-                        .HasName("ligaid");
-
-                    b.ToTable("gpm_ligi_koms");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmSklady", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Bolid")
-                        .HasColumnName("bolid")
-                        .HasColumnType("char(3)");
-
-                    b.Property<string>("Kier1")
-                        .HasColumnName("kier1")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Kier2")
-                        .HasColumnName("kier2")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Kier3")
-                        .HasColumnName("kier3")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Silnik")
-                        .HasColumnName("silnik")
-                        .HasColumnType("char(3)");
-
-                    b.Property<string>("Typ0")
-                        .HasColumnName("typ0")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ1")
-                        .HasColumnName("typ1")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ10")
-                        .HasColumnName("typ10")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ2")
-                        .HasColumnName("typ2")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ3")
-                        .HasColumnName("typ3")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ4")
-                        .HasColumnName("typ4")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ5")
-                        .HasColumnName("typ5")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ6")
-                        .HasColumnName("typ6")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ7")
-                        .HasColumnName("typ7")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ8")
-                        .HasColumnName("typ8")
-                        .HasColumnType("char(4)");
-
-                    b.Property<string>("Typ9")
-                        .HasColumnName("typ9")
-                        .HasColumnType("char(4)");
-
-                    b.Property<byte>("Wyscnr")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("wyscnr")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Wyscnr")
-                        .HasName("wyscnr");
-
-                    b.HasIndex("Zespolid")
-                        .HasName("zespolid");
-
-                    b.ToTable("gpm_sklady");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmZespoly", b =>
-                {
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Adresip")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("adresip")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(8);
-
-                    b.Property<int>("Agentcrc")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("agentcrc")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Aktywacja")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("aktywacja")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("email")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(255);
-
-                    b.Property<uint?>("Gg")
-                        .HasColumnName("gg");
-
-                    b.Property<uint>("Gotowka")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("gotowka")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Haslo")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("haslo")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(34);
-
-                    b.Property<uint>("Ligaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ligaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Ligaidzapr")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ligaidzapr")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Login")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("login")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Nazwa")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nazwa")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Nazwisko")
-                        .HasColumnName("nazwisko")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Nowehaslo")
-                        .IsRequired()
-                        .HasColumnName("nowehaslo")
-                        .HasMaxLength(34);
-
-                    b.Property<int>("Ostwizyta")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ostwizyta")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Plec")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("plec")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Pokazujemail")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pokazujemail")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Pokazujsklad")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pokazujsklad")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Siedziba")
-                        .HasColumnName("siedziba")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Typavatara")
-                        .HasColumnName("typavatara")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Ulubkier")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ulubkier")
-                        .HasDefaultValueSql("'brak'")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("Ulubtor")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ulubtor")
-                        .HasDefaultValueSql("'brak'")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Ulubzesp")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ulubzesp")
-                        .HasDefaultValueSql("'brak'")
-                        .HasMaxLength(4);
-
-                    b.Property<uint>("Wartosc")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("wartosc")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Zespolid");
-
-                    b.HasIndex("Email")
-                        .IsUnique()
-                        .HasName("email");
-
-                    b.HasIndex("Haslo")
-                        .HasName("haslo");
-
-                    b.HasIndex("Ligaid")
-                        .HasName("ligaid");
-
-                    b.HasIndex("Login")
-                        .IsUnique()
-                        .HasName("login");
-
-                    b.HasIndex("Nazwa")
-                        .HasName("nazwa");
-
-                    b.HasIndex("Wartosc")
-                        .HasName("wartosc");
-
-                    b.ToTable("gpm_zespoly");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.GpmZwyciezcy", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Punkty")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("punkty")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Wyscnr")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("wyscnr")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Zespolid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zespolid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Wyscnr")
-                        .HasName("wyscnr");
-
-                    b.ToTable("gpm_zwyciezcy");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Grid", b =>
-                {
-                    b.Property<uint>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Ord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ord")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("StartPositionOrStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("startpos")
-                        .HasColumnType("char(2)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<double>("Time")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("time")
-                        .HasColumnType("double")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("EntryId");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.HasIndex("StartPositionOrStatus")
-                        .HasName("startpos");
-
-                    b.HasIndex("Time");
-
-                    b.ToTable("f1grids");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.InneKlaskier", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Kierowcaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("kierowcaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Klasa")
-                        .IsRequired()
-                        .HasColumnName("klasa")
-                        .HasColumnType("char(10)");
-
-                    b.Property<byte>("Mistrz")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("mistrz")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Pozycja")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pozycja")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Seriaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seriaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Sezon")
-                        .IsRequired()
-                        .HasColumnName("sezon")
-                        .HasColumnType("char(7)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Kierowcaid")
-                        .HasName("kierowcaid");
-
-                    b.HasIndex("Mistrz")
-                        .HasName("mistrz");
-
-                    b.HasIndex("Seriaid")
-                        .HasName("seriaid");
-
-                    b.HasIndex("Sezon")
-                        .HasName("sezon");
-
-                    b.ToTable("inne_klaskier");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.InneRezultatyBk", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<double>("Czas")
-                        .HasColumnName("czas");
-
-                    b.Property<ushort>("Dodpktza")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("dodpktza")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Imprezaid")
-                        .HasColumnName("imprezaid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<ushort>("Okrazenia")
-                        .HasColumnName("okrazenia");
-
-                    b.Property<byte>("Pozklasa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pozklasa")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Pozycja")
-                        .HasColumnName("pozycja");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnName("status")
-                        .HasColumnType("char(2)");
-
-                    b.Property<uint>("Zgloszenieid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zgloszenieid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Imprezaid")
-                        .HasName("imprezaid");
-
-                    b.HasIndex("Pozycja")
-                        .HasName("pozycja");
-
-                    b.HasIndex("Zgloszenieid")
-                        .HasName("zgloszenieid");
-
-                    b.ToTable("inne_rezultaty_bk");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.InneTerminy", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Godzina")
-                        .IsRequired()
-                        .HasColumnName("godzina")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("Nazwa")
-                        .IsRequired()
-                        .HasColumnName("nazwa")
-                        .HasMaxLength(80);
-
-                    b.Property<string>("Rokmies")
-                        .IsRequired()
-                        .HasColumnName("rokmies")
-                        .HasColumnType("char(6)");
-
-                    b.Property<string>("Skrotnazwy")
-                        .IsRequired()
-                        .HasColumnName("skrotnazwy")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnName("url")
-                        .HasMaxLength(255);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Rokmies")
-                        .HasName("rokmies");
-
-                    b.ToTable("inne_terminy");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.InneZasady", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("Seriaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seriaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Sezon")
-                        .IsRequired()
-                        .HasColumnName("sezon")
-                        .HasColumnType("char(7)");
-
-                    b.Property<string>("Zasady")
-                        .IsRequired()
-                        .HasColumnName("zasady")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Seriaid", "Sezon")
-                        .HasName("seriasezon");
-
-                    b.ToTable("inne_zasady");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Link", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("CategoryKey")
-                        .IsRequired()
-                        .HasColumnName("l_catstr")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("LBanurl")
-                        .HasColumnName("l_banurl")
-                        .HasMaxLength(128);
-
-                    b.Property<uint>("LCatgrp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_catgrp")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<DateTime>("LData")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_data")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("'0000-00-00 00:00:00'");
-
-                    b.Property<string>("LJezyki")
-                        .HasColumnName("l_jezyki")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("LNazwa")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_nazwa")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(255);
-
-                    b.Property<byte>("LOcena")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_ocena")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("LOdslony")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_odslony")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("LOpis")
-                        .HasColumnName("l_opis")
-                        .HasMaxLength(255);
-
-                    b.Property<byte>("LRotator")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_rotator")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("l_url")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(128);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryKey")
-                        .HasName("l_catstr");
-
-                    b.HasIndex("LCatgrp")
-                        .HasName("l_catgrp");
-
-                    b.HasIndex("LData")
-                        .HasName("l_data");
-
-                    b.HasIndex("LNazwa")
-                        .HasName("l_nazwa");
-
-                    b.HasIndex("LOcena")
-                        .HasName("l_ocena");
-
-                    b.HasIndex("LOdslony")
-                        .HasName("l_odslony");
-
-                    b.ToTable("f1_linki");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<bool>("CommBlock")
-                        .HasColumnName("comm_block");
-
-                    b.Property<int>("CommentCount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_count")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<DateTime>("Date")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_date")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("'0000-00-00 00:00:00'");
-
-                    b.Property<bool>("IsHighlighted")
-                        .HasColumnName("news_highlight");
-
-                    b.Property<uint>("MainTagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("topic_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("NewsDateym")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_dateym")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<bool>("NewsHidden")
-                        .HasColumnName("news_hidden");
-
-                    b.Property<int?>("NewsModified")
-                        .HasColumnName("news_modified")
-                        .HasColumnType("int(11)");
-
-                    b.Property<uint>("PosterId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("poster_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("PosterName")
-                        .HasColumnName("poster_name")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("Redirect")
-                        .HasColumnName("news_redirect")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Subtitle")
-                        .IsRequired()
-                        .HasColumnName("news_subtitle")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Text")
-                        .IsRequired()
-                        .HasColumnName("news_text")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("news_title")
-                        .HasMaxLength(80);
-
-                    b.Property<byte>("TypeId")
-                        .HasColumnName("news_type");
-
-                    b.Property<uint>("Views")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_views")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Date")
-                        .HasName("news_date");
-
-                    b.HasIndex("MainTagId");
-
-                    b.HasIndex("NewsDateym")
-                        .HasName("news_dateym");
-
-                    b.HasIndex("PosterName")
-                        .HasName("poster_name");
-
-                    b.HasIndex("NewsHidden", "Date")
-                        .HasName("hidden_date");
-
-                    b.HasIndex("Title", "Subtitle")
-                        .HasName("titles");
-
-                    b.HasIndex("TypeId", "Date")
-                        .HasName("news_type");
-
-                    b.HasIndex("TypeId", "NewsHidden", "Date")
-                        .HasName("type_hidden_date");
-
-                    b.ToTable("f1_news");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsComment", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("PosterId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("poster_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("PosterIp")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("poster_ip")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(15);
-
-                    b.Property<string>("PosterName")
-                        .HasColumnName("poster_name")
-                        .HasMaxLength(25);
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<int>("UnixTime")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_time")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId")
-                        .HasName("news_id");
-
-                    b.HasIndex("PosterId")
-                        .HasName("poster_id");
-
-                    b.HasIndex("UnixTime")
-                        .HasName("comm_time");
-
-                    b.ToTable("f1_news_coms");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsCommentText", b =>
-                {
-                    b.Property<uint>("CommentId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("comm_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Text")
-                        .HasColumnName("comm_text")
-                        .HasColumnType("text");
-
-                    b.HasKey("CommentId");
-
-                    b.ToTable("f1_news_comstext");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTag", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("topic_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("CategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cat_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Icon")
-                        .HasColumnName("topic_icon")
-                        .HasMaxLength(20);
-
-                    b.Property<uint>("Searches")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("searches")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("topic_title")
-                        .HasMaxLength(25);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CategoryId")
-                        .HasName("cat_id");
-
-                    b.HasIndex("Searches")
-                        .HasName("searches");
-
-                    b.HasIndex("Title")
-                        .HasName("topic_title");
-
-                    b.HasIndex("CategoryId", "Title")
-                        .HasName("cat+title");
-
-                    b.ToTable("f1_news_topics");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagCategory", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cat_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("cat_title")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(20);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1_news_cats");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("match_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<DateTime>("NewsDate")
-                        .HasColumnName("news_date")
-                        .HasColumnType("datetime");
-
-                    b.Property<uint>("NewsId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("news_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TagId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("topic_id")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NewsId")
-                        .HasName("news_id");
-
-                    b.HasIndex("TagId", "NewsDate")
-                        .HasName("topic_id");
-
-                    b.ToTable("f1_news_topicmatch");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsType", b =>
-                {
-                    b.Property<ushort>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("type_id");
-
-                    b.Property<string>("AlternativeTitle")
-                        .IsRequired()
-                        .HasColumnName("type_title2")
-                        .HasMaxLength(14);
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnName("type_title")
-                        .HasMaxLength(45);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("f1_news_types");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherAdditionalPointsReason", b =>
-                {
-                    b.Property<ushort>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnName("opis")
-                        .HasMaxLength(64);
-
-                    b.Property<bool>("IsHidden")
-                        .HasColumnName("ukryte");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Description")
-                        .HasName("opis");
-
-                    b.ToTable("inne_dodpktza");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherDriver", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("F1ascid")
-                        .IsRequired()
-                        .HasColumnName("f1ascid")
-                        .HasMaxLength(4);
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnName("imie")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("Gender")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("plec")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Initial")
-                        .IsRequired()
-                        .HasColumnName("inicjal")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("Litera")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .HasColumnName("kraj")
-                        .HasMaxLength(3);
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnName("nazwisko")
-                        .HasMaxLength(64);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("F1ascid")
-                        .HasName("f1ascid");
-
-                    b.HasIndex("Litera")
-                        .HasName("litera");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("Surname")
-                        .HasName("nazwisko");
-
-                    b.ToTable("inne_kierowcy");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherEntry", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("CarName")
-                        .IsRequired()
-                        .HasColumnName("samochod")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Class")
-                        .IsRequired()
-                        .HasColumnName("klasa")
-                        .HasColumnType("char(10)");
-
-                    b.Property<byte>("Debut")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("debiutant")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Guest")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("gosc")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Inactive")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nieaktywny")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Independent")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("niezalezny")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nr")
-                        .HasDefaultValueSql("'-'")
-                        .HasMaxLength(3);
-
-                    b.Property<uint>("OtherDriverId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("kierowcaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("OtherSeriesId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seriaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Season")
-                        .IsRequired()
-                        .HasColumnName("sezon")
-                        .HasMaxLength(7);
-
-                    b.Property<string>("TeamName")
-                        .IsRequired()
-                        .HasColumnName("zespol")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Tyres")
-                        .IsRequired()
-                        .HasColumnName("opony")
-                        .HasMaxLength(3);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Number")
-                        .HasName("nr");
-
-                    b.HasIndex("OtherDriverId")
-                        .HasName("kierowcaid");
-
-                    b.HasIndex("OtherSeriesId")
-                        .HasName("seriaid");
-
-                    b.HasIndex("Season")
-                        .HasName("sezon");
-
-                    b.ToTable("inne_listystart");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherResult", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("EventId")
-                        .HasColumnName("imprezaid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<byte>("FinishPosition")
-                        .HasColumnName("pozycja");
-
-                    b.Property<ushort>("FinishedLaps")
-                        .HasColumnName("okrazenia");
-
-                    b.Property<ushort?>("OtherAdditionalPointsReasonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("dodpktza")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("OtherEntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("zgloszenieid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<float>("Points")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("punkty")
-                        .HasColumnType("float")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Pozklasa")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pozklasa")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnName("status")
-                        .HasColumnType("char(2)");
-
-                    b.Property<double>("Time")
-                        .HasColumnName("czas");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EventId")
-                        .HasName("imprezaid");
-
-                    b.HasIndex("FinishPosition")
-                        .HasName("pozycja");
-
-                    b.HasIndex("OtherAdditionalPointsReasonId");
-
-                    b.HasIndex("OtherEntryId")
-                        .HasName("zgloszenieid");
-
-                    b.ToTable("inne_rezultaty");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherSeries", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Domyslnysezon")
-                        .IsRequired()
-                        .HasColumnName("domyslnysezon")
-                        .HasMaxLength(9);
-
-                    b.Property<byte>("Dzielonejazdy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("dzielonejazdy")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Innepktdlazesp")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("innepktdlazesp")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Klaskieroficjalna")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("klaskieroficjalna")
-                        .HasDefaultValueSql("'1'");
-
-                    b.Property<byte>("Klasy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("klasy")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Klaszespoficjalna")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("klaszespoficjalna")
-                        .HasDefaultValueSql("'1'");
-
-                    b.Property<byte>("Listastartwgnr")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("listastartwgnr")
-                        .HasDefaultValueSql("'1'");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnName("nazwa")
-                        .HasMaxLength(45);
-
-                    b.Property<uint>("NewsCategoryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("newscatid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Punkty")
-                        .IsRequired()
-                        .HasColumnName("punkty")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Punkty2")
-                        .IsRequired()
-                        .HasColumnName("punkty2")
-                        .HasMaxLength(128);
-
-                    b.Property<string>("Skrotnazwy")
-                        .IsRequired()
-                        .HasColumnName("skrotnazwy")
-                        .HasMaxLength(20);
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Tylkonewsy")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("tylkonewsy")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Www")
-                        .IsRequired()
-                        .HasColumnName("www")
-                        .HasMaxLength(128);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Name")
-                        .HasName("nazwa");
-
-                    b.HasIndex("Status", "Name")
-                        .HasName("status");
-
-                    b.ToTable("inne_serie");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherSession", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("FinishPosition")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sespos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("FinishedLaps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Session")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("session")
-                        .HasColumnType("char(4)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<double>("Time")
-                        .HasColumnName("time")
-                        .HasColumnType("double");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EntryId")
-                        .HasName("entryid");
-
-                    b.HasIndex("FinishPosition")
-                        .HasName("sespos");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.ToTable("f1othersessions");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Qualifying", b =>
-                {
-                    b.Property<uint>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Information")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("info")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(128);
-
-                    b.Property<byte>("Ord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ord")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("PositionOrStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("qualpos")
-                        .HasColumnType("char(2)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Session1Laps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q1laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Session1Position")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q1pos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Session1Time")
-                        .HasColumnName("q1time");
-
-                    b.Property<byte>("Session2Laps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q2laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Session2Position")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q2pos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Session2Time")
-                        .HasColumnName("q2time");
-
-                    b.Property<byte>("Session3Laps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q3laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Session3Position")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("q3pos")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Session3Time")
-                        .HasColumnName("q3time");
-
-                    b.HasKey("EntryId");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.ToTable("f1quals");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Race", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("CountryKey")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("country")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnName("date")
-                        .HasColumnType("date");
-
-                    b.Property<double>("Distance")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("distance")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Gridtype")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("gridtype")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Laps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("name")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<double>("Offset")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("offset")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("OrderInSeason")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("numinseason")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("Qualtype")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("qualtype")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("SeasonId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("TrackId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("trackid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("TrackVersion")
-                        .HasColumnName("trackver");
-
-                    b.Property<bool>("Weather")
-                        .HasColumnName("weather");
-
-                    b.Property<string>("Yearmonth")
-                        .IsRequired()
-                        .HasColumnName("yearmonth")
-                        .HasColumnType("char(6)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryKey");
-
-                    b.HasIndex("Date");
-
-                    b.HasIndex("SeasonId")
-                        .HasName("seasonid");
-
-                    b.HasIndex("TrackId")
-                        .HasName("trackid");
-
-                    b.HasIndex("Yearmonth")
-                        .HasName("yearmonth");
-
-                    b.ToTable("f1races");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.RaceNews", b =>
-                {
-                    b.Property<uint>("RaceId")
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("CommentsAfterQualifyingNewsId")
-                        .HasColumnName("wk")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("CommentsAfterQualifyingResultsNewsId")
-                        .HasColumnName("kk")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("CommentsAfterRaceNewsId")
-                        .HasColumnName("ww")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("CommentsAfterRaceResultsNewsId")
-                        .HasColumnName("kw")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("CommentsAfterTrainingNewsId")
-                        .HasColumnName("wt")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("FastestLapsNewsId")
-                        .HasColumnName("fl")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("GalleryNewsId")
-                        .HasColumnName("gal")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Gp")
-                        .HasColumnName("gp")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Id")
-                        .HasColumnName("ow")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("K1")
-                        .HasColumnName("k1")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("K1p")
-                        .HasColumnName("k1p")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("K2")
-                        .HasColumnName("k2")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("ManeuversNewsId")
-                        .HasColumnName("mw")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<byte>("Number")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nr")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint?>("PitStopsNewsId")
-                        .HasColumnName("ps")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("PressConferenceNewsId")
-                        .HasColumnName("kpw")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Pt")
-                        .HasColumnName("pt")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Pw")
-                        .HasColumnName("pw")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("QualifyingNewsId")
-                        .HasColumnName("pk")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("T12")
-                        .HasColumnName("t12")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("T34")
-                        .HasColumnName("t34")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("T4")
-                        .HasColumnName("t4")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Training1NewsId")
-                        .HasColumnName("t1")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Training2NewsId")
-                        .HasColumnName("t2")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Training3NewsId")
-                        .HasColumnName("t3")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("TyresNewsId")
-                        .HasColumnName("op")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Wbk")
-                        .HasColumnName("wbk")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Wu")
-                        .HasColumnName("wu")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<ushort>("Year")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("rok")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("RaceId");
-
-                    b.HasIndex("Number")
-                        .HasName("nr");
-
-                    b.HasIndex("Year")
-                        .HasName("rok");
-
-                    b.ToTable("f1newsgp");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Result", b =>
-                {
-                    b.Property<uint>("EntryId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("entryid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte>("FinishedLaps")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("laps")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Information")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("info")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(128);
-
-                    b.Property<byte>("Ord")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ord")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<byte?>("PitStopVisits")
-                        .HasColumnName("pits");
-
-                    b.Property<string>("PositionOrStatus")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("endpos")
-                        .HasColumnType("char(2)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint>("RaceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("raceid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<double>("Time")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("time")
-                        .HasColumnType("double")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("EntryId");
-
-                    b.HasIndex("PositionOrStatus")
-                        .HasName("endpos");
-
-                    b.HasIndex("RaceId")
-                        .HasName("raceid");
-
-                    b.HasIndex("Time");
-
-                    b.ToTable("f1results");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Season", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("seasonid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("CarWeight")
-                        .IsRequired()
-                        .HasColumnName("carweight")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("EngineRules")
-                        .IsRequired()
-                        .HasColumnName("enginerules")
-                        .HasMaxLength(255);
-
-                    b.Property<byte>("Lastrace")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("lastrace")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("Newstyres")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("newstyres")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("PointsSystem")
-                        .IsRequired()
-                        .HasColumnName("pointssystem")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("QualifyingRules")
-                        .IsRequired()
-                        .HasColumnName("qualrules")
-                        .HasColumnType("text");
-
-                    b.Property<byte>("RaceCount")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("races")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Reviewarts")
-                        .IsRequired()
-                        .HasColumnName("reviewarts")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Reviewnews")
-                        .IsRequired()
-                        .HasColumnName("reviewnews")
-                        .HasMaxLength(255);
-
-                    b.Property<ushort>("Year")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("year")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Id")
-                        .IsUnique()
-                        .HasName("seasonid");
-
-                    b.HasIndex("Lastrace")
-                        .HasName("lastrace");
-
-                    b.HasIndex("RaceCount")
-                        .HasName("races");
-
-                    b.HasIndex("Year")
-                        .HasName("year");
-
-                    b.ToTable("f1seasons");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.StatLog", b =>
-                {
-                    b.Property<uint>("LogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("LogAgent")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_agent")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(128);
-
-                    b.Property<DateTime>("LogDataiczas")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_dataiczas")
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("'0000-00-00 00:00:00'");
-
-                    b.Property<string>("LogHost")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_host")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("LogIp")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_ip")
-                        .HasDefaultValueSql("'0.0.0.0'")
-                        .HasMaxLength(15);
-
-                    b.Property<uint>("LogStronaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("log_stronaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("LogId");
-
-                    b.ToTable("stat_log");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.StatRef", b =>
-                {
-                    b.Property<string>("RefId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ref_id")
-                        .HasColumnType("char(32)");
-
-                    b.Property<int>("RefCzas")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ref_czas")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("RefRefdomid")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ref_refdomid")
-                        .HasColumnType("char(32)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("RefSciezka")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ref_sciezka")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(255);
-
-                    b.Property<uint>("RefStronaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ref_stronaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("RefId");
-
-                    b.HasIndex("RefCzas")
-                        .HasName("ref_czas");
-
-                    b.HasIndex("RefRefdomid")
-                        .HasName("ref_refdomid");
-
-                    b.HasIndex("RefSciezka")
-                        .HasName("ref_sciezka");
-
-                    b.ToTable("stat_ref");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.StatRefdom", b =>
-                {
-                    b.Property<string>("RefdomId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("refdom_id")
-                        .HasColumnType("char(32)");
-
-                    b.Property<string>("RefdomNazwa")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("refdom_nazwa")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(255);
-
-                    b.Property<uint>("RefdomOdslony")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("refdom_odslony")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("RefdomId");
-
-                    b.HasIndex("RefdomNazwa")
-                        .HasName("refdom_nazwa");
-
-                    b.ToTable("stat_refdom");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.StatSesje", b =>
-                {
-                    b.Property<string>("SesjaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_id")
-                        .HasColumnType("char(32)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint>("SesjaAgentcrc")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_agentcrc")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<int>("SesjaCzas")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_czas")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("SesjaIp")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_ip")
-                        .HasColumnType("char(8)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<int>("SesjaStart")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_start")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<uint>("SesjaStronaid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("sesja_stronaid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("SesjaId");
-
-                    b.HasIndex("SesjaAgentcrc")
-                        .HasName("sesja_agentcrc");
-
-                    b.HasIndex("SesjaCzas")
-                        .HasName("sesja_czas");
-
-                    b.HasIndex("SesjaIp")
-                        .HasName("sesja_ip");
-
-                    b.HasIndex("SesjaStart")
-                        .HasName("sesja_start");
-
-                    b.ToTable("stat_sesje");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.StatStrony", b =>
-                {
-                    b.Property<uint>("StronaId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("strona_id")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<int>("StronaCzas")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("strona_czas")
-                        .HasColumnType("int(11)")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("StronaNazwa")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("strona_nazwa")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(100);
-
-                    b.Property<uint>("StronaOdslony")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("strona_odslony")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("StronaId");
-
-                    b.HasIndex("StronaNazwa")
-                        .HasName("strona_nazwa");
-
-                    b.ToTable("stat_strony");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.SympollAuth", b =>
-                {
-                    b.Property<int>("Uid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("uid")
-                        .HasColumnType("int(11)");
-
-                    b.Property<ushort>("Access")
-                        .HasColumnName("access");
-
-                    b.Property<string>("Pass")
-                        .IsRequired()
-                        .HasColumnName("pass")
-                        .HasMaxLength(32);
-
-                    b.Property<string>("Secret")
-                        .HasColumnName("secret")
-                        .HasMaxLength(32);
-
-                    b.Property<string>("User")
-                        .IsRequired()
-                        .HasColumnName("user")
-                        .HasMaxLength(32);
-
-                    b.HasKey("Uid");
-
-                    b.ToTable("sympoll_auth");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.SympollList", b =>
-                {
-                    b.Property<uint>("Pid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pid");
-
-                    b.Property<uint>("CookieStamp")
-                        .HasColumnName("cookieStamp");
-
-                    b.Property<uint>("Nextcid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nextcid")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("Question")
-                        .IsRequired()
-                        .HasColumnName("question")
-                        .HasMaxLength(250);
-
-                    b.Property<ushort>("Status")
-                        .HasColumnName("status");
-
-                    b.Property<uint>("TimeStamp")
-                        .HasColumnName("timeStamp");
-
-                    b.HasKey("Pid");
-
-                    b.ToTable("sympoll_list");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Team", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<uint?>("Artid")
-                        .HasColumnName("artid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Basedonteam")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("basedonteam")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint?>("Carmakeid")
-                        .HasColumnName("carmakeid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("EngineeringDirector")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curengboss")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("EngineeringDirectorPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curengbosspic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("FirstTeamPrincipal")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("firstboss")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("FirstTeamPrincipalPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("firstbosspic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Founder")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("founder")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("FounderPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("founderpic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Headquarters")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("base")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Key")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Letter")
-                        .IsRequired()
-                        .HasColumnName("litera")
-                        .HasColumnType("char(1)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("team")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .HasColumnName("nat")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<uint?>("NewsTopicId")
-                        .HasColumnName("newstopicid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("OtherDirector")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("otherboss")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("OtherDirectorOccupation")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("otherbossocc")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("OtherDirectorPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("otherbosspic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Secondfactory")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("secondfactory")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<ushort>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.Property<string>("TeamPrincipal")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curboss")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("TeamPrincipalPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curbosspic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("Teamshort")
-                        .IsRequired()
-                        .HasColumnName("teamshort")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("TechnicalDirector")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curtechdir")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("TechnicalDirectorPicture")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("curtechdirpic")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Key")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("Letter")
-                        .HasName("litera");
-
-                    b.HasIndex("Name")
-                        .HasName("team");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.HasIndex("Status")
-                        .HasName("status");
-
-                    b.ToTable("f1teams");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.TeamName", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamnameid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamname")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<uint>("TeamId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("teamid")
-                        .HasColumnType("mediumint unsigned")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FullName")
-                        .HasName("teamname");
-
-                    b.HasIndex("TeamId")
-                        .HasName("teamid");
-
-                    b.ToTable("f1teamnames");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Track", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("trackid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("orgaddress")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(128);
-
-                    b.Property<uint?>("Artid")
-                        .HasColumnName("artid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("City")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("city")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(45);
-
-                    b.Property<string>("CountryKey")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("country")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<bool>("Fiatrackmap")
-                        .HasColumnName("fiatrackmap");
-
-                    b.Property<string>("Key")
-                        .HasColumnName("ascid")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("LapDescr")
-                        .IsRequired()
-                        .HasColumnName("lap_descr")
-                        .HasColumnType("text");
-
-                    b.Property<string>("LapDriver")
-                        .IsRequired()
-                        .HasColumnName("lap_driver")
-                        .HasMaxLength(64);
-
-                    b.Property<ushort?>("Length")
-                        .HasColumnName("length");
-
-                    b.Property<ushort?>("LongestStraight")
-                        .HasColumnName("longeststraight");
-
-                    b.Property<string>("MapCoordinates")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("satmapcoords")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(25);
-
-                    b.Property<byte?>("MapZoom")
-                        .HasColumnName("satmapzoom");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("fulltrackname")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(50);
-
-                    b.Property<uint?>("Newstopicid")
-                        .HasColumnName("newstopicid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Orgfax")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("orgfax")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(24);
-
-                    b.Property<string>("Orgtel")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("orgtel")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(24);
-
-                    b.Property<string>("Pitwindows1")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pitwindows1")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("Pitwindows2")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pitwindows2")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(12);
-
-                    b.Property<string>("Pitwindows3")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("pitwindows3")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("RaceStartLocal")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("startlocal")
-                        .HasColumnType("varchar(5)")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("RaceStartPoland")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("startpoland")
-                        .HasColumnType("varchar(5)")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(5);
-
-                    b.Property<string>("ShortName")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("track")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<byte>("Status")
-                        .HasColumnName("status");
-
-                    b.Property<string>("Weatherurl")
-                        .IsRequired()
-                        .HasColumnName("weatherurl")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("Width")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("width")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(10);
-
-                    b.Property<string>("Zipcode")
-                        .IsRequired()
-                        .HasColumnName("zipcode")
-                        .HasMaxLength(8);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CountryKey");
-
-                    b.HasIndex("Key")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("ShortName")
-                        .HasName("track");
-
-                    b.HasIndex("Status")
-                        .HasName("status");
-
-                    b.ToTable("f1tracks");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Tyres", b =>
-                {
-                    b.Property<uint>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("tyresid")
-                        .HasColumnType("mediumint unsigned");
-
-                    b.Property<string>("Ascid")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("ascid")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("tyres")
-                        .HasDefaultValueSql("''")
-                        .HasMaxLength(64);
-
-                    b.Property<string>("NationalityKey")
-                        .IsRequired()
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("nat")
-                        .HasColumnType("char(3)")
-                        .HasDefaultValueSql("''");
-
-                    b.Property<byte>("Status")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnName("status")
-                        .HasDefaultValueSql("'0'");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("Ascid")
-                        .IsUnique()
-                        .HasName("ascid");
-
-                    b.HasIndex("Name")
-                        .HasName("tyres");
-
-                    b.HasIndex("NationalityKey");
-
-                    b.ToTable("f1tyres");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Article", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.News", "News")
-                        .WithOne("Article")
-                        .HasForeignKey("F1WM.DatabaseModel.Article", "NewsId");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Broadcast", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.BroadcastedSession", "BroadcastedSession")
-                        .WithMany("Broadcasts")
-                        .HasForeignKey("BroadcastedSessionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Broadcaster", "Broadcaster")
-                        .WithMany("Broadcasts")
-                        .HasForeignKey("BroadcasterId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSession", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.BroadcastedSessionType", "Type")
-                        .WithMany()
-                        .HasForeignKey("BroadcastedSessionTypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race")
-                        .WithMany("BroadcastedSessions")
-                        .HasForeignKey("RaceId");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Car", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Constructor", "Constructor")
-                        .WithMany("Cars")
-                        .HasForeignKey("ContstructorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Constructor", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.ConstructorStandingsPosition", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Constructor", "Constructor")
-                        .WithMany("Positions")
-                        .HasForeignKey("ConstructorId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Season", "Season")
-                        .WithMany("ConstructorStandings")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Driver", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Link", "Link")
-                        .WithMany()
-                        .HasForeignKey("Key")
-                        .HasPrincipalKey("CategoryKey");
-
-                    b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Team", "Team")
-                        .WithMany()
-                        .HasForeignKey("TeamKey")
-                        .HasPrincipalKey("Key");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.DriverPoints", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Season", "Season")
-                        .WithMany()
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithOne()
-                        .HasForeignKey("F1WM.DatabaseModel.DriverPoints", "DriverId", "RaceId")
-                        .HasPrincipalKey("F1WM.DatabaseModel.Entry", "DriverId", "RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.DriverStandingsPosition", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
-                        .WithMany("StandingsPositions")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Season", "Season")
-                        .WithMany("DriverStandings")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Engine", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.EngineMake", "EngineMake")
-                        .WithMany()
-                        .HasForeignKey("EngineMakeId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.EngineMake", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.EngineSpecification", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Engine")
-                        .WithOne("EngineSpecification")
-                        .HasForeignKey("F1WM.DatabaseModel.EngineSpecification", "EngineId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Entry", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Car", "Car")
-                        .WithMany("Entries")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
-                        .WithMany("Entries")
-                        .HasForeignKey("DriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Engine", "Engine")
-                        .WithMany()
-                        .HasForeignKey("EngineId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany("Entries")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Team", "Team")
-                        .WithMany("Entries")
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.TeamName", "TeamName")
-                        .WithMany()
-                        .HasForeignKey("TeamNameId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Tyres", "Tyres")
-                        .WithMany("Entries")
-                        .HasForeignKey("TyresId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Event", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.OtherSeries", "Series")
-                        .WithMany("Events")
-                        .HasForeignKey("OtherSeriesId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.FastestLap", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithOne("FastestLap")
-                        .HasForeignKey("F1WM.DatabaseModel.FastestLap", "EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany("FastestLaps")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Grid", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithOne("Grid")
-                        .HasForeignKey("F1WM.DatabaseModel.Grid", "EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany("Grids")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.NewsTag", "MainTag")
-                        .WithMany()
-                        .HasForeignKey("MainTagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsCommentText", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.NewsComment", "Comment")
-                        .WithOne("Text")
-                        .HasForeignKey("F1WM.DatabaseModel.NewsCommentText", "CommentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.News", "News")
-                        .WithMany("Tags")
-                        .HasForeignKey("NewsId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.NewsTag", "Tag")
-                        .WithMany()
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherDriver", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherEntry", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.OtherDriver", "Driver")
-                        .WithMany()
-                        .HasForeignKey("OtherDriverId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.OtherSeries", "Series")
-                        .WithMany()
-                        .HasForeignKey("OtherSeriesId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherResult", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Event", "Event")
-                        .WithMany("Results")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.OtherAdditionalPointsReason", "AdditionalPointsReason")
-                        .WithMany()
-                        .HasForeignKey("OtherAdditionalPointsReasonId");
-
-                    b.HasOne("F1WM.DatabaseModel.OtherEntry", "Entry")
-                        .WithMany()
-                        .HasForeignKey("OtherEntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.OtherSession", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithMany()
-                        .HasForeignKey("EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany()
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Qualifying", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithOne("Qualifying")
-                        .HasForeignKey("F1WM.DatabaseModel.Qualifying", "EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany("Qualifying")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Race", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Season")
-                        .WithMany("Races")
-                        .HasForeignKey("SeasonId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Track", "Track")
-                        .WithMany("Races")
-                        .HasForeignKey("TrackId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.RaceNews", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithOne("RaceNews")
-                        .HasForeignKey("F1WM.DatabaseModel.RaceNews", "RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Result", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
-                        .WithOne("Result")
-                        .HasForeignKey("F1WM.DatabaseModel.Result", "EntryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Race", "Race")
-                        .WithMany("Results")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Team", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Track", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Country")
-                        .WithMany()
-                        .HasForeignKey("CountryKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("F1WM.DatabaseModel.Link", "Website")
-                        .WithOne()
-                        .HasForeignKey("F1WM.DatabaseModel.Track", "Key")
-                        .HasPrincipalKey("F1WM.DatabaseModel.Link", "CategoryKey");
-                });
-
-            modelBuilder.Entity("F1WM.DatabaseModel.Tyres", b =>
-                {
-                    b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
-                        .WithMany()
-                        .HasForeignKey("NationalityKey")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
+					b.Property<string>("Ascid")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Letter")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carmake")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.HasColumnName("nat")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Ascid")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("Letter")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("carmake");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("Status")
+						.HasDatabaseName("status");
+
+					b.ToTable("f1carmakes");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.ConstructorStandingsPosition", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("constrcsid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("ConstructorId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("EngineMakeId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Points")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("points")
+						.HasColumnType("double")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("Position")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("cspos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("SeasonId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("ConstructorId")
+						.HasDatabaseName("carmakeid");
+
+					b.HasIndex("EngineMakeId")
+						.HasDatabaseName("enginemakeid");
+
+					b.HasIndex("Position");
+
+					b.HasIndex("SeasonId")
+						.HasDatabaseName("seasonid");
+
+					b.ToTable("f1constrcs");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Country", b =>
+				{
+					b.Property<string>("Key")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("GenitiveName")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nacji")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(40);
+
+					b.Property<string>("Jezyk")
+						.HasColumnName("jezyk")
+						.HasMaxLength(20);
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nacja")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(40);
+
+					b.HasKey("Key");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("nacja");
+
+					b.ToTable("f1nations");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Driver", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("driverid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Artid")
+						.HasColumnName("artid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("BirthPlace")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("birthplc")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(64);
+
+					b.Property<DateTime>("Birthday")
+						.HasColumnName("birth");
+
+					b.Property<ushort>("Birthmd")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("birthmd")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("CareerText")
+						.IsRequired()
+						.HasColumnName("career")
+						.HasColumnType("text");
+
+					b.Property<string>("ChampionAtSeries")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("titles")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(255);
+
+					b.Property<DateTime?>("Death")
+						.HasColumnName("death");
+
+					b.Property<string>("DeathPlace")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("deathplc")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(64);
+
+					b.Property<ushort>("Deathmd")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("deathmd")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("DebutYear")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("debiut")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("FirstName")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("forename")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<ushort>("Group")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("group")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Height")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("height")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("'-'");
+
+					b.Property<string>("Initial")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("initial")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(5);
+
+					b.Property<string>("Key")
+						.HasColumnName("ascid")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(4);
+
+					b.Property<string>("Kids")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("kids")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(64);
+
+					b.Property<string>("Litera")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("MaritalStatus")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nat")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Residence")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("resides")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(64);
+
+					b.Property<string>("Surname")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("surname")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("TeamKey")
+						.HasColumnName("teamascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Testdriver")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("testdriver")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(255);
+
+					b.Property<string>("Weight")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("weight")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(4);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Birthmd")
+						.HasDatabaseName("birthmd");
+
+					b.HasIndex("Deathmd")
+						.HasDatabaseName("deathmd");
+
+					b.HasIndex("Key")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("Litera")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("Surname")
+						.HasDatabaseName("surname");
+
+					b.HasIndex("TeamKey")
+						.HasDatabaseName("teamascid");
+
+					b.HasIndex("Group", "Surname")
+						.HasDatabaseName("group");
+
+					b.ToTable("f1drivers");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.DriverPoints", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("DriverId")
+						.HasColumnName("driverid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<float?>("NotCountedTowardsChampionshipPoints")
+						.HasColumnName("ncpoints")
+						.HasColumnType("float");
+
+					b.Property<float?>("Points")
+						.HasColumnName("points")
+						.HasColumnType("float");
+
+					b.Property<uint>("RaceId")
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("SeasonId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("DriverId")
+						.HasDatabaseName("driverid");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("SeasonId")
+						.HasDatabaseName("seasonid");
+
+					b.HasIndex("DriverId", "RaceId")
+						.IsUnique();
+
+					b.ToTable("f1driverpoints");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.DriverStandingsPosition", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("drivercsid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("DriverId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("driverid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Points")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("points")
+						.HasColumnType("double")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("Position")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("cspos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("SeasonId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("DriverId")
+						.HasDatabaseName("driverid");
+
+					b.HasIndex("Position");
+
+					b.HasIndex("SeasonId")
+						.HasDatabaseName("seasonid");
+
+					b.ToTable("f1drivercs");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Engine", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("engineid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("EngineMakeId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Letter")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("engine")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
+
+					b.HasIndex("EngineMakeId")
+						.HasDatabaseName("enginemakeid");
+
+					b.HasIndex("Letter")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("engine");
+
+					b.ToTable("f1engines");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.EngineMake", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemakeid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Key")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Letter")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemake")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.HasColumnName("nat")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Key")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("Letter")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("enginemake");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("Status")
+						.HasDatabaseName("status");
+
+					b.ToTable("f1enginemakes");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.EngineSpecification", b =>
+				{
+					b.Property<uint>("EngineId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("engineid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Text")
+						.HasColumnName("enginespecs")
+						.HasColumnType("text");
+
+					b.HasKey("EngineId");
+
+					b.ToTable("f1enginesspecs");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Entry", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("CarId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("CarMakeId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("DriverId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("driverid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("EngineId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("engineid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("EngineMakeId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<bool>("IsThirdDriver")
+						.HasColumnName("thirddriver");
+
+					b.Property<byte>("Number")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("number")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TeamId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TeamNameId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamnameid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TyresId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("tyresid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("CarId")
+						.HasDatabaseName("carid");
+
+					b.HasIndex("CarMakeId")
+						.HasDatabaseName("carmakeid");
+
+					b.HasIndex("DriverId")
+						.HasDatabaseName("driverid");
+
+					b.HasIndex("EngineId")
+						.HasDatabaseName("engineid");
+
+					b.HasIndex("EngineMakeId")
+						.HasDatabaseName("enginemakeid");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("TeamId")
+						.HasDatabaseName("teamid");
+
+					b.HasIndex("TeamNameId");
+
+					b.HasIndex("TyresId")
+						.HasDatabaseName("tyresid");
+
+					b.ToTable("f1entries");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Event", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<byte>("Bezstats")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("bezstats")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Dzien")
+						.IsRequired()
+						.HasColumnName("dzien")
+						.HasMaxLength(3);
+
+					b.Property<string>("Galeriaurl")
+						.IsRequired()
+						.HasColumnName("galeriaurl")
+						.HasMaxLength(150);
+
+					b.Property<string>("Godzina")
+						.IsRequired()
+						.HasColumnName("godzina")
+						.HasMaxLength(5);
+
+					b.Property<ushort>("Laps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("okrazenia")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasColumnName("nazwa")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.HasColumnName("kraj")
+						.HasMaxLength(3);
+
+					b.Property<uint>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("newsid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Nrwsez")
+						.HasColumnName("nrwsez");
+
+					b.Property<uint>("OtherSeriesId")
+						.HasColumnName("seriaid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Rokmies")
+						.IsRequired()
+						.HasColumnName("rokmies")
+						.HasColumnType("char(6)");
+
+					b.Property<string>("Season")
+						.IsRequired()
+						.HasColumnName("sezon")
+						.HasMaxLength(9);
+
+					b.Property<uint>("Startgrupy")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("startgrupy")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TrackLength")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("dlugtoru")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("TrackName")
+						.IsRequired()
+						.HasColumnName("tor")
+						.HasMaxLength(64);
+
+					b.Property<byte>("Type")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("typ")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Typtoru")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("typtoru")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("OtherSeriesId")
+						.HasDatabaseName("seriaid");
+
+					b.HasIndex("Rokmies")
+						.HasDatabaseName("rokmies");
+
+					b.HasIndex("Startgrupy")
+						.HasDatabaseName("startgrupy");
+
+					b.HasIndex("Season", "OtherSeriesId")
+						.HasDatabaseName("sezon");
+
+					b.HasIndex("OtherSeriesId", "Type", "Laps")
+						.HasDatabaseName("seria+typ+okr");
+
+					b.ToTable("inne_imprezy");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1ArtsCats", b =>
+				{
+					b.Property<uint>("Catid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("catid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Arts")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("arts")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Lastartid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("lastartid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("name")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<byte>("Ord")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ord")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Catid");
+
+					b.HasIndex("Lastartid")
+						.HasDatabaseName("lastartid");
+
+					b.HasIndex("Ord")
+						.HasDatabaseName("ord");
+
+					b.ToTable("f1_arts_cats");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1ConfigSections", b =>
+				{
+					b.Property<byte>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasColumnName("name")
+						.HasMaxLength(45);
+
+					b.HasKey("Id");
+
+					b.ToTable("f1_config_sections");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1ConfigVarchar", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Description")
+						.IsRequired()
+						.HasColumnName("description")
+						.HasColumnType("text");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasColumnName("name")
+						.HasMaxLength(45);
+
+					b.Property<byte>("Section")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("section")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Type")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("type")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Value")
+						.IsRequired()
+						.HasColumnName("value")
+						.HasMaxLength(255);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("name");
+
+					b.HasIndex("Section")
+						.HasDatabaseName("section");
+
+					b.ToTable("f1_config_varchar");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Hideusercoms", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Hideuserid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("hideuserid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Userid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("userid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Userid")
+						.HasDatabaseName("userid");
+
+					b.ToTable("f1_hideusercoms");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Ligna", b =>
+				{
+					b.Property<uint>("LUid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_uid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("LDane")
+						.HasColumnName("l_dane")
+						.HasColumnType("text");
+
+					b.Property<byte>("LId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_id")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("LSezon")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_sezon")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("LUid");
+
+					b.HasIndex("LId")
+						.HasDatabaseName("l_id");
+
+					b.HasIndex("LSezon")
+						.HasDatabaseName("l_sezon");
+
+					b.ToTable("f1_ligna");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1LogZmian", b =>
+				{
+					b.Property<string>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("char(32)");
+
+					b.Property<uint>("ArtId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("art_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Autor")
+						.IsRequired()
+						.HasColumnName("autor")
+						.HasMaxLength(64);
+
+					b.Property<uint>("CommId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<DateTime>("Data")
+						.HasColumnName("data")
+						.HasColumnType("datetime");
+
+					b.Property<uint>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TextId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("text_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("UserId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("user_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Zmiany")
+						.IsRequired()
+						.HasColumnName("zmiany")
+						.HasColumnType("text");
+
+					b.HasKey("Id");
+
+					b.HasIndex("ArtId")
+						.HasDatabaseName("art_id");
+
+					b.HasIndex("CommId")
+						.HasDatabaseName("comm_id");
+
+					b.HasIndex("Data")
+						.HasDatabaseName("data");
+
+					b.HasIndex("NewsId")
+						.HasDatabaseName("news_id");
+
+					b.HasIndex("TextId")
+						.HasDatabaseName("text_id");
+
+					b.ToTable("f1_log_zmian");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditorcats", b =>
+				{
+					b.Property<uint>("Catid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("catid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("name")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(40);
+
+					b.HasKey("Catid");
+
+					b.ToTable("f1_newseditorcats");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditordata", b =>
+				{
+					b.Property<uint>("Dataid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("dataid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Catid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("catid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Image")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("image")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("Name1")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("name1")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(40);
+
+					b.Property<string>("Name2")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("name2")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(40);
+
+					b.Property<string>("Url")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("url")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.HasKey("Dataid");
+
+					b.HasIndex("Name1")
+						.HasDatabaseName("name1");
+
+					b.ToTable("f1_newseditordata");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Redakcja", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Email")
+						.IsRequired()
+						.HasColumnName("email")
+						.HasMaxLength(64);
+
+					b.Property<byte>("F1db")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("f1db")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Funkcja")
+						.IsRequired()
+						.HasColumnName("funkcja")
+						.HasMaxLength(64);
+
+					b.Property<byte>("Gpm")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("gpm")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Grupa")
+						.HasColumnName("grupa");
+
+					b.Property<string>("Informacje")
+						.IsRequired()
+						.HasColumnName("informacje")
+						.HasColumnType("text");
+
+					b.Property<byte>("Isdb")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("isdb")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Korekta")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("korekta")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("L")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Ligna")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ligna")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Modkom")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("modkom")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("N")
+						.IsRequired()
+						.HasColumnName("n")
+						.HasMaxLength(45);
+
+					b.Property<string>("Portret")
+						.IsRequired()
+						.HasColumnName("portret")
+						.HasMaxLength(64);
+
+					b.Property<string>("Skroty")
+						.IsRequired()
+						.HasColumnName("skroty")
+						.HasMaxLength(45);
+
+					b.Property<byte>("Tylkoligna")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("tylkoligna")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Userid")
+						.HasColumnName("userid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Www")
+						.IsRequired()
+						.HasColumnName("www")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Grupa")
+						.HasDatabaseName("grupa");
+
+					b.HasIndex("Skroty")
+						.HasDatabaseName("skroty");
+
+					b.HasIndex("Userid")
+						.HasDatabaseName("userid");
+
+					b.ToTable("f1_redakcja");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Rezerwacje", b =>
+				{
+					b.Property<string>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("char(32)");
+
+					b.Property<DateTime>("Datadod")
+						.HasColumnName("datadod")
+						.HasColumnType("datetime");
+
+					b.Property<DateTime>("Datarez")
+						.HasColumnName("datarez")
+						.HasColumnType("datetime");
+
+					b.Property<string>("Linki")
+						.IsRequired()
+						.HasColumnName("linki")
+						.HasColumnType("tinytext");
+
+					b.Property<uint>("Newsid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("newsid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Notatki")
+						.IsRequired()
+						.HasColumnName("notatki")
+						.HasColumnType("tinytext");
+
+					b.Property<byte>("Pilne")
+						.HasColumnName("pilne");
+
+					b.Property<uint>("Redaktor")
+						.HasColumnName("redaktor")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Rsscrc")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("rsscrc")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Status")
+						.HasColumnName("status");
+
+					b.Property<string>("Tytul")
+						.IsRequired()
+						.HasColumnName("tytul")
+						.HasMaxLength(255);
+
+					b.Property<uint>("Zglaszajacy")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zglaszajacy")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Datarez")
+						.HasDatabaseName("datarez");
+
+					b.ToTable("f1_rezerwacje");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Subskr", b =>
+				{
+					b.Property<uint>("SId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("SEmail")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s_email")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(100);
+
+					b.Property<sbyte>("SStatus")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s_status")
+						.HasColumnType("tinyint(1)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<int>("STime")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s_time")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("SId");
+
+					b.HasIndex("STime")
+						.HasDatabaseName("s_time");
+
+					b.ToTable("f1_subskr");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1Texts", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Grupa")
+						.IsRequired()
+						.HasColumnName("grupa")
+						.HasMaxLength(32);
+
+					b.Property<string>("Tresc")
+						.IsRequired()
+						.HasColumnName("tresc")
+						.HasColumnType("text");
+
+					b.Property<string>("Tytul")
+						.IsRequired()
+						.HasColumnName("tytul")
+						.HasMaxLength(80);
+
+					b.Property<byte>("Uprawnienia")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("uprawnienia")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<DateTime>("Zmieniony")
+						.HasColumnName("zmieniony")
+						.HasColumnType("datetime");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Grupa")
+						.HasDatabaseName("grupa");
+
+					b.ToTable("f1_texts");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1ZgloszoneBledy", b =>
+				{
+					b.Property<string>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("char(32)");
+
+					b.Property<uint>("ArtId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("art_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("CommId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<DateTime>("Data")
+						.HasColumnName("data")
+						.HasColumnType("datetime");
+
+					b.Property<uint>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("OpisBledu")
+						.IsRequired()
+						.HasColumnName("opis_bledu")
+						.HasColumnType("text");
+
+					b.Property<byte>("Typ")
+						.HasColumnName("typ");
+
+					b.Property<uint>("UserId")
+						.HasColumnName("user_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Zglaszajacy")
+						.IsRequired()
+						.HasColumnName("zglaszajacy")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
+
+					b.HasIndex("ArtId")
+						.HasDatabaseName("art_id");
+
+					b.HasIndex("CommId")
+						.HasDatabaseName("comm_id");
+
+					b.HasIndex("Data")
+						.HasDatabaseName("data");
+
+					b.HasIndex("NewsId")
+						.HasDatabaseName("news_id");
+
+					b.HasIndex("Typ")
+						.HasDatabaseName("typ");
+
+					b.ToTable("f1_zgloszone_bledy");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1carsspecs", b =>
+				{
+					b.Property<uint>("Carid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Carspecs")
+						.HasColumnName("carspecs")
+						.HasColumnType("text");
+
+					b.HasKey("Carid");
+
+					b.ToTable("f1carsspecs");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1constrcsLastpos", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Carmakeid")
+						.HasColumnName("carmakeid")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Cspos")
+						.HasColumnName("cspos")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Raceid")
+						.HasColumnName("raceid")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Seasonid")
+						.HasColumnName("seasonid")
+						.HasColumnType("int(11)");
+
+					b.HasKey("Id");
+
+					b.ToTable("f1constrcs_lastpos");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1constrpoints", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Carmakeid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Enginemakeid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("enginemakeid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Raceid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Seasonid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Carmakeid")
+						.HasDatabaseName("carmakeid");
+
+					b.HasIndex("Enginemakeid")
+						.HasDatabaseName("enginemakeid");
+
+					b.HasIndex("Raceid")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("Seasonid")
+						.HasDatabaseName("seasonid");
+
+					b.ToTable("f1constrpoints");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1drivercsLastpos", b =>
+				{
+					b.Property<int>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Cspos")
+						.HasColumnName("cspos")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Driverid")
+						.HasColumnName("driverid")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Raceid")
+						.HasColumnName("raceid")
+						.HasColumnType("int(11)");
+
+					b.Property<int>("Seasonid")
+						.HasColumnName("seasonid")
+						.HasColumnType("int(11)");
+
+					b.HasKey("Id");
+
+					b.ToTable("f1drivercs_lastpos");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1driversid3", b =>
+				{
+					b.Property<string>("Id3")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id3")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Id4")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id4")
+						.HasColumnType("char(4)")
+						.HasDefaultValueSql("''");
+
+					b.HasKey("Id3");
+
+					b.ToTable("f1driversid3");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1glossary", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Descr")
+						.IsRequired()
+						.HasColumnName("descr")
+						.HasColumnType("text");
+
+					b.Property<string>("Extlink")
+						.IsRequired()
+						.HasColumnName("extlink")
+						.HasMaxLength(255);
+
+					b.Property<string>("Nameen")
+						.IsRequired()
+						.HasColumnName("nameen")
+						.HasMaxLength(45);
+
+					b.Property<string>("Namepl")
+						.IsRequired()
+						.HasColumnName("namepl")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Nameen")
+						.HasDatabaseName("nameen");
+
+					b.HasIndex("Namepl")
+						.HasDatabaseName("namepl");
+
+					b.ToTable("f1glossary");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1lapsled", b =>
+				{
+					b.Property<uint>("Entryid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<short>("Lapsled")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("lapsled")
+						.HasColumnType("smallint(3)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Raceid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Entryid");
+
+					b.HasIndex("Raceid")
+						.HasDatabaseName("raceid");
+
+					b.ToTable("f1lapsled");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.F1quotes", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<DateTime>("Date")
+						.HasColumnName("date")
+						.HasColumnType("datetime");
+
+					b.Property<byte>("Hidden")
+						.HasColumnName("hidden");
+
+					b.Property<string>("Poster")
+						.IsRequired()
+						.HasColumnName("poster")
+						.HasMaxLength(45);
+
+					b.Property<string>("Q1name")
+						.IsRequired()
+						.HasColumnName("q1name")
+						.HasMaxLength(30);
+
+					b.Property<string>("Q1nameadd")
+						.IsRequired()
+						.HasColumnName("q1nameadd")
+						.HasMaxLength(60);
+
+					b.Property<string>("Q1text")
+						.IsRequired()
+						.HasColumnName("q1text")
+						.HasColumnType("text");
+
+					b.Property<string>("Q2name")
+						.IsRequired()
+						.HasColumnName("q2name")
+						.HasMaxLength(30);
+
+					b.Property<string>("Q2nameadd")
+						.IsRequired()
+						.HasColumnName("q2nameadd")
+						.HasMaxLength(60);
+
+					b.Property<string>("Q2text")
+						.IsRequired()
+						.HasColumnName("q2text")
+						.HasColumnType("text");
+
+					b.Property<string>("Q3name")
+						.IsRequired()
+						.HasColumnName("q3name")
+						.HasMaxLength(30);
+
+					b.Property<string>("Q3nameadd")
+						.IsRequired()
+						.HasColumnName("q3nameadd")
+						.HasMaxLength(60);
+
+					b.Property<string>("Q3text")
+						.IsRequired()
+						.HasColumnName("q3text")
+						.HasColumnType("text");
+
+					b.Property<string>("Q4name")
+						.IsRequired()
+						.HasColumnName("q4name")
+						.HasMaxLength(30);
+
+					b.Property<string>("Q4nameadd")
+						.IsRequired()
+						.HasColumnName("q4nameadd")
+						.HasMaxLength(60);
+
+					b.Property<string>("Q4text")
+						.IsRequired()
+						.HasColumnName("q4text")
+						.HasColumnType("text");
+
+					b.Property<byte>("Qtype")
+						.HasColumnName("qtype");
+
+					b.Property<uint>("Raceid")
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Redid")
+						.HasColumnName("redid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Teamascid")
+						.IsRequired()
+						.HasColumnName("teamascid")
+						.HasColumnType("char(3)");
+
+					b.Property<string>("Teaminfo")
+						.IsRequired()
+						.HasColumnName("teaminfo")
+						.HasMaxLength(255);
+
+					b.Property<byte>("Teampos")
+						.HasColumnName("teampos");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Date")
+						.HasDatabaseName("date");
+
+					b.HasIndex("Raceid")
+						.HasDatabaseName("raceid");
+
+					b.ToTable("f1quotes");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.FastestLap", b =>
+				{
+					b.Property<uint>("EntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("LapNumber")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("lap")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Order")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ord")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("PositionOrStatus")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("frlpos")
+						.HasColumnType("char(2)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Time")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("time")
+						.HasColumnType("double")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("EntryId");
+
+					b.HasIndex("PositionOrStatus")
+						.HasDatabaseName("frlpos");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("Time");
+
+					b.ToTable("f1fastestlaps");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmkonfig", b =>
+				{
+					b.Property<byte>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasDefaultValueSql("'1'");
+
+					b.Property<uint>("Cenapunktu")
+						.HasColumnName("cenapunktu");
+
+					b.Property<double>("Kier3cenamnoz")
+						.HasColumnName("kier3cenamnoz");
+
+					b.Property<double>("Kier3cenamnozprzed")
+						.HasColumnName("kier3cenamnozprzed");
+
+					b.Property<double>("Kier3zwrotmnoz")
+						.HasColumnName("kier3zwrotmnoz");
+
+					b.Property<string>("Komunikaty")
+						.IsRequired()
+						.HasColumnName("komunikaty")
+						.HasColumnType("text");
+
+					b.Property<byte>("Koniec1fazy")
+						.HasColumnName("koniec1fazy");
+
+					b.Property<byte>("Krokinicjalizacji")
+						.HasColumnName("krokinicjalizacji");
+
+					b.Property<string>("Powodblokady")
+						.IsRequired()
+						.HasColumnName("powodblokady")
+						.HasMaxLength(255);
+
+					b.Property<string>("Przelcennik1")
+						.IsRequired()
+						.HasColumnName("przelcennik1")
+						.HasMaxLength(90);
+
+					b.Property<string>("Przelcennik2")
+						.IsRequired()
+						.HasColumnName("przelcennik2")
+						.HasMaxLength(90);
+
+					b.Property<ushort>("Rok")
+						.HasColumnName("rok");
+
+					b.Property<string>("Sponsorzy")
+						.IsRequired()
+						.HasColumnName("sponsorzy")
+						.HasColumnType("text");
+
+					b.Property<uint>("Startmoney")
+						.HasColumnName("startmoney");
+
+					b.Property<string>("Typowanie")
+						.IsRequired()
+						.HasColumnName("typowanie")
+						.HasMaxLength(90);
+
+					b.Property<byte>("Typpktpomylka")
+						.HasColumnName("typpktpomylka");
+
+					b.Property<byte>("Wymusblokade")
+						.HasColumnName("wymusblokade");
+
+					b.Property<double>("Zwrotmnoz")
+						.HasColumnName("zwrotmnoz");
+
+					b.Property<double>("Zwrotmnoz1faza")
+						.HasColumnName("zwrotmnoz1faza");
+
+					b.HasKey("Id");
+
+					b.ToTable("gpm_admkonfig");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmskladniki", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Ascid")
+						.IsRequired()
+						.HasColumnName("ascid")
+						.HasMaxLength(4);
+
+					b.Property<uint>("Cena")
+						.HasColumnName("cena");
+
+					b.Property<uint>("Idmodelu")
+						.HasColumnName("idmodelu")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Kierzesp")
+						.IsRequired()
+						.HasColumnName("kierzesp")
+						.HasMaxLength(3);
+
+					b.Property<string>("Nazwa")
+						.IsRequired()
+						.HasColumnName("nazwa")
+						.HasMaxLength(45);
+
+					b.Property<byte>("Niestartuje")
+						.HasColumnName("niestartuje");
+
+					b.Property<byte>("Nrstart")
+						.HasColumnName("nrstart");
+
+					b.Property<string>("Staryzespol")
+						.IsRequired()
+						.HasColumnName("staryzespol")
+						.HasMaxLength(3);
+
+					b.Property<byte>("Typ")
+						.HasColumnName("typ");
+
+					b.Property<uint>("Wymuszona")
+						.HasColumnName("wymuszona");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Nazwa")
+						.HasDatabaseName("nazwa");
+
+					b.HasIndex("Typ", "Cena")
+						.HasDatabaseName("typ_cena");
+
+					b.ToTable("gpm_admskladniki");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmwyscigi", b =>
+				{
+					b.Property<byte>("Nr")
+						.HasColumnName("nr");
+
+					b.Property<byte>("Ceny")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ceny")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Kontuzje")
+						.IsRequired()
+						.HasColumnName("kontuzje")
+						.HasMaxLength(45);
+
+					b.Property<string>("Kraj")
+						.IsRequired()
+						.HasColumnName("kraj")
+						.HasColumnType("char(3)");
+
+					b.Property<byte>("Kwaldzien")
+						.HasColumnName("kwaldzien");
+
+					b.Property<byte>("Kwalgodz")
+						.HasColumnName("kwalgodz");
+
+					b.Property<byte>("Kwalmies")
+						.HasColumnName("kwalmies");
+
+					b.Property<byte>("Kwalmin")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("kwalmin")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Punkty")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("punkty")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Wyplata")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("wyplata")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Wyscdzien")
+						.HasColumnName("wyscdzien");
+
+					b.Property<byte>("Wyscmies")
+						.HasColumnName("wyscmies");
+
+					b.HasKey("Nr");
+
+					b.ToTable("gpm_admwyscigi");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgen", b =>
+				{
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Miejsce")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("miejsce")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Nieaktywny")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nieaktywny")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Suma")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("suma")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte?>("W1")
+						.HasColumnName("w1");
+
+					b.Property<byte?>("W10")
+						.HasColumnName("w10");
+
+					b.Property<byte?>("W11")
+						.HasColumnName("w11");
+
+					b.Property<byte?>("W12")
+						.HasColumnName("w12");
+
+					b.Property<byte?>("W13")
+						.HasColumnName("w13");
+
+					b.Property<byte?>("W14")
+						.HasColumnName("w14");
+
+					b.Property<byte?>("W15")
+						.HasColumnName("w15");
+
+					b.Property<byte?>("W16")
+						.HasColumnName("w16");
+
+					b.Property<byte?>("W17")
+						.HasColumnName("w17");
+
+					b.Property<byte?>("W18")
+						.HasColumnName("w18");
+
+					b.Property<byte?>("W19")
+						.HasColumnName("w19");
+
+					b.Property<byte?>("W2")
+						.HasColumnName("w2");
+
+					b.Property<byte?>("W20")
+						.HasColumnName("w20");
+
+					b.Property<byte?>("W21")
+						.HasColumnName("w21");
+
+					b.Property<byte?>("W3")
+						.HasColumnName("w3");
+
+					b.Property<byte?>("W4")
+						.HasColumnName("w4");
+
+					b.Property<byte?>("W5")
+						.HasColumnName("w5");
+
+					b.Property<byte?>("W6")
+						.HasColumnName("w6");
+
+					b.Property<byte?>("W7")
+						.HasColumnName("w7");
+
+					b.Property<byte?>("W8")
+						.HasColumnName("w8");
+
+					b.Property<byte?>("W9")
+						.HasColumnName("w9");
+
+					b.Property<short?>("Zmiana")
+						.HasColumnName("zmiana")
+						.HasColumnType("smallint(3)");
+
+					b.HasKey("Zespolid");
+
+					b.HasIndex("Miejsce")
+						.HasDatabaseName("miejsce");
+
+					b.HasIndex("Nieaktywny")
+						.HasDatabaseName("nieaktywny");
+
+					b.HasIndex("Suma")
+						.HasDatabaseName("suma");
+
+					b.ToTable("gpm_klasgen");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgenpoz", b =>
+				{
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P1")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p1")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P10")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p10")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P11")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p11")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P12")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p12")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P13")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p13")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P14")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p14")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P15")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p15")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P16")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p16")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P17")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p17")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P18")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p18")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P19")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p19")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P2")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p2")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P20")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p20")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P21")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p21")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P3")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p3")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P4")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p4")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P5")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p5")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P6")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p6")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P7")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p7")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P8")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p8")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("P9")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("p9")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Zespolid");
+
+					b.ToTable("gpm_klasgenpoz");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlastyp", b =>
+				{
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Sumatyp")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sumatyp")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte?>("T1")
+						.HasColumnName("t1");
+
+					b.Property<byte?>("T10")
+						.HasColumnName("t10");
+
+					b.Property<byte?>("T11")
+						.HasColumnName("t11");
+
+					b.Property<byte?>("T12")
+						.HasColumnName("t12");
+
+					b.Property<byte?>("T13")
+						.HasColumnName("t13");
+
+					b.Property<byte?>("T14")
+						.HasColumnName("t14");
+
+					b.Property<byte?>("T15")
+						.HasColumnName("t15");
+
+					b.Property<byte?>("T16")
+						.HasColumnName("t16");
+
+					b.Property<byte?>("T17")
+						.HasColumnName("t17");
+
+					b.Property<byte?>("T18")
+						.HasColumnName("t18");
+
+					b.Property<byte?>("T19")
+						.HasColumnName("t19");
+
+					b.Property<byte?>("T2")
+						.HasColumnName("t2");
+
+					b.Property<byte?>("T20")
+						.HasColumnName("t20");
+
+					b.Property<byte?>("T21")
+						.HasColumnName("t21");
+
+					b.Property<byte?>("T3")
+						.HasColumnName("t3");
+
+					b.Property<byte?>("T4")
+						.HasColumnName("t4");
+
+					b.Property<byte?>("T5")
+						.HasColumnName("t5");
+
+					b.Property<byte?>("T6")
+						.HasColumnName("t6");
+
+					b.Property<byte?>("T7")
+						.HasColumnName("t7");
+
+					b.Property<byte?>("T8")
+						.HasColumnName("t8");
+
+					b.Property<byte?>("T9")
+						.HasColumnName("t9");
+
+					b.HasKey("Zespolid");
+
+					b.HasIndex("Sumatyp")
+						.HasDatabaseName("sumatyp");
+
+					b.ToTable("gpm_klastyp");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlaswszech", b =>
+				{
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("Miejsce")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("miejsce")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2005")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2005")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2006")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2006")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2007")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2007")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2008")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2008")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2009")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2009")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<ushort>("S2010")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2010")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2011")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2011")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2012")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2012")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2013")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2013")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2014")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2014")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2015")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2015")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2016")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2016")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2017")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2017")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("S2018")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("s2018")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Suma")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("suma")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<short>("Zmiana")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zmiana")
+						.HasColumnType("smallint(6)")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Zespolid");
+
+					b.ToTable("gpm_klaswszech");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmLigi", b =>
+				{
+					b.Property<uint>("Ligaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ligaid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Komentarze")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("komentarze")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Limitzespolow")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("limitzespolow")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Nazwa")
+						.IsRequired()
+						.HasColumnName("nazwa")
+						.HasMaxLength(45);
+
+					b.Property<uint>("Sumapkt")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sumapkt")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Zalozycielid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zalozycielid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Zamknieta")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zamknieta")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Zespoly")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespoly")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'1'");
+
+					b.HasKey("Ligaid");
+
+					b.HasIndex("Komentarze")
+						.HasDatabaseName("komentarze");
+
+					b.HasIndex("Nazwa")
+						.HasDatabaseName("nazwa");
+
+					b.HasIndex("Zespoly")
+						.HasDatabaseName("zespoly");
+
+					b.ToTable("gpm_ligi");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmLigiKoms", b =>
+				{
+					b.Property<uint>("Komid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("komid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Autor")
+						.IsRequired()
+						.HasColumnName("autor")
+						.HasMaxLength(255);
+
+					b.Property<DateTime>("Czas")
+						.HasColumnName("czas")
+						.HasColumnType("datetime");
+
+					b.Property<uint>("Ligaid")
+						.HasColumnName("ligaid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Tresc")
+						.IsRequired()
+						.HasColumnName("tresc")
+						.HasColumnType("text");
+
+					b.Property<uint>("Zespolid")
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned");
+
+					b.HasKey("Komid");
+
+					b.HasIndex("Czas")
+						.HasDatabaseName("time");
+
+					b.HasIndex("Ligaid")
+						.HasDatabaseName("ligaid");
+
+					b.ToTable("gpm_ligi_koms");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmSklady", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Bolid")
+						.HasColumnName("bolid")
+						.HasColumnType("char(3)");
+
+					b.Property<string>("Kier1")
+						.HasColumnName("kier1")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Kier2")
+						.HasColumnName("kier2")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Kier3")
+						.HasColumnName("kier3")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Silnik")
+						.HasColumnName("silnik")
+						.HasColumnType("char(3)");
+
+					b.Property<string>("Typ0")
+						.HasColumnName("typ0")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ1")
+						.HasColumnName("typ1")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ10")
+						.HasColumnName("typ10")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ2")
+						.HasColumnName("typ2")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ3")
+						.HasColumnName("typ3")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ4")
+						.HasColumnName("typ4")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ5")
+						.HasColumnName("typ5")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ6")
+						.HasColumnName("typ6")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ7")
+						.HasColumnName("typ7")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ8")
+						.HasColumnName("typ8")
+						.HasColumnType("char(4)");
+
+					b.Property<string>("Typ9")
+						.HasColumnName("typ9")
+						.HasColumnType("char(4)");
+
+					b.Property<byte>("Wyscnr")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("wyscnr")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Wyscnr")
+						.HasDatabaseName("wyscnr");
+
+					b.HasIndex("Zespolid")
+						.HasDatabaseName("zespolid");
+
+					b.ToTable("gpm_sklady");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmZespoly", b =>
+				{
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Adresip")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("adresip")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(8);
+
+					b.Property<int>("Agentcrc")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("agentcrc")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Aktywacja")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("aktywacja")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Email")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("email")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(255);
+
+					b.Property<uint?>("Gg")
+						.HasColumnName("gg");
+
+					b.Property<uint>("Gotowka")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("gotowka")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Haslo")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("haslo")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(34);
+
+					b.Property<uint>("Ligaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ligaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Ligaidzapr")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ligaidzapr")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Login")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("login")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(30);
+
+					b.Property<string>("Nazwa")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nazwa")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(20);
+
+					b.Property<string>("Nazwisko")
+						.HasColumnName("nazwisko")
+						.HasMaxLength(30);
+
+					b.Property<string>("Nowehaslo")
+						.IsRequired()
+						.HasColumnName("nowehaslo")
+						.HasMaxLength(34);
+
+					b.Property<int>("Ostwizyta")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ostwizyta")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Plec")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("plec")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Pokazujemail")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pokazujemail")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Pokazujsklad")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pokazujsklad")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Siedziba")
+						.HasColumnName("siedziba")
+						.HasMaxLength(30);
+
+					b.Property<string>("Typavatara")
+						.HasColumnName("typavatara")
+						.HasMaxLength(4);
+
+					b.Property<string>("Ulubkier")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ulubkier")
+						.HasDefaultValueSql("'brak'")
+						.HasMaxLength(4);
+
+					b.Property<string>("Ulubtor")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ulubtor")
+						.HasDefaultValueSql("'brak'")
+						.HasMaxLength(30);
+
+					b.Property<string>("Ulubzesp")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ulubzesp")
+						.HasDefaultValueSql("'brak'")
+						.HasMaxLength(4);
+
+					b.Property<uint>("Wartosc")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("wartosc")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Zespolid");
+
+					b.HasIndex("Email")
+						.IsUnique()
+						.HasDatabaseName("email");
+
+					b.HasIndex("Haslo")
+						.HasDatabaseName("haslo");
+
+					b.HasIndex("Ligaid")
+						.HasDatabaseName("ligaid");
+
+					b.HasIndex("Login")
+						.IsUnique()
+						.HasDatabaseName("login");
+
+					b.HasIndex("Nazwa")
+						.HasDatabaseName("nazwa");
+
+					b.HasIndex("Wartosc")
+						.HasDatabaseName("wartosc");
+
+					b.ToTable("gpm_zespoly");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.GpmZwyciezcy", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Punkty")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("punkty")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Wyscnr")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("wyscnr")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Zespolid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zespolid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Wyscnr")
+						.HasDatabaseName("wyscnr");
+
+					b.ToTable("gpm_zwyciezcy");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Grid", b =>
+				{
+					b.Property<uint>("EntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Ord")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ord")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("StartPositionOrStatus")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("startpos")
+						.HasColumnType("char(2)")
+						.HasDefaultValueSql("''");
+
+					b.Property<double>("Time")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("time")
+						.HasColumnType("double")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("EntryId");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("StartPositionOrStatus")
+						.HasDatabaseName("startpos");
+
+					b.HasIndex("Time");
+
+					b.ToTable("f1grids");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.InneKlaskier", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Kierowcaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("kierowcaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Klasa")
+						.IsRequired()
+						.HasColumnName("klasa")
+						.HasColumnType("char(10)");
+
+					b.Property<byte>("Mistrz")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("mistrz")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Pozycja")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pozycja")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Seriaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seriaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Sezon")
+						.IsRequired()
+						.HasColumnName("sezon")
+						.HasColumnType("char(7)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Kierowcaid")
+						.HasDatabaseName("kierowcaid");
+
+					b.HasIndex("Mistrz")
+						.HasDatabaseName("mistrz");
+
+					b.HasIndex("Seriaid")
+						.HasDatabaseName("seriaid");
+
+					b.HasIndex("Sezon")
+						.HasDatabaseName("sezon");
+
+					b.ToTable("inne_klaskier");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.InneRezultatyBk", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<double>("Czas")
+						.HasColumnName("czas");
+
+					b.Property<ushort>("Dodpktza")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("dodpktza")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Imprezaid")
+						.HasColumnName("imprezaid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<ushort>("Okrazenia")
+						.HasColumnName("okrazenia");
+
+					b.Property<byte>("Pozklasa")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pozklasa")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Pozycja")
+						.HasColumnName("pozycja");
+
+					b.Property<string>("Status")
+						.IsRequired()
+						.HasColumnName("status")
+						.HasColumnType("char(2)");
+
+					b.Property<uint>("Zgloszenieid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zgloszenieid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Imprezaid")
+						.HasDatabaseName("imprezaid");
+
+					b.HasIndex("Pozycja")
+						.HasDatabaseName("pozycja");
+
+					b.HasIndex("Zgloszenieid")
+						.HasDatabaseName("zgloszenieid");
+
+					b.ToTable("inne_rezultaty_bk");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.InneTerminy", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Godzina")
+						.IsRequired()
+						.HasColumnName("godzina")
+						.HasMaxLength(5);
+
+					b.Property<string>("Nazwa")
+						.IsRequired()
+						.HasColumnName("nazwa")
+						.HasMaxLength(80);
+
+					b.Property<string>("Rokmies")
+						.IsRequired()
+						.HasColumnName("rokmies")
+						.HasColumnType("char(6)");
+
+					b.Property<string>("Skrotnazwy")
+						.IsRequired()
+						.HasColumnName("skrotnazwy")
+						.HasMaxLength(20);
+
+					b.Property<string>("Url")
+						.IsRequired()
+						.HasColumnName("url")
+						.HasMaxLength(255);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Rokmies")
+						.HasDatabaseName("rokmies");
+
+					b.ToTable("inne_terminy");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.InneZasady", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("Seriaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seriaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Sezon")
+						.IsRequired()
+						.HasColumnName("sezon")
+						.HasColumnType("char(7)");
+
+					b.Property<string>("Zasady")
+						.IsRequired()
+						.HasColumnName("zasady")
+						.HasColumnType("text");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Seriaid", "Sezon")
+						.HasDatabaseName("seriasezon");
+
+					b.ToTable("inne_zasady");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Link", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("CategoryKey")
+						.IsRequired()
+						.HasColumnName("l_catstr")
+						.HasMaxLength(64);
+
+					b.Property<string>("LBanurl")
+						.HasColumnName("l_banurl")
+						.HasMaxLength(128);
+
+					b.Property<uint>("LCatgrp")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_catgrp")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<DateTime>("LData")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_data")
+						.HasColumnType("datetime")
+						.HasDefaultValueSql("'0000-00-00 00:00:00'");
+
+					b.Property<string>("LJezyki")
+						.HasColumnName("l_jezyki")
+						.HasMaxLength(64);
+
+					b.Property<string>("LNazwa")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_nazwa")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(255);
+
+					b.Property<byte>("LOcena")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_ocena")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("LOdslony")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_odslony")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("LOpis")
+						.HasColumnName("l_opis")
+						.HasMaxLength(255);
+
+					b.Property<byte>("LRotator")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_rotator")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_status")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Url")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("l_url")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(128);
+
+					b.HasKey("Id");
+
+					b.HasIndex("CategoryKey")
+						.HasDatabaseName("l_catstr");
+
+					b.HasIndex("LCatgrp")
+						.HasDatabaseName("l_catgrp");
+
+					b.HasIndex("LData")
+						.HasDatabaseName("l_data");
+
+					b.HasIndex("LNazwa")
+						.HasDatabaseName("l_nazwa");
+
+					b.HasIndex("LOcena")
+						.HasDatabaseName("l_ocena");
+
+					b.HasIndex("LOdslony")
+						.HasDatabaseName("l_odslony");
+
+					b.ToTable("f1_linki");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<bool>("CommBlock")
+						.HasColumnName("comm_block");
+
+					b.Property<int>("CommentCount")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_count")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<DateTime>("Date")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_date")
+						.HasColumnType("datetime")
+						.HasDefaultValueSql("'0000-00-00 00:00:00'");
+
+					b.Property<bool>("IsHighlighted")
+						.HasColumnName("news_highlight");
+
+					b.Property<uint>("MainTagId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("topic_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("NewsDateym")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_dateym")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<bool>("NewsHidden")
+						.HasColumnName("news_hidden");
+
+					b.Property<int?>("NewsModified")
+						.HasColumnName("news_modified")
+						.HasColumnType("int(11)");
+
+					b.Property<uint>("PosterId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("poster_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("PosterName")
+						.HasColumnName("poster_name")
+						.HasMaxLength(30);
+
+					b.Property<string>("Redirect")
+						.HasColumnName("news_redirect")
+						.HasMaxLength(50);
+
+					b.Property<string>("Subtitle")
+						.IsRequired()
+						.HasColumnName("news_subtitle")
+						.HasMaxLength(128);
+
+					b.Property<string>("Text")
+						.IsRequired()
+						.HasColumnName("news_text")
+						.HasColumnType("text");
+
+					b.Property<string>("Title")
+						.IsRequired()
+						.HasColumnName("news_title")
+						.HasMaxLength(80);
+
+					b.Property<byte>("TypeId")
+						.HasColumnName("news_type");
+
+					b.Property<uint>("Views")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_views")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Date")
+						.HasDatabaseName("news_date");
+
+					b.HasIndex("MainTagId");
+
+					b.HasIndex("NewsDateym")
+						.HasDatabaseName("news_dateym");
+
+					b.HasIndex("PosterName")
+						.HasDatabaseName("poster_name");
+
+					b.HasIndex("NewsHidden", "Date")
+						.HasDatabaseName("hidden_date");
+
+					b.HasIndex("Title", "Subtitle")
+						.HasDatabaseName("titles");
+
+					b.HasIndex("TypeId", "Date")
+						.HasDatabaseName("news_type");
+
+					b.HasIndex("TypeId", "NewsHidden", "Date")
+						.HasDatabaseName("type_hidden_date");
+
+					b.ToTable("f1_news");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsComment", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("PosterId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("poster_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("PosterIp")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("poster_ip")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(15);
+
+					b.Property<string>("PosterName")
+						.HasColumnName("poster_name")
+						.HasMaxLength(25);
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_status")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<int>("UnixTime")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_time")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("NewsId")
+						.HasDatabaseName("news_id");
+
+					b.HasIndex("PosterId")
+						.HasDatabaseName("poster_id");
+
+					b.HasIndex("UnixTime")
+						.HasDatabaseName("comm_time");
+
+					b.ToTable("f1_news_coms");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsCommentText", b =>
+				{
+					b.Property<uint>("CommentId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("comm_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Text")
+						.HasColumnName("comm_text")
+						.HasColumnType("text");
+
+					b.HasKey("CommentId");
+
+					b.ToTable("f1_news_comstext");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsTag", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("topic_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("CategoryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("cat_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Icon")
+						.HasColumnName("topic_icon")
+						.HasMaxLength(20);
+
+					b.Property<uint>("Searches")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("searches")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Title")
+						.IsRequired()
+						.HasColumnName("topic_title")
+						.HasMaxLength(25);
+
+					b.HasKey("Id");
+
+					b.HasIndex("CategoryId")
+						.HasDatabaseName("cat_id");
+
+					b.HasIndex("Searches")
+						.HasDatabaseName("searches");
+
+					b.HasIndex("Title")
+						.HasDatabaseName("topic_title");
+
+					b.HasIndex("CategoryId", "Title")
+						.HasDatabaseName("cat+title");
+
+					b.ToTable("f1_news_topics");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsTagCategory", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("cat_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Title")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("cat_title")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(20);
+
+					b.HasKey("Id");
+
+					b.ToTable("f1_news_cats");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("match_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<DateTime>("NewsDate")
+						.HasColumnName("news_date")
+						.HasColumnType("datetime");
+
+					b.Property<uint>("NewsId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("news_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TagId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("topic_id")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("NewsId")
+						.HasDatabaseName("news_id");
+
+					b.HasIndex("TagId", "NewsDate")
+						.HasDatabaseName("topic_id");
+
+					b.ToTable("f1_news_topicmatch");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsType", b =>
+				{
+					b.Property<ushort>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("type_id");
+
+					b.Property<string>("AlternativeTitle")
+						.IsRequired()
+						.HasColumnName("type_title2")
+						.HasMaxLength(14);
+
+					b.Property<string>("Title")
+						.IsRequired()
+						.HasColumnName("type_title")
+						.HasMaxLength(45);
+
+					b.HasKey("Id");
+
+					b.ToTable("f1_news_types");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherAdditionalPointsReason", b =>
+				{
+					b.Property<ushort>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id");
+
+					b.Property<string>("Description")
+						.IsRequired()
+						.HasColumnName("opis")
+						.HasMaxLength(64);
+
+					b.Property<bool>("IsHidden")
+						.HasColumnName("ukryte");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Description")
+						.HasDatabaseName("opis");
+
+					b.ToTable("inne_dodpktza");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherDriver", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("F1ascid")
+						.IsRequired()
+						.HasColumnName("f1ascid")
+						.HasMaxLength(4);
+
+					b.Property<string>("FirstName")
+						.IsRequired()
+						.HasColumnName("imie")
+						.HasMaxLength(64);
+
+					b.Property<byte>("Gender")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("plec")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Initial")
+						.IsRequired()
+						.HasColumnName("inicjal")
+						.HasMaxLength(5);
+
+					b.Property<string>("Litera")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.HasColumnName("kraj")
+						.HasMaxLength(3);
+
+					b.Property<string>("Surname")
+						.IsRequired()
+						.HasColumnName("nazwisko")
+						.HasMaxLength(64);
+
+					b.HasKey("Id");
+
+					b.HasIndex("F1ascid")
+						.HasDatabaseName("f1ascid");
+
+					b.HasIndex("Litera")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("Surname")
+						.HasDatabaseName("nazwisko");
+
+					b.ToTable("inne_kierowcy");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherEntry", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("CarName")
+						.IsRequired()
+						.HasColumnName("samochod")
+						.HasMaxLength(45);
+
+					b.Property<string>("Class")
+						.IsRequired()
+						.HasColumnName("klasa")
+						.HasColumnType("char(10)");
+
+					b.Property<byte>("Debut")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("debiutant")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Guest")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("gosc")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Inactive")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nieaktywny")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Independent")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("niezalezny")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Number")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nr")
+						.HasDefaultValueSql("'-'")
+						.HasMaxLength(3);
+
+					b.Property<uint>("OtherDriverId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("kierowcaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("OtherSeriesId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seriaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Season")
+						.IsRequired()
+						.HasColumnName("sezon")
+						.HasMaxLength(7);
+
+					b.Property<string>("TeamName")
+						.IsRequired()
+						.HasColumnName("zespol")
+						.HasMaxLength(45);
+
+					b.Property<string>("Tyres")
+						.IsRequired()
+						.HasColumnName("opony")
+						.HasMaxLength(3);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Number")
+						.HasDatabaseName("nr");
+
+					b.HasIndex("OtherDriverId")
+						.HasDatabaseName("kierowcaid");
+
+					b.HasIndex("OtherSeriesId")
+						.HasDatabaseName("seriaid");
+
+					b.HasIndex("Season")
+						.HasDatabaseName("sezon");
+
+					b.ToTable("inne_listystart");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherResult", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("EventId")
+						.HasColumnName("imprezaid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<byte>("FinishPosition")
+						.HasColumnName("pozycja");
+
+					b.Property<ushort>("FinishedLaps")
+						.HasColumnName("okrazenia");
+
+					b.Property<ushort?>("OtherAdditionalPointsReasonId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("dodpktza")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("OtherEntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("zgloszenieid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<float>("Points")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("punkty")
+						.HasColumnType("float")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Pozklasa")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pozklasa")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Status")
+						.IsRequired()
+						.HasColumnName("status")
+						.HasColumnType("char(2)");
+
+					b.Property<double>("Time")
+						.HasColumnName("czas");
+
+					b.HasKey("Id");
+
+					b.HasIndex("EventId")
+						.HasDatabaseName("imprezaid");
+
+					b.HasIndex("FinishPosition")
+						.HasDatabaseName("pozycja");
+
+					b.HasIndex("OtherAdditionalPointsReasonId");
+
+					b.HasIndex("OtherEntryId")
+						.HasDatabaseName("zgloszenieid");
+
+					b.ToTable("inne_rezultaty");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherSeries", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Domyslnysezon")
+						.IsRequired()
+						.HasColumnName("domyslnysezon")
+						.HasMaxLength(9);
+
+					b.Property<byte>("Dzielonejazdy")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("dzielonejazdy")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Innepktdlazesp")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("innepktdlazesp")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Klaskieroficjalna")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("klaskieroficjalna")
+						.HasDefaultValueSql("'1'");
+
+					b.Property<byte>("Klasy")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("klasy")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Klaszespoficjalna")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("klaszespoficjalna")
+						.HasDefaultValueSql("'1'");
+
+					b.Property<byte>("Listastartwgnr")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("listastartwgnr")
+						.HasDefaultValueSql("'1'");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.HasColumnName("nazwa")
+						.HasMaxLength(45);
+
+					b.Property<uint>("NewsCategoryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("newscatid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Punkty")
+						.IsRequired()
+						.HasColumnName("punkty")
+						.HasMaxLength(128);
+
+					b.Property<string>("Punkty2")
+						.IsRequired()
+						.HasColumnName("punkty2")
+						.HasMaxLength(128);
+
+					b.Property<string>("Skrotnazwy")
+						.IsRequired()
+						.HasColumnName("skrotnazwy")
+						.HasMaxLength(20);
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Tylkonewsy")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("tylkonewsy")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Www")
+						.IsRequired()
+						.HasColumnName("www")
+						.HasMaxLength(128);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("nazwa");
+
+					b.HasIndex("Status", "Name")
+						.HasDatabaseName("status");
+
+					b.ToTable("inne_serie");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherSession", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint>("EntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("FinishPosition")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sespos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("FinishedLaps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Session")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("session")
+						.HasColumnType("char(4)")
+						.HasDefaultValueSql("''");
+
+					b.Property<double>("Time")
+						.HasColumnName("time")
+						.HasColumnType("double");
+
+					b.HasKey("Id");
+
+					b.HasIndex("EntryId")
+						.HasDatabaseName("entryid");
+
+					b.HasIndex("FinishPosition")
+						.HasDatabaseName("sespos");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.ToTable("f1othersessions");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Qualifying", b =>
+				{
+					b.Property<uint>("EntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Information")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("info")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(128);
+
+					b.Property<byte>("Ord")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ord")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("PositionOrStatus")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("qualpos")
+						.HasColumnType("char(2)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Session1Laps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q1laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Session1Position")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q1pos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Session1Time")
+						.HasColumnName("q1time");
+
+					b.Property<byte>("Session2Laps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q2laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Session2Position")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q2pos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Session2Time")
+						.HasColumnName("q2time");
+
+					b.Property<byte>("Session3Laps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q3laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Session3Position")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("q3pos")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Session3Time")
+						.HasColumnName("q3time");
+
+					b.HasKey("EntryId");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.ToTable("f1quals");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Race", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("CountryKey")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("country")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<DateTime>("Date")
+						.HasColumnName("date")
+						.HasColumnType("date");
+
+					b.Property<double>("Distance")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("distance")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Gridtype")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("gridtype")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Laps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("name")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<double>("Offset")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("offset")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("OrderInSeason")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("numinseason")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("Qualtype")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("qualtype")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("SeasonId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("TrackId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("trackid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("TrackVersion")
+						.HasColumnName("trackver");
+
+					b.Property<bool>("Weather")
+						.HasColumnName("weather");
+
+					b.Property<string>("Yearmonth")
+						.IsRequired()
+						.HasColumnName("yearmonth")
+						.HasColumnType("char(6)");
+
+					b.HasKey("Id");
+
+					b.HasIndex("CountryKey");
+
+					b.HasIndex("Date");
+
+					b.HasIndex("SeasonId")
+						.HasDatabaseName("seasonid");
+
+					b.HasIndex("TrackId")
+						.HasDatabaseName("trackid");
+
+					b.HasIndex("Yearmonth")
+						.HasDatabaseName("yearmonth");
+
+					b.ToTable("f1races");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.RaceNews", b =>
+				{
+					b.Property<uint>("RaceId")
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("CommentsAfterQualifyingNewsId")
+						.HasColumnName("wk")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("CommentsAfterQualifyingResultsNewsId")
+						.HasColumnName("kk")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("CommentsAfterRaceNewsId")
+						.HasColumnName("ww")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("CommentsAfterRaceResultsNewsId")
+						.HasColumnName("kw")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("CommentsAfterTrainingNewsId")
+						.HasColumnName("wt")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("FastestLapsNewsId")
+						.HasColumnName("fl")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("GalleryNewsId")
+						.HasColumnName("gal")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Gp")
+						.HasColumnName("gp")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Id")
+						.HasColumnName("ow")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("K1")
+						.HasColumnName("k1")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("K1p")
+						.HasColumnName("k1p")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("K2")
+						.HasColumnName("k2")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("ManeuversNewsId")
+						.HasColumnName("mw")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<byte>("Number")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nr")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint?>("PitStopsNewsId")
+						.HasColumnName("ps")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("PressConferenceNewsId")
+						.HasColumnName("kpw")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Pt")
+						.HasColumnName("pt")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Pw")
+						.HasColumnName("pw")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("QualifyingNewsId")
+						.HasColumnName("pk")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("T12")
+						.HasColumnName("t12")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("T34")
+						.HasColumnName("t34")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("T4")
+						.HasColumnName("t4")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Training1NewsId")
+						.HasColumnName("t1")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Training2NewsId")
+						.HasColumnName("t2")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Training3NewsId")
+						.HasColumnName("t3")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("TyresNewsId")
+						.HasColumnName("op")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Wbk")
+						.HasColumnName("wbk")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Wu")
+						.HasColumnName("wu")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<ushort>("Year")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("rok")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("RaceId");
+
+					b.HasIndex("Number")
+						.HasDatabaseName("nr");
+
+					b.HasIndex("Year")
+						.HasDatabaseName("rok");
+
+					b.ToTable("f1newsgp");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Result", b =>
+				{
+					b.Property<uint>("EntryId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("entryid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte>("FinishedLaps")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("laps")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Information")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("info")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(128);
+
+					b.Property<byte>("Ord")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ord")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<byte?>("PitStopVisits")
+						.HasColumnName("pits");
+
+					b.Property<string>("PositionOrStatus")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("endpos")
+						.HasColumnType("char(2)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint>("RaceId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("raceid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<double>("Time")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("time")
+						.HasColumnType("double")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("EntryId");
+
+					b.HasIndex("PositionOrStatus")
+						.HasDatabaseName("endpos");
+
+					b.HasIndex("RaceId")
+						.HasDatabaseName("raceid");
+
+					b.HasIndex("Time");
+
+					b.ToTable("f1results");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Season", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("seasonid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("CarWeight")
+						.IsRequired()
+						.HasColumnName("carweight")
+						.HasMaxLength(255);
+
+					b.Property<string>("EngineRules")
+						.IsRequired()
+						.HasColumnName("enginerules")
+						.HasMaxLength(255);
+
+					b.Property<byte>("Lastrace")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("lastrace")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("Newstyres")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("newstyres")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("PointsSystem")
+						.IsRequired()
+						.HasColumnName("pointssystem")
+						.HasMaxLength(255);
+
+					b.Property<string>("QualifyingRules")
+						.IsRequired()
+						.HasColumnName("qualrules")
+						.HasColumnType("text");
+
+					b.Property<byte>("RaceCount")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("races")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Reviewarts")
+						.IsRequired()
+						.HasColumnName("reviewarts")
+						.HasMaxLength(255);
+
+					b.Property<string>("Reviewnews")
+						.IsRequired()
+						.HasColumnName("reviewnews")
+						.HasMaxLength(255);
+
+					b.Property<ushort>("Year")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("year")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Id")
+						.IsUnique()
+						.HasDatabaseName("seasonid");
+
+					b.HasIndex("Lastrace")
+						.HasDatabaseName("lastrace");
+
+					b.HasIndex("RaceCount")
+						.HasDatabaseName("races");
+
+					b.HasIndex("Year")
+						.HasDatabaseName("year");
+
+					b.ToTable("f1seasons");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.StatLog", b =>
+				{
+					b.Property<uint>("LogId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("LogAgent")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_agent")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(128);
+
+					b.Property<DateTime>("LogDataiczas")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_dataiczas")
+						.HasColumnType("datetime")
+						.HasDefaultValueSql("'0000-00-00 00:00:00'");
+
+					b.Property<string>("LogHost")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_host")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(100);
+
+					b.Property<string>("LogIp")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_ip")
+						.HasDefaultValueSql("'0.0.0.0'")
+						.HasMaxLength(15);
+
+					b.Property<uint>("LogStronaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("log_stronaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("LogId");
+
+					b.ToTable("stat_log");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.StatRef", b =>
+				{
+					b.Property<string>("RefId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ref_id")
+						.HasColumnType("char(32)");
+
+					b.Property<int>("RefCzas")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ref_czas")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("RefRefdomid")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ref_refdomid")
+						.HasColumnType("char(32)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("RefSciezka")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ref_sciezka")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(255);
+
+					b.Property<uint>("RefStronaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ref_stronaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("RefId");
+
+					b.HasIndex("RefCzas")
+						.HasDatabaseName("ref_czas");
+
+					b.HasIndex("RefRefdomid")
+						.HasDatabaseName("ref_refdomid");
+
+					b.HasIndex("RefSciezka")
+						.HasDatabaseName("ref_sciezka");
+
+					b.ToTable("stat_ref");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.StatRefdom", b =>
+				{
+					b.Property<string>("RefdomId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("refdom_id")
+						.HasColumnType("char(32)");
+
+					b.Property<string>("RefdomNazwa")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("refdom_nazwa")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(255);
+
+					b.Property<uint>("RefdomOdslony")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("refdom_odslony")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("RefdomId");
+
+					b.HasIndex("RefdomNazwa")
+						.HasDatabaseName("refdom_nazwa");
+
+					b.ToTable("stat_refdom");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.StatSesje", b =>
+				{
+					b.Property<string>("SesjaId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_id")
+						.HasColumnType("char(32)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint>("SesjaAgentcrc")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_agentcrc")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<int>("SesjaCzas")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_czas")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("SesjaIp")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_ip")
+						.HasColumnType("char(8)")
+						.HasDefaultValueSql("''");
+
+					b.Property<int>("SesjaStart")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_start")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<uint>("SesjaStronaid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("sesja_stronaid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("SesjaId");
+
+					b.HasIndex("SesjaAgentcrc")
+						.HasDatabaseName("sesja_agentcrc");
+
+					b.HasIndex("SesjaCzas")
+						.HasDatabaseName("sesja_czas");
+
+					b.HasIndex("SesjaIp")
+						.HasDatabaseName("sesja_ip");
+
+					b.HasIndex("SesjaStart")
+						.HasDatabaseName("sesja_start");
+
+					b.ToTable("stat_sesje");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.StatStrony", b =>
+				{
+					b.Property<uint>("StronaId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("strona_id")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<int>("StronaCzas")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("strona_czas")
+						.HasColumnType("int(11)")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("StronaNazwa")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("strona_nazwa")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(100);
+
+					b.Property<uint>("StronaOdslony")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("strona_odslony")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("StronaId");
+
+					b.HasIndex("StronaNazwa")
+						.HasDatabaseName("strona_nazwa");
+
+					b.ToTable("stat_strony");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.SympollAuth", b =>
+				{
+					b.Property<int>("Uid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("uid")
+						.HasColumnType("int(11)");
+
+					b.Property<ushort>("Access")
+						.HasColumnName("access");
+
+					b.Property<string>("Pass")
+						.IsRequired()
+						.HasColumnName("pass")
+						.HasMaxLength(32);
+
+					b.Property<string>("Secret")
+						.HasColumnName("secret")
+						.HasMaxLength(32);
+
+					b.Property<string>("User")
+						.IsRequired()
+						.HasColumnName("user")
+						.HasMaxLength(32);
+
+					b.HasKey("Uid");
+
+					b.ToTable("sympoll_auth");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.SympollList", b =>
+				{
+					b.Property<uint>("Pid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pid");
+
+					b.Property<uint>("CookieStamp")
+						.HasColumnName("cookieStamp");
+
+					b.Property<uint>("Nextcid")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nextcid")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("Question")
+						.IsRequired()
+						.HasColumnName("question")
+						.HasMaxLength(250);
+
+					b.Property<ushort>("Status")
+						.HasColumnName("status");
+
+					b.Property<uint>("TimeStamp")
+						.HasColumnName("timeStamp");
+
+					b.HasKey("Pid");
+
+					b.ToTable("sympoll_list");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Team", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<uint?>("Artid")
+						.HasColumnName("artid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Basedonteam")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("basedonteam")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint?>("Carmakeid")
+						.HasColumnName("carmakeid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("EngineeringDirector")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curengboss")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("EngineeringDirectorPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curengbosspic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("FirstTeamPrincipal")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("firstboss")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("FirstTeamPrincipalPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("firstbosspic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("Founder")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("founder")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("FounderPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("founderpic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("Headquarters")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("base")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("Key")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Letter")
+						.IsRequired()
+						.HasColumnName("litera")
+						.HasColumnType("char(1)");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("team")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.HasColumnName("nat")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<uint?>("NewsTopicId")
+						.HasColumnName("newstopicid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("OtherDirector")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("otherboss")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("OtherDirectorOccupation")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("otherbossocc")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("OtherDirectorPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("otherbosspic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("Secondfactory")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("secondfactory")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<ushort>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.Property<string>("TeamPrincipal")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curboss")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("TeamPrincipalPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curbosspic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("Teamshort")
+						.IsRequired()
+						.HasColumnName("teamshort")
+						.HasMaxLength(10);
+
+					b.Property<string>("TechnicalDirector")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curtechdir")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("TechnicalDirectorPicture")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("curtechdirpic")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.HasKey("Id");
+
+					b.HasIndex("Key")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("Letter")
+						.HasDatabaseName("litera");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("team");
+
+					b.HasIndex("NationalityKey");
+
+					b.HasIndex("Status")
+						.HasDatabaseName("status");
+
+					b.ToTable("f1teams");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.TeamName", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamnameid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("FullName")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamname")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<uint>("TeamId")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("teamid")
+						.HasColumnType("mediumint unsigned")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("FullName")
+						.HasDatabaseName("teamname");
+
+					b.HasIndex("TeamId")
+						.HasDatabaseName("teamid");
+
+					b.ToTable("f1teamnames");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Track", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("trackid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Address")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("orgaddress")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(128);
+
+					b.Property<uint?>("Artid")
+						.HasColumnName("artid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("City")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("city")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(45);
+
+					b.Property<string>("CountryKey")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("country")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<bool>("Fiatrackmap")
+						.HasColumnName("fiatrackmap");
+
+					b.Property<string>("Key")
+						.HasColumnName("ascid")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("LapDescr")
+						.IsRequired()
+						.HasColumnName("lap_descr")
+						.HasColumnType("text");
+
+					b.Property<string>("LapDriver")
+						.IsRequired()
+						.HasColumnName("lap_driver")
+						.HasMaxLength(64);
+
+					b.Property<ushort?>("Length")
+						.HasColumnName("length");
+
+					b.Property<ushort?>("LongestStraight")
+						.HasColumnName("longeststraight");
+
+					b.Property<string>("MapCoordinates")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("satmapcoords")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(25);
+
+					b.Property<byte?>("MapZoom")
+						.HasColumnName("satmapzoom");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("fulltrackname")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(50);
+
+					b.Property<uint?>("Newstopicid")
+						.HasColumnName("newstopicid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Orgfax")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("orgfax")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(24);
+
+					b.Property<string>("Orgtel")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("orgtel")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(24);
+
+					b.Property<string>("Pitwindows1")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pitwindows1")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(5);
+
+					b.Property<string>("Pitwindows2")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pitwindows2")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(12);
+
+					b.Property<string>("Pitwindows3")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("pitwindows3")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(20);
+
+					b.Property<string>("RaceStartLocal")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("startlocal")
+						.HasColumnType("varchar(5)")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(5);
+
+					b.Property<string>("RaceStartPoland")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("startpoland")
+						.HasColumnType("varchar(5)")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(5);
+
+					b.Property<string>("ShortName")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("track")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<byte>("Status")
+						.HasColumnName("status");
+
+					b.Property<string>("Weatherurl")
+						.IsRequired()
+						.HasColumnName("weatherurl")
+						.HasMaxLength(255);
+
+					b.Property<string>("Width")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("width")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(10);
+
+					b.Property<string>("Zipcode")
+						.IsRequired()
+						.HasColumnName("zipcode")
+						.HasMaxLength(8);
+
+					b.HasKey("Id");
+
+					b.HasIndex("CountryKey");
+
+					b.HasIndex("Key")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("ShortName")
+						.HasDatabaseName("track");
+
+					b.HasIndex("Status")
+						.HasDatabaseName("status");
+
+					b.ToTable("f1tracks");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Tyres", b =>
+				{
+					b.Property<uint>("Id")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("tyresid")
+						.HasColumnType("mediumint unsigned");
+
+					b.Property<string>("Ascid")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("ascid")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<string>("Name")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("tyres")
+						.HasDefaultValueSql("''")
+						.HasMaxLength(64);
+
+					b.Property<string>("NationalityKey")
+						.IsRequired()
+						.ValueGeneratedOnAdd()
+						.HasColumnName("nat")
+						.HasColumnType("char(3)")
+						.HasDefaultValueSql("''");
+
+					b.Property<byte>("Status")
+						.ValueGeneratedOnAdd()
+						.HasColumnName("status")
+						.HasDefaultValueSql("'0'");
+
+					b.HasKey("Id");
+
+					b.HasIndex("Ascid")
+						.IsUnique()
+						.HasDatabaseName("ascid");
+
+					b.HasIndex("Name")
+						.HasDatabaseName("tyres");
+
+					b.HasIndex("NationalityKey");
+
+					b.ToTable("f1tyres");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Article", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.News", "News")
+						.WithOne("Article")
+						.HasForeignKey("F1WM.DatabaseModel.Article", "NewsId");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Broadcast", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.BroadcastedSession", "BroadcastedSession")
+						.WithMany("Broadcasts")
+						.HasForeignKey("BroadcastedSessionId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Broadcaster", "Broadcaster")
+						.WithMany("Broadcasts")
+						.HasForeignKey("BroadcasterId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.BroadcastedSession", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.BroadcastedSessionType", "Type")
+						.WithMany()
+						.HasForeignKey("BroadcastedSessionTypeId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race")
+						.WithMany("BroadcastedSessions")
+						.HasForeignKey("RaceId");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Car", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Constructor", "Constructor")
+						.WithMany("Cars")
+						.HasForeignKey("ContstructorId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Constructor", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.ConstructorStandingsPosition", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Constructor", "Constructor")
+						.WithMany("Positions")
+						.HasForeignKey("ConstructorId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Season", "Season")
+						.WithMany("ConstructorStandings")
+						.HasForeignKey("SeasonId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Driver", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Link", "Link")
+						.WithMany()
+						.HasForeignKey("Key")
+						.HasPrincipalKey("CategoryKey");
+
+					b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Team", "Team")
+						.WithMany()
+						.HasForeignKey("TeamKey")
+						.HasPrincipalKey("Key");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.DriverPoints", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
+						.WithMany()
+						.HasForeignKey("DriverId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany()
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Season", "Season")
+						.WithMany()
+						.HasForeignKey("SeasonId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithOne()
+						.HasForeignKey("F1WM.DatabaseModel.DriverPoints", "DriverId", "RaceId")
+						.HasPrincipalKey("F1WM.DatabaseModel.Entry", "DriverId", "RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.DriverStandingsPosition", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
+						.WithMany("StandingsPositions")
+						.HasForeignKey("DriverId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Season", "Season")
+						.WithMany("DriverStandings")
+						.HasForeignKey("SeasonId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Engine", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.EngineMake", "EngineMake")
+						.WithMany()
+						.HasForeignKey("EngineMakeId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.EngineMake", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Country")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.EngineSpecification", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Engine")
+						.WithOne("EngineSpecification")
+						.HasForeignKey("F1WM.DatabaseModel.EngineSpecification", "EngineId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Entry", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Car", "Car")
+						.WithMany("Entries")
+						.HasForeignKey("CarId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Driver", "Driver")
+						.WithMany("Entries")
+						.HasForeignKey("DriverId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Engine", "Engine")
+						.WithMany()
+						.HasForeignKey("EngineId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany("Entries")
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Team", "Team")
+						.WithMany("Entries")
+						.HasForeignKey("TeamId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.TeamName", "TeamName")
+						.WithMany()
+						.HasForeignKey("TeamNameId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Tyres", "Tyres")
+						.WithMany("Entries")
+						.HasForeignKey("TyresId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Event", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.OtherSeries", "Series")
+						.WithMany("Events")
+						.HasForeignKey("OtherSeriesId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.FastestLap", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithOne("FastestLap")
+						.HasForeignKey("F1WM.DatabaseModel.FastestLap", "EntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany("FastestLaps")
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Grid", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithOne("Grid")
+						.HasForeignKey("F1WM.DatabaseModel.Grid", "EntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany("Grids")
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.NewsTag", "MainTag")
+						.WithMany()
+						.HasForeignKey("MainTagId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsCommentText", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.NewsComment", "Comment")
+						.WithOne("Text")
+						.HasForeignKey("F1WM.DatabaseModel.NewsCommentText", "CommentId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.News", "News")
+						.WithMany("Tags")
+						.HasForeignKey("NewsId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.NewsTag", "Tag")
+						.WithMany()
+						.HasForeignKey("TagId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherDriver", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherEntry", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.OtherDriver", "Driver")
+						.WithMany()
+						.HasForeignKey("OtherDriverId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.OtherSeries", "Series")
+						.WithMany()
+						.HasForeignKey("OtherSeriesId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherResult", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Event", "Event")
+						.WithMany("Results")
+						.HasForeignKey("EventId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.OtherAdditionalPointsReason", "AdditionalPointsReason")
+						.WithMany()
+						.HasForeignKey("OtherAdditionalPointsReasonId");
+
+					b.HasOne("F1WM.DatabaseModel.OtherEntry", "Entry")
+						.WithMany()
+						.HasForeignKey("OtherEntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.OtherSession", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithMany()
+						.HasForeignKey("EntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany()
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Qualifying", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithOne("Qualifying")
+						.HasForeignKey("F1WM.DatabaseModel.Qualifying", "EntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany("Qualifying")
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Race", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Country")
+						.WithMany()
+						.HasForeignKey("CountryKey")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Season")
+						.WithMany("Races")
+						.HasForeignKey("SeasonId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Track", "Track")
+						.WithMany("Races")
+						.HasForeignKey("TrackId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.RaceNews", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithOne("RaceNews")
+						.HasForeignKey("F1WM.DatabaseModel.RaceNews", "RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Result", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Entry", "Entry")
+						.WithOne("Result")
+						.HasForeignKey("F1WM.DatabaseModel.Result", "EntryId")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Race", "Race")
+						.WithMany("Results")
+						.HasForeignKey("RaceId")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Team", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Country")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Track", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Country")
+						.WithMany()
+						.HasForeignKey("CountryKey")
+						.OnDelete(DeleteBehavior.Cascade);
+
+					b.HasOne("F1WM.DatabaseModel.Link", "Website")
+						.WithOne()
+						.HasForeignKey("F1WM.DatabaseModel.Track", "Key")
+						.HasPrincipalKey("F1WM.DatabaseModel.Link", "CategoryKey");
+				});
+
+			modelBuilder.Entity("F1WM.DatabaseModel.Tyres", b =>
+				{
+					b.HasOne("F1WM.DatabaseModel.Country", "Nationality")
+						.WithMany()
+						.HasForeignKey("NationalityKey")
+						.OnDelete(DeleteBehavior.Cascade);
+				});
 #pragma warning restore 612, 618
-        }
-    }
+		}
+	}
 }

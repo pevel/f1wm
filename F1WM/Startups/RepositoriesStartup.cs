@@ -1,12 +1,10 @@
 using System;
 using System.Reflection;
-using AutoMapper;
 using F1WM.DatabaseModel;
 using F1WM.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace F1WM.Startups
 {
@@ -46,10 +44,7 @@ namespace F1WM.Startups
 			{
 				throw new SystemException("Database connection string is missing in configuration.");
 			}
-			options.UseMySql(connectionString, options =>
-			{
-				options.ServerVersion(new Version(5, 7), ServerType.MySql);
-			});
+			options.UseMySql(connectionString, new MySqlServerVersion(new Version(5, 7)));
 		}
 	}
 }

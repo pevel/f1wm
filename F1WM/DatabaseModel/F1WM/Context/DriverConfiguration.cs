@@ -12,26 +12,26 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1drivers");
 
 			builder.HasIndex(e => e.Key)
-				.HasName("ascid")
+				.HasDatabaseName("ascid")
 				.IsUnique();
 
 			builder.HasIndex(e => e.Birthmd)
-				.HasName("birthmd");
+				.HasDatabaseName("birthmd");
 
 			builder.HasIndex(e => e.Deathmd)
-				.HasName("deathmd");
+				.HasDatabaseName("deathmd");
 
 			builder.HasIndex(e => e.Litera)
-				.HasName("litera");
+				.HasDatabaseName("litera");
 
 			builder.HasIndex(e => e.Surname)
-				.HasName("surname");
+				.HasDatabaseName("surname");
 
 			builder.HasIndex(e => e.TeamKey)
-				.HasName("teamascid");
+				.HasDatabaseName("teamascid");
 
 			builder.HasIndex(e => new { e.Group, e.Surname })
-				.HasName("group");
+				.HasDatabaseName("group");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("driverid")

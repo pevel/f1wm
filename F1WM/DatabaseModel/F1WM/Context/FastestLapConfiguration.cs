@@ -13,10 +13,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1fastestlaps");
 
 			builder.HasIndex(e => e.PositionOrStatus)
-				.HasName("frlpos");
+				.HasDatabaseName("frlpos");
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.HasIndex(e => e.Time);
 

@@ -12,13 +12,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1engines");
 
 			builder.HasIndex(e => e.Name)
-				.HasName("engine");
+				.HasDatabaseName("engine");
 
 			builder.HasIndex(e => e.EngineMakeId)
-				.HasName("enginemakeid");
+				.HasDatabaseName("enginemakeid");
 
 			builder.HasIndex(e => e.Letter)
-				.HasName("litera");
+				.HasDatabaseName("litera");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("engineid")

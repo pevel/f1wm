@@ -10,10 +10,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_config_text");
 
 			builder.HasIndex(e => e.Name)
-				.HasName("name");
+				.HasDatabaseName("name");
 
 			builder.HasIndex(e => e.SectionId)
-				.HasName("section");
+				.HasDatabaseName("section");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

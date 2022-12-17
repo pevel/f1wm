@@ -12,11 +12,11 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1tyres");
 
 			builder.HasIndex(e => e.Ascid)
-				.HasName("ascid")
+				.HasDatabaseName("ascid")
 				.IsUnique();
 
 			builder.HasIndex(e => e.Name)
-				.HasName("tyres");
+				.HasDatabaseName("tyres");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("tyresid")

@@ -17,7 +17,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.Ignore(e => e.Status);
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.Property(e => e.EntryId)
 				.HasColumnName("entryid")
@@ -85,7 +85,7 @@ namespace F1WM.DatabaseModel.Context
 				.WithMany(r => r.Qualifying)
 				.HasForeignKey(e => e.RaceId)
 				.HasPrincipalKey(r => r.Id);
-			
+
 			builder.HasOne(e => e.Entry)
 				.WithOne(e => e.Qualifying)
 				.HasForeignKey<Qualifying>(e => e.EntryId)

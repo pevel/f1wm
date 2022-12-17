@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using F1WM.Services;
 using Microsoft.AspNetCore.Http;
-using MySql.Data.MySqlClient;
+using MySqlConnector;
 using Newtonsoft.Json;
 
 namespace F1WM.Middlewares
@@ -37,7 +37,7 @@ namespace F1WM.Middlewares
 		private static Task HandleExceptionAsync(HttpContext context, Exception exception)
 		{
 			context.Response.ContentType = "application/json";
-			context.Response.StatusCode = (int) HttpStatusCode.InternalServerError;
+			context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
 			var message = ExceptionTypeToMessage().GetValueOrDefault(exception.GetType());
 			return context.Response.WriteAsync(JsonConvert.SerializeObject(new

@@ -11,13 +11,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1driverpoints");
 
 			builder.HasIndex(e => e.DriverId)
-				.HasName("driverid");
+				.HasDatabaseName("driverid");
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.HasIndex(e => e.SeasonId)
-				.HasName("seasonid");
+				.HasDatabaseName("seasonid");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")
@@ -37,7 +37,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("seasonid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
-			
+
 			builder.Property(e => e.Points)
 				.HasColumnName("points")
 				.HasColumnType("float");

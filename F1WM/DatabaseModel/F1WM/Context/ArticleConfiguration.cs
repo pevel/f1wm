@@ -12,10 +12,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_arts");
 
 			builder.HasIndex(e => e.Title)
-				.HasName("arttitle");
+				.HasDatabaseName("arttitle");
 
 			builder.HasIndex(e => e.ArticleCategoryId)
-				.HasName("catid");
+				.HasDatabaseName("catid");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("artid")

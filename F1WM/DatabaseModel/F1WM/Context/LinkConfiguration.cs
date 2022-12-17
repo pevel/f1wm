@@ -12,22 +12,22 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_linki");
 
 			builder.HasIndex(e => e.LCatgrp)
-				.HasName("l_catgrp");
+				.HasDatabaseName("l_catgrp");
 
 			builder.HasIndex(e => e.CategoryKey)
-				.HasName("l_catstr");
+				.HasDatabaseName("l_catstr");
 
 			builder.HasIndex(e => e.LData)
-				.HasName("l_data");
+				.HasDatabaseName("l_data");
 
 			builder.HasIndex(e => e.LNazwa)
-				.HasName("l_nazwa");
+				.HasDatabaseName("l_nazwa");
 
 			builder.HasIndex(e => e.LOcena)
-				.HasName("l_ocena");
+				.HasDatabaseName("l_ocena");
 
 			builder.HasIndex(e => e.LOdslony)
-				.HasName("l_odslony");
+				.HasDatabaseName("l_odslony");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("l_id")

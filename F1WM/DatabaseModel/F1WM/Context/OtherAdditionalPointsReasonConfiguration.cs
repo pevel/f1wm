@@ -10,7 +10,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_dodpktza");
 
 			builder.HasIndex(e => e.Description)
-				.HasName("opis");
+				.HasDatabaseName("opis");
 
 			builder.Property(e => e.Id).HasColumnName("id");
 

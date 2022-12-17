@@ -1,7 +1,5 @@
-using System;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace F1WM.DatabaseModel
 {
@@ -110,10 +108,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_arts_cats");
 
 				entity.HasIndex(e => e.Lastartid)
-					.HasName("lastartid");
+					.HasDatabaseName("lastartid");
 
 				entity.HasIndex(e => e.Ord)
-					.HasName("ord");
+					.HasDatabaseName("ord");
 
 				entity.Property(e => e.Catid)
 					.HasColumnName("catid")
@@ -161,10 +159,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_config_varchar");
 
 				entity.HasIndex(e => e.Name)
-					.HasName("name");
+					.HasDatabaseName("name");
 
 				entity.HasIndex(e => e.Section)
-					.HasName("section");
+					.HasDatabaseName("section");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -267,10 +265,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1glossary");
 
 				entity.HasIndex(e => e.Nameen)
-					.HasName("nameen");
+					.HasDatabaseName("nameen");
 
 				entity.HasIndex(e => e.Namepl)
-					.HasName("namepl");
+					.HasDatabaseName("namepl");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -302,7 +300,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_hideusercoms");
 
 				entity.HasIndex(e => e.Userid)
-					.HasName("userid");
+					.HasDatabaseName("userid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -326,7 +324,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1lapsled");
 
 				entity.HasIndex(e => e.Raceid)
-					.HasName("raceid");
+					.HasDatabaseName("raceid");
 
 				entity.Property(e => e.Entryid)
 					.HasColumnName("entryid")
@@ -351,10 +349,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_ligna");
 
 				entity.HasIndex(e => e.LId)
-					.HasName("l_id");
+					.HasDatabaseName("l_id");
 
 				entity.HasIndex(e => e.LSezon)
-					.HasName("l_sezon");
+					.HasDatabaseName("l_sezon");
 
 				entity.Property(e => e.LUid)
 					.HasColumnName("l_uid")
@@ -378,19 +376,19 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_log_zmian");
 
 				entity.HasIndex(e => e.ArtId)
-					.HasName("art_id");
+					.HasDatabaseName("art_id");
 
 				entity.HasIndex(e => e.CommId)
-					.HasName("comm_id");
+					.HasDatabaseName("comm_id");
 
 				entity.HasIndex(e => e.Data)
-					.HasName("data");
+					.HasDatabaseName("data");
 
 				entity.HasIndex(e => e.NewsId)
-					.HasName("news_id");
+					.HasDatabaseName("news_id");
 
 				entity.HasIndex(e => e.TextId)
-					.HasName("text_id");
+					.HasDatabaseName("text_id");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -460,7 +458,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_newseditordata");
 
 				entity.HasIndex(e => e.Name1)
-					.HasName("name1");
+					.HasDatabaseName("name1");
 
 				entity.Property(e => e.Dataid)
 					.HasColumnName("dataid")
@@ -501,10 +499,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1quotes");
 
 				entity.HasIndex(e => e.Date)
-					.HasName("date");
+					.HasDatabaseName("date");
 
 				entity.HasIndex(e => e.Raceid)
-					.HasName("raceid");
+					.HasDatabaseName("raceid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -609,13 +607,13 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_redakcja");
 
 				entity.HasIndex(e => e.Grupa)
-					.HasName("grupa");
+					.HasDatabaseName("grupa");
 
 				entity.HasIndex(e => e.Skroty)
-					.HasName("skroty");
+					.HasDatabaseName("skroty");
 
 				entity.HasIndex(e => e.Userid)
-					.HasName("userid");
+					.HasDatabaseName("userid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -700,7 +698,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_rezerwacje");
 
 				entity.HasIndex(e => e.Datarez)
-					.HasName("datarez");
+					.HasDatabaseName("datarez");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -759,7 +757,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_subskr");
 
 				entity.HasIndex(e => e.STime)
-					.HasName("s_time");
+					.HasDatabaseName("s_time");
 
 				entity.Property(e => e.SId)
 					.HasColumnName("s_id")
@@ -771,10 +769,7 @@ namespace F1WM.DatabaseModel
 					.HasMaxLength(100)
 					.HasDefaultValueSql("''");
 
-				entity.Property(e => e.SStatus)
-					.HasColumnName("s_status")
-					.HasColumnType("tinyint(1)")
-					.HasDefaultValueSql("'0'");
+				entity.Ignore(e => e.SStatus);
 
 				entity.Property(e => e.STime)
 					.HasColumnName("s_time")
@@ -787,7 +782,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_texts");
 
 				entity.HasIndex(e => e.Grupa)
-					.HasName("grupa");
+					.HasDatabaseName("grupa");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -822,19 +817,19 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("f1_zgloszone_bledy");
 
 				entity.HasIndex(e => e.ArtId)
-					.HasName("art_id");
+					.HasDatabaseName("art_id");
 
 				entity.HasIndex(e => e.CommId)
-					.HasName("comm_id");
+					.HasDatabaseName("comm_id");
 
 				entity.HasIndex(e => e.Data)
-					.HasName("data");
+					.HasDatabaseName("data");
 
 				entity.HasIndex(e => e.NewsId)
-					.HasName("news_id");
+					.HasDatabaseName("news_id");
 
 				entity.HasIndex(e => e.Typ)
-					.HasName("typ");
+					.HasDatabaseName("typ");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -944,10 +939,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_admskladniki");
 
 				entity.HasIndex(e => e.Nazwa)
-					.HasName("nazwa");
+					.HasDatabaseName("nazwa");
 
 				entity.HasIndex(e => new { e.Typ, e.Cena })
-					.HasName("typ_cena");
+					.HasDatabaseName("typ_cena");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1040,13 +1035,13 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_klasgen");
 
 				entity.HasIndex(e => e.Miejsce)
-					.HasName("miejsce");
+					.HasDatabaseName("miejsce");
 
 				entity.HasIndex(e => e.Nieaktywny)
-					.HasName("nieaktywny");
+					.HasDatabaseName("nieaktywny");
 
 				entity.HasIndex(e => e.Suma)
-					.HasName("suma");
+					.HasDatabaseName("suma");
 
 				entity.Property(e => e.Zespolid)
 					.HasColumnName("zespolid")
@@ -1238,7 +1233,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_klastyp");
 
 				entity.HasIndex(e => e.Sumatyp)
-					.HasName("sumatyp");
+					.HasDatabaseName("sumatyp");
 
 				entity.Property(e => e.Zespolid)
 					.HasColumnName("zespolid")
@@ -1390,13 +1385,13 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_ligi");
 
 				entity.HasIndex(e => e.Komentarze)
-					.HasName("komentarze");
+					.HasDatabaseName("komentarze");
 
 				entity.HasIndex(e => e.Nazwa)
-					.HasName("nazwa");
+					.HasDatabaseName("nazwa");
 
 				entity.HasIndex(e => e.Zespoly)
-					.HasName("zespoly");
+					.HasDatabaseName("zespoly");
 
 				entity.Property(e => e.Ligaid)
 					.HasColumnName("ligaid")
@@ -1444,10 +1439,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_ligi_koms");
 
 				entity.HasIndex(e => e.Czas)
-					.HasName("time");
+					.HasDatabaseName("time");
 
 				entity.HasIndex(e => e.Ligaid)
-					.HasName("ligaid");
+					.HasDatabaseName("ligaid");
 
 				entity.Property(e => e.Komid)
 					.HasColumnName("komid")
@@ -1485,10 +1480,10 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_sklady");
 
 				entity.HasIndex(e => e.Wyscnr)
-					.HasName("wyscnr");
+					.HasDatabaseName("wyscnr");
 
 				entity.HasIndex(e => e.Zespolid)
-					.HasName("zespolid");
+					.HasDatabaseName("zespolid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1575,24 +1570,24 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_zespoly");
 
 				entity.HasIndex(e => e.Email)
-					.HasName("email")
+					.HasDatabaseName("email")
 					.IsUnique();
 
 				entity.HasIndex(e => e.Haslo)
-					.HasName("haslo");
+					.HasDatabaseName("haslo");
 
 				entity.HasIndex(e => e.Ligaid)
-					.HasName("ligaid");
+					.HasDatabaseName("ligaid");
 
 				entity.HasIndex(e => e.Login)
-					.HasName("login")
+					.HasDatabaseName("login")
 					.IsUnique();
 
 				entity.HasIndex(e => e.Nazwa)
-					.HasName("nazwa");
+					.HasDatabaseName("nazwa");
 
 				entity.HasIndex(e => e.Wartosc)
-					.HasName("wartosc");
+					.HasDatabaseName("wartosc");
 
 				entity.Property(e => e.Zespolid)
 					.HasColumnName("zespolid")
@@ -1715,7 +1710,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("gpm_zwyciezcy");
 
 				entity.HasIndex(e => e.Wyscnr)
-					.HasName("wyscnr");
+					.HasDatabaseName("wyscnr");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1741,16 +1736,16 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("inne_klaskier");
 
 				entity.HasIndex(e => e.Kierowcaid)
-					.HasName("kierowcaid");
+					.HasDatabaseName("kierowcaid");
 
 				entity.HasIndex(e => e.Mistrz)
-					.HasName("mistrz");
+					.HasDatabaseName("mistrz");
 
 				entity.HasIndex(e => e.Seriaid)
-					.HasName("seriaid");
+					.HasDatabaseName("seriaid");
 
 				entity.HasIndex(e => e.Sezon)
-					.HasName("sezon");
+					.HasDatabaseName("sezon");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1790,13 +1785,13 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("inne_rezultaty_bk");
 
 				entity.HasIndex(e => e.Imprezaid)
-					.HasName("imprezaid");
+					.HasDatabaseName("imprezaid");
 
 				entity.HasIndex(e => e.Pozycja)
-					.HasName("pozycja");
+					.HasDatabaseName("pozycja");
 
 				entity.HasIndex(e => e.Zgloszenieid)
-					.HasName("zgloszenieid");
+					.HasDatabaseName("zgloszenieid");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1836,7 +1831,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("inne_terminy");
 
 				entity.HasIndex(e => e.Rokmies)
-					.HasName("rokmies");
+					.HasDatabaseName("rokmies");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1873,7 +1868,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("inne_zasady");
 
 				entity.HasIndex(e => new { e.Seriaid, e.Sezon })
-					.HasName("seriasezon");
+					.HasDatabaseName("seriasezon");
 
 				entity.Property(e => e.Id)
 					.HasColumnName("id")
@@ -1941,13 +1936,13 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("stat_ref");
 
 				entity.HasIndex(e => e.RefCzas)
-					.HasName("ref_czas");
+					.HasDatabaseName("ref_czas");
 
 				entity.HasIndex(e => e.RefRefdomid)
-					.HasName("ref_refdomid");
+					.HasDatabaseName("ref_refdomid");
 
 				entity.HasIndex(e => e.RefSciezka)
-					.HasName("ref_sciezka");
+					.HasDatabaseName("ref_sciezka");
 
 				entity.Property(e => e.RefId)
 					.HasColumnName("ref_id")
@@ -1983,7 +1978,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("stat_refdom");
 
 				entity.HasIndex(e => e.RefdomNazwa)
-					.HasName("refdom_nazwa");
+					.HasDatabaseName("refdom_nazwa");
 
 				entity.Property(e => e.RefdomId)
 					.HasColumnName("refdom_id")
@@ -2007,16 +2002,16 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("stat_sesje");
 
 				entity.HasIndex(e => e.SesjaAgentcrc)
-					.HasName("sesja_agentcrc");
+					.HasDatabaseName("sesja_agentcrc");
 
 				entity.HasIndex(e => e.SesjaCzas)
-					.HasName("sesja_czas");
+					.HasDatabaseName("sesja_czas");
 
 				entity.HasIndex(e => e.SesjaIp)
-					.HasName("sesja_ip");
+					.HasDatabaseName("sesja_ip");
 
 				entity.HasIndex(e => e.SesjaStart)
-					.HasName("sesja_start");
+					.HasDatabaseName("sesja_start");
 
 				entity.Property(e => e.SesjaId)
 					.HasColumnName("sesja_id")
@@ -2056,7 +2051,7 @@ namespace F1WM.DatabaseModel
 				entity.ToTable("stat_strony");
 
 				entity.HasIndex(e => e.StronaNazwa)
-					.HasName("strona_nazwa");
+					.HasDatabaseName("strona_nazwa");
 
 				entity.Property(e => e.StronaId)
 					.HasColumnName("strona_id")

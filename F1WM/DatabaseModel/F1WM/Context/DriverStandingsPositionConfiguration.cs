@@ -12,10 +12,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1drivercs");
 
 			builder.HasIndex(e => e.DriverId)
-				.HasName("driverid");
+				.HasDatabaseName("driverid");
 
 			builder.HasIndex(e => e.SeasonId)
-				.HasName("seasonid");
+				.HasDatabaseName("seasonid");
 
 			builder.HasIndex(e => e.Position);
 

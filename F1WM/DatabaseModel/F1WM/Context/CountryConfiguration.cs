@@ -12,7 +12,7 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1nations");
 
 			builder.HasIndex(e => e.Name)
-				.HasName("nacja");
+				.HasDatabaseName("nacja");
 
 			builder.Property(e => e.Key)
 				.HasColumnName("ascid")

@@ -17,10 +17,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.Ignore(e => e.Status);
 
 			builder.HasIndex(e => e.PositionOrStatus)
-				.HasName("endpos");
+				.HasDatabaseName("endpos");
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.HasIndex(e => e.Time);
 

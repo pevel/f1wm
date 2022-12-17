@@ -12,13 +12,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1cars");
 
 			builder.HasIndex(e => e.Name)
-				.HasName("car");
+				.HasDatabaseName("car");
 
 			builder.HasIndex(e => e.ContstructorId)
-				.HasName("carmakeid");
+				.HasDatabaseName("carmakeid");
 
 			builder.HasIndex(e => e.Litera)
-				.HasName("litera");
+				.HasDatabaseName("litera");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("carid")
@@ -52,7 +52,7 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("litera")
 				.HasColumnType("char(1)");
-			
+
 			builder.HasOne(e => e.Constructor)
 				.WithMany(c => c.Cars)
 				.HasForeignKey(e => e.ContstructorId)

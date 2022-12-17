@@ -12,10 +12,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1teamnames");
 
 			builder.HasIndex(e => e.TeamId)
-				.HasName("teamid");
+				.HasDatabaseName("teamid");
 
 			builder.HasIndex(e => e.FullName)
-				.HasName("teamname");
+				.HasDatabaseName("teamname");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("teamnameid")

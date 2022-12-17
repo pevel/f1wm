@@ -1,6 +1,5 @@
 //using System.Data.Entity;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace F1WM.DatabaseModel.Context
@@ -12,19 +11,19 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_imprezy");
 
 			builder.HasIndex(e => e.Rokmies)
-				.HasName("rokmies");
+				.HasDatabaseName("rokmies");
 
 			builder.HasIndex(e => e.OtherSeriesId)
-				.HasName("seriaid");
+				.HasDatabaseName("seriaid");
 
 			builder.HasIndex(e => e.Startgrupy)
-				.HasName("startgrupy");
+				.HasDatabaseName("startgrupy");
 
 			builder.HasIndex(e => new { e.Season, e.OtherSeriesId })
-				.HasName("sezon");
+				.HasDatabaseName("sezon");
 
 			builder.HasIndex(e => new { e.OtherSeriesId, e.Type, e.Laps })
-				.HasName("seria+typ+okr");
+				.HasDatabaseName("seria+typ+okr");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

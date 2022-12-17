@@ -12,16 +12,16 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_news_topics");
 
 			builder.HasIndex(e => e.CategoryId)
-				.HasName("cat_id");
+				.HasDatabaseName("cat_id");
 
 			builder.HasIndex(e => e.Searches)
-				.HasName("searches");
+				.HasDatabaseName("searches");
 
 			builder.HasIndex(e => e.Title)
-				.HasName("topic_title");
+				.HasDatabaseName("topic_title");
 
 			builder.HasIndex(e => new { e.CategoryId, e.Title })
-				.HasName("cat+title");
+				.HasDatabaseName("cat+title");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("topic_id")
@@ -41,7 +41,7 @@ namespace F1WM.DatabaseModel.Context
 				.IsRequired()
 				.HasColumnName("topic_title")
 				.HasMaxLength(25);
-			
+
 			builder.Property(e => e.Icon)
 				.HasColumnName("topic_icon")
 				.HasMaxLength(20);

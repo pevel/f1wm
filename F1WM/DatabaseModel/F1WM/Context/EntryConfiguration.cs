@@ -12,28 +12,28 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1entries");
 
 			builder.HasIndex(e => e.CarId)
-				.HasName("carid");
+				.HasDatabaseName("carid");
 
 			builder.HasIndex(e => e.CarMakeId)
-				.HasName("carmakeid");
+				.HasDatabaseName("carmakeid");
 
 			builder.HasIndex(e => e.DriverId)
-				.HasName("driverid");
+				.HasDatabaseName("driverid");
 
 			builder.HasIndex(e => e.EngineId)
-				.HasName("engineid");
+				.HasDatabaseName("engineid");
 
 			builder.HasIndex(e => e.EngineMakeId)
-				.HasName("enginemakeid");
+				.HasDatabaseName("enginemakeid");
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.HasIndex(e => e.TeamId)
-				.HasName("teamid");
+				.HasDatabaseName("teamid");
 
 			builder.HasIndex(e => e.TyresId)
-				.HasName("tyresid");
+				.HasDatabaseName("tyresid");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("entryid")
@@ -90,7 +90,7 @@ namespace F1WM.DatabaseModel.Context
 				.HasColumnName("tyresid")
 				.HasColumnType("mediumint unsigned")
 				.HasDefaultValueSql("'0'");
-			
+
 			builder.HasOne(e => e.Driver)
 				.WithMany(d => d.Entries)
 				.HasForeignKey(e => e.DriverId)

@@ -10,10 +10,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_serie");
 
 			builder.HasIndex(e => e.Name)
-				.HasName("nazwa");
+				.HasDatabaseName("nazwa");
 
 			builder.HasIndex(e => new { e.Status, e.Name })
-				.HasName("status");
+				.HasDatabaseName("status");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

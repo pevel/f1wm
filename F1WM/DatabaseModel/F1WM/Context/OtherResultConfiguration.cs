@@ -11,13 +11,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_rezultaty");
 
 			builder.HasIndex(e => e.EventId)
-				.HasName("imprezaid");
+				.HasDatabaseName("imprezaid");
 
 			builder.HasIndex(e => e.FinishPosition)
-				.HasName("pozycja");
+				.HasDatabaseName("pozycja");
 
 			builder.HasIndex(e => e.OtherEntryId)
-				.HasName("zgloszenieid");
+				.HasDatabaseName("zgloszenieid");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

@@ -10,16 +10,16 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_listystart");
 
 			builder.HasIndex(e => e.OtherDriverId)
-				.HasName("kierowcaid");
+				.HasDatabaseName("kierowcaid");
 
 			builder.HasIndex(e => e.Number)
-				.HasName("nr");
+				.HasDatabaseName("nr");
 
 			builder.HasIndex(e => e.OtherSeriesId)
-				.HasName("seriaid");
+				.HasDatabaseName("seriaid");
 
 			builder.HasIndex(e => e.Season)
-				.HasName("sezon");
+				.HasDatabaseName("sezon");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

@@ -11,13 +11,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1othersessions");
 
 			builder.HasIndex(e => e.EntryId)
-				.HasName("entryid");
+				.HasDatabaseName("entryid");
 
 			builder.HasIndex(e => e.RaceId)
-				.HasName("raceid");
+				.HasDatabaseName("raceid");
 
 			builder.HasIndex(e => e.FinishPosition)
-				.HasName("sespos");
+				.HasDatabaseName("sespos");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")

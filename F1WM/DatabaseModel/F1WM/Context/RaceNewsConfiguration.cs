@@ -12,10 +12,10 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1newsgp");
 
 			builder.HasIndex(e => e.Number)
-				.HasName("nr");
+				.HasDatabaseName("nr");
 
 			builder.HasIndex(e => e.Year)
-				.HasName("rok");
+				.HasDatabaseName("rok");
 
 			builder.Property(e => e.RaceId)
 				.HasColumnName("raceid")

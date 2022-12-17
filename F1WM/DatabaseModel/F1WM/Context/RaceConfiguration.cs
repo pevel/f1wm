@@ -12,13 +12,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1races");
 
 			builder.HasIndex(e => e.SeasonId)
-				.HasName("seasonid");
+				.HasDatabaseName("seasonid");
 
 			builder.HasIndex(e => e.TrackId)
-				.HasName("trackid");
+				.HasDatabaseName("trackid");
 
 			builder.HasIndex(e => e.Yearmonth)
-				.HasName("yearmonth");
+				.HasDatabaseName("yearmonth");
 
 			builder.HasIndex(e => e.Date);
 

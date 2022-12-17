@@ -13,14 +13,14 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1tracks");
 
 			builder.HasIndex(e => e.Key)
-				.HasName("ascid")
+				.HasDatabaseName("ascid")
 				.IsUnique();
 
 			builder.HasIndex(e => e.Status)
-				.HasName("status");
+				.HasDatabaseName("status");
 
 			builder.HasIndex(e => e.ShortName)
-				.HasName("track");
+				.HasDatabaseName("track");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("trackid")

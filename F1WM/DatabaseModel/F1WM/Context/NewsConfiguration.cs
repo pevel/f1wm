@@ -12,25 +12,25 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_news");
 
 			builder.HasIndex(e => e.Date)
-				.HasName("news_date");
+				.HasDatabaseName("news_date");
 
 			builder.HasIndex(e => e.NewsDateym)
-				.HasName("news_dateym");
+				.HasDatabaseName("news_dateym");
 
 			builder.HasIndex(e => e.PosterName)
-				.HasName("poster_name");
+				.HasDatabaseName("poster_name");
 
 			builder.HasIndex(e => new { e.NewsHidden, e.Date })
-				.HasName("hidden_date");
+				.HasDatabaseName("hidden_date");
 
 			builder.HasIndex(e => new { e.Title, e.Subtitle })
-				.HasName("titles");
+				.HasDatabaseName("titles");
 
 			builder.HasIndex(e => new { e.TypeId, e.Date })
-				.HasName("news_type");
+				.HasDatabaseName("news_type");
 
 			builder.HasIndex(e => new { e.TypeId, e.NewsHidden, e.Date })
-				.HasName("type_hidden_date");
+				.HasDatabaseName("type_hidden_date");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("news_id")

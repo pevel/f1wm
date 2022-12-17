@@ -12,13 +12,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("f1_news_coms");
 
 			builder.HasIndex(e => e.UnixTime)
-				.HasName("comm_time");
+				.HasDatabaseName("comm_time");
 
 			builder.HasIndex(e => e.NewsId)
-				.HasName("news_id");
+				.HasDatabaseName("news_id");
 
 			builder.HasIndex(e => e.PosterId)
-				.HasName("poster_id");
+				.HasDatabaseName("poster_id");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("comm_id")

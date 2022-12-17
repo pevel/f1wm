@@ -10,13 +10,13 @@ namespace F1WM.DatabaseModel.Context
 			builder.ToTable("inne_kierowcy");
 
 			builder.HasIndex(e => e.F1ascid)
-				.HasName("f1ascid");
+				.HasDatabaseName("f1ascid");
 
 			builder.HasIndex(e => e.Litera)
-				.HasName("litera");
+				.HasDatabaseName("litera");
 
 			builder.HasIndex(e => e.Surname)
-				.HasName("nazwisko");
+				.HasDatabaseName("nazwisko");
 
 			builder.Property(e => e.Id)
 				.HasColumnName("id")
