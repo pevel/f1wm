@@ -1,59 +1,60 @@
 sudo: required
 language: minimal
+dist: jammy
 services:
-- docker
+  - docker
 cache:
   directories:
-  - $HOME/images
+    - $HOME/images
 before_cache:
   - shopt -s extglob && cd $HOME/images && rm -rf !($TRAVIS_BUILD_ID)
 jobs:
   include:
-  - stage: build and run unit tests
-    if: tag IS blank && type != pull_request
-    script:
-    - docker build --build-arg BRANCH=$TRAVIS_BRANCH -t f1wm:latest .
-    - mkdir -p $HOME/images/$TRAVIS_BUILD_ID
-    - docker save f1wm:latest >> $HOME/images/$TRAVIS_BUILD_ID/f1wm
-  - stage: deploy to testing
-    if: tag IS blank && type != pull_request
-    env:
-    # DeployUser
-    - secure: nxwFVSuA4n6UzNO2kICwMdRBA62iZE681nc5nrhjoBV1mbObCl8z7pSHkGcRVym4IPJXVvm+QCbNn+qLdbHQNHmYaxBQdXDMhfQjjlHpUfofiWDJmZsNJsAFRR/l0kGmEIR3CvkaLs0EiClguAT6Wj8iuzQVYeeG0yFLbYae01e90XQe4V3SowHxADmRUlmqmOGAMLjVpoN1BJmlSAGyHONkMhGir8V7/1uNP4Qa1PenyZBsWywRiHAELXHh1k9RJXiKC0nXRFSK16SfR1+nqNqUBc6ZKNkzfkaNvaEdH5yRxzk4Gd+0J9ZCNiXLfhGpElgCgGQIbsJDkMx9FfSP0gl/gabku2g1EJC0pfw/U8rM1uc+qccEBtfuLkkuO48Jem6A0uZlcnGKCPT1rnrWAwK5aURmCCIzNAzo0qTS9IX7V22UAFuCedfS3Tyao+CMmeKvqTZcZ4lYifBz5uQbRO5z5GS47pDerjp4HydyurqreZYfQJuwWiwR0UJVthvWi+1n2piouZikiYOrRK+hYpW5e+HvzAn+KU8zUbNcBO/ExsCYdybgCInm4G+JWjjEbroAHl0FeZbOy09Kjcci6R2gMZxmkI3VcxQHxAvNqgAGPlzPL0lag0HZIephAftqqkImlEpnl8llO6eF11gsgHeaGP+PUoYu64DXeR7W0+I=
-    # DeployServer
-    - secure: oHoqq2uQq4TE89/wTBE7EU6brKy/OhKl9UjeeD60Lr4ldhFxlVzVub6lQKhm1TGGpLRbomc6aJtzcVLSzkEYXZuUEEREKbp4tyZQxmUuvMAs+OqNb6L+mUxxyECmTf6L5IIeNOWAJDJv34NMivwg80ykLHpXTB84ZPmyGDFq1hCHw8mD38v+U+WZz1cpO+go7cM1o3tneNwR4L068ZH6o33QBsTHi6E7c8TGUZ3qUR3fGSzuQaSzRfHuc/HUK+tIJt2SmQN5C5e3pUM9/CJ01GdCOjfVkwXchR7IMrg3hj4bR904yZRR05zftIgFaZiB7vmmI02E3PSr57WZvBoJJmJ9wjrLJOcmWlQBxCCkbNrpnqrm15H4ap8tGe2gRgowLU2wqKpBO3b6jOaA5+beu+rZUphoTWRVhFmoFDhyvaLURscilzFrdKeaUOnZxDFexKPTIDmABvzdf+JgwoVaEj5mhNZlWjpopkRo9LauUnIuUC+3Hh53xglK/TehIbPKRLCCCwnBfPgZdbciARvLyAgUDQFIPThZUWEXOwgAmL1jK7PRJeXOVF611OoQjlHyxHUVjbkMqm9lZEUMZOxqmZ7VRxyEVvL0Fj+4BVeyp64ahYzybwABPpbVr54JP8G/bA6N5y8mMVq++IDr5aWm8p8OaUSijV6eWJ4wlMY+CWU=
-    # Phrase
-    - secure: sgx2U9/yB84DVejW/ChBwTHzFjT4u9pCZ/VUa2MNBy6RkNUCZbsprD/MTUQbvVHvqN2JTcZhfXqj1+Y5LJIRHsOg6fR3+PZRsYi3oBaylYc5laOGGMCDgCRh+OHBE/k85Ue2YAJ/2MRGE7PiyCJePerwxQKgMLTLvUBoqbor9tGs2Natjmu2px6ZyaQrwvy6mPDz904cxwX8Q8afoJLImYC3SEWUUOQZTdNdUOvO5ILjqO2li/heg6MN/RWeAdN8dfhUtjLf6jTQKhY3RCdq71xzE8O5tnZ5r2sLjsZ9fMiiBEErs5/aGsDk7IR1DTcpHfGF3PkMQUCIyN9j4iHOaclg2lTeYYtT33V+AMduG7jIBlj96GOb0MKwef1YByJ8ImFWpDWjWBCZaHSbVIiFhSy9x0AbNuoN5Zoqq36KL5jpLe2aBySEVJ8XTmM6lxruWC5uy051E0jLIk0pH50mD5LZaPNXyG1rXcMhAWMdklJcUrhlkgrk2f9z4gAh0koG7vs/dP/NpTbNYTnwfn1Iu65HoVW8d+/KjItucd+E9c2A+/GyP6jXRpbaQkxfqbt5eQylBQEHHTOeyvPcdca9UMk/FhdHH70mDBPLaSbJd44JEQ0qyXjT12S/hlAnqqbvq/55gniAaRuZULDXFchSC5JaaoW1cp5G5kdi+J19DcY=
-    # DeployServerPort
-    - secure: LrI6u8Z65bt9ik11MOf4unxq2aRqz07LTDtvK0D8IwNd/3WKky5ewIM1+sAMeSD041f12ga4GE0BMoKUeQvFnD9EDLri0KCDLmj76YNJdSpidY42LjgNiuiAIQhqm/qWIRsHOoh59QmrdfnNTM357JoPbdSxEkgo94jAMSRMpg9Lv7mYBzWWwiGCm5n1CiWJm4dQb8mr8p2h4iL0lQm3CyLMrfdiR+uk8fkVBQ3IHOGHTsyD78NJLroIcMceRB+dcw1w8c4/73Ii5yg5wkLTP63JyhjbbJdzLg7Sdp2aP7PfxmsxuvekNFQOlmADVHgJtEHAdHsD1BQM1GJ8JeIb7R2jWgKOeLWqrM8UvN80JvjKnhHGG6EacGOpOnjeDc0gPaLPh95ihvEbdh/nv2pb8br0BVlwDGs07ClJN1/6lNZDX6sMT8EkhgVc0YgJDoME7SGb8Y66u831KCIz2oRaoJ7OmorzphFegsTJe0SYSWuKmgiifKC6kLqs2T4ePsbdVc05sGVKVyuYfYThhGojbHAw4cHLL7b6N5I3lHq3/FDEDUnb840tg4tfYM/UW2rI8T5x7Ju/8MtGR1R20YdQx3tRSTNHQRlu7fWhlBrtCbA+dk8+4P7Fj4Ok0LvIU4c2cd9DkoT/sghUi8zfgSU/dtfbOcpp7w91nmG3/g/y0yY=
-    script:
-    - openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
-    - eval "$(ssh-agent -s)"
-    - chmod 600 /tmp/deploy_rsa
-    - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
-    - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
-    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
-    - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
-    - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
-    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
-  - stage: deploy to production
-    if: tag IS blank && branch = master && type != pull_request
-    env:
-    # DeployUser
-    - secure: DP5mwCng+/PG3mX7hRhybS2MIfYhso/i8IIbYNVGtZanww3wCK4zkHgIlkUgtIiUrmwzOm1VsE3WctKpAlZO281zPyuN+gZ58DqdeR1UFKpA0yH4HzYLm+x02whAVurhASLveWFKYq+K0kZJVvENEXrVh9TToOaC7YSbIE1m9V1F9HBNCLxkZgs072xR2Lc7TIIyKUbjJPDbjjG1rL//X87M1rd7x3B7ss5qIZqQYWwTvSXvHjs5/vDbbiMXthaqvTIKMcnYdxqxrXe6DjQosx2+0QuRcBGVzppxACkAjv9ZGTFD/wgfpW8/5VLMthzUJYArusBgOSYjH4vbGiNQTMvWbk5d89Pmb3Jmt0qn7tUEuEAlCY2Dr9VBoIXT7LIfJ9S2as5wPvu8s4St/0zfv7IzTy2VEzArH5K9GqM+G43UqRPGMEljEA6HhWKkpUPQLWcqA6Ee3Dp3eIOn9DUcnZ5hpQSglE4B6pWPACKKXfrhDwXb8S3VtY8hgUfwWubKEEv5A5MvPcW4YXHeFJMSJKZnVzvhtnouKaHikfbeqyanKaIAfVp7uKQqwU+TfL9p9+3vFp3i6eQ8Q3mCV1CsjJSN8tQFo9QElM0dZOYt1J+7PQbpvfCor7BRzl2TykLQNDdtTPfymi/2Av4EhursBr7QuJHjFe2KjSTvWSZoRAw=
-    # DeployServer
-    - secure: fajZ/HbNryJeXvpNcQ1o1WWi8+NZFhBeze0dHd86HauaYu64T+Pr1h4zAlR6ZzrN+08qRSSFJZjLVU6BacjAMlJAQj7SPUh8J2SinyMdUgnzFYRZGgvHYLeQBjQq3sV9yVbJM3h4HN5nkixYyD4t92Lu6wP4y48xmfp0R7ZTRq/ZAIC10cJAapRweUIRKAqmjQs9z0OZh7BLLyUizxoGk0Zv9Ae7HOFSCRlTq3TL/RVw0IWWQHeiJv8tIMEbQ6Mmqv6ROg0PK5CRgrBmbPZ4zDKoLAjjDvbi8uH9QtreBZzcGnUriVV8gRxk3AJE+JHBtaCKFd5JZqKEyS2JNXKnDZWDZFKdcViD19FGWaN/9fvPaNfYhDm+nHClss4XQakHQadrG732GVRac2Da/Au6+zzRDP9nqOk3k8xvVr+5wIR9Y5tltbER4kUJ6WTvt4yW4dHjuNYWbdVfUjWmGkhQLLrUNAcWp8cBkR/3A49PbTzDexFasedg3I7XoaBt+/tde5PakKDXwSwxuBOQKj8GaA+MoHG2iPWXZvz906m9C56y9Xw05zxL5tODPRamCHwY/7+KzaBLnWzJ6/7ewfWTQ/QRnZ9mjCPZXq8bH9u/GU1+5KhgYHZNr5WZ7SuB/zTzGeM90muMqUZZMextIGoWyLq8psyQdlTfF8vNA+ZgkSo=
-    # Phrase
-    - secure: C8Yqv33RVxGLO4WUk17F9DZUhcjAuM0q8L+YHSP09cxQnclUwUnGwOWXzErgWxK1UzVkrGSVG82SpYAM85W7ekl6ssDWNR4UOpD32YmVjX6M9yPfW5ZcPtYUuGPZdelGvmOnoIrmT3g1lhe7xMqPssrK0DTm7zddHE/QjK8TqgR2z5KuROF5hO8bJuXX+XYyfbEEhK36zipUd8tlGCf7Eu3jbgdfjG1E62f01HbbIRBvJaW+D7drGQAWB89EOv8BEHOcBQ1fDjSfRf3rfMh1/7m+mIBHGV10cZqawm766VTkKKFj81Z2kEePnfLIgggqhw7Hz6ANPyRpXfL+e3o4cYZpmmNHzvZbgJBAQHNZehIeCatFvnGvRXlKxJt8cxQ4Ieev+wKhs0POOcVwOhAy8kNglwk1V+85QvBGuR2Y3eXKx1DexKHmAExSd/cxKLOpYTCCxXj9UIipYoPmo/9JBb1oy5BGnMaWEAXWdUUSON8lkkOJYUWGUlvR1P8zqzJNL29w9iRJaKNGDTqAayKUUMJ9rFTjgxcFkmdHAfF5A1mbIqzFfDHM/nfkKQRrH2Wr1VSNlrKHyyK7DxpFVAA0pNw+BAcscKN4wIPLvYVPhecHyM04lJIBTDmlKs2h3c6sPdzwAqdCZ2PHjBkk5OaYF1Tl6qGElgiz7d15hMWNOFc=
-    # DeployServerPort
-    - secure: TGb4F8m1R+seUxXhqUkjz/P86DcjHA1hVo+jIf6rVDZpDASyhBSgRpskf6ylnE3S7QlMX65sMFregJtSFFxvHqNv5R3VnDZuVilhSjOvglwbypG+MYV705S7q70MuVnZgikNNGK/KzwXDUvFOj5JNRk3A8DphGAp254iu/2qA6RoMHZGMQ5Q+S4SYV5P0UUsfyhRg47DR53Xw/YRkm9yopn7qP4RBqnMJzfPfTbKa/B29rEaqCA8HQe1rwuBEl/HvULwz5nywGNCI7on/yMJeDO1vLk9zS3JdifUReRgSiBP8UqxjSBzv1AKNCjkn9O3/2cealMgZEYYS36jmB4WTsxbls7QkPpEEUrmJTZ8WLmxNW1hd3u5AhTWvd+TES1WMfJlJhLdrqbT74dGCPLRjzylBpeuvItf/yZtqRG87KrrAMLSiyG1MXzw46XEBsRhgAoNp5K8+zsiG2Y49WTT0aeynLKzVYpwMATMm/gGSuKKydz22QRvu4tsUufWF2nhGoOv02pZbFU/dqOUpfAYUch9YSgV7GYfqqjkEn3XJDRInxgiSUzE9A8+dZ6zKl5AarUe6Cvf6oITRfRpjw42SOfRc6EuLln6+j3wRshxvL1GCqNytxdfLTBQxYNBZDC7qOEKrI/ib2H/HpWVaXYd4uItYcAQJRX+g1g/Vl/FlXU=
-    script:
-    - openssl aes-256-cbc -K $encrypted_99ff30965b08_key -iv $encrypted_99ff30965b08_iv -in deploy_rsa_2.enc -out /tmp/deploy_rsa -d
-    - eval "$(ssh-agent -s)"
-    - chmod 600 /tmp/deploy_rsa
-    - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
-    - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
-    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
-    - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
-    - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
-    - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
+    - stage: build and run unit tests
+      if: tag IS blank && type != pull_request
+      script:
+        - docker build --build-arg BRANCH=$TRAVIS_BRANCH -t f1wm:latest .
+        - mkdir -p $HOME/images/$TRAVIS_BUILD_ID
+        - docker save f1wm:latest >> $HOME/images/$TRAVIS_BUILD_ID/f1wm
+    - stage: deploy to testing
+      if: tag IS blank && type != pull_request
+      env:
+        # DeployUser
+        - secure: nxwFVSuA4n6UzNO2kICwMdRBA62iZE681nc5nrhjoBV1mbObCl8z7pSHkGcRVym4IPJXVvm+QCbNn+qLdbHQNHmYaxBQdXDMhfQjjlHpUfofiWDJmZsNJsAFRR/l0kGmEIR3CvkaLs0EiClguAT6Wj8iuzQVYeeG0yFLbYae01e90XQe4V3SowHxADmRUlmqmOGAMLjVpoN1BJmlSAGyHONkMhGir8V7/1uNP4Qa1PenyZBsWywRiHAELXHh1k9RJXiKC0nXRFSK16SfR1+nqNqUBc6ZKNkzfkaNvaEdH5yRxzk4Gd+0J9ZCNiXLfhGpElgCgGQIbsJDkMx9FfSP0gl/gabku2g1EJC0pfw/U8rM1uc+qccEBtfuLkkuO48Jem6A0uZlcnGKCPT1rnrWAwK5aURmCCIzNAzo0qTS9IX7V22UAFuCedfS3Tyao+CMmeKvqTZcZ4lYifBz5uQbRO5z5GS47pDerjp4HydyurqreZYfQJuwWiwR0UJVthvWi+1n2piouZikiYOrRK+hYpW5e+HvzAn+KU8zUbNcBO/ExsCYdybgCInm4G+JWjjEbroAHl0FeZbOy09Kjcci6R2gMZxmkI3VcxQHxAvNqgAGPlzPL0lag0HZIephAftqqkImlEpnl8llO6eF11gsgHeaGP+PUoYu64DXeR7W0+I=
+        # DeployServer
+        - secure: oHoqq2uQq4TE89/wTBE7EU6brKy/OhKl9UjeeD60Lr4ldhFxlVzVub6lQKhm1TGGpLRbomc6aJtzcVLSzkEYXZuUEEREKbp4tyZQxmUuvMAs+OqNb6L+mUxxyECmTf6L5IIeNOWAJDJv34NMivwg80ykLHpXTB84ZPmyGDFq1hCHw8mD38v+U+WZz1cpO+go7cM1o3tneNwR4L068ZH6o33QBsTHi6E7c8TGUZ3qUR3fGSzuQaSzRfHuc/HUK+tIJt2SmQN5C5e3pUM9/CJ01GdCOjfVkwXchR7IMrg3hj4bR904yZRR05zftIgFaZiB7vmmI02E3PSr57WZvBoJJmJ9wjrLJOcmWlQBxCCkbNrpnqrm15H4ap8tGe2gRgowLU2wqKpBO3b6jOaA5+beu+rZUphoTWRVhFmoFDhyvaLURscilzFrdKeaUOnZxDFexKPTIDmABvzdf+JgwoVaEj5mhNZlWjpopkRo9LauUnIuUC+3Hh53xglK/TehIbPKRLCCCwnBfPgZdbciARvLyAgUDQFIPThZUWEXOwgAmL1jK7PRJeXOVF611OoQjlHyxHUVjbkMqm9lZEUMZOxqmZ7VRxyEVvL0Fj+4BVeyp64ahYzybwABPpbVr54JP8G/bA6N5y8mMVq++IDr5aWm8p8OaUSijV6eWJ4wlMY+CWU=
+        # Phrase
+        - secure: sgx2U9/yB84DVejW/ChBwTHzFjT4u9pCZ/VUa2MNBy6RkNUCZbsprD/MTUQbvVHvqN2JTcZhfXqj1+Y5LJIRHsOg6fR3+PZRsYi3oBaylYc5laOGGMCDgCRh+OHBE/k85Ue2YAJ/2MRGE7PiyCJePerwxQKgMLTLvUBoqbor9tGs2Natjmu2px6ZyaQrwvy6mPDz904cxwX8Q8afoJLImYC3SEWUUOQZTdNdUOvO5ILjqO2li/heg6MN/RWeAdN8dfhUtjLf6jTQKhY3RCdq71xzE8O5tnZ5r2sLjsZ9fMiiBEErs5/aGsDk7IR1DTcpHfGF3PkMQUCIyN9j4iHOaclg2lTeYYtT33V+AMduG7jIBlj96GOb0MKwef1YByJ8ImFWpDWjWBCZaHSbVIiFhSy9x0AbNuoN5Zoqq36KL5jpLe2aBySEVJ8XTmM6lxruWC5uy051E0jLIk0pH50mD5LZaPNXyG1rXcMhAWMdklJcUrhlkgrk2f9z4gAh0koG7vs/dP/NpTbNYTnwfn1Iu65HoVW8d+/KjItucd+E9c2A+/GyP6jXRpbaQkxfqbt5eQylBQEHHTOeyvPcdca9UMk/FhdHH70mDBPLaSbJd44JEQ0qyXjT12S/hlAnqqbvq/55gniAaRuZULDXFchSC5JaaoW1cp5G5kdi+J19DcY=
+        # DeployServerPort
+        - secure: LrI6u8Z65bt9ik11MOf4unxq2aRqz07LTDtvK0D8IwNd/3WKky5ewIM1+sAMeSD041f12ga4GE0BMoKUeQvFnD9EDLri0KCDLmj76YNJdSpidY42LjgNiuiAIQhqm/qWIRsHOoh59QmrdfnNTM357JoPbdSxEkgo94jAMSRMpg9Lv7mYBzWWwiGCm5n1CiWJm4dQb8mr8p2h4iL0lQm3CyLMrfdiR+uk8fkVBQ3IHOGHTsyD78NJLroIcMceRB+dcw1w8c4/73Ii5yg5wkLTP63JyhjbbJdzLg7Sdp2aP7PfxmsxuvekNFQOlmADVHgJtEHAdHsD1BQM1GJ8JeIb7R2jWgKOeLWqrM8UvN80JvjKnhHGG6EacGOpOnjeDc0gPaLPh95ihvEbdh/nv2pb8br0BVlwDGs07ClJN1/6lNZDX6sMT8EkhgVc0YgJDoME7SGb8Y66u831KCIz2oRaoJ7OmorzphFegsTJe0SYSWuKmgiifKC6kLqs2T4ePsbdVc05sGVKVyuYfYThhGojbHAw4cHLL7b6N5I3lHq3/FDEDUnb840tg4tfYM/UW2rI8T5x7Ju/8MtGR1R20YdQx3tRSTNHQRlu7fWhlBrtCbA+dk8+4P7Fj4Ok0LvIU4c2cd9DkoT/sghUi8zfgSU/dtfbOcpp7w91nmG3/g/y0yY=
+      script:
+        - openssl aes-256-cbc -K $encrypted_7c37596a1d46_key -iv $encrypted_7c37596a1d46_iv -in deploy_rsa.enc -out /tmp/deploy_rsa -d
+        - eval "$(ssh-agent -s)"
+        - chmod 600 /tmp/deploy_rsa
+        - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
+        - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
+        - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
+        - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
+        - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
+        - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
+    - stage: deploy to production
+      if: tag IS blank && branch = master && type != pull_request
+      env:
+        # DeployUser
+        - secure: DP5mwCng+/PG3mX7hRhybS2MIfYhso/i8IIbYNVGtZanww3wCK4zkHgIlkUgtIiUrmwzOm1VsE3WctKpAlZO281zPyuN+gZ58DqdeR1UFKpA0yH4HzYLm+x02whAVurhASLveWFKYq+K0kZJVvENEXrVh9TToOaC7YSbIE1m9V1F9HBNCLxkZgs072xR2Lc7TIIyKUbjJPDbjjG1rL//X87M1rd7x3B7ss5qIZqQYWwTvSXvHjs5/vDbbiMXthaqvTIKMcnYdxqxrXe6DjQosx2+0QuRcBGVzppxACkAjv9ZGTFD/wgfpW8/5VLMthzUJYArusBgOSYjH4vbGiNQTMvWbk5d89Pmb3Jmt0qn7tUEuEAlCY2Dr9VBoIXT7LIfJ9S2as5wPvu8s4St/0zfv7IzTy2VEzArH5K9GqM+G43UqRPGMEljEA6HhWKkpUPQLWcqA6Ee3Dp3eIOn9DUcnZ5hpQSglE4B6pWPACKKXfrhDwXb8S3VtY8hgUfwWubKEEv5A5MvPcW4YXHeFJMSJKZnVzvhtnouKaHikfbeqyanKaIAfVp7uKQqwU+TfL9p9+3vFp3i6eQ8Q3mCV1CsjJSN8tQFo9QElM0dZOYt1J+7PQbpvfCor7BRzl2TykLQNDdtTPfymi/2Av4EhursBr7QuJHjFe2KjSTvWSZoRAw=
+        # DeployServer
+        - secure: fajZ/HbNryJeXvpNcQ1o1WWi8+NZFhBeze0dHd86HauaYu64T+Pr1h4zAlR6ZzrN+08qRSSFJZjLVU6BacjAMlJAQj7SPUh8J2SinyMdUgnzFYRZGgvHYLeQBjQq3sV9yVbJM3h4HN5nkixYyD4t92Lu6wP4y48xmfp0R7ZTRq/ZAIC10cJAapRweUIRKAqmjQs9z0OZh7BLLyUizxoGk0Zv9Ae7HOFSCRlTq3TL/RVw0IWWQHeiJv8tIMEbQ6Mmqv6ROg0PK5CRgrBmbPZ4zDKoLAjjDvbi8uH9QtreBZzcGnUriVV8gRxk3AJE+JHBtaCKFd5JZqKEyS2JNXKnDZWDZFKdcViD19FGWaN/9fvPaNfYhDm+nHClss4XQakHQadrG732GVRac2Da/Au6+zzRDP9nqOk3k8xvVr+5wIR9Y5tltbER4kUJ6WTvt4yW4dHjuNYWbdVfUjWmGkhQLLrUNAcWp8cBkR/3A49PbTzDexFasedg3I7XoaBt+/tde5PakKDXwSwxuBOQKj8GaA+MoHG2iPWXZvz906m9C56y9Xw05zxL5tODPRamCHwY/7+KzaBLnWzJ6/7ewfWTQ/QRnZ9mjCPZXq8bH9u/GU1+5KhgYHZNr5WZ7SuB/zTzGeM90muMqUZZMextIGoWyLq8psyQdlTfF8vNA+ZgkSo=
+        # Phrase
+        - secure: C8Yqv33RVxGLO4WUk17F9DZUhcjAuM0q8L+YHSP09cxQnclUwUnGwOWXzErgWxK1UzVkrGSVG82SpYAM85W7ekl6ssDWNR4UOpD32YmVjX6M9yPfW5ZcPtYUuGPZdelGvmOnoIrmT3g1lhe7xMqPssrK0DTm7zddHE/QjK8TqgR2z5KuROF5hO8bJuXX+XYyfbEEhK36zipUd8tlGCf7Eu3jbgdfjG1E62f01HbbIRBvJaW+D7drGQAWB89EOv8BEHOcBQ1fDjSfRf3rfMh1/7m+mIBHGV10cZqawm766VTkKKFj81Z2kEePnfLIgggqhw7Hz6ANPyRpXfL+e3o4cYZpmmNHzvZbgJBAQHNZehIeCatFvnGvRXlKxJt8cxQ4Ieev+wKhs0POOcVwOhAy8kNglwk1V+85QvBGuR2Y3eXKx1DexKHmAExSd/cxKLOpYTCCxXj9UIipYoPmo/9JBb1oy5BGnMaWEAXWdUUSON8lkkOJYUWGUlvR1P8zqzJNL29w9iRJaKNGDTqAayKUUMJ9rFTjgxcFkmdHAfF5A1mbIqzFfDHM/nfkKQRrH2Wr1VSNlrKHyyK7DxpFVAA0pNw+BAcscKN4wIPLvYVPhecHyM04lJIBTDmlKs2h3c6sPdzwAqdCZ2PHjBkk5OaYF1Tl6qGElgiz7d15hMWNOFc=
+        # DeployServerPort
+        - secure: TGb4F8m1R+seUxXhqUkjz/P86DcjHA1hVo+jIf6rVDZpDASyhBSgRpskf6ylnE3S7QlMX65sMFregJtSFFxvHqNv5R3VnDZuVilhSjOvglwbypG+MYV705S7q70MuVnZgikNNGK/KzwXDUvFOj5JNRk3A8DphGAp254iu/2qA6RoMHZGMQ5Q+S4SYV5P0UUsfyhRg47DR53Xw/YRkm9yopn7qP4RBqnMJzfPfTbKa/B29rEaqCA8HQe1rwuBEl/HvULwz5nywGNCI7on/yMJeDO1vLk9zS3JdifUReRgSiBP8UqxjSBzv1AKNCjkn9O3/2cealMgZEYYS36jmB4WTsxbls7QkPpEEUrmJTZ8WLmxNW1hd3u5AhTWvd+TES1WMfJlJhLdrqbT74dGCPLRjzylBpeuvItf/yZtqRG87KrrAMLSiyG1MXzw46XEBsRhgAoNp5K8+zsiG2Y49WTT0aeynLKzVYpwMATMm/gGSuKKydz22QRvu4tsUufWF2nhGoOv02pZbFU/dqOUpfAYUch9YSgV7GYfqqjkEn3XJDRInxgiSUzE9A8+dZ6zKl5AarUe6Cvf6oITRfRpjw42SOfRc6EuLln6+j3wRshxvL1GCqNytxdfLTBQxYNBZDC7qOEKrI/ib2H/HpWVaXYd4uItYcAQJRX+g1g/Vl/FlXU=
+      script:
+        - openssl aes-256-cbc -K $encrypted_99ff30965b08_key -iv $encrypted_99ff30965b08_iv -in deploy_rsa_2.enc -out /tmp/deploy_rsa -d
+        - eval "$(ssh-agent -s)"
+        - chmod 600 /tmp/deploy_rsa
+        - install -vm700 <(echo "echo $Phrase") "/tmp/ps.sh"
+        - cat /tmp/deploy_rsa | SSH_ASKPASS="/tmp/ps.sh" DISPLAY=:0 ssh-add -
+        - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'mkdir -p build/F1WM/F1WM-context'
+        - scp -P $DeployServerPort -o "StrictHostKeyChecking no" docker-compose.yml $DeployUser@$DeployServer:~/build/F1WM
+        - cat $HOME/images/$TRAVIS_BUILD_ID/f1wm | bzip2 | ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'bunzip2 | docker load'
+        - ssh -p $DeployServerPort -o "StrictHostKeyChecking no" $DeployUser@$DeployServer 'docker-compose -f ~/build/F1WM/docker-compose.yml -f ~/docker-compose.yml up -d --no-build'
