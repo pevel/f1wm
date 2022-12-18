@@ -44,7 +44,10 @@ namespace F1WM.Startups
 			{
 				throw new SystemException("Database connection string is missing in configuration.");
 			}
-			options.UseMySql(connectionString, new MySqlServerVersion(new Version(5, 7)));
+			options.UseMySql(connectionString, new MySqlServerVersion(new Version(5, 7)), builder =>
+			{
+				builder.EnableStringComparisonTranslations();
+			});
 		}
 	}
 }
