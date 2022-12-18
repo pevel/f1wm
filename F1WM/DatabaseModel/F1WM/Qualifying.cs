@@ -4,8 +4,8 @@ namespace F1WM.DatabaseModel
 {
 	public class Qualifying
 	{
-		public uint EntryId { get; set; }
-		public uint RaceId { get; set; }
+		public int EntryId { get; set; }
+		public int RaceId { get; set; }
 		public string PositionOrStatus { get; set; }
 		public int? FinishPosition { get; set; }
 		public string Status { get; set; }

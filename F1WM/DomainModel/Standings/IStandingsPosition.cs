@@ -2,7 +2,7 @@ namespace F1WM.DomainModel
 {
 	public interface IStandingsPosition
 	{
-		uint Id { get; set; }
+		int Id { get; set; }
 		float Points { get; set; }
 	}
 }

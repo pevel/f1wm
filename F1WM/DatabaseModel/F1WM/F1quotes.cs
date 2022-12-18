@@ -1,16 +1,15 @@
 using System;
-using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
 	public class F1quotes
 	{
-		public uint Id { get; set; }
-		public uint Raceid { get; set; }
+		public int Id { get; set; }
+		public int Raceid { get; set; }
 		public byte Qtype { get; set; }
 		public byte Teampos { get; set; }
 		public string Teamascid { get; set; }
-		public uint Redid { get; set; }
+		public int Redid { get; set; }
 		public string Poster { get; set; }
 		public byte Hidden { get; set; }
 		public string Q1name { get; set; }

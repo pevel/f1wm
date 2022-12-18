@@ -2,8 +2,8 @@ namespace F1WM.ApiModel
 {
 	public class NewsTag
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Title { get; set; }
-		public uint CategoryId { get; set; }
+		public int CategoryId { get; set; }
 	}
 }

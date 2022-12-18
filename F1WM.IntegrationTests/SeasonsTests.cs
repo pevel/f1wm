@@ -23,7 +23,7 @@ namespace F1WM.IntegrationTests
 
 		public class SeasonRulesTestData
 		{
-			public uint Year { get; set; }
+			public int Year { get; set; }
 			public SeasonRules Expected { get; set; }
 		}
 

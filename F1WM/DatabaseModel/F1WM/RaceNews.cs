@@ -1,40 +1,37 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class RaceNews
 	{
-		public uint RaceId { get; set; }
+		public int RaceId { get; set; }
 		public ushort Year { get; set; }
 		public byte Number { get; set; }
-		public uint? Pt { get; set; }
-		public uint? T12 { get; set; }
-		public uint? Training1NewsId { get; set; }
-		public uint? Training2NewsId { get; set; }
-		public uint? T34 { get; set; }
-		public uint? Training3NewsId { get; set; }
-		public uint? T4 { get; set; }
-		public uint? K1 { get; set; }
-		public uint? K2 { get; set; }
-		public uint? TyresNewsId { get; set; }
-		public uint? CommentsAfterQualifyingResultsNewsId { get; set; }
-		public uint? QualifyingNewsId { get; set; }
-		public uint? Wu { get; set; }
-		public uint? CommentsAfterRaceResultsNewsId { get; set; }
-		public uint? FastestLapsNewsId { get; set; }
-		public uint? PitStopsNewsId { get; set; }
-		public uint? Pw { get; set; }
-		public uint? Id { get; set; }
-		public uint? CommentsAfterQualifyingNewsId { get; set; }
-		public uint? CommentsAfterRaceNewsId { get; set; }
-		public uint? CommentsAfterTrainingNewsId { get; set; }
-		public uint? PressConferenceNewsId { get; set; }
-		public uint? Wbk { get; set; }
-		public uint? Gp { get; set; }
-		public uint? K1p { get; set; }
-		public uint? GalleryNewsId { get; set; }
-		public uint? ManeuversNewsId { get; set; }
+		public int? Pt { get; set; }
+		public int? T12 { get; set; }
+		public int? Training1NewsId { get; set; }
+		public int? Training2NewsId { get; set; }
+		public int? T34 { get; set; }
+		public int? Training3NewsId { get; set; }
+		public int? T4 { get; set; }
+		public int? K1 { get; set; }
+		public int? K2 { get; set; }
+		public int? TyresNewsId { get; set; }
+		public int? CommentsAfterQualifyingResultsNewsId { get; set; }
+		public int? QualifyingNewsId { get; set; }
+		public int? Wu { get; set; }
+		public int? CommentsAfterRaceResultsNewsId { get; set; }
+		public int? FastestLapsNewsId { get; set; }
+		public int? PitStopsNewsId { get; set; }
+		public int? Pw { get; set; }
+		public int? Id { get; set; }
+		public int? CommentsAfterQualifyingNewsId { get; set; }
+		public int? CommentsAfterRaceNewsId { get; set; }
+		public int? CommentsAfterTrainingNewsId { get; set; }
+		public int? PressConferenceNewsId { get; set; }
+		public int? Wbk { get; set; }
+		public int? Gp { get; set; }
+		public int? K1p { get; set; }
+		public int? GalleryNewsId { get; set; }
+		public int? ManeuversNewsId { get; set; }
 		public virtual Race Race { get; set; }
 	}
 }

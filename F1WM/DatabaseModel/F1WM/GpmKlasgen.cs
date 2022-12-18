@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class GpmKlasgen
 	{
-		public uint Zespolid { get; set; }
-		public uint Miejsce { get; set; }
-		public uint Suma { get; set; }
+		public int Zespolid { get; set; }
+		public int Miejsce { get; set; }
+		public int Suma { get; set; }
 		public byte Nieaktywny { get; set; }
 		public byte? W1 { get; set; }
 		public byte? W2 { get; set; }

@@ -4,7 +4,7 @@ namespace F1WM.DatabaseModel
 {
 	public class Season
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public ushort Year { get; set; }
 		public byte RaceCount { get; set; }
 		public byte LastRaceNumber { get; set; }
@@ -14,7 +14,7 @@ namespace F1WM.DatabaseModel
 		public string EngineRules { get; set; }
 		public string CarWeight { get; set; }
 		public string QualifyingRules { get; set; }
-		public uint Newstyres { get; set; }
+		public int Newstyres { get; set; }
 		public IEnumerable<DriverStandingsPosition> DriverStandings { get; set; }
 		public IEnumerable<ConstructorStandingsPosition> ConstructorStandings { get; set; }
 		public IEnumerable<Race> Races { get; set; }

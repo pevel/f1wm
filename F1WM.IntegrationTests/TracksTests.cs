@@ -56,15 +56,15 @@ namespace F1WM.IntegrationTests
 		{
 			public int TrackId { get; set; }
 			public int TrackVersion { get; set; }
-			public uint BeforeYear { get; set; }
+			public int BeforeYear { get; set; }
 			public TrackRecordsInformation Expected { get; set; }
 		}
 
 		public class TracksSummaryTestData
 		{
-			public uint CountPerPage { get; set; }
-			public uint Page { get; set; }
-			public uint Status { get; set; }
+			public int CountPerPage { get; set; }
+			public int Page { get; set; }
+			public int Status { get; set; }
 			public PagedResult<Track> Expected { get; set; }
 		}
 

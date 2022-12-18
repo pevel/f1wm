@@ -40,7 +40,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperNewsCount()
 		{
-			uint count = 5;
+			int count = 5;
 
 			await controller.GetManyNews(null, null, null, 1, count);
 
@@ -50,7 +50,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperNewsPage()
 		{
-			uint page = 2;
+			int page = 2;
 
 			await controller.GetManyNews(null, null, null, page);
 

@@ -1,12 +1,9 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class GpmKlastyp
 	{
-		public uint Zespolid { get; set; }
-		public uint Sumatyp { get; set; }
+		public int Zespolid { get; set; }
+		public int Sumatyp { get; set; }
 		public byte? T1 { get; set; }
 		public byte? T2 { get; set; }
 		public byte? T3 { get; set; }

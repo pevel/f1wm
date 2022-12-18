@@ -1,13 +1,12 @@
 using System;
-using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
 	public class NewsComment
 	{
-		public uint Id { get; set; }
-		public uint NewsId { get; set; }
-		public uint PosterId { get; set; }
+		public int Id { get; set; }
+		public int NewsId { get; set; }
+		public int PosterId { get; set; }
 		public string PosterName { get; set; }
 		public DateTime Date
 		{

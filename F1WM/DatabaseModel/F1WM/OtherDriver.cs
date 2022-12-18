@@ -1,11 +1,8 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class OtherDriver
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string FirstName { get; set; }
 		public string Initial { get; set; }
 		public string Surname { get; set; }

@@ -48,7 +48,7 @@ namespace F1WM.Repositories
 				var dbDrivers = context.Drivers
 					.Where(expression)
 					.OrderBy(d => d.Surname);
-				return await dbDrivers.GetSearchResult<Driver, DriverSummary>(mapper, (uint)page, (uint)countPerPage);
+				return await dbDrivers.GetSearchResult<Driver, DriverSummary>(mapper, (int)page, (int)countPerPage);
 			}
 			catch (Exception exception)
 			{

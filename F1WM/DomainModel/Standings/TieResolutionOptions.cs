@@ -7,9 +7,9 @@ namespace F1WM.DomainModel
 {
 	public class TieResolutionOptions
 	{
-		public uint SeasonId { get; set; }
+		public int SeasonId { get; set; }
 		public DateTime BeforeDate { get; set; }
-		public Func<IEnumerable<uint>, Expression<Func<Result, bool>>> IdPredicateFactory { get; set; }
+		public Func<IEnumerable<int>, Expression<Func<Result, bool>>> IdPredicateFactory { get; set; }
 		public Expression<Func<Result, RacePosition>> PositionSelector { get; set; }
 	}
 }

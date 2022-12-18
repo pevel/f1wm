@@ -2,7 +2,7 @@
 {
 	public class SeasonRules
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string PointsSystem { get; set; }
 		public string EngineRules { get; set; }
 		public string CarWeight { get; set; }

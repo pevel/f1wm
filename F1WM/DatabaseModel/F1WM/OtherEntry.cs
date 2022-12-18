@@ -1,15 +1,12 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class OtherEntry
 	{
-		public uint Id { get; set; }
-		public uint OtherSeriesId { get; set; }
+		public int Id { get; set; }
+		public int OtherSeriesId { get; set; }
 		public string Season { get; set; }
 		public string Number { get; set; }
-		public uint OtherDriverId { get; set; }
+		public int OtherDriverId { get; set; }
 		public string TeamName { get; set; }
 		public string CarName { get; set; }
 		public byte Independent { get; set; }

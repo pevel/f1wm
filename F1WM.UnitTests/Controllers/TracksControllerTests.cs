@@ -119,7 +119,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperTracksCount()
 		{
-			uint count = 5;
+			int count = 5;
 
 			await controller.GetTracks(null, 1, count);
 
@@ -129,7 +129,7 @@ namespace F1WM.UnitTests.Controllers
 		[Fact]
 		public async Task ShouldReturnProperTracksPage()
 		{
-			uint page = 2;
+			int page = 2;
 
 			await controller.GetTracks(null, page);
 

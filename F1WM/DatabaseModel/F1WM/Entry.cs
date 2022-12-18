@@ -1,21 +1,18 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class Entry
 	{
-		public uint Id { get; set; }
-		public uint RaceId { get; set; }
+		public int Id { get; set; }
+		public int RaceId { get; set; }
 		public byte Number { get; set; }
-		public uint DriverId { get; set; }
-		public uint TeamId { get; set; }
-		public uint TeamNameId { get; set; }
-		public uint CarId { get; set; }
-		public uint CarMakeId { get; set; }
-		public uint EngineId { get; set; }
-		public uint EngineMakeId { get; set; }
-		public uint TyresId { get; set; }
+		public int DriverId { get; set; }
+		public int TeamId { get; set; }
+		public int TeamNameId { get; set; }
+		public int CarId { get; set; }
+		public int CarMakeId { get; set; }
+		public int EngineId { get; set; }
+		public int EngineMakeId { get; set; }
+		public int TyresId { get; set; }
 		public bool IsThirdDriver { get; set; }
 		public virtual Driver Driver { get; set; }
 		public virtual Grid Grid { get; set; }

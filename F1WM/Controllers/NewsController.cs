@@ -24,8 +24,8 @@ namespace F1WM.Controllers
 					[FromQuery(Name = "firstId")] int? firstId = null,
 					[FromQuery(Name = "tagId")] int? tagId = null,
 					[FromQuery(Name = "typeId")] int? typeId = null,
-					[FromQuery(Name = "page")] uint page = defaultPage,
-					[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+					[FromQuery(Name = "page")] int page = defaultPage,
+					[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			if (tagId != null)
 			{
@@ -87,8 +87,8 @@ namespace F1WM.Controllers
 		[HttpGet("tags")]
 		public async Task<PagedResult<NewsTag>> GetTags(
 			[FromQuery(Name = "categoryId")] int? id = null,
-			[FromQuery(Name = "page")] uint page = defaultPage,
-			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			if (id != null)
 				return await service.GetNewsTagsByCategoryId((int)id, page, countPerPage);
@@ -140,8 +140,8 @@ namespace F1WM.Controllers
 		[HttpGet("search/{term}")]
 		[ProducesResponseType(200)]
 		public async Task<PagedResult<NewsSummary>> SearchNews(string term,
-			[FromQuery(Name = "page")] uint page = defaultPage,
-			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage,
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage,
 			[FromQuery(Name = "before")] DateTime? before = null)
 		{
 			var news = await service.SearchNews(term, page, countPerPage, before);

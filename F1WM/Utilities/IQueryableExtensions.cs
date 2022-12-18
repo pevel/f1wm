@@ -11,26 +11,26 @@ namespace F1WM.Utilities
 		public static async Task<PagedResult<TResult>> GetPagedResult<TSource, TResult>(
 			this IQueryable<TSource> source,
 			IMapper mapper,
-			uint page,
-			uint countPerPage)
+			int page,
+			int countPerPage)
 		{
 			page = page == 0 ? 1 : page;
 			var skipRows = (page - 1) * countPerPage;
 			PagedResult<TResult> pagedResult = new PagedResult<TResult>
 			{
 				CurrentPage = page,
-				RowCount = (uint)source.Count()
+				RowCount = (int)source.Count()
 			};
 
 			var pageCount = (double)pagedResult.RowCount / countPerPage;
-			pagedResult.PageCount = (uint)System.Math.Ceiling(pageCount);
+			pagedResult.PageCount = (int)System.Math.Ceiling(pageCount);
 
 			var apiResult = await mapper.ProjectTo<TResult>(source
 					.Skip((int)skipRows)
 					.Take((int)countPerPage))
 				.ToListAsync();
 
-			pagedResult.PageSize = (uint)apiResult.Count();
+			pagedResult.PageSize = (int)apiResult.Count();
 			pagedResult.Result = apiResult;
 
 			return pagedResult;
@@ -39,8 +39,8 @@ namespace F1WM.Utilities
 		public static async Task<SearchResult<TResult>> GetSearchResult<TSource, TResult>(
 			this IQueryable<TSource> source,
 			IMapper mapper,
-			uint page,
-			uint countPerPage)
+			int page,
+			int countPerPage)
 		{
 			var pagedResult = await source.GetPagedResult<TSource, TResult>(mapper, page, countPerPage);
 			return new SearchResult<TResult>()

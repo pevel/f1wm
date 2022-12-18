@@ -21,12 +21,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Article", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("artid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("ArticleCategoryId")
+					b.Property<int>("ArticleCategoryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("catid")
 						.HasColumnType("mediumint unsigned")
@@ -37,7 +37,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("arthidden")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint?>("NewsId")
+					b.Property<int?>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("newsid")
 						.HasColumnType("mediumint unsigned")
@@ -61,7 +61,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("arttitle")
 						.HasMaxLength(80);
 
-					b.Property<uint>("Views")
+					b.Property<int>("Views")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("artviews")
 						.HasColumnType("mediumint unsigned")
@@ -108,7 +108,7 @@ namespace F1WM.Migrations.F1WM
 
 					b.Property<int>("BroadcastedSessionTypeId");
 
-					b.Property<uint?>("RaceId");
+					b.Property<int?>("RaceId");
 
 					b.Property<DateTime>("Start");
 
@@ -158,27 +158,27 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Car", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Albumid")
+					b.Property<int>("Albumid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("albumid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("ContstructorId")
+					b.Property<int>("ContstructorId")
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint?>("Launch1newsid")
+					b.Property<int?>("Launch1newsid")
 						.HasColumnName("launch1newsid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Launch2newsid")
+					b.Property<int?>("Launch2newsid")
 						.HasColumnName("launch2newsid")
 						.HasColumnType("mediumint unsigned");
 
@@ -226,7 +226,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.ConfigText", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -263,7 +263,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Constructor", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned");
@@ -320,18 +320,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.ConstructorPoints", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("ConstructorId")
+					b.Property<int>("ConstructorId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("EngineMakeId")
+					b.Property<int>("EngineMakeId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("enginemakeid")
 						.HasColumnType("mediumint unsigned")
@@ -345,13 +345,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("points")
 						.HasColumnType("double");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SeasonId")
+					b.Property<int>("SeasonId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned")
@@ -376,18 +376,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.ConstructorStandingsPosition", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("constrcsid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("ConstructorId")
+					b.Property<int>("ConstructorId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("EngineMakeId")
+					b.Property<int>("EngineMakeId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("enginemakeid")
 						.HasColumnType("mediumint unsigned")
@@ -404,7 +404,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("cspos")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SeasonId")
+					b.Property<int>("SeasonId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned")
@@ -462,12 +462,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Driver", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("driverid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Artid")
+					b.Property<int?>("Artid")
 						.HasColumnName("artid")
 						.HasColumnType("mediumint unsigned");
 
@@ -639,12 +639,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.DriverPoints", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("DriverId")
+					b.Property<int>("DriverId")
 						.HasColumnName("driverid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
@@ -657,12 +657,12 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("points")
 						.HasColumnType("float");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SeasonId")
+					b.Property<int>("SeasonId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned")
@@ -687,12 +687,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.DriverStandingsPosition", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("drivercsid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("DriverId")
+					b.Property<int>("DriverId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("driverid")
 						.HasColumnType("mediumint unsigned")
@@ -709,7 +709,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("cspos")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SeasonId")
+					b.Property<int>("SeasonId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned")
@@ -730,12 +730,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Engine", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("engineid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("EngineMakeId")
+					b.Property<int>("EngineMakeId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("enginemakeid")
 						.HasColumnType("mediumint unsigned")
@@ -769,7 +769,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.EngineMake", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("enginemakeid")
 						.HasColumnType("mediumint unsigned");
@@ -826,7 +826,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.EngineSpecification", b =>
 				{
-					b.Property<uint>("EngineId")
+					b.Property<int>("EngineId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("engineid")
 						.HasColumnType("mediumint unsigned")
@@ -843,36 +843,36 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Entry", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("CarId")
+					b.Property<int>("CarId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("CarMakeId")
+					b.Property<int>("CarMakeId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("DriverId")
+					b.Property<int>("DriverId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("driverid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("EngineId")
+					b.Property<int>("EngineId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("engineid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("EngineMakeId")
+					b.Property<int>("EngineMakeId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("enginemakeid")
 						.HasColumnType("mediumint unsigned")
@@ -886,25 +886,25 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("number")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TeamId")
+					b.Property<int>("TeamId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("teamid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TeamNameId")
+					b.Property<int>("TeamNameId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("teamnameid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TyresId")
+					b.Property<int>("TyresId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("tyresid")
 						.HasColumnType("mediumint unsigned")
@@ -943,7 +943,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Event", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -983,7 +983,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("kraj")
 						.HasMaxLength(3);
 
-					b.Property<uint>("NewsId")
+					b.Property<int>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("newsid")
 						.HasColumnType("mediumint unsigned")
@@ -992,7 +992,7 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("Nrwsez")
 						.HasColumnName("nrwsez");
 
-					b.Property<uint>("OtherSeriesId")
+					b.Property<int>("OtherSeriesId")
 						.HasColumnName("seriaid")
 						.HasColumnType("mediumint unsigned");
 
@@ -1006,13 +1006,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("sezon")
 						.HasMaxLength(9);
 
-					b.Property<uint>("Startgrupy")
+					b.Property<int>("Startgrupy")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("startgrupy")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TrackLength")
+					b.Property<int>("TrackLength")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("dlugtoru")
 						.HasDefaultValueSql("'0'");
@@ -1056,18 +1056,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1ArtsCats", b =>
 				{
-					b.Property<uint>("Catid")
+					b.Property<int>("Catid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("catid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Arts")
+					b.Property<int>("Arts")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("arts")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Lastartid")
+					b.Property<int>("Lastartid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("lastartid")
 						.HasColumnType("mediumint unsigned")
@@ -1098,7 +1098,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1ConfigVarchar", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -1141,18 +1141,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Hideusercoms", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Hideuserid")
+					b.Property<int>("Hideuserid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("hideuserid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Userid")
+					b.Property<int>("Userid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("userid")
 						.HasColumnType("mediumint unsigned")
@@ -1168,7 +1168,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Ligna", b =>
 				{
-					b.Property<uint>("LUid")
+					b.Property<int>("LUid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("l_uid")
 						.HasColumnType("mediumint unsigned");
@@ -1205,7 +1205,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("id")
 						.HasColumnType("char(32)");
 
-					b.Property<uint>("ArtId")
+					b.Property<int>("ArtId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("art_id")
 						.HasColumnType("mediumint unsigned")
@@ -1216,7 +1216,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("autor")
 						.HasMaxLength(64);
 
-					b.Property<uint>("CommId")
+					b.Property<int>("CommId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("comm_id")
 						.HasColumnType("mediumint unsigned")
@@ -1226,19 +1226,19 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("data")
 						.HasColumnType("datetime");
 
-					b.Property<uint>("NewsId")
+					b.Property<int>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TextId")
+					b.Property<int>("TextId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("text_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("UserId")
+					b.Property<int>("UserId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("user_id")
 						.HasColumnType("mediumint unsigned")
@@ -1271,7 +1271,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditorcats", b =>
 				{
-					b.Property<uint>("Catid")
+					b.Property<int>("Catid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("catid")
 						.HasColumnType("mediumint unsigned");
@@ -1290,12 +1290,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Newseditordata", b =>
 				{
-					b.Property<uint>("Dataid")
+					b.Property<int>("Dataid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("dataid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Catid")
+					b.Property<int>("Catid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("catid")
 						.HasColumnType("mediumint unsigned")
@@ -1339,7 +1339,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Redakcja", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -1417,7 +1417,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("tylkoligna")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Userid")
+					b.Property<int>("Userid")
 						.HasColumnName("userid")
 						.HasColumnType("mediumint unsigned");
 
@@ -1460,7 +1460,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("linki")
 						.HasColumnType("tinytext");
 
-					b.Property<uint>("Newsid")
+					b.Property<int>("Newsid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("newsid")
 						.HasColumnType("mediumint unsigned")
@@ -1474,11 +1474,11 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("Pilne")
 						.HasColumnName("pilne");
 
-					b.Property<uint>("Redaktor")
+					b.Property<int>("Redaktor")
 						.HasColumnName("redaktor")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Rsscrc")
+					b.Property<int>("Rsscrc")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("rsscrc")
 						.HasDefaultValueSql("'0'");
@@ -1491,7 +1491,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("tytul")
 						.HasMaxLength(255);
 
-					b.Property<uint>("Zglaszajacy")
+					b.Property<int>("Zglaszajacy")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zglaszajacy")
 						.HasColumnType("mediumint unsigned")
@@ -1507,7 +1507,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Subskr", b =>
 				{
-					b.Property<uint>("SId")
+					b.Property<int>("SId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s_id")
 						.HasColumnType("mediumint unsigned");
@@ -1541,7 +1541,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1Texts", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -1585,13 +1585,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("id")
 						.HasColumnType("char(32)");
 
-					b.Property<uint>("ArtId")
+					b.Property<int>("ArtId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("art_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("CommId")
+					b.Property<int>("CommId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("comm_id")
 						.HasColumnType("mediumint unsigned")
@@ -1601,7 +1601,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("data")
 						.HasColumnType("datetime");
 
-					b.Property<uint>("NewsId")
+					b.Property<int>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_id")
 						.HasColumnType("mediumint unsigned")
@@ -1615,7 +1615,7 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("Typ")
 						.HasColumnName("typ");
 
-					b.Property<uint>("UserId")
+					b.Property<int>("UserId")
 						.HasColumnName("user_id")
 						.HasColumnType("mediumint unsigned");
 
@@ -1646,7 +1646,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1carsspecs", b =>
 				{
-					b.Property<uint>("Carid")
+					b.Property<int>("Carid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("carid")
 						.HasColumnType("mediumint unsigned")
@@ -1739,7 +1739,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1glossary", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -1777,7 +1777,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1lapsled", b =>
 				{
-					b.Property<uint>("Entryid")
+					b.Property<int>("Entryid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -1789,7 +1789,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("smallint(3)")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Raceid")
+					b.Property<int>("Raceid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -1805,7 +1805,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.F1quotes", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -1885,11 +1885,11 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("Qtype")
 						.HasColumnName("qtype");
 
-					b.Property<uint>("Raceid")
+					b.Property<int>("Raceid")
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Redid")
+					b.Property<int>("Redid")
 						.HasColumnName("redid")
 						.HasColumnType("mediumint unsigned");
 
@@ -1919,7 +1919,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.FastestLap", b =>
 				{
-					b.Property<uint>("EntryId")
+					b.Property<int>("EntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -1942,7 +1942,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(2)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -1974,7 +1974,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("id")
 						.HasDefaultValueSql("'1'");
 
-					b.Property<uint>("Cenapunktu")
+					b.Property<int>("Cenapunktu")
 						.HasColumnName("cenapunktu");
 
 					b.Property<double>("Kier3cenamnoz")
@@ -2020,7 +2020,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("sponsorzy")
 						.HasColumnType("text");
 
-					b.Property<uint>("Startmoney")
+					b.Property<int>("Startmoney")
 						.HasColumnName("startmoney");
 
 					b.Property<string>("Typowanie")
@@ -2047,7 +2047,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmAdmskladniki", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -2057,10 +2057,10 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("ascid")
 						.HasMaxLength(4);
 
-					b.Property<uint>("Cena")
+					b.Property<int>("Cena")
 						.HasColumnName("cena");
 
-					b.Property<uint>("Idmodelu")
+					b.Property<int>("Idmodelu")
 						.HasColumnName("idmodelu")
 						.HasColumnType("mediumint unsigned");
 
@@ -2088,7 +2088,7 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("Typ")
 						.HasColumnName("typ");
 
-					b.Property<uint>("Wymuszona")
+					b.Property<int>("Wymuszona")
 						.HasColumnName("wymuszona");
 
 					b.HasKey("Id");
@@ -2159,13 +2159,13 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgen", b =>
 				{
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Miejsce")
+					b.Property<int>("Miejsce")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("miejsce")
 						.HasColumnType("mediumint unsigned")
@@ -2176,7 +2176,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("nieaktywny")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Suma")
+					b.Property<int>("Suma")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("suma")
 						.HasColumnType("mediumint unsigned")
@@ -2265,133 +2265,133 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlasgenpoz", b =>
 				{
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P1")
+					b.Property<int>("P1")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p1")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P10")
+					b.Property<int>("P10")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p10")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P11")
+					b.Property<int>("P11")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p11")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P12")
+					b.Property<int>("P12")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p12")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P13")
+					b.Property<int>("P13")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p13")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P14")
+					b.Property<int>("P14")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p14")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P15")
+					b.Property<int>("P15")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p15")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P16")
+					b.Property<int>("P16")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p16")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P17")
+					b.Property<int>("P17")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p17")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P18")
+					b.Property<int>("P18")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p18")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P19")
+					b.Property<int>("P19")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p19")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P2")
+					b.Property<int>("P2")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p2")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P20")
+					b.Property<int>("P20")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p20")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P21")
+					b.Property<int>("P21")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p21")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P3")
+					b.Property<int>("P3")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p3")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P4")
+					b.Property<int>("P4")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p4")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P5")
+					b.Property<int>("P5")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p5")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P6")
+					b.Property<int>("P6")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p6")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P7")
+					b.Property<int>("P7")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p7")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P8")
+					b.Property<int>("P8")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p8")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("P9")
+					b.Property<int>("P9")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("p9")
 						.HasColumnType("mediumint unsigned")
@@ -2404,13 +2404,13 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlastyp", b =>
 				{
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Sumatyp")
+					b.Property<int>("Sumatyp")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("sumatyp")
 						.HasColumnType("mediumint unsigned")
@@ -2489,7 +2489,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmKlaswszech", b =>
 				{
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
@@ -2530,55 +2530,55 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("s2010")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2011")
+					b.Property<int>("S2011")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2011")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2012")
+					b.Property<int>("S2012")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2012")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2013")
+					b.Property<int>("S2013")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2013")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2014")
+					b.Property<int>("S2014")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2014")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2015")
+					b.Property<int>("S2015")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2015")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2016")
+					b.Property<int>("S2016")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2016")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2017")
+					b.Property<int>("S2017")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2017")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("S2018")
+					b.Property<int>("S2018")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("s2018")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Suma")
+					b.Property<int>("Suma")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("suma")
 						.HasColumnType("mediumint unsigned")
@@ -2597,18 +2597,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmLigi", b =>
 				{
-					b.Property<uint>("Ligaid")
+					b.Property<int>("Ligaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("ligaid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Komentarze")
+					b.Property<int>("Komentarze")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("komentarze")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Limitzespolow")
+					b.Property<int>("Limitzespolow")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("limitzespolow")
 						.HasColumnType("mediumint unsigned")
@@ -2619,13 +2619,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("nazwa")
 						.HasMaxLength(45);
 
-					b.Property<uint>("Sumapkt")
+					b.Property<int>("Sumapkt")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("sumapkt")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Zalozycielid")
+					b.Property<int>("Zalozycielid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zalozycielid")
 						.HasColumnType("mediumint unsigned")
@@ -2636,7 +2636,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("zamknieta")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Zespoly")
+					b.Property<int>("Zespoly")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespoly")
 						.HasColumnType("mediumint unsigned")
@@ -2658,7 +2658,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmLigiKoms", b =>
 				{
-					b.Property<uint>("Komid")
+					b.Property<int>("Komid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("komid")
 						.HasColumnType("mediumint unsigned");
@@ -2672,7 +2672,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("czas")
 						.HasColumnType("datetime");
 
-					b.Property<uint>("Ligaid")
+					b.Property<int>("Ligaid")
 						.HasColumnName("ligaid")
 						.HasColumnType("mediumint unsigned");
 
@@ -2686,7 +2686,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("tresc")
 						.HasColumnType("text");
 
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned");
 
@@ -2703,7 +2703,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmSklady", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -2777,7 +2777,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("wyscnr")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
@@ -2796,7 +2796,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmZespoly", b =>
 				{
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned");
@@ -2814,7 +2814,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("int(11)")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Aktywacja")
+					b.Property<int>("Aktywacja")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("aktywacja")
 						.HasDefaultValueSql("'0'");
@@ -2826,10 +2826,10 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(255);
 
-					b.Property<uint?>("Gg")
+					b.Property<int?>("Gg")
 						.HasColumnName("gg");
 
-					b.Property<uint>("Gotowka")
+					b.Property<int>("Gotowka")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("gotowka")
 						.HasDefaultValueSql("'0'");
@@ -2841,13 +2841,13 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(34);
 
-					b.Property<uint>("Ligaid")
+					b.Property<int>("Ligaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("ligaid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Ligaidzapr")
+					b.Property<int>("Ligaidzapr")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("ligaidzapr")
 						.HasColumnType("mediumint unsigned")
@@ -2926,7 +2926,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("'brak'")
 						.HasMaxLength(4);
 
-					b.Property<uint>("Wartosc")
+					b.Property<int>("Wartosc")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("wartosc")
 						.HasDefaultValueSql("'0'");
@@ -2958,12 +2958,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.GpmZwyciezcy", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Punkty")
+					b.Property<int>("Punkty")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("punkty")
 						.HasColumnType("mediumint unsigned")
@@ -2974,7 +2974,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("wyscnr")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Zespolid")
+					b.Property<int>("Zespolid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zespolid")
 						.HasColumnType("mediumint unsigned")
@@ -2990,7 +2990,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Grid", b =>
 				{
-					b.Property<uint>("EntryId")
+					b.Property<int>("EntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -3001,7 +3001,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("ord")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -3035,12 +3035,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.InneKlaskier", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Kierowcaid")
+					b.Property<int>("Kierowcaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("kierowcaid")
 						.HasColumnType("mediumint unsigned")
@@ -3061,7 +3061,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("pozycja")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Seriaid")
+					b.Property<int>("Seriaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seriaid")
 						.HasColumnType("mediumint unsigned")
@@ -3091,7 +3091,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.InneRezultatyBk", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -3104,7 +3104,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("dodpktza")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Imprezaid")
+					b.Property<int>("Imprezaid")
 						.HasColumnName("imprezaid")
 						.HasColumnType("mediumint unsigned");
 
@@ -3124,7 +3124,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("status")
 						.HasColumnType("char(2)");
 
-					b.Property<uint>("Zgloszenieid")
+					b.Property<int>("Zgloszenieid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zgloszenieid")
 						.HasColumnType("mediumint unsigned")
@@ -3146,7 +3146,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.InneTerminy", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -3186,12 +3186,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.InneZasady", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("Seriaid")
+					b.Property<int>("Seriaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seriaid")
 						.HasColumnType("mediumint unsigned")
@@ -3217,7 +3217,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Link", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("l_id")
 						.HasColumnType("mediumint unsigned");
@@ -3231,7 +3231,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("l_banurl")
 						.HasMaxLength(128);
 
-					b.Property<uint>("LCatgrp")
+					b.Property<int>("LCatgrp")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("l_catgrp")
 						.HasColumnType("mediumint unsigned")
@@ -3259,7 +3259,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("l_ocena")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("LOdslony")
+					b.Property<int>("LOdslony")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("l_odslony")
 						.HasColumnType("mediumint unsigned")
@@ -3311,7 +3311,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.News", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_id")
 						.HasColumnType("mediumint unsigned");
@@ -3333,13 +3333,13 @@ namespace F1WM.Migrations.F1WM
 					b.Property<bool>("IsHighlighted")
 						.HasColumnName("news_highlight");
 
-					b.Property<uint>("MainTagId")
+					b.Property<int>("MainTagId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("topic_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("NewsDateym")
+					b.Property<int>("NewsDateym")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_dateym")
 						.HasDefaultValueSql("'0'");
@@ -3351,7 +3351,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("news_modified")
 						.HasColumnType("int(11)");
 
-					b.Property<uint>("PosterId")
+					b.Property<int>("PosterId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("poster_id")
 						.HasColumnType("mediumint unsigned")
@@ -3383,7 +3383,7 @@ namespace F1WM.Migrations.F1WM
 					b.Property<byte>("TypeId")
 						.HasColumnName("news_type");
 
-					b.Property<uint>("Views")
+					b.Property<int>("Views")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_views")
 						.HasColumnType("mediumint unsigned")
@@ -3419,18 +3419,18 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.NewsComment", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("comm_id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("NewsId")
+					b.Property<int>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("PosterId")
+					b.Property<int>("PosterId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("poster_id")
 						.HasColumnType("mediumint unsigned")
@@ -3474,7 +3474,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.NewsCommentText", b =>
 				{
-					b.Property<uint>("CommentId")
+					b.Property<int>("CommentId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("comm_id")
 						.HasColumnType("mediumint unsigned")
@@ -3491,12 +3491,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.NewsTag", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("topic_id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("CategoryId")
+					b.Property<int>("CategoryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("cat_id")
 						.HasColumnType("mediumint unsigned")
@@ -3506,7 +3506,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("topic_icon")
 						.HasMaxLength(20);
 
-					b.Property<uint>("Searches")
+					b.Property<int>("Searches")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("searches")
 						.HasColumnType("mediumint unsigned")
@@ -3536,7 +3536,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.NewsTagCategory", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("cat_id")
 						.HasColumnType("mediumint unsigned");
@@ -3555,7 +3555,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.NewsTagMatch", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("match_id")
 						.HasColumnType("mediumint unsigned");
@@ -3564,13 +3564,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("news_date")
 						.HasColumnType("datetime");
 
-					b.Property<uint>("NewsId")
+					b.Property<int>("NewsId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("news_id")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TagId")
+					b.Property<int>("TagId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("topic_id")
 						.HasColumnType("mediumint unsigned")
@@ -3632,7 +3632,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.OtherDriver", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -3690,7 +3690,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.OtherEntry", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -3732,13 +3732,13 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("'-'")
 						.HasMaxLength(3);
 
-					b.Property<uint>("OtherDriverId")
+					b.Property<int>("OtherDriverId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("kierowcaid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("OtherSeriesId")
+					b.Property<int>("OtherSeriesId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seriaid")
 						.HasColumnType("mediumint unsigned")
@@ -3778,12 +3778,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.OtherResult", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("EventId")
+					b.Property<int>("EventId")
 						.HasColumnName("imprezaid")
 						.HasColumnType("mediumint unsigned");
 
@@ -3798,7 +3798,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("dodpktza")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("OtherEntryId")
+					b.Property<int>("OtherEntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("zgloszenieid")
 						.HasColumnType("mediumint unsigned")
@@ -3841,7 +3841,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.OtherSeries", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
@@ -3886,7 +3886,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("nazwa")
 						.HasMaxLength(45);
 
-					b.Property<uint>("NewsCategoryId")
+					b.Property<int>("NewsCategoryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("newscatid")
 						.HasColumnType("mediumint unsigned")
@@ -3935,12 +3935,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.OtherSession", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("id")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint>("EntryId")
+					b.Property<int>("EntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -3956,7 +3956,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("laps")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -3989,7 +3989,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Qualifying", b =>
 				{
-					b.Property<uint>("EntryId")
+					b.Property<int>("EntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -4014,7 +4014,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(2)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -4069,7 +4069,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Race", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned");
@@ -4122,13 +4122,13 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("qualtype")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SeasonId")
+					b.Property<int>("SeasonId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("TrackId")
+					b.Property<int>("TrackId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("trackid")
 						.HasColumnType("mediumint unsigned")
@@ -4165,59 +4165,59 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.RaceNews", b =>
 				{
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("CommentsAfterQualifyingNewsId")
+					b.Property<int?>("CommentsAfterQualifyingNewsId")
 						.HasColumnName("wk")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("CommentsAfterQualifyingResultsNewsId")
+					b.Property<int?>("CommentsAfterQualifyingResultsNewsId")
 						.HasColumnName("kk")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("CommentsAfterRaceNewsId")
+					b.Property<int?>("CommentsAfterRaceNewsId")
 						.HasColumnName("ww")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("CommentsAfterRaceResultsNewsId")
+					b.Property<int?>("CommentsAfterRaceResultsNewsId")
 						.HasColumnName("kw")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("CommentsAfterTrainingNewsId")
+					b.Property<int?>("CommentsAfterTrainingNewsId")
 						.HasColumnName("wt")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("FastestLapsNewsId")
+					b.Property<int?>("FastestLapsNewsId")
 						.HasColumnName("fl")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("GalleryNewsId")
+					b.Property<int?>("GalleryNewsId")
 						.HasColumnName("gal")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Gp")
+					b.Property<int?>("Gp")
 						.HasColumnName("gp")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Id")
+					b.Property<int?>("Id")
 						.HasColumnName("ow")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("K1")
+					b.Property<int?>("K1")
 						.HasColumnName("k1")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("K1p")
+					b.Property<int?>("K1p")
 						.HasColumnName("k1p")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("K2")
+					b.Property<int?>("K2")
 						.HasColumnName("k2")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("ManeuversNewsId")
+					b.Property<int?>("ManeuversNewsId")
 						.HasColumnName("mw")
 						.HasColumnType("mediumint unsigned");
 
@@ -4226,59 +4226,59 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("nr")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint?>("PitStopsNewsId")
+					b.Property<int?>("PitStopsNewsId")
 						.HasColumnName("ps")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("PressConferenceNewsId")
+					b.Property<int?>("PressConferenceNewsId")
 						.HasColumnName("kpw")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Pt")
+					b.Property<int?>("Pt")
 						.HasColumnName("pt")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Pw")
+					b.Property<int?>("Pw")
 						.HasColumnName("pw")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("QualifyingNewsId")
+					b.Property<int?>("QualifyingNewsId")
 						.HasColumnName("pk")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("T12")
+					b.Property<int?>("T12")
 						.HasColumnName("t12")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("T34")
+					b.Property<int?>("T34")
 						.HasColumnName("t34")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("T4")
+					b.Property<int?>("T4")
 						.HasColumnName("t4")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Training1NewsId")
+					b.Property<int?>("Training1NewsId")
 						.HasColumnName("t1")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Training2NewsId")
+					b.Property<int?>("Training2NewsId")
 						.HasColumnName("t2")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Training3NewsId")
+					b.Property<int?>("Training3NewsId")
 						.HasColumnName("t3")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("TyresNewsId")
+					b.Property<int?>("TyresNewsId")
 						.HasColumnName("op")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Wbk")
+					b.Property<int?>("Wbk")
 						.HasColumnName("wbk")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Wu")
+					b.Property<int?>("Wu")
 						.HasColumnName("wu")
 						.HasColumnType("mediumint unsigned");
 
@@ -4300,7 +4300,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Result", b =>
 				{
-					b.Property<uint>("EntryId")
+					b.Property<int>("EntryId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("entryid")
 						.HasColumnType("mediumint unsigned")
@@ -4333,7 +4333,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(2)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint>("RaceId")
+					b.Property<int>("RaceId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("raceid")
 						.HasColumnType("mediumint unsigned")
@@ -4360,7 +4360,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Season", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("seasonid")
 						.HasColumnType("mediumint unsigned");
@@ -4380,7 +4380,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnName("lastrace")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("Newstyres")
+					b.Property<int>("Newstyres")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("newstyres")
 						.HasColumnType("mediumint unsigned")
@@ -4436,7 +4436,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.StatLog", b =>
 				{
-					b.Property<uint>("LogId")
+					b.Property<int>("LogId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("log_id")
 						.HasColumnType("mediumint unsigned");
@@ -4468,7 +4468,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("'0.0.0.0'")
 						.HasMaxLength(15);
 
-					b.Property<uint>("LogStronaid")
+					b.Property<int>("LogStronaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("log_stronaid")
 						.HasColumnType("mediumint unsigned")
@@ -4506,7 +4506,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(255);
 
-					b.Property<uint>("RefStronaid")
+					b.Property<int>("RefStronaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("ref_stronaid")
 						.HasColumnType("mediumint unsigned")
@@ -4540,7 +4540,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(255);
 
-					b.Property<uint>("RefdomOdslony")
+					b.Property<int>("RefdomOdslony")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("refdom_odslony")
 						.HasDefaultValueSql("'0'");
@@ -4561,7 +4561,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(32)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint>("SesjaAgentcrc")
+					b.Property<int>("SesjaAgentcrc")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("sesja_agentcrc")
 						.HasDefaultValueSql("'0'");
@@ -4585,7 +4585,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("int(11)")
 						.HasDefaultValueSql("'0'");
 
-					b.Property<uint>("SesjaStronaid")
+					b.Property<int>("SesjaStronaid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("sesja_stronaid")
 						.HasColumnType("mediumint unsigned")
@@ -4610,7 +4610,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.StatStrony", b =>
 				{
-					b.Property<uint>("StronaId")
+					b.Property<int>("StronaId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("strona_id")
 						.HasColumnType("mediumint unsigned");
@@ -4628,7 +4628,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(100);
 
-					b.Property<uint>("StronaOdslony")
+					b.Property<int>("StronaOdslony")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("strona_odslony")
 						.HasDefaultValueSql("'0'");
@@ -4672,14 +4672,14 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.SympollList", b =>
 				{
-					b.Property<uint>("Pid")
+					b.Property<int>("Pid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("pid");
 
-					b.Property<uint>("CookieStamp")
+					b.Property<int>("CookieStamp")
 						.HasColumnName("cookieStamp");
 
-					b.Property<uint>("Nextcid")
+					b.Property<int>("Nextcid")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("nextcid")
 						.HasDefaultValueSql("'0'");
@@ -4692,7 +4692,7 @@ namespace F1WM.Migrations.F1WM
 					b.Property<ushort>("Status")
 						.HasColumnName("status");
 
-					b.Property<uint>("TimeStamp")
+					b.Property<int>("TimeStamp")
 						.HasColumnName("timeStamp");
 
 					b.HasKey("Pid");
@@ -4702,12 +4702,12 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Team", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("teamid")
 						.HasColumnType("mediumint unsigned");
 
-					b.Property<uint?>("Artid")
+					b.Property<int?>("Artid")
 						.HasColumnName("artid")
 						.HasColumnType("mediumint unsigned");
 
@@ -4718,7 +4718,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(3)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint?>("Carmakeid")
+					b.Property<int?>("Carmakeid")
 						.HasColumnName("carmakeid")
 						.HasColumnType("mediumint unsigned");
 
@@ -4796,7 +4796,7 @@ namespace F1WM.Migrations.F1WM
 						.HasColumnType("char(3)")
 						.HasDefaultValueSql("''");
 
-					b.Property<uint?>("NewsTopicId")
+					b.Property<int?>("NewsTopicId")
 						.HasColumnName("newstopicid")
 						.HasColumnType("mediumint unsigned");
 
@@ -4888,7 +4888,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.TeamName", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("teamnameid")
 						.HasColumnType("mediumint unsigned");
@@ -4900,7 +4900,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(64);
 
-					b.Property<uint>("TeamId")
+					b.Property<int>("TeamId")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("teamid")
 						.HasColumnType("mediumint unsigned")
@@ -4919,7 +4919,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Track", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("trackid")
 						.HasColumnType("mediumint unsigned");
@@ -4931,7 +4931,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(128);
 
-					b.Property<uint?>("Artid")
+					b.Property<int?>("Artid")
 						.HasColumnName("artid")
 						.HasColumnType("mediumint unsigned");
 
@@ -4990,7 +4990,7 @@ namespace F1WM.Migrations.F1WM
 						.HasDefaultValueSql("''")
 						.HasMaxLength(50);
 
-					b.Property<uint?>("Newstopicid")
+					b.Property<int?>("Newstopicid")
 						.HasColumnName("newstopicid")
 						.HasColumnType("mediumint unsigned");
 
@@ -5091,7 +5091,7 @@ namespace F1WM.Migrations.F1WM
 
 			modelBuilder.Entity("F1WM.DatabaseModel.Tyres", b =>
 				{
-					b.Property<uint>("Id")
+					b.Property<int>("Id")
 						.ValueGeneratedOnAdd()
 						.HasColumnName("tyresid")
 						.HasColumnType("mediumint unsigned");

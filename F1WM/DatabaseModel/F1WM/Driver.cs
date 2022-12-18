@@ -5,7 +5,7 @@ namespace F1WM.DatabaseModel
 {
 	public class Driver
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Key { get; set; }
 		public string Surname { get; set; }
 		public string FirstName { get; set; }
@@ -19,7 +19,7 @@ namespace F1WM.DatabaseModel
 		public string Weight { get; set; }
 		public string ChampionAtSeries { get; set; }
 		public string Testdriver { get; set; }
-		public uint? Artid { get; set; }
+		public int? Artid { get; set; }
 		public DriverGroup Group { get; set; }
 		public string TeamKey { get; set; }
 		public string DeathPlace { get; set; }

@@ -28,14 +28,14 @@ namespace F1WM.IntegrationTests
 		public class ConstructorsStandingsTestData
 		{
 			public int SeasonId { get; set; }
-			public uint Count { get; set; }
+			public int Count { get; set; }
 			public ConstructorsStandings Expected { get; set; }
 		}
 
 		public class DriversStandingsTestData
 		{
 			public int SeasonId { get; set; }
-			public uint Count { get; set; }
+			public int Count { get; set; }
 			public DriversStandings Expected { get; set; }
 		}
 	}

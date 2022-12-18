@@ -15,9 +15,9 @@ namespace F1WM.Controllers
 
 		[HttpGet]
 		public async Task<PagedResult<Track>> GetTracks(
-			[FromQuery]byte? status, 
-			[FromQuery(Name = "page")] uint page = defaultPage,
-			[FromQuery(Name = "countPerPage")] uint countPerPage = defaultCountPerPage)
+			[FromQuery] byte? status,
+			[FromQuery(Name = "page")] int page = defaultPage,
+			[FromQuery(Name = "countPerPage")] int countPerPage = defaultCountPerPage)
 		{
 			if (status != null)
 			{
@@ -33,8 +33,8 @@ namespace F1WM.Controllers
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<TrackDetails>> GetTrack(
-			[FromRoute]int id,
-			[FromQuery]int? atYear)
+			[FromRoute] int id,
+			[FromQuery] int? atYear)
 		{
 			var track = await service.GetTrack(id, atYear);
 			return this.NotFoundResultIfNull(track);
@@ -44,8 +44,8 @@ namespace F1WM.Controllers
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<TrackShortResultsByYears>> GetShortResultsByYears(
-			[FromRoute]int trackId,
-			[FromQuery]int? untilYear)
+			[FromRoute] int trackId,
+			[FromQuery] int? untilYear)
 		{
 			var shortResults = await service.GetShortResultsByYears(trackId, untilYear);
 			return this.NotFoundResultIfNull(shortResults);
@@ -55,9 +55,9 @@ namespace F1WM.Controllers
 		[ProducesResponseType(200)]
 		[ProducesResponseType(404)]
 		public async Task<ActionResult<TrackRecordsInformation>> GetTrackRecords(
-			[FromRoute]int trackId,
-			[FromRoute]int trackVersion,
-			[FromQuery]int? beforeYear)
+			[FromRoute] int trackId,
+			[FromRoute] int trackVersion,
+			[FromQuery] int? beforeYear)
 		{
 			var records = await service.GetTrackRecords(trackId, trackVersion, beforeYear);
 			return this.NotFoundResultIfNull(records);

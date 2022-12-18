@@ -52,14 +52,14 @@ namespace F1WM.IntegrationTests
 			await TestResponse<IEnumerable<NewsSummary>>(
 				$"news/related/{data.NewsId}?before={data.Before.ToString("yyyy-MM-dd")}&count={data.Count}", data.Expected);
 		}
-		
+
 		[Theory]
 		[JsonData("news", "search-news.json")]
 		public async Task ShouldGetSearchResults(SearchNewsTestData data)
 		{
 			await TestResponse<PagedResult<NewsSummary>>($"news/search/{data.Term}?page={data.Page}&countPerPage={data.CountPerPage}&before={data.Before.ToString("yyyy-MM-dd")}", data.Expected);
 		}
-		
+
 		[Fact]
 		public async Task ShouldGetImportantNews()
 		{
@@ -84,21 +84,21 @@ namespace F1WM.IntegrationTests
 		[Fact]
 		public async Task ShouldGetNewsTags()
 		{
-			uint count = 5;
+			int count = 5;
 			var result = await Get<PagedResult<NewsTag>>($"news/tags?countPerPage={count}");
 
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal((uint)1, result.CurrentPage);
+			Assert.Equal((int)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var tagsList = result.Result;
 			Assert.NotNull(tagsList);
-			Assert.Equal(count, (uint)tagsList.Count());
+			Assert.Equal(count, (int)tagsList.Count());
 			Assert.All(tagsList, tag =>
 			{
-				Assert.NotEqual((uint)0, tag.Id);
-				Assert.NotEqual((uint)0, tag.CategoryId);
+				Assert.NotEqual((int)0, tag.Id);
+				Assert.NotEqual((int)0, tag.CategoryId);
 				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
 			});
 		}
@@ -107,23 +107,23 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsTagsByCategoryId()
 		{
 			var id = 2;
-			uint count = 5;
+			int count = 5;
 
 			var result = await Get<PagedResult<NewsTag>>($"news/tags?categoryId={id}&countPerPage={count}");
 
 			Assert.NotNull(result.Result);
 			Assert.Equal(count, result.PageSize);
 			Assert.True(result.RowCount >= result.PageSize);
-			Assert.Equal((uint)1, result.CurrentPage);
+			Assert.Equal((int)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var tagsList = result.Result;
 			Assert.NotNull(tagsList);
-			Assert.Equal(count, (uint)tagsList.Count());
+			Assert.Equal(count, (int)tagsList.Count());
 			Assert.All(tagsList, tag =>
 			{
-				Assert.NotEqual((uint)0, tag.Id);
+				Assert.NotEqual((int)0, tag.Id);
 				Assert.False(string.IsNullOrWhiteSpace(tag.Title));
-				Assert.Equal((uint)id, tag.CategoryId);
+				Assert.Equal((int)id, tag.CategoryId);
 			});
 		}
 
@@ -131,15 +131,15 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsByTypeId()
 		{
 			var typeId = 5;
-			uint count = 7;
+			int count = 7;
 
 			var result = await Get<PagedResult<NewsSummary>>($"news?typeId={typeId}&countPerPage={count}");
 
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
-			Assert.Equal(count, (uint)result.Result.Count());
-			Assert.Equal((uint)1, result.CurrentPage);
+			Assert.Equal(count, (int)result.Result.Count());
+			Assert.Equal((int)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var newsList = result.Result;
 			Assert.NotNull(newsList);
@@ -150,7 +150,7 @@ namespace F1WM.IntegrationTests
 				Assert.Equal(typeId, news.TypeId);
 				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
 				Assert.True(0 <= news.CommentCount);
-				Assert.NotEqual((uint)0, news.Id);
+				Assert.NotEqual((int)0, news.Id);
 			});
 		}
 
@@ -158,15 +158,15 @@ namespace F1WM.IntegrationTests
 		public async Task ShouldGetNewsByTagId()
 		{
 			var tagId = 2;
-			uint count = 7;
+			int count = 7;
 
 			var result = await Get<PagedResult<NewsSummary>>($"news?tagId={tagId}&countPerPage={count}");
 
 			Assert.NotNull(result.Result);
 			Assert.True(result.RowCount >= result.PageSize);
 			Assert.Equal(count, result.PageSize);
-			Assert.Equal(count, (uint)result.Result.Count());
-			Assert.Equal((uint)1, result.CurrentPage);
+			Assert.Equal(count, (int)result.Result.Count());
+			Assert.Equal((int)1, result.CurrentPage);
 			Assert.True(result.PageCount > 0);
 			var newsList = result.Result;
 			Assert.NotNull(newsList);
@@ -176,7 +176,7 @@ namespace F1WM.IntegrationTests
 				Assert.NotNull(news.Subtitle);
 				Assert.False(string.IsNullOrWhiteSpace(news.MainTagIcon));
 				Assert.True(0 <= news.CommentCount);
-				Assert.NotEqual((uint)0, news.Id);
+				Assert.NotEqual((int)0, news.Id);
 			});
 		}
 
@@ -190,8 +190,8 @@ namespace F1WM.IntegrationTests
 		public class NewsSummaryTestData
 		{
 			public int FirstId { get; set; }
-			public uint CountPerPage { get; set; }
-			public uint Page { get; set; }
+			public int CountPerPage { get; set; }
+			public int Page { get; set; }
 			public PagedResult<NewsSummary> Expected { get; set; }
 		}
 

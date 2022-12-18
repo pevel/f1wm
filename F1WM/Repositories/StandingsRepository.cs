@@ -25,7 +25,7 @@ namespace F1WM.Repositories
 					.Where(g => g.c != null)
 					.Select(g => g.s)
 					.OrderByDescending(s => s.Year)
-					.Select(s => (int) s.Id)
+					.Select(s => (int)s.Id)
 					.FirstAsync();
 			}
 			model.Positions = await GetConstructorsStandingsBySeasonId(count, seasonId.Value);
@@ -42,7 +42,7 @@ namespace F1WM.Repositories
 					.Where(g => g.d != null)
 					.Select(g => g.s)
 					.OrderByDescending(s => s.Year)
-					.Select(s => (int) s.Id)
+					.Select(s => (int)s.Id)
 					.FirstAsync();
 			}
 			model.Positions = await GetDriverStandingsBySeasonId(count, seasonId.Value);
@@ -126,7 +126,7 @@ namespace F1WM.Repositories
 		}
 
 		private async Task<IEnumerable<ConstructorPositionAfterRace>> GetConstructorsStandingsAfterRace(
-			(uint SeasonId, DateTime Date, bool IsFirst) constraints)
+			(int SeasonId, DateTime Date, bool IsFirst) constraints)
 		{
 			var tieResolutionOptions = new TieResolutionOptions
 			{
@@ -167,7 +167,7 @@ namespace F1WM.Repositories
 				.ToList();
 
 			positionsBefore = await ResolveTies(positionsBefore, tieResolutionOptions);
-			
+
 			positionsAfter = positionsAfter
 				.Select((position, index) => new { Value = position, index })
 				.GroupJoin(positionsBefore.Select((position, index) => new { Id = position.Id, index }),
@@ -192,7 +192,7 @@ namespace F1WM.Repositories
 		}
 
 		private async Task<IEnumerable<DriverPositionAfterRace>> GetDriversStandingsAfterRace(
-			(uint SeasonId, DateTime Date, bool IsFirst) constraints)
+			(int SeasonId, DateTime Date, bool IsFirst) constraints)
 		{
 			var tieResolutionOptions = new TieResolutionOptions
 			{
@@ -290,7 +290,7 @@ namespace F1WM.Repositories
 			return positions;
 		}
 
-		private PositionsCounts CountPositions(IGrouping<uint, RacePosition> groupedRacePositions)
+		private PositionsCounts CountPositions(IGrouping<int, RacePosition> groupedRacePositions)
 		{
 			return groupedRacePositions.Aggregate(new PositionsCounts(), (all, result) =>
 			{

@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
@@ -7,12 +6,12 @@ namespace F1WM.DatabaseModel
 	{
 		public string Id { get; set; }
 		public DateTime Data { get; set; }
-		public uint UserId { get; set; }
-		public uint NewsId { get; set; }
-		public uint ArtId { get; set; }
+		public int UserId { get; set; }
+		public int NewsId { get; set; }
+		public int ArtId { get; set; }
 		public string Zglaszajacy { get; set; }
 		public string OpisBledu { get; set; }
-		public uint CommId { get; set; }
+		public int CommId { get; set; }
 		public byte Typ { get; set; }
 	}
 }

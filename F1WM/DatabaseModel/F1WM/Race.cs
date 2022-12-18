@@ -5,11 +5,11 @@ namespace F1WM.DatabaseModel
 {
 	public class Race
 	{
-		public uint Id { get; set; }
-		public uint SeasonId { get; set; }
+		public int Id { get; set; }
+		public int SeasonId { get; set; }
 		public byte OrderInSeason { get; set; }
 		public string CountryKey { get; set; }
-		public uint TrackId { get; set; }
+		public int TrackId { get; set; }
 		public bool Weather { get; set; }
 		public byte Laps { get; set; }
 		public double Distance { get; set; }

@@ -65,7 +65,7 @@ namespace F1WM.Repositories
 			}
 		}
 
-		public Task<PagedResult<ApiModel.Track>> GetTracks(uint page, uint countPerPage)
+		public Task<PagedResult<ApiModel.Track>> GetTracks(int page, int countPerPage)
 		{
 			var dbTracks = context.Tracks
 				.OrderByDescending(t => t.Status)
@@ -73,7 +73,7 @@ namespace F1WM.Repositories
 			return dbTracks.GetPagedResult<DatabaseModel.Track, ApiModel.Track>(mapper, page, countPerPage);
 		}
 
-		public Task<PagedResult<ApiModel.Track>> GetTracksByStatus(byte status, uint page, uint countPerPage)
+		public Task<PagedResult<ApiModel.Track>> GetTracksByStatus(byte status, int page, int countPerPage)
 		{
 			var dbTracks = context.Tracks
 				.Where(t => t.Status == status)
@@ -129,7 +129,7 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private Task<List<TrackRaceResultSummaryByYear>> GetWinnersResults(IEnumerable<uint> raceIds, int untilYear)
+		private Task<List<TrackRaceResultSummaryByYear>> GetWinnersResults(IEnumerable<int> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackRaceResultSummaryByYear>(context.Results
 					.Where(r => r.PositionOrStatus == "1" && raceIds.Contains(r.RaceId))
@@ -137,7 +137,7 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private Task<List<TrackLapResultSummaryByYear>> GetFastestLaps(IEnumerable<uint> raceIds, int untilYear)
+		private Task<List<TrackLapResultSummaryByYear>> GetFastestLaps(IEnumerable<int> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.FastestLaps
 					.Where(f => f.PositionOrStatus == "1" && raceIds.Contains(f.RaceId))
@@ -145,7 +145,7 @@ namespace F1WM.Repositories
 				.ToListAsync();
 		}
 
-		private Task<List<TrackLapResultSummaryByYear>> GetPolePositions(IEnumerable<uint> raceIds, int untilYear)
+		private Task<List<TrackLapResultSummaryByYear>> GetPolePositions(IEnumerable<int> raceIds, int untilYear)
 		{
 			return mapper.ProjectTo<TrackLapResultSummaryByYear>(context.Grids
 					.Where(g => g.StartPositionOrStatus == "1" && raceIds.Contains(g.RaceId))

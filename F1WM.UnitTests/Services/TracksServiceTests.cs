@@ -59,8 +59,8 @@ namespace F1WM.UnitTests.Services
 		[Fact]
 		public async Task ShouldGetTracks()
 		{
-			uint page = 2;
-			uint countPerPage = 21;
+			int page = 2;
+			int countPerPage = 21;
 			var tracks = fixture.Create<PagedResult<Track>>();
 			repositoryMock.Setup(r => r.GetTracks(page, countPerPage)).ReturnsAsync(tracks);
 
@@ -74,8 +74,8 @@ namespace F1WM.UnitTests.Services
 		public async Task ShouldGetTracksByStatusId()
 		{
 			byte statusId = 2;
-			uint page = 1;
-			uint countPerPage = 25;
+			int page = 1;
+			int countPerPage = 25;
 			var tracks = fixture.Create<PagedResult<Track>>();
 			repositoryMock.Setup(r => r.GetTracksByStatus(statusId, page, countPerPage)).ReturnsAsync(tracks);
 

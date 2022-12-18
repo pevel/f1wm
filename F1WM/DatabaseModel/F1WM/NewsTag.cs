@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-
 namespace F1WM.DatabaseModel
 {
 	public class NewsTag
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Title { get; set; }
-		public uint CategoryId { get; set; }
-		public uint Searches { get; set; }
+		public int CategoryId { get; set; }
+		public int Searches { get; set; }
 		public string Icon { get; set; }
 	}
 }

@@ -1,13 +1,12 @@
-using System;
 using System.Collections.Generic;
 
 namespace F1WM.DatabaseModel
 {
 	public class OtherSeries
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
-		public uint NewsCategoryId { get; set; }
+		public int NewsCategoryId { get; set; }
 		public byte Listastartwgnr { get; set; }
 		public byte Klaskieroficjalna { get; set; }
 		public byte Klaszespoficjalna { get; set; }

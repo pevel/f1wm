@@ -1,9 +1,6 @@
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using F1WM.ApiModel;
 using F1WM.Repositories;
-using F1WM.Utilities;
 
 namespace F1WM.Services
 {
@@ -12,12 +9,12 @@ namespace F1WM.Services
 		private readonly ITracksRepository repository;
 		private readonly ITimeService time;
 
-		public Task<PagedResult<Track>> GetTracks(uint page, uint countPerPage)
+		public Task<PagedResult<Track>> GetTracks(int page, int countPerPage)
 		{
 			return repository.GetTracks(page, countPerPage);
 		}
 
-		public Task<PagedResult<Track>> GetTracksByStatus(byte status, uint page, uint countPerPage)
+		public Task<PagedResult<Track>> GetTracksByStatus(byte status, int page, int countPerPage)
 		{
 			return repository.GetTracksByStatus(status, page, countPerPage);
 		}

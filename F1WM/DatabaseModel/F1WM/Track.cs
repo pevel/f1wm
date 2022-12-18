@@ -5,7 +5,7 @@ namespace F1WM.DatabaseModel
 {
 	public class Track
 	{
-		public uint Id { get; set; }
+		public int Id { get; set; }
 		public string Key { get; set; }
 		public string ShortName { get; set; }
 		public string CountryKey { get; set; }
@@ -21,7 +21,7 @@ namespace F1WM.DatabaseModel
 		public string Address { get; set; }
 		public string Orgtel { get; set; }
 		public string Orgfax { get; set; }
-		public uint? Artid { get; set; }
+		public int? Artid { get; set; }
 		public string Weatherurl { get; set; }
 		public string Zipcode { get; set; }
 		public string MapCoordinates { get; set; }
@@ -29,7 +29,7 @@ namespace F1WM.DatabaseModel
 		public byte Status { get; set; }
 		public bool Fiatrackmap { get; set; }
 		public ushort? Length { get; set; }
-		public uint? Newstopicid { get; set; }
+		public int? Newstopicid { get; set; }
 		public string LapDriver { get; set; }
 		public string LapDescr { get; set; }
 		public virtual Country Country { get; set; }
